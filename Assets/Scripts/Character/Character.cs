@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Character : StateMachine<CharacterState>
 {
@@ -8,38 +9,79 @@ public class Character : StateMachine<CharacterState>
 	// Protected Variables
 	protected Character target;
 
-	// Private Variables
-	private Animator animator;
+	protected NavMeshAgent agent;
+	protected Animator animator;
 
 	// Override Methods
 	protected override void SetState(CharacterState state)
 	{
+		if (State == CharacterState.Dead)
+			return;
+
 		base.SetState(state);
 
 		switch (State)
 		{
 			case CharacterState.Idle:
-				animator.SetFloat("Speed", 0);
-				animator.SetBool("Attacking", false);
+				Idle();
 				break;
 			case CharacterState.Moving:
-				animator.SetFloat("Speed", 1);
-				animator.SetBool("Attacking", false);
+				Moving();
 				break;
 			case CharacterState.Attacking:
-				animator.SetBool("Attacking", true);
+				Attacking();
 				break;
 			case CharacterState.Dead:
-				animator.SetTrigger("Die");
+				Die();
 				break;
 			default:
 				break;
 		}
 	}
 
+	// State Methods
+	private void Idle()
+	{
+		agent.isStopped = true;
+
+		animator.SetFloat("Speed", 0);
+		animator.SetBool("Attacking", false);
+	}
+
+	private void Moving()
+	{
+		agent.isStopped = false;
+
+		animator.SetFloat("Speed", 1);
+		animator.SetBool("Attacking", false);
+	}
+
+	private void Attacking()
+	{
+		agent.isStopped = true;
+
+		transform.LookAt(target.transform);
+		animator.SetBool("Attacking", true);
+	}
+
+	private void Die()
+	{
+		agent.isStopped = true;
+
+		animator.SetTrigger("Die");
+	}
+
+	// Public Methods
+	public void SetTarget(Character character)
+	{
+		target = character;
+		SetState(CharacterState.Attacking);
+	}
+
 	// Private Methods
 	private void Awake()
 	{
+		agent = GetComponent<NavMeshAgent>();
 		animator = GetComponentInChildren<Animator>();
 	}
 
