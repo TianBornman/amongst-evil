@@ -12,6 +12,9 @@ public class Character : StateMachine<CharacterState>
 	protected NavMeshAgent agent;
 	protected Animator animator;
 
+	// Public Properties
+	public bool IsAlive => State != CharacterState.Dead;
+
 	// Override Methods
 	protected override void SetState(CharacterState state)
 	{
@@ -42,6 +45,8 @@ public class Character : StateMachine<CharacterState>
 	// State Methods
 	private void Idle()
 	{
+		target = null;
+
 		agent.isStopped = true;
 
 		animator.SetFloat("Speed", 0);
@@ -78,15 +83,42 @@ public class Character : StateMachine<CharacterState>
 		SetState(CharacterState.Attacking);
 	}
 
+	public void Damage(float damage)
+	{
+		stats.health -= damage;
+
+		if (stats.health <= 0)
+		{
+			stats.health = 0;
+			SetState(CharacterState.Dead);
+		}
+	}
+
 	// Private Methods
 	private void Awake()
 	{
 		agent = GetComponent<NavMeshAgent>();
 		animator = GetComponentInChildren<Animator>();
+
+		CharacterAnimAPI animAPI = GetComponentInChildren<CharacterAnimAPI>();
+		animAPI.Attack = Attack;
 	}
 
 	private void Start()
 	{
+		stats.health = stats.maxHealth;
+
 		SetState(CharacterState.Idle);
+	}
+
+	private void Attack()
+	{
+		if (target == null || !target.IsAlive)
+		{
+			SetState(CharacterState.Idle);
+			return;
+		}
+
+		target.Damage(stats.damage);
 	}
 }
