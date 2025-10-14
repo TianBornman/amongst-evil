@@ -80,6 +80,7 @@ public class Character : StateMachine<CharacterState>
 	public void SetTarget(Character character)
 	{
 		target = character;
+		UiManager.Instance.BindEnemyStats(stats);
 		SetState(CharacterState.Attacking);
 	}
 
@@ -94,6 +95,14 @@ public class Character : StateMachine<CharacterState>
 		}
 	}
 
+	// Protected Methods
+	protected virtual void Start()
+	{
+		stats.health = stats.maxHealth;
+
+		SetState(CharacterState.Idle);
+	}
+
 	// Private Methods
 	private void Awake()
 	{
@@ -102,13 +111,6 @@ public class Character : StateMachine<CharacterState>
 
 		CharacterAnimAPI animAPI = GetComponentInChildren<CharacterAnimAPI>();
 		animAPI.Attack = Attack;
-	}
-
-	private void Start()
-	{
-		stats.health = stats.maxHealth;
-
-		SetState(CharacterState.Idle);
 	}
 
 	private void Attack()

@@ -1,6 +1,5 @@
-using UnityEngine;
 using System.Linq;
-using Unity.VisualScripting;
+using UnityEngine;
 
 public class Player : Character
 {
@@ -9,6 +8,13 @@ public class Player : Character
 	public Transform cameraPosition;
 
 	// Override Methods
+	protected override void Start()
+	{
+		base.Start();
+
+		UiManager.Instance.BindPlayerStats(stats);
+	}
+
 	protected override void SetState(CharacterState state)
 	{
 		if (State == CharacterState.Dead)

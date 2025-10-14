@@ -1,0 +1,11 @@
+.healthbar {
+    width: 45%;
+    margin-top: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+}
+
+.healthbar .unity-progress-bar__progress {
+    background-color: rgb(154, 0, 0);
+}
