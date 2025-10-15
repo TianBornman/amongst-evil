@@ -1,11 +1,26 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 [Serializable]
 public class Stats
 {
 	public float health;
 	public float maxHealth;
+	public float levelHeal;
 	public float damage;
 	public float range;
 	public float moveSpeed;
+
+	public void Recalculate(Stats baseStats, List<Buff> buffs)
+	{
+		var newMaxHealth = baseStats.maxHealth + buffs.Sum(b => b.stats.maxHealth);
+
+		health = Math.Min(health + (newMaxHealth - maxHealth), newMaxHealth);
+		maxHealth = newMaxHealth;
+		levelHeal = baseStats.levelHeal + buffs.Sum(b => b.stats.levelHeal);
+		damage = baseStats.damage + buffs.Sum(b => b.stats.damage);
+		range = baseStats.range + buffs.Sum(b => b.stats.range);
+		moveSpeed = baseStats.moveSpeed + buffs.Sum(b => b.stats.moveSpeed);
+	}
 }

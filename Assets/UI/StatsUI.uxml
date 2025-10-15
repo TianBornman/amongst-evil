@@ -1,0 +1,53 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/StatsUI.uss?fileID=7433441132597879392&amp;guid=59600b4c1b6b57942ad850c880e8b13f&amp;type=3#StatsUI" />
+    <ui:VisualElement name="Stats" style="flex-grow: 1; width: 30%; margin-left: auto; margin-right: auto; min-height: 70%; max-height: 70%; margin-top: auto; margin-bottom: auto; background-color: rgba(0, 0, 0, 0.66); border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px;">
+        <ui:VisualElement name="Level" class="stat-entry">
+            <ui:Label text="Level:" class="stat-field" />
+            <ui:Label text="Label" class="stat-field">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="level" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" />
+                </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
+        <ui:VisualElement name="Xp" class="stat-entry">
+            <ui:Label text="XP:" class="stat-field" />
+            <ui:VisualElement class="stat-field" style="flex-grow: 1;">
+                <ui:Label text="Label" name="1st">
+                    <Bindings>
+                        <ui:DataBinding property="text" data-source-path="currentXp" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" />
+                    </Bindings>
+                </ui:Label>
+                <ui:Label text="/" />
+                <ui:Label text="Label" name="3rd">
+                    <Bindings>
+                        <ui:DataBinding property="text" data-source-path="neededXp" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" />
+                    </Bindings>
+                </ui:Label>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="Health" class="stat-entry">
+            <ui:Label text="Health:" class="stat-field" />
+            <ui:VisualElement class="stat-field" style="flex-grow: 1;">
+                <ui:Label text="Label" name="1st">
+                    <Bindings>
+                        <ui:DataBinding property="text" data-source-path="stats.health" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" />
+                    </Bindings>
+                </ui:Label>
+                <ui:Label text="/" />
+                <ui:Label text="Label" name="3rd">
+                    <Bindings>
+                        <ui:DataBinding property="text" data-source-path="stats.maxHealth" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" />
+                    </Bindings>
+                </ui:Label>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="Damage" class="stat-entry">
+            <ui:Label text="Damage:" class="stat-field" />
+            <ui:Label text="Label" class="stat-field">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="stats.damage" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" />
+                </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

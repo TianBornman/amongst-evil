@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Linq;
 using UnityEngine;
 
@@ -7,12 +8,20 @@ public class Player : Character
 	[Header("References")]
 	public Transform cameraPosition;
 
+	// Public Variables
+	[HideInInspector] public int level;
+	[HideInInspector] public float currentXp;
+	[HideInInspector] public float neededXp;
+
 	// Override Methods
 	protected override void Start()
 	{
 		base.Start();
 
-		UiManager.Instance.BindPlayerStats(stats);
+		level = 1;
+		neededXp = GetNeededXp(level);
+
+		UiManager.Instance.BindPlayerStats(this);
 	}
 
 	protected override void SetState(CharacterState state)
@@ -56,6 +65,18 @@ public class Player : Character
 			target.SetTarget(this);
 	}
 
+	// Public Methods
+	public void AddXp(float amount)
+	{
+		currentXp += amount;
+
+		while (currentXp >= neededXp)
+		{
+			currentXp -= neededXp;
+			LevelUp();
+		}
+	}
+
 	// Private Methods
 	private void Update()
 	{
@@ -82,5 +103,17 @@ public class Player : Character
 		var targets = Physics.OverlapSphere(transform.position, 30, LayerMask.GetMask("Enemy"));
 
 		return targets.Select(target => target.GetComponent<Character>()).FirstOrDefault(target => target.IsAlive);
+	}
+
+	private void LevelUp()
+	{
+		level++;
+		neededXp = GetNeededXp(level);
+		Damage(-stats.maxHealth * stats.levelHeal);
+	}
+
+	private float GetNeededXp(int level)
+	{
+		return 10f * Mathf.Pow(level, 1.3f) + 5f * level;
 	}
 }

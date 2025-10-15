@@ -9,3 +9,12 @@
 .healthbar .unity-progress-bar__progress {
     background-color: rgb(154, 0, 0);
 }
+
+.xpbar .unity-progress-bar__progress {
+    background-color: rgb(230, 238, 0);
+}
+
+.xpbar .unity-progress-bar__container {
+    min-height: 50%;
+    max-height: 50%;
+}

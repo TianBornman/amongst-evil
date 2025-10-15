@@ -1,10 +1,14 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Character : StateMachine<CharacterState>
 {
 	// Editor variables
-	public Stats stats;
+	[HideInInspector] public Stats stats;
+	public Stats baseStats;
+	public List<Buff> buffs = new();
+	public float XpValue;
 
 	// Protected Variables
 	protected Character target;
@@ -74,6 +78,9 @@ public class Character : StateMachine<CharacterState>
 		agent.isStopped = true;
 
 		animator.SetTrigger("Die");
+
+		if (target is Player player)
+			player.AddXp(XpValue);
 	}
 
 	// Public Methods
@@ -86,19 +93,22 @@ public class Character : StateMachine<CharacterState>
 
 	public void Damage(float damage)
 	{
-		stats.health -= damage;
+		stats.health = Mathf.Clamp(stats.health - damage, 0, stats.maxHealth);
 
-		if (stats.health <= 0)
-		{
-			stats.health = 0;
+		if (stats.health == 0)
 			SetState(CharacterState.Dead);
-		}
+	}
+
+	public void AddBuff(Buff buff)
+	{
+		buffs.Add(buff);
+		stats.Recalculate(baseStats, buffs);
 	}
 
 	// Protected Methods
 	protected virtual void Start()
 	{
-		stats.health = stats.maxHealth;
+		stats.Recalculate(baseStats, buffs);
 
 		SetState(CharacterState.Idle);
 	}
