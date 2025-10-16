@@ -1,0 +1,20 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/LevelUpUI.uss?fileID=7433441132597879392&amp;guid=1ee19424a92e2de4eacd3fe281aa1e02&amp;type=3#LevelUpUI" />
+    <ui:VisualElement name="UpgradeCards" style="flex-grow: 1; width: 80%; margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto; min-height: 70%; max-height: 70%; background-color: rgba(65, 65, 65, 0.66); border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; flex-direction: row; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px;">
+        <ui:VisualElement name="UpgradeCard" class="upgrade-card">
+            <ui:Label text="Title" name="Title" />
+            <ui:Label text="Description" name="Description" />
+            <ui:Label text="Stats" name="Stats" />
+        </ui:VisualElement>
+        <ui:VisualElement name="UpgradeCard" class="upgrade-card">
+            <ui:Label text="Title" name="Title" />
+            <ui:Label text="Description" name="Description" />
+            <ui:Label text="Stats" name="Stats" />
+        </ui:VisualElement>
+        <ui:VisualElement name="UpgradeCard" class="upgrade-card">
+            <ui:Label text="Title" name="Title" />
+            <ui:Label text="Description" name="Description" />
+            <ui:Label text="Stats" name="Stats" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
