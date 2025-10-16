@@ -27,9 +27,9 @@ public class BuffConverter : MonoBehaviour
 		if (buff.stats.damage != 0)
 			value += $"Damage: {buff.stats.damage}\n";
 		if (buff.stats.critChance != 0)
-			value += $"Crit Chance: {buff.stats.critChance * 100}%\n";
+			value += $"Critical Chance: {buff.stats.critChance * 100}%\n";
 		if (buff.stats.critDamage != 0)
-			value += $"Crit Damage: {buff.stats.critDamage * 100}%\n";
+			value += $"Critical Damage: {buff.stats.critDamage * 100}%\n";
 		if (buff.stats.range != 0)
 			value += $"Range: {buff.stats.range}\n";
 		if (buff.stats.moveSpeed != 0)
