@@ -49,6 +49,14 @@
                 </Bindings>
             </ui:Label>
         </ui:VisualElement>
+        <ui:VisualElement name="AttackSpeed" class="stat-entry">
+            <ui:Label text="Attack Speed:" class="stat-field" />
+            <ui:Label text="Label" class="stat-field">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="stats.attackSpeed" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Float to Attack Speed" />
+                </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
         <ui:VisualElement name="CritChance" class="stat-entry">
             <ui:Label text="Critical Chance:" class="stat-field" />
             <ui:Label text="Label" class="stat-field">

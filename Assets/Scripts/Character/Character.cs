@@ -107,13 +107,13 @@ public class Character : StateMachine<CharacterState>
 	public void AddBuff(Buff buff)
 	{
 		buffs.Add(buff);
-		stats.Recalculate(baseStats, buffs);
+		RecalculateStats();
 	}
 
 	// Protected Methods
 	protected virtual void Start()
 	{
-		stats.Recalculate(baseStats, buffs);
+		RecalculateStats();
 
 		SetState(CharacterState.Idle);
 	}
@@ -137,5 +137,12 @@ public class Character : StateMachine<CharacterState>
 		}
 
 		target.Damage(stats.damage, stats.critChance, stats.critDamage);
+	}
+
+	private void RecalculateStats()
+	{
+		stats.Recalculate(baseStats, buffs);
+
+		animator.SetFloat("AttackSpeed", stats.attackSpeed);
 	}
 }

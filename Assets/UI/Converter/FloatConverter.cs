@@ -16,5 +16,11 @@ public class FloatConverter : MonoBehaviour
 		group.AddConverter((ref float value) => $"{value * 100}%");
 
 		ConverterGroups.RegisterConverterGroup(group);
+
+		group = new ConverterGroup("Float to Attack Speed");
+
+		group.AddConverter((ref float value) => $"{value} /s");
+
+		ConverterGroups.RegisterConverterGroup(group);
 	}
 }

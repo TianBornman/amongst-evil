@@ -26,6 +26,8 @@ public class BuffConverter : MonoBehaviour
 			value += $"Max Health: {buff.stats.maxHealth}\n";
 		if (buff.stats.damage != 0)
 			value += $"Damage: {buff.stats.damage}\n";
+		if (buff.stats.attackSpeed != 0)
+			value += $"Attack Speed: {buff.stats.attackSpeed} /s\n";
 		if (buff.stats.critChance != 0)
 			value += $"Critical Chance: {buff.stats.critChance * 100}%\n";
 		if (buff.stats.critDamage != 0)
