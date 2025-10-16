@@ -102,7 +102,9 @@ public class Player : Character
 	{
 		var targets = Physics.OverlapSphere(transform.position, 30, LayerMask.GetMask("Enemy"));
 
-		return targets.Select(target => target.GetComponent<Character>()).FirstOrDefault(target => target.IsAlive);
+		return targets.OrderBy(target => Vector3.Distance(transform.position, target.transform.position))
+					  .Select(target => target.GetComponent<Character>())
+					  .FirstOrDefault(target => target.IsAlive);
 	}
 
 	private void LevelUp()
