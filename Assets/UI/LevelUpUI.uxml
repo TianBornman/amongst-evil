@@ -12,7 +12,11 @@
                     <ui:DataBinding property="text" data-source-path="cardDescription" data-source-type="UpgradeCard, Assembly-CSharp" binding-mode="ToTarget" />
                 </Bindings>
             </ui:Label>
-            <ui:Label text="Stats" name="Stats" />
+            <ui:Label name="Stats" emoji-fallback-support="false">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="buff" data-source-type="UpgradeCard, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Buff to String" />
+                </Bindings>
+            </ui:Label>
         </ui:VisualElement>
         <ui:VisualElement name="UpgradeCard" class="upgrade-card">
             <ui:Label text="Title" name="Title">
@@ -25,7 +29,11 @@
                     <ui:DataBinding property="text" data-source-path="cardDescription" data-source-type="UpgradeCard, Assembly-CSharp" binding-mode="ToTarget" />
                 </Bindings>
             </ui:Label>
-            <ui:Label text="Stats" name="Stats" />
+            <ui:Label name="Stats" emoji-fallback-support="false">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="buff" data-source-type="UpgradeCard, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Buff to String" />
+                </Bindings>
+            </ui:Label>
         </ui:VisualElement>
         <ui:VisualElement name="UpgradeCard" class="upgrade-card">
             <ui:Label text="Title" name="Title">
@@ -38,7 +46,11 @@
                     <ui:DataBinding property="text" data-source-path="cardDescription" data-source-type="UpgradeCard, Assembly-CSharp" binding-mode="ToTarget" />
                 </Bindings>
             </ui:Label>
-            <ui:Label text="Stats" name="Stats" />
+            <ui:Label name="Stats" emoji-fallback-support="false">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="buff" data-source-type="UpgradeCard, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Buff to String" />
+                </Bindings>
+            </ui:Label>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
