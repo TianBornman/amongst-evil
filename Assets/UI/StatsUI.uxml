@@ -49,5 +49,21 @@
                 </Bindings>
             </ui:Label>
         </ui:VisualElement>
+        <ui:VisualElement name="CritChance" class="stat-entry">
+            <ui:Label text="Critical Chance:" class="stat-field" />
+            <ui:Label text="Label" class="stat-field">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="stats.critChance" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Float to Percentage" />
+                </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
+        <ui:VisualElement name="CritDamage" class="stat-entry">
+            <ui:Label text="Critical Damage:" class="stat-field" />
+            <ui:Label text="Label" class="stat-field">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="stats.critDamage" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Float to Percentage" />
+                </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

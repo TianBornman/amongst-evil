@@ -52,6 +52,8 @@ MonoBehaviour:
     maxHealth: 0
     levelHeal: 0
     damage: 0
+    critChance: 0
+    critDamage: 0
     range: 0
     moveSpeed: 0
   baseStats:
@@ -59,8 +61,11 @@ MonoBehaviour:
     maxHealth: 10
     levelHeal: 0.2
     damage: 1
+    critChance: 0.25
+    critDamage: 2
     range: 5
     moveSpeed: 1
+  buffs: []
   XpValue: 0
   cameraPosition: {fileID: 5489311698338238782}
   level: 0

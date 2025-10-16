@@ -993,11 +993,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6157acc3b4b178408542e81c32c0b7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelUpManager
+  player: {fileID: 0}
   upgrades:
   - {fileID: 11400000, guid: a3f9c139f8c7adc4cb5243c716d87a26, type: 2}
   - {fileID: 11400000, guid: ba072fc6e3f57a1428d336aa90cc358b, type: 2}
   - {fileID: 11400000, guid: 91962d6afd5520f48941604d738eba58, type: 2}
   - {fileID: 11400000, guid: c442fcb88b7624249937d27ed7304860, type: 2}
+  - {fileID: 11400000, guid: 0cd943492348df949997bd872ea7057a, type: 2}
+  - {fileID: 11400000, guid: ab8e7c38299c49848bc9275b38369317, type: 2}
 --- !u!1001 &1539200283
 PrefabInstance:
   m_ObjectHideFlags: 0

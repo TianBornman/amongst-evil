@@ -40,7 +40,7 @@ public class Player : Character
 				// Moving();
 				break;
 			case CharacterState.Attacking:
-				Attack();
+				Attacking();
 				break;
 			case CharacterState.Dead:
 				break;
@@ -59,7 +59,7 @@ public class Player : Character
 			SetState(CharacterState.Moving);
 	}
 
-	private void Attack()
+	private void Attacking()
 	{
 		if (target != null)
 			target.SetTarget(this);

@@ -91,8 +91,13 @@ public class Character : StateMachine<CharacterState>
 		SetState(CharacterState.Attacking);
 	}
 
-	public void Damage(float damage)
+	public void Damage(float damage, float critChance = 0, float critDamage = 0)
 	{
+		var isCrit = Random.value < critChance;
+
+		if (isCrit)
+			damage *= critDamage;
+
 		stats.health = Mathf.Clamp(stats.health - damage, 0, stats.maxHealth);
 
 		if (stats.health == 0)
@@ -131,6 +136,6 @@ public class Character : StateMachine<CharacterState>
 			return;
 		}
 
-		target.Damage(stats.damage);
+		target.Damage(stats.damage, stats.critChance, stats.critDamage);
 	}
 }
