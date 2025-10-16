@@ -9,7 +9,7 @@ onBoardingDoNotAskAgain = true
 showPackageIndexes = false
 showStatusBar = false
 scopes = {
-	"picker_window_position_offset.00000000" = "-224;-155;1081;806"
+	"picker_window_position_offset.00000000" = "-224;0;1081;806"
 	"picker_visibility_flags.00000000" = "0"
 	"picker_item_size.00000000" = "96"
 	"picker_inspector.00000000" = "0"
@@ -69,6 +69,7 @@ providers = {
 objectSelectors = {
 }
 recentSearches = [
+	"type: upgrade"
 	"type: playe"
 	"type: stat"
 	"type: character"
@@ -77,6 +78,7 @@ recentSearches = [
 searchItemFavorites = [
 	"Stats, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
 	"Player, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
+	"UpgradeCard, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
 ]
 savedSearchesSortOrder = 0
 showSavedSearchPanel = true

@@ -943,6 +943,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1433965212}
   - component: {fileID: 1433965211}
+  - component: {fileID: 1433965213}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -964,6 +965,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UiManager
   gameUi: {fileID: 1427888952}
   statsUi: {fileID: 118663543}
+  levelUpUI: {fileID: 1071038453}
 --- !u!4 &1433965212
 Transform:
   m_ObjectHideFlags: 0
@@ -979,6 +981,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1433965213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1433965210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6157acc3b4b178408542e81c32c0b7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelUpManager
+  upgrades:
+  - {fileID: 11400000, guid: a3f9c139f8c7adc4cb5243c716d87a26, type: 2}
+  - {fileID: 11400000, guid: ba072fc6e3f57a1428d336aa90cc358b, type: 2}
+  - {fileID: 11400000, guid: 91962d6afd5520f48941604d738eba58, type: 2}
+  - {fileID: 11400000, guid: c442fcb88b7624249937d27ed7304860, type: 2}
 --- !u!1001 &1539200283
 PrefabInstance:
   m_ObjectHideFlags: 0

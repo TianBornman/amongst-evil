@@ -110,6 +110,8 @@ public class Player : Character
 		level++;
 		neededXp = GetNeededXp(level);
 		Damage(-stats.maxHealth * stats.levelHeal);
+
+		LevelUpManager.Instance.LevelUp();
 	}
 
 	private float GetNeededXp(int level)
