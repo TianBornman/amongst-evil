@@ -24,3 +24,6 @@
     margin-right: auto;
     padding-left: 0;
 }
+
+.hidden {
+}
