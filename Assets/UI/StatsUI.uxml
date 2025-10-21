@@ -11,35 +11,19 @@
         </ui:VisualElement>
         <ui:VisualElement name="Xp" class="stat-entry">
             <ui:Label text="XP:" class="stat-field" />
-            <ui:VisualElement class="stat-field" style="flex-grow: 1;">
-                <ui:Label text="Label" name="1st">
-                    <Bindings>
-                        <ui:DataBinding property="text" data-source-path="currentXp" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" />
-                    </Bindings>
-                </ui:Label>
-                <ui:Label text="/" />
-                <ui:Label text="Label" name="3rd">
-                    <Bindings>
-                        <ui:DataBinding property="text" data-source-path="neededXp" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" />
-                    </Bindings>
-                </ui:Label>
-            </ui:VisualElement>
+            <ui:Label text="Label" class="stat-field">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" data-source-path="currentXp" />
+                </Bindings>
+            </ui:Label>
         </ui:VisualElement>
         <ui:VisualElement name="Health" class="stat-entry">
             <ui:Label text="Health:" class="stat-field" />
-            <ui:VisualElement class="stat-field" style="flex-grow: 1;">
-                <ui:Label text="Label" name="1st">
-                    <Bindings>
-                        <ui:DataBinding property="text" data-source-path="stats.health" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" />
-                    </Bindings>
-                </ui:Label>
-                <ui:Label text="/" />
-                <ui:Label text="Label" name="3rd">
-                    <Bindings>
-                        <ui:DataBinding property="text" data-source-path="stats.maxHealth" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" />
-                    </Bindings>
-                </ui:Label>
-            </ui:VisualElement>
+            <ui:Label text="Label" class="stat-field">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="stats" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Current and Total HP" />
+                </Bindings>
+            </ui:Label>
         </ui:VisualElement>
         <ui:VisualElement name="Damage" class="stat-entry">
             <ui:Label text="Damage:" class="stat-field" />

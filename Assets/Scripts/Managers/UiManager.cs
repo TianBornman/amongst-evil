@@ -46,16 +46,16 @@ public class UiManager : Singleton<UiManager>
 	// Public Methods
 	public void BindPlayerStats(Player player)
 	{
-		gameUi.rootVisualElement.Q<ProgressBar>("PlayerHealth").dataSource = player.stats;
+		gameUi.rootVisualElement.Q<ProgressBar>("PlayerHealth").dataSource = player;
 		gameUi.rootVisualElement.Q<Label>("Level").dataSource = player;
 		gameUi.rootVisualElement.Q<ProgressBar>("XpBar").dataSource = player;
 
 		statsUi.rootVisualElement.Q<VisualElement>("Stats").dataSource = player;
 	}	
 	
-	public void BindEnemyStats(Stats stats)
+	public void BindEnemyStats(Character character)
 	{
-		gameUi.rootVisualElement.Q<ProgressBar>("EnemyHealth").dataSource = stats;
+		gameUi.rootVisualElement.Q<ProgressBar>("EnemyHealth").dataSource = character;
 	}
 
 	public void BindUpgradeCard(int index, UpgradeCard card, Action<UpgradeCard> onClick)

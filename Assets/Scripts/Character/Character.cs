@@ -88,7 +88,7 @@ public class Character : StateMachine<CharacterState>
 	public void SetTarget(Character character)
 	{
 		target = character;
-		UiManager.Instance.BindEnemyStats(stats);
+		UiManager.Instance.BindEnemyStats(this);
 		SetState(CharacterState.Attacking);
 	}
 

@@ -13,17 +13,5 @@
     flex-direction: row;
 }
 
-.stat-entry .stat-field #1st {
-    margin-left: auto;
-    margin-right: 0;
-    padding-left: 0;
-}
-
-.stat-entry .stat-field #3rd {
-    margin-left: 0;
-    margin-right: auto;
-    padding-left: 0;
-}
-
 .hidden {
 }
