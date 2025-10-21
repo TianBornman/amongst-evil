@@ -1,3 +1,4 @@
+using System.Collections;
 using System.ComponentModel;
 using System.Linq;
 using UnityEngine;
@@ -52,11 +53,7 @@ public class Player : Character
 	// State Methods
 	private void Idle()
 	{
-		var getTarget = GetClosestTarget();
-		target = getTarget;
-
-		if (target != null)
-			SetState(CharacterState.Moving);
+		StartCoroutine(GetTarget());
 	}
 
 	private void Attacking()
@@ -119,5 +116,19 @@ public class Player : Character
 	private float GetNeededXp(int level)
 	{
 		return 10f * Mathf.Pow(level, 1.3f) + 5f * level;
+	}
+
+	private IEnumerator GetTarget()
+	{
+		while (target == null)
+		{
+			var getTarget = GetClosestTarget();
+			target = getTarget;
+
+			if (target != null)
+				SetState(CharacterState.Moving);
+
+			yield return new WaitForSeconds(1f);
+		}
 	}
 }
