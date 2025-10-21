@@ -59,7 +59,7 @@ MonoBehaviour:
     moveSpeed: 0
   baseStats:
     health: 0
-    maxHealth: 10
+    maxHealth: 15
     levelHeal: 0.2
     damage: 1
     attackSpeed: 1

@@ -1,16 +1,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnManager : MonoBehaviour
+public class SpawnManager : Singleton<SpawnManager>
 {
 	// Editor Variables
 	[Header("References")]
-	public List<Character> spawnCharacters;
+	public List<Character> characters;
+	public List<Character> bossCharacters;
 
 	[Header("Settings")]
 	public float width;
 	public float length;
 	public float minDistance;
+
+	// Public Variables
+	[HideInInspector] public List<Character> spawnedCharacters = new();
+
+	// Public Methods
+	public void RemoveCharacter(Character character)
+	{
+		spawnedCharacters.Remove(character);
+
+		if (spawnedCharacters.Count <= 0)
+			SpawnBoss();
+	}
 
 	// Private Methods
 	private void Start()
@@ -43,8 +56,8 @@ public class SpawnManager : MonoBehaviour
 
 			positions.Add(newPos);
 
-			var characterPrefab = spawnCharacters[Random.Range(0, spawnCharacters.Count)];
-			Instantiate(characterPrefab, newPos, Quaternion.identity);
+			var characterPrefab = characters[Random.Range(0, characters.Count)];
+			spawnedCharacters.Add(Instantiate(characterPrefab, newPos, Quaternion.identity));
 		}
 	}
 
@@ -56,5 +69,11 @@ public class SpawnManager : MonoBehaviour
 				return true;
 		}
 		return false;
+	}
+
+	private void SpawnBoss()
+	{
+		var bossPrefab = bossCharacters[Random.Range(0, bossCharacters.Count)];
+		spawnedCharacters.Add(Instantiate(bossPrefab, Vector3.zero, Quaternion.identity));
 	}
 }

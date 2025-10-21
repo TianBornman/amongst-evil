@@ -78,6 +78,7 @@ public class Character : StateMachine<CharacterState>
 		agent.isStopped = true;
 
 		animator.SetTrigger("Die");
+		SpawnManager.Instance.RemoveCharacter(this);
 
 		if (target is Player player)
 			player.AddXp(XpValue);

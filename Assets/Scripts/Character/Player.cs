@@ -97,7 +97,7 @@ public class Player : Character
 
 	private Character GetClosestTarget()
 	{
-		var targets = Physics.OverlapSphere(transform.position, 30, LayerMask.GetMask("Enemy"));
+		var targets = SpawnManager.Instance.spawnedCharacters;
 
 		return targets.OrderBy(target => Vector3.Distance(transform.position, target.transform.position))
 					  .Select(target => target.GetComponent<Character>())

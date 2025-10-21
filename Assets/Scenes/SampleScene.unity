@@ -901,11 +901,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7db64b834e823fc498166f97dbb2cc1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnManager
-  spawnCharacters:
+  characters:
   - {fileID: 8996435584707828427, guid: e71732e6d0d75144fbbf6cacc32c9df6, type: 3}
+  bossCharacters:
+  - {fileID: 8996435584707828427, guid: a3912b4bd6fe08d4891d3a18143833a3, type: 3}
   width: 45
   length: 45
   minDistance: 10
+  spawnedCharacters: []
 --- !u!1001 &7930699342643152870
 PrefabInstance:
   m_ObjectHideFlags: 0
