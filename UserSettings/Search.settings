@@ -9,7 +9,7 @@ onBoardingDoNotAskAgain = true
 showPackageIndexes = false
 showStatusBar = false
 scopes = {
-	"picker_window_position_offset.00000000" = "-224;-78;1081;806"
+	"picker_window_position_offset.00000000" = "-521;-78;1081;806"
 	"picker_visibility_flags.00000000" = "0"
 	"picker_item_size.00000000" = "96"
 	"picker_inspector.00000000" = "0"
@@ -69,6 +69,8 @@ providers = {
 objectSelectors = {
 }
 recentSearches = [
+	"type: ns:\"Midevil\""
+	"type: ns:\"\""
 	"type: character"
 	"type: chara"
 	"type: upgrade"
@@ -81,6 +83,7 @@ searchItemFavorites = [
 	"Player, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
 	"UpgradeCard, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
 	"Character, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
+	"Midevil.Item.Item, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
 ]
 savedSearchesSortOrder = 0
 showSavedSearchPanel = true

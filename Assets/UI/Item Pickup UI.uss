@@ -1,0 +1,25 @@
+.item-button {
+    width: 49%;
+    margin-top: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    height: 75%;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    color: rgb(255, 255, 255);
+    -unity-font-style: bold;
+}
+
+.item-button Label {
+    margin-top: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+}
+
+.item-button:hover {
+    scale: 1.03 1.03;
+}

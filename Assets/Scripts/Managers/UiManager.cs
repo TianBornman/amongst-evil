@@ -1,3 +1,6 @@
+using Midevil.Item;
+using Midevil.UI.Elements;
+using Midevil.UpgradeCard;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,9 +42,11 @@ public class UiManager : Singleton<UiManager>
 	public UIDocument gameUi;
 	public UIDocument statsUi;
 	public UIDocument levelUpUI;
+	public UIDocument itemPickupUI;
 
 	// Private Variables
-	private List<VisualElement> upgradeCards = new();
+	private List<UpgradeCardElement> upgradeCards = new();
+	private bool canToggleMenu = true;
 
 	// Public Methods
 	public void BindPlayerStats(Player player)
@@ -64,22 +69,50 @@ public class UiManager : Singleton<UiManager>
 			return;
 
 		upgradeCards[index].dataSource = card;
-		upgradeCards[index].RegisterCallback<ClickEvent>(evt =>
+		upgradeCards[index].SetClickHandler(evt => onClick(card));
+	}
+
+	public void BindItemPickUp(Item item)
+	{
+		var itemElement = itemPickupUI.rootVisualElement.Q<VisualElement>("ItemCard");
+		itemElement.dataSource = item;
+
+		var pickUpButton = itemPickupUI.rootVisualElement.Q<VisualElement>("PickUp");
+		pickUpButton.RegisterCallback<ClickEvent>(evt =>
 		{
-			onClick(card);
+			PlayerManager.Instance.AddItem(item);
+			HideItemPickUp();
+		});
+
+		var leaveButton = itemPickupUI.rootVisualElement.Q<VisualElement>("Leave");
+		leaveButton.RegisterCallback<ClickEvent>(evt =>
+		{
+			HideItemPickUp();
 		});
 	}
 
 	public void ShowLevelUp()
 	{
 		levelUpUI.rootVisualElement.visible = true;
-		Time.timeScale = 0;
+		Pause();
 	}
 
 	public void HideLevelUp()
 	{
 		levelUpUI.rootVisualElement.visible = false;
-		Time.timeScale = 1;
+		Resume();
+	}
+
+	public void ShowItemPickUp()
+	{
+		itemPickupUI.rootVisualElement.visible = true;
+		Pause();
+	}
+
+	public void HideItemPickUp()
+	{
+		itemPickupUI.rootVisualElement.visible = false;
+		Resume();
 	}
 
 	// Private Methods
@@ -87,16 +120,31 @@ public class UiManager : Singleton<UiManager>
 	{
 		statsUi.rootVisualElement.visible = false;
 		levelUpUI.rootVisualElement.visible = false;
-		upgradeCards = levelUpUI.rootVisualElement.Q<VisualElement>("UpgradeCards").Children().ToList();
+		upgradeCards = levelUpUI.rootVisualElement.Q<VisualElement>("UpgradeCards").Query<UpgradeCardElement>().ToList();
+		itemPickupUI.rootVisualElement.visible = false;
 	}
 
 	private void MenuToggle()
 	{
+		if (!canToggleMenu) return;
+
 		statsUi.rootVisualElement.visible = !statsUi.rootVisualElement.visible;
 
 		if (statsUi.rootVisualElement.visible)
 			Time.timeScale = 0;
 		else
 			Time.timeScale = 1;
+	}
+
+	private void Pause()
+	{
+		Time.timeScale = 0;
+		canToggleMenu = false;
+	}
+
+	private void Resume()
+	{
+		Time.timeScale = 1;
+		canToggleMenu = true;
 	}
 }

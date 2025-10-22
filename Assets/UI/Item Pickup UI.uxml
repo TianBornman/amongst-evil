@@ -1,0 +1,31 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/LevelUpUI.uss?fileID=7433441132597879392&amp;guid=1ee19424a92e2de4eacd3fe281aa1e02&amp;type=3#LevelUpUI" />
+    <Style src="project://database/Assets/UI/Item%20Pickup%20UI.uss?fileID=7433441132597879392&amp;guid=0305f1f2f3f0f074eaefc9fb2cacf7c5&amp;type=3#Item Pickup UI" />
+    <ui:VisualElement name="Background" style="flex-grow: 1; width: 32%; margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto; min-height: 70%; max-height: 70%; background-color: rgba(65, 65, 65, 0.66); border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; flex-direction: column; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px;">
+        <ui:VisualElement name="ItemCard" class="upgrade-card" style="width: 100%; margin-right: 0; margin-left: 0; margin-top: 0; margin-bottom: 0; height: 90%;">
+            <ui:Label text="Title" name="Title">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="stats.name" data-source-type="Midevil.Item.Item, Assembly-CSharp" binding-mode="ToTarget" />
+                </Bindings>
+            </ui:Label>
+            <ui:Label text="Description" name="Description">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="stats.description" data-source-type="Midevil.Item.Item, Assembly-CSharp" binding-mode="ToTarget" />
+                </Bindings>
+            </ui:Label>
+            <ui:Label name="Stats" emoji-fallback-support="false">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="stats.buff" data-source-type="Midevil.Item.Item, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Buff to String" />
+                </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
+        <ui:VisualElement name="Buttons" style="flex-grow: 1; flex-direction: row; flex-shrink: 1;">
+            <ui:VisualElement name="Leave" class="item-button" style="flex-grow: 1; background-color: rgb(173, 30, 30); margin-right: 5px;">
+                <ui:Label text="Leave" />
+            </ui:VisualElement>
+            <ui:VisualElement name="PickUp" class="item-button" style="flex-grow: 1; background-color: rgb(29, 144, 42); margin-left: 5px;">
+                <ui:Label text="Pick Up" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
