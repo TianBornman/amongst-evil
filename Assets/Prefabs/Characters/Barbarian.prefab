@@ -69,6 +69,8 @@ MonoBehaviour:
     moveSpeed: 0
   buffs: []
   XpValue: 8
+  drops:
+  - {fileID: 5061339707882196942, guid: 5aad8e068008a6c4ebcd36aeddc9e4bb, type: 3}
 --- !u!195 &6899715613453911756
 NavMeshAgent:
   m_ObjectHideFlags: 0

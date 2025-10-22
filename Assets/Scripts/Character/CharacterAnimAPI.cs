@@ -6,6 +6,7 @@ public class CharacterAnimAPI : MonoBehaviour
 	// Public Variables
 	public Action CheckValidTarget;
 	public Action Attack;
+	public Action Disappear;
 
 	// Public Methods
 	public void OnCheckValidTarget()
@@ -16,5 +17,10 @@ public class CharacterAnimAPI : MonoBehaviour
 	public void OnAttack()
 	{
 		Attack();
+	}
+
+	public void OnDisappear()
+	{
+		Disappear();
 	}
 }

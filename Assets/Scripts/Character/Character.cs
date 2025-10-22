@@ -9,6 +9,7 @@ public class Character : StateMachine<CharacterState>
 	public Stats baseStats;
 	public List<Buff> buffs = new();
 	public float XpValue;
+	public List<Item> drops = new();
 
 	// Protected Variables
 	protected Character target;
@@ -80,6 +81,8 @@ public class Character : StateMachine<CharacterState>
 		animator.SetTrigger("Die");
 		SpawnManager.Instance.RemoveCharacter(this);
 
+		DropItems();
+
 		if (target is Player player)
 			player.AddXp(XpValue);
 	}
@@ -130,6 +133,7 @@ public class Character : StateMachine<CharacterState>
 		CharacterAnimAPI animAPI = GetComponentInChildren<CharacterAnimAPI>();
 		animAPI.CheckValidTarget = () => CheckValidTarget();
 		animAPI.Attack = Attack;
+		animAPI.Disappear = () => Destroy(gameObject);
 	}
 
 	private void Attack()
@@ -155,5 +159,24 @@ public class Character : StateMachine<CharacterState>
 		}
 
 		return true;
+	}
+
+	private void DropItems()
+	{
+		foreach (var item in drops)
+		{
+			var dropped = Random.value < item.stats.dropChance;
+
+			if (dropped)
+			{
+				var	itemRb = Instantiate(item, transform.position + transform.up * 1.5f, Quaternion.identity).GetComponent<Rigidbody>();
+
+				if (itemRb != null)
+				{
+					Vector3 forceDirection = (Vector3.up + Random.insideUnitSphere).normalized;
+					itemRb.AddForce(forceDirection * 5f, ForceMode.Impulse);
+				}
+			}
+		}
 	}
 }
