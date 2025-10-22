@@ -1,0 +1,4 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Elements/Damage%20Number.uss?fileID=7433441132597879392&amp;guid=ea2b4d8854cd0c74bb444c873706dee4&amp;type=3#Damage Number" />
+    <ui:Label text="Label" name="Text" class="damage-text" />
+</ui:UXML>

@@ -99,6 +99,8 @@ public class Character : StateMachine<CharacterState>
 		if (isCrit)
 			damage *= critDamage;
 
+		DamageNumberManager.Instance.ShowDamage(transform.position + Vector3.up * 1.5f, Mathf.Abs(damage), damage > 0 ? Color.red : Color.green);
+
 		stats.health = Mathf.Clamp(stats.health - damage, 0, stats.maxHealth);
 
 		if (stats.health == 0)
@@ -126,16 +128,13 @@ public class Character : StateMachine<CharacterState>
 		animator = GetComponentInChildren<Animator>();
 
 		CharacterAnimAPI animAPI = GetComponentInChildren<CharacterAnimAPI>();
+		animAPI.CheckValidTarget = () => CheckValidTarget();
 		animAPI.Attack = Attack;
 	}
 
 	private void Attack()
 	{
-		if (target == null || !target.IsAlive)
-		{
-			SetState(CharacterState.Idle);
-			return;
-		}
+		if (!CheckValidTarget()) return;
 
 		target.Damage(stats.damage, stats.critChance, stats.critDamage);
 	}
@@ -145,5 +144,16 @@ public class Character : StateMachine<CharacterState>
 		stats.Recalculate(baseStats, buffs);
 
 		animator.SetFloat("AttackSpeed", stats.attackSpeed);
+	}
+
+	private bool CheckValidTarget()
+	{
+		if (target == null || !target.IsAlive)
+		{
+			SetState(CharacterState.Idle);
+			return false;
+		}
+
+		return true;
 	}
 }

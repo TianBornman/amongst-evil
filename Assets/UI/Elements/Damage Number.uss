@@ -1,0 +1,8 @@
+.damage-text {
+    color: red;
+    font-size: 25px;
+    position: absolute;
+    white-space: nowrap;
+    transition: opacity 0.2s ease;
+    -unity-font-style: bold;
+}
