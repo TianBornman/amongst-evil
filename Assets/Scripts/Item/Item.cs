@@ -16,7 +16,7 @@ namespace Midevil.Item
 
 		private IEnumerator ShowItemUI()
 		{
-			yield return new WaitForSeconds(3f);
+			yield return new WaitForSeconds(1.5f);
 
 			UiManager.Instance.BindItemPickUp(this);
 			UiManager.Instance.ShowItemPickUp();

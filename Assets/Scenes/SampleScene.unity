@@ -1021,6 +1021,7 @@ MonoBehaviour:
   width: 45
   length: 45
   minDistance: 10
+  spawnBoss: 0
   spawnedCharacters: []
 --- !u!114 &1433965215
 MonoBehaviour:

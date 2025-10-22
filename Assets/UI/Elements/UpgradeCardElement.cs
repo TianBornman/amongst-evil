@@ -4,11 +4,11 @@ using UnityEngine.UIElements;
 namespace Midevil.UI.Elements
 {
 	[UxmlElement]
-	public partial class UpgradeCardElement : VisualElement
+	public partial class ClickableElement : VisualElement
 	{
 		private EventCallback<ClickEvent> _clickHandler;
 
-		public void SetClickHandler(Action<UpgradeCardElement> onClick)
+		public void SetClickHandler(Action<ClickableElement> onClick)
 		{
 			if (_clickHandler != null)
 				UnregisterCallback(_clickHandler);

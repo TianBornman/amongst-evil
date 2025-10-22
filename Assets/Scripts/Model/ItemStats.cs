@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class ItemStats
+public struct ItemStats
 {
 	public string name;
 	[TextArea] public string description;

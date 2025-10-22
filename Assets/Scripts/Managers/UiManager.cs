@@ -45,7 +45,7 @@ public class UiManager : Singleton<UiManager>
 	public UIDocument itemPickupUI;
 
 	// Private Variables
-	private List<UpgradeCardElement> upgradeCards = new();
+	private List<ClickableElement> upgradeCards = new();
 	private bool canToggleMenu = true;
 
 	// Public Methods
@@ -77,18 +77,16 @@ public class UiManager : Singleton<UiManager>
 		var itemElement = itemPickupUI.rootVisualElement.Q<VisualElement>("ItemCard");
 		itemElement.dataSource = item;
 
-		var pickUpButton = itemPickupUI.rootVisualElement.Q<VisualElement>("PickUp");
-		pickUpButton.RegisterCallback<ClickEvent>(evt =>
+		var pickUpButton = itemPickupUI.rootVisualElement.Q<ClickableElement>("PickUp");
+		pickUpButton.SetClickHandler(evt => 
 		{
-			PlayerManager.Instance.AddItem(item);
+			PlayerManager.Instance.AddItem(item.stats);
+			Destroy(item.gameObject);
 			HideItemPickUp();
 		});
 
-		var leaveButton = itemPickupUI.rootVisualElement.Q<VisualElement>("Leave");
-		leaveButton.RegisterCallback<ClickEvent>(evt =>
-		{
-			HideItemPickUp();
-		});
+		var leaveButton = itemPickupUI.rootVisualElement.Q<ClickableElement>("Leave");
+		leaveButton.SetClickHandler(evt => HideItemPickUp());
 	}
 
 	public void ShowLevelUp()
@@ -120,7 +118,7 @@ public class UiManager : Singleton<UiManager>
 	{
 		statsUi.rootVisualElement.visible = false;
 		levelUpUI.rootVisualElement.visible = false;
-		upgradeCards = levelUpUI.rootVisualElement.Q<VisualElement>("UpgradeCards").Query<UpgradeCardElement>().ToList();
+		upgradeCards = levelUpUI.rootVisualElement.Q<VisualElement>("UpgradeCards").Query<ClickableElement>().ToList();
 		itemPickupUI.rootVisualElement.visible = false;
 	}
 

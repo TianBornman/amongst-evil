@@ -7,10 +7,10 @@ public class PlayerManager : Singleton<PlayerManager>
 	public Player player;
 
 	// Private Variables
-	private List<Item> items = new();
+	private List<ItemStats> items = new();
 
 	// Public Methods
-	public void AddItem(Item item)
+	public void AddItem(ItemStats item)
 	{
 		items.Add(item);
 	}
