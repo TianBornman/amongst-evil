@@ -13,6 +13,12 @@ public class PlayerManager : Singleton<PlayerManager>
 	public void AddItem(ItemStats item)
 	{
 		items.Add(item);
+		UiManager.Instance.AddItem(item);
+	}
+
+	public void EquipItem(ItemStats item)
+	{
+		player.EquipItem(item);
 	}
 
 	// Private Methods

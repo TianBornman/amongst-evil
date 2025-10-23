@@ -82,6 +82,8 @@ MonoBehaviour:
   stats:
     name: Rusty Sword
     description: And old and rusty sword, better than fists i suppose
+    type: 1
+    icon: {fileID: 2800000, guid: 4befd49e264c60043bdefcdba889e9fb, type: 3}
     buff:
       stats:
         health: 0
@@ -93,7 +95,7 @@ MonoBehaviour:
         critDamage: 0
         range: 0
         moveSpeed: 0
-    dropChance: 0.1
+    dropChance: 1
 --- !u!65 &892726615595024836
 BoxCollider:
   m_ObjectHideFlags: 0

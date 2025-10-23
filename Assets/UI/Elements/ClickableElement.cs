@@ -8,13 +8,22 @@ namespace Midevil.UI.Elements
 	{
 		private EventCallback<ClickEvent> _clickHandler;
 
+		// Public Methods
 		public void SetClickHandler(Action<ClickableElement> onClick)
 		{
-			if (_clickHandler != null)
-				UnregisterCallback(_clickHandler);
+			UnsetClickHandler();
 
 			_clickHandler = evt => onClick(this);
 			RegisterCallback(_clickHandler);
+		}
+
+		public void UnsetClickHandler()
+		{
+			if (_clickHandler != null)
+			{
+				UnregisterCallback(_clickHandler);
+				_clickHandler = null;
+			}
 		}
 	}
 }

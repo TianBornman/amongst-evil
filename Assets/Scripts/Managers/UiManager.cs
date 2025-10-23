@@ -113,6 +113,18 @@ public class UiManager : Singleton<UiManager>
 		Resume();
 	}
 
+	public void AddItem(ItemStats item)
+	{
+		var itemElement = statsUi.rootVisualElement.Q<VisualElement>("Items").Q<ItemElement>();
+		itemElement.SetItem(item);
+	}
+
+	public void EquipItem(ItemStats item)
+	{
+		var equipSlot = statsUi.rootVisualElement.Q<VisualElement>("Equipped").Q<ItemElement>(item.type.ToString());
+		equipSlot?.SetItem(item);
+	}
+
 	// Private Methods
 	private void Start()
 	{

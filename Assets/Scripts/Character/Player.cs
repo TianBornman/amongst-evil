@@ -1,5 +1,5 @@
+using Midevil.Item;
 using System.Collections;
-using System.ComponentModel;
 using System.Linq;
 using UnityEngine;
 
@@ -72,6 +72,12 @@ public class Player : Character
 			currentXp -= neededXp;
 			LevelUp();
 		}
+	}
+
+	public void EquipItem(ItemStats item)
+	{
+		UiManager.Instance.EquipItem(item);
+		AddBuff(item.buff);
 	}
 
 	// Private Methods

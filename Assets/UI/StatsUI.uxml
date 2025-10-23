@@ -1,6 +1,6 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/StatsUI.uss?fileID=7433441132597879392&amp;guid=59600b4c1b6b57942ad850c880e8b13f&amp;type=3#StatsUI" />
-    <ui:VisualElement name="Stats" style="flex-grow: 1; width: 30%; margin-left: auto; margin-right: auto; min-height: 70%; max-height: 70%; margin-top: auto; margin-bottom: auto; background-color: rgba(0, 0, 0, 0.66); border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px;">
+    <ui:VisualElement name="Stats" class="menu-item" style="width: 30%; margin-left: auto; margin-right: 10px; min-height: 70%; max-height: 70%; margin-top: auto; margin-bottom: auto; background-color: rgba(0, 0, 0, 0.66); border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px;">
         <ui:VisualElement name="Level" class="stat-entry">
             <ui:Label text="Level:" class="stat-field" />
             <ui:Label text="Label" class="stat-field">
@@ -56,6 +56,18 @@
                     <ui:DataBinding property="text" data-source-path="stats.critDamage" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Float to Percentage" />
                 </Bindings>
             </ui:Label>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="Inventory" class="menu-item" style="width: 30%; margin-left: 10px; margin-right: auto; min-height: 70%; max-height: 70%; margin-top: auto; margin-bottom: auto; background-color: rgba(0, 0, 0, 0.66); border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px;">
+        <ui:VisualElement name="Equipped" class="inventory-pane" style="flex-grow: 1; flex-direction: row; margin-bottom: 5px;">
+            <Midevil.UI.Elements.ItemElement icon-texture="project://database/Assets/Icons/helmet.png?fileID=2800000&amp;guid=77e1a1510ae6fab4a9e60f094165c0ea&amp;type=3#helmet" title="Head" name="Head" />
+            <Midevil.UI.Elements.ItemElement icon-texture="project://database/Assets/Icons/sword.png?fileID=2800000&amp;guid=3f4e788aea80fd042ac5dc9617aff1c2&amp;type=3#sword" title="Weapon" name="Weapon" />
+            <Midevil.UI.Elements.ItemElement title="Off Hand" icon-texture="project://database/Assets/Icons/shield.png?fileID=2800000&amp;guid=428684087ba23a74fad0896cf2a3e335&amp;type=3#shield" name="OffHand" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Items" class="inventory-pane" style="flex-grow: 1; flex-wrap: wrap; flex-direction: row; margin-top: 5px;">
+            <Midevil.UI.Elements.ItemElement />
+            <Midevil.UI.Elements.ItemElement />
+            <Midevil.UI.Elements.ItemElement />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

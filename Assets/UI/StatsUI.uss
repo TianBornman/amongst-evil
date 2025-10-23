@@ -15,3 +15,60 @@
 
 .hidden {
 }
+
+:root {
+    flex-direction: row;
+}
+
+.inventory-pane {
+    background-color: rgb(63, 63, 63);
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    flex-grow: 1;
+    flex-basis: 0;
+}
+
+.item-slot {
+    flex-grow: 1;
+    background-color: rgba(31, 31, 31, 0.69);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    margin-top: auto;
+    margin-right: 10px;
+    margin-bottom: auto;
+    margin-left: 10px;
+    height: 50%;
+    padding-top: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    flex-basis: 0;
+}
+
+.item-slot VisualElement {
+    -unity-background-scale-mode: scale-to-fit;
+    flex-grow: 1;
+}
+
+.item-slot Label {
+    height: 20%;
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    -unity-text-align: middle-center;
+    margin-top: auto;
+    margin-right: 0;
+    margin-bottom: auto;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+}
