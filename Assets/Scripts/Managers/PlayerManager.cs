@@ -21,6 +21,11 @@ public class PlayerManager : Singleton<PlayerManager>
 		player.EquipItem(item);
 	}
 
+	public void UnequipItem(ItemStats item)
+	{
+		player.UnequipItem(item);
+	}
+
 	// Private Methods
 	private void Start()
 	{

@@ -117,6 +117,12 @@ public class Character : StateMachine<CharacterState>
 		RecalculateStats();
 	}
 
+	public void RemoveBuff(Buff buff)
+	{
+		buffs.Remove(buff);
+		RecalculateStats();
+	}
+
 	// Protected Methods
 	protected virtual void Start()
 	{

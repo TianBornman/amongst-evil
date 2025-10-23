@@ -125,6 +125,12 @@ public class UiManager : Singleton<UiManager>
 		equipSlot?.SetItem(item);
 	}
 
+	public void UnequipItem(ItemType type)
+	{
+		var equipSlot = statsUi.rootVisualElement.Q<VisualElement>("Equipped").Q<ItemElement>(type.ToString());
+		equipSlot?.ClearItem();
+	}
+
 	// Private Methods
 	private void Start()
 	{

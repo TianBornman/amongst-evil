@@ -80,6 +80,12 @@ public class Player : Character
 		AddBuff(item.buff);
 	}
 
+	public void UnequipItem(ItemStats item)
+	{
+		UiManager.Instance.UnequipItem(item.type);
+		RemoveBuff(item.buff);
+	}
+
 	// Private Methods
 	private void Update()
 	{

@@ -10,11 +10,23 @@ namespace Midevil.UI.Elements
 		private VisualElement icon;
 		private Label label;
 
+		private Texture2D defaultIcon;
+		private string defaultTitle;
+
+		private bool isEquipSlot = false;
+
 		[UxmlAttribute]
 		public Texture2D IconTexture
 		{
 			get => icon.style.backgroundImage.value.texture;
 			set => icon.style.backgroundImage = new StyleBackground(value);
+		}
+
+		[UxmlAttribute]
+		public Texture2D DefaultIconTexture
+		{
+			get => defaultIcon;
+			set => defaultIcon = value;
 		}
 
 		[UxmlAttribute]
@@ -24,6 +36,20 @@ namespace Midevil.UI.Elements
 			set => label.text = value;
 		}
 
+
+		[UxmlAttribute]
+		public string DefaultTitle
+		{
+			get => defaultTitle;
+			set => defaultTitle = value;
+		}
+
+		[UxmlAttribute]
+		public bool IsEquipSlot
+		{
+			get => isEquipSlot;
+			set => isEquipSlot = value;
+		}
 
 		public ItemElement()
 		{
@@ -36,6 +62,8 @@ namespace Midevil.UI.Elements
 
 			Add(icon);
 			Add(label);
+
+			ClearItem();
 		}
 
 		// Public accessors
@@ -53,8 +81,8 @@ namespace Midevil.UI.Elements
 
 		public void ClearItem()
 		{
-			IconTexture = null;
-			Title = string.Empty;
+			IconTexture = defaultIcon;
+			Title = defaultTitle;
 
 			UnsetClickHandler();
 		}
@@ -62,7 +90,14 @@ namespace Midevil.UI.Elements
 		// Private Methods
 		private void EquipItem(ItemStats item)
 		{
-			PlayerManager.Instance.EquipItem(item);
+			if (isEquipSlot)
+			{
+				PlayerManager.Instance.UnequipItem(item);
+				PlayerManager.Instance.AddItem(item);
+			}
+			else
+				PlayerManager.Instance.EquipItem(item);
+			
 			ClearItem();
 		}
 	}
