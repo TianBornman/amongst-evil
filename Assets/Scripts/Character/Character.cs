@@ -12,6 +12,9 @@ public class Character : StateMachine<CharacterState>
 	public float XpValue;
 	public List<Item> drops = new();
 
+	[Header("References")]
+	public Transform weaponPos;
+
 	// Protected Variables
 	protected Character target;
 
@@ -123,6 +126,44 @@ public class Character : StateMachine<CharacterState>
 		RecalculateStats();
 	}
 
+	public virtual void EquipItem(ItemStats item)
+	{
+		AddBuff(item.buff);
+
+		switch (item.type)
+		{
+			case ItemType.Head:
+				break;
+			case ItemType.Weapon:
+				Instantiate(item.visual, weaponPos);
+				UpdateAnimations(item.animationType);
+				break;
+			case ItemType.Offhand:
+				break;
+			default:
+				break;
+		}
+	}
+
+	public virtual void UnequipItem(ItemStats item)
+	{
+		RemoveBuff(item.buff);
+
+		switch (item.type)
+		{
+			case ItemType.Head:
+				break;
+			case ItemType.Weapon:
+				RemoveChildren(weaponPos);
+				UpdateAnimations(ItemAnimationType.Unarmed);
+				break;
+			case ItemType.Offhand:
+				break;
+			default:
+				break;
+		}
+	}
+
 	// Protected Methods
 	protected virtual void Start()
 	{
@@ -176,7 +217,7 @@ public class Character : StateMachine<CharacterState>
 
 			if (dropped)
 			{
-				var	itemRb = Instantiate(item, transform.position + transform.up * 1.5f, Quaternion.identity).GetComponent<Rigidbody>();
+				var itemRb = Instantiate(item, transform.position + transform.up * 1.5f, Quaternion.identity).GetComponent<Rigidbody>();
 
 				if (itemRb != null)
 				{
@@ -184,6 +225,31 @@ public class Character : StateMachine<CharacterState>
 					itemRb.AddForce(forceDirection * 5f, ForceMode.Impulse);
 				}
 			}
+		}
+	}
+
+	private void RemoveChildren(Transform transform)
+	{
+		foreach (Transform child in transform)
+			Destroy(child.gameObject);
+	}
+
+	private void UpdateAnimations(ItemAnimationType type)
+	{
+		switch (type)
+		{
+			case ItemAnimationType.Unarmed:
+				animator.runtimeAnimatorController = RefManager.Instance.unarmed;
+				break;
+			case ItemAnimationType.Sword1H:
+				animator.runtimeAnimatorController = RefManager.Instance.sword1H;
+				break;
+			case ItemAnimationType.Sword2H:
+				break;
+			case ItemAnimationType.Shield:
+				break;
+			default:
+				break;
 		}
 	}
 }

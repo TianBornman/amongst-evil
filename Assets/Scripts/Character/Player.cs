@@ -50,6 +50,20 @@ public class Player : Character
 		}
 	}
 
+	public override void EquipItem(ItemStats item)
+	{
+		base.EquipItem(item);
+
+		UiManager.Instance.EquipItem(item);
+	}
+
+	public override void UnequipItem(ItemStats item)
+	{
+		base.UnequipItem(item);
+
+		UiManager.Instance.UnequipItem(item.type);
+	}
+
 	// State Methods
 	private void Idle()
 	{
@@ -72,18 +86,6 @@ public class Player : Character
 			currentXp -= neededXp;
 			LevelUp();
 		}
-	}
-
-	public void EquipItem(ItemStats item)
-	{
-		UiManager.Instance.EquipItem(item);
-		AddBuff(item.buff);
-	}
-
-	public void UnequipItem(ItemStats item)
-	{
-		UiManager.Instance.UnequipItem(item.type);
-		RemoveBuff(item.buff);
 	}
 
 	// Private Methods

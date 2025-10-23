@@ -10,6 +10,8 @@ namespace Midevil.Item
 		[TextArea] public string description;
 		public ItemType type;
 		public Texture2D icon;
+		public GameObject visual;
+		public ItemAnimationType animationType;
 		public Buff buff;
 		public float dropChance;
 	}
