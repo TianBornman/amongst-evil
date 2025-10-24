@@ -10,7 +10,6 @@ public class Player : Character
 	public Transform cameraPosition;
 
 	// Public Variables
-	[HideInInspector] public int level;
 	[HideInInspector] public float currentXp;
 	[HideInInspector] public float neededXp;
 
@@ -19,8 +18,8 @@ public class Player : Character
 	{
 		base.Start();
 
-		level = 1;
-		neededXp = GetNeededXp(level);
+		stats.level = 1;
+		neededXp = GetNeededXp(stats.level);
 
 		UiManager.Instance.BindPlayerStats(this);
 	}
@@ -120,8 +119,8 @@ public class Player : Character
 
 	private void LevelUp()
 	{
-		level++;
-		neededXp = GetNeededXp(level);
+		stats.level++;
+		neededXp = GetNeededXp(stats.level);
 		Damage(-stats.maxHealth * stats.levelHeal);
 
 		LevelUpManager.Instance.LevelUp();

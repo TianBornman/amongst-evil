@@ -5,7 +5,7 @@
             <ui:Label text="Level:" class="stat-field" />
             <ui:Label text="Label" class="stat-field">
                 <Bindings>
-                    <ui:DataBinding property="text" data-source-path="level" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" />
+                    <ui:DataBinding property="text" data-source-path="stats.level" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" />
                 </Bindings>
             </ui:Label>
         </ui:VisualElement>

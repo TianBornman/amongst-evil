@@ -3,7 +3,7 @@
     <ui:VisualElement name="Level" style="flex-grow: 1; min-height: 5%; max-height: 5%; background-color: rgba(0, 0, 0, 0.52); margin-top: auto; margin-left: auto; margin-right: auto; width: 70%; margin-bottom: 0; border-top-left-radius: 15px; border-top-right-radius: 15px;">
         <ui:Label text="1" name="Level" style="color: rgb(255, 255, 255); -unity-font-style: bold; -unity-text-align: upper-center;">
             <Bindings>
-                <ui:DataBinding property="text" data-source-path="level" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" />
+                <ui:DataBinding property="text" data-source-path="stats.level" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" />
             </Bindings>
         </ui:Label>
         <ui:ProgressBar value="22" name="XpBar" class="xpbar">

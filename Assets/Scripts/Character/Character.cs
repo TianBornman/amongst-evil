@@ -9,7 +9,6 @@ public class Character : StateMachine<CharacterState>
 	[HideInInspector] public Stats stats;
 	public Stats baseStats;
 	public List<Buff> buffs = new();
-	public float XpValue;
 	public List<Item> drops = new();
 
 	[Header("References")]
@@ -88,7 +87,7 @@ public class Character : StateMachine<CharacterState>
 		DropItems();
 
 		if (target is Player player)
-			player.AddXp(XpValue);
+			player.AddXp(stats.xpValue);
 	}
 
 	// Public Methods
@@ -167,6 +166,11 @@ public class Character : StateMachine<CharacterState>
 	// Protected Methods
 	protected virtual void Start()
 	{
+		if (PlayerManager.Instance.player != null)
+			stats.level = PlayerManager.Instance.player.stats.level;
+		else
+			stats.level = 1;
+
 		RecalculateStats();
 
 		SetState(CharacterState.Idle);
