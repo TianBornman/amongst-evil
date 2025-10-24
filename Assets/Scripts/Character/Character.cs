@@ -190,7 +190,7 @@ public class Character : StateMachine<CharacterState>
 
 	private void Attack()
 	{
-		if (!CheckValidTarget()) return;
+		if (!CheckValidTarget() && IsAlive) return;
 
 		target.Damage(stats.damage, stats.critChance, stats.critDamage);
 	}

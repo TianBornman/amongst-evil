@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   stats:
+    level: 0
     health: 0
     maxHealth: 0
     levelHeal: 0
@@ -57,7 +58,9 @@ MonoBehaviour:
     critDamage: 0
     range: 0
     moveSpeed: 0
+    xpValue: 0
   baseStats:
+    level: 0
     health: 0
     maxHealth: 15
     levelHeal: 0.2
@@ -67,12 +70,11 @@ MonoBehaviour:
     critDamage: 1.5
     range: 5
     moveSpeed: 1
+    xpValue: 0
   buffs: []
-  XpValue: 0
   drops: []
   weaponPos: {fileID: 3761918954202067925}
   cameraPosition: {fileID: 5489311698338238782}
-  level: 0
   currentXp: 0
   neededXp: 0
 --- !u!195 &4159140879651800418
