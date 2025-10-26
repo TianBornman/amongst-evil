@@ -74,6 +74,7 @@ MonoBehaviour:
   buffs: []
   drops:
   - {fileID: 5061339707882196942, guid: 5aad8e068008a6c4ebcd36aeddc9e4bb, type: 3}
+  - {fileID: 5061339707882196942, guid: 7b1a9ee6cd6610f469f88dbd3edb5dcf, type: 3}
   weaponPos: {fileID: 0}
 --- !u!195 &6899715613453911756
 NavMeshAgent:

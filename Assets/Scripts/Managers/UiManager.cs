@@ -115,6 +115,15 @@ public class UiManager : Singleton<UiManager>
 
 	public void AddItem(ItemStats item)
 	{
+		if (item.type == ItemType.Relic)
+		{
+			var newItemElement = new ItemElement();
+			newItemElement.SetItem(item);
+
+			statsUi.rootVisualElement.Q<VisualElement>("Relics").Add(newItemElement);
+			return;
+		}
+
 		var itemElement = statsUi.rootVisualElement.Q<VisualElement>("Items").Q<ItemElement>();
 		itemElement.SetItem(item);
 	}

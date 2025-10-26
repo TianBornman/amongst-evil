@@ -64,10 +64,11 @@
             <Midevil.UI.Elements.ItemElement icon-texture="project://database/Assets/Icons/sword.png?fileID=2800000&amp;guid=3f4e788aea80fd042ac5dc9617aff1c2&amp;type=3#sword" title="Weapon" name="Weapon" is-equip-slot="true" default-icon-texture="project://database/Assets/Icons/sword.png?fileID=2800000&amp;guid=3f4e788aea80fd042ac5dc9617aff1c2&amp;type=3#sword" default-title="Weapon" />
             <Midevil.UI.Elements.ItemElement title="Off Hand" icon-texture="project://database/Assets/Icons/shield.png?fileID=2800000&amp;guid=428684087ba23a74fad0896cf2a3e335&amp;type=3#shield" name="OffHand" is-equip-slot="true" default-icon-texture="project://database/Assets/Icons/shield.png?fileID=2800000&amp;guid=428684087ba23a74fad0896cf2a3e335&amp;type=3#shield" default-title="Off Hand" />
         </ui:VisualElement>
-        <ui:VisualElement name="Items" class="inventory-pane" style="flex-grow: 1; flex-wrap: wrap; flex-direction: row; margin-top: 5px;">
+        <ui:VisualElement name="Items" class="inventory-pane" style="flex-grow: 1; flex-wrap: wrap; flex-direction: row; margin-top: 5px; margin-bottom: 5px;">
             <Midevil.UI.Elements.ItemElement />
             <Midevil.UI.Elements.ItemElement />
             <Midevil.UI.Elements.ItemElement />
         </ui:VisualElement>
+        <ui:VisualElement name="Relics" class="inventory-pane" style="flex-grow: 0.5; margin-top: 5px;" />
     </ui:VisualElement>
 </ui:UXML>
