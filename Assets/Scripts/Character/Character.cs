@@ -1,5 +1,6 @@
 using Midevil.Item;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,9 +17,11 @@ public class Character : StateMachine<CharacterState>
 
 	// Protected Variables
 	protected Character target;
+	protected Character killer;
 
 	protected NavMeshAgent agent;
 	protected Animator animator;
+
 
 	// Public Properties
 	public bool IsAlive => State != CharacterState.Dead;
@@ -88,6 +91,10 @@ public class Character : StateMachine<CharacterState>
 
 		if (target is Player player)
 			player.AddXp(stats.xpValue);
+
+		foreach (var buff in buffs)
+			if (buff is IOnDeath onDeath)
+				onDeath.OnDeath(this, killer);
 	}
 
 	// Public Methods
@@ -109,18 +116,36 @@ public class Character : StateMachine<CharacterState>
 
 		stats.health = Mathf.Clamp(stats.health - damage, 0, stats.maxHealth);
 
+		foreach (var buff in buffs)
+			if (buff is IOnTakeHit onTakeHit)
+				onTakeHit.OnTakeHit(this, target, damage);
+
 		if (stats.health == 0)
+		{
+			killer = target;
 			SetState(CharacterState.Dead);
+		}
 	}
 
 	public void AddBuff(Buff buff)
 	{
+		var sameBuff = buffs.FirstOrDefault(b => b.id == buff.id);
+		if (sameBuff != null)
+		{
+			if (sameBuff.RefreshOrStack(buff))
+				return;
+		}
+
+		buff.OnApply(this);
+
 		buffs.Add(buff);
 		RecalculateStats();
 	}
 
 	public void RemoveBuff(Buff buff)
 	{
+		buff.OnRemove(this);
+
 		buffs.Remove(buff);
 		RecalculateStats();
 	}
@@ -128,6 +153,9 @@ public class Character : StateMachine<CharacterState>
 	public virtual void EquipItem(ItemStats item)
 	{
 		AddBuff(item.buff);
+
+		foreach (var effect in item.effects)
+			AddBuff(effect.CreateRuntime());
 
 		switch (item.type)
 		{
@@ -176,6 +204,21 @@ public class Character : StateMachine<CharacterState>
 		SetState(CharacterState.Idle);
 	}
 
+	protected virtual void Update()
+	{
+		for (int i = buffs.Count - 1; i >= 0; i--)
+		{
+			var buff = buffs[i];
+			buff.TickTimer(Time.deltaTime);
+
+			if (buff is IOnTick tick)
+				tick.Tick(this, Time.deltaTime);
+
+			if (buff.IsExpired)
+				RemoveBuff(buff);
+		}
+	}
+
 	// Private Methods
 	private void Awake()
 	{
@@ -191,6 +234,10 @@ public class Character : StateMachine<CharacterState>
 	private void Attack()
 	{
 		if (!CheckValidTarget() && IsAlive) return;
+
+		foreach (var buff in buffs)
+			if (buff is IOnHit onHit)
+				onHit.OnHit(this, target, stats.damage);
 
 		target.Damage(stats.damage, stats.critChance, stats.critDamage);
 	}

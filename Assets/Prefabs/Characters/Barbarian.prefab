@@ -62,10 +62,10 @@ MonoBehaviour:
   baseStats:
     level: 0
     health: 0
-    maxHealth: 4
+    maxHealth: 400
     levelHeal: 0
     damage: 1
-    attackSpeed: 0.7
+    attackSpeed: 0
     critChance: 0.1
     critDamage: 1.5
     range: 0

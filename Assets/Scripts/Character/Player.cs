@@ -24,6 +24,14 @@ public class Player : Character
 		UiManager.Instance.BindPlayerStats(this);
 	}
 
+	protected override void Update()
+	{
+		base.Update();
+
+		if (State == CharacterState.Moving)
+			Move();
+	}
+
 	protected override void SetState(CharacterState state)
 	{
 		if (State == CharacterState.Dead)
@@ -88,12 +96,6 @@ public class Player : Character
 	}
 
 	// Private Methods
-	private void Update()
-	{
-		if (State == CharacterState.Moving)
-			Move();
-	}
-
 	private void Move()
 	{
 		if (target == null)
