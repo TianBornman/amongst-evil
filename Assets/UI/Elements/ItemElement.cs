@@ -76,7 +76,8 @@ namespace Midevil.UI.Elements
 			IconTexture = item.icon;
 			Title = item.name;
 
-			SetClickHandler(evt => EquipItem(item));
+			if (item.type != ItemType.Relic)
+				SetClickHandler(evt => EquipItem(item));
 		}
 
 		public void ClearItem()
