@@ -92,6 +92,10 @@ public class Character : StateMachine<CharacterState>
 		if (target is Player player)
 			player.AddXp(stats.xpValue);
 
+		foreach (var buff in killer.buffs)
+			if (buff is IOnKill onKill)
+				onKill.OnKill(this, killer);
+
 		foreach (var buff in buffs)
 			if (buff is IOnDeath onDeath)
 				onDeath.OnDeath(this, killer);
