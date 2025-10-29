@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 310938f8fc7f66545a55181af93e8c15, type: 3}
+  m_Script: {fileID: 11500000, guid: 0fc324ccd328f4c47aa55793c58222b3, type: 3}
   m_Name: Burn On Hit
   m_EditorClassIdentifier: Assembly-CSharp::BurnOnHitBuffData
-  id: BurnOnHit
+  id: burnonhit
   stats:
     level: 0
     health: 0

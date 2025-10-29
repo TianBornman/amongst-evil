@@ -99,8 +99,6 @@ MonoBehaviour:
         range: 0
         moveSpeed: 0
         xpValue: 0
-      id: 
-      duration: -1
     effects:
     - {fileID: 11400000, guid: de98a16f40fc7214ab6b85b17006fd90, type: 2}
     dropChance: 0.1

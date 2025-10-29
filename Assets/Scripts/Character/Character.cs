@@ -1,3 +1,4 @@
+using Midevil.Effect;
 using Midevil.Item;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ public class Character : StateMachine<CharacterState>
 	[HideInInspector] public Stats stats;
 	public Stats baseStats;
 	public List<Buff> buffs = new();
+	public List<Effect> effects = new();
 	public List<Item> drops = new();
 
 	[Header("References")]
@@ -92,11 +94,11 @@ public class Character : StateMachine<CharacterState>
 		if (target is Player player)
 			player.AddXp(stats.xpValue);
 
-		foreach (var buff in killer.buffs)
+		foreach (var buff in killer.effects)
 			if (buff is IOnKill onKill)
 				onKill.OnKill(this, killer);
 
-		foreach (var buff in buffs)
+		foreach (var buff in effects)
 			if (buff is IOnDeath onDeath)
 				onDeath.OnDeath(this, killer);
 	}
@@ -120,7 +122,7 @@ public class Character : StateMachine<CharacterState>
 
 		stats.health = Mathf.Clamp(stats.health - damage, 0, stats.maxHealth);
 
-		foreach (var buff in buffs)
+		foreach (var buff in effects)
 			if (buff is IOnTakeHit onTakeHit)
 				onTakeHit.OnTakeHit(this, target, damage);
 
@@ -133,24 +135,35 @@ public class Character : StateMachine<CharacterState>
 
 	public void AddBuff(Buff buff)
 	{
-		var sameBuff = buffs.FirstOrDefault(b => b.id == buff.id);
-		if (sameBuff != null)
+		buffs.Add(buff);
+		RecalculateStats();
+	}
+
+	public void AddEffect(Effect effect)
+	{
+		var sameEffect = effects.FirstOrDefault(b => b.id == effect.id);
+		if (sameEffect != null)
 		{
-			if (sameBuff.RefreshOrStack(buff))
+			if (sameEffect.RefreshOrStack(effect))
 				return;
 		}
 
-		buff.OnApply(this);
-
-		buffs.Add(buff);
+		effect.OnApply(this);
+		effects.Add(effect);
 		RecalculateStats();
 	}
 
 	public void RemoveBuff(Buff buff)
 	{
-		buff.OnRemove(this);
-
 		buffs.Remove(buff);
+		RecalculateStats();
+	}
+
+	public void RemoveEffect(Effect effect)
+	{
+		effect.OnRemove(this);
+
+		effects.Remove(effect);
 		RecalculateStats();
 	}
 
@@ -159,7 +172,7 @@ public class Character : StateMachine<CharacterState>
 		AddBuff(item.buff);
 
 		foreach (var effect in item.effects)
-			AddBuff(effect.CreateRuntime());
+			AddEffect(effect.CreateRuntime());
 
 		switch (item.type)
 		{
@@ -179,6 +192,8 @@ public class Character : StateMachine<CharacterState>
 	public virtual void UnequipItem(ItemStats item)
 	{
 		RemoveBuff(item.buff);
+
+		// TODO: Remove effects added by the item
 
 		switch (item.type)
 		{
@@ -210,16 +225,16 @@ public class Character : StateMachine<CharacterState>
 
 	protected virtual void Update()
 	{
-		for (int i = buffs.Count - 1; i >= 0; i--)
+		for (int i = effects.Count - 1; i >= 0; i--)
 		{
-			var buff = buffs[i];
-			buff.TickTimer(Time.deltaTime);
+			var effect = effects[i];
+			effect.TickTimer(Time.deltaTime);
 
-			if (buff is IOnTick tick)
+			if (effect is IOnTick tick)
 				tick.Tick(this, Time.deltaTime);
 
-			if (buff.IsExpired)
-				RemoveBuff(buff);
+			if (effect.IsExpired)
+				RemoveEffect(effect);
 		}
 	}
 
@@ -239,7 +254,7 @@ public class Character : StateMachine<CharacterState>
 	{
 		if (!CheckValidTarget() && IsAlive) return;
 
-		foreach (var buff in buffs)
+		foreach (var buff in effects)
 			if (buff is IOnHit onHit)
 				onHit.OnHit(this, target, stats.damage);
 

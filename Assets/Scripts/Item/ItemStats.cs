@@ -1,3 +1,4 @@
+using Midevil.Effect;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +15,7 @@ namespace Midevil.Item
 		public GameObject visual;
 		public ItemAnimationType animationType;
 		public Buff buff;
-		public List<BuffData> effects;
+		public List<EffectData> effects;
 		public float dropChance;
 	}
 }
