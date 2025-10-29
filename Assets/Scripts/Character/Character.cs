@@ -24,7 +24,6 @@ public class Character : StateMachine<CharacterState>
 	protected NavMeshAgent agent;
 	protected Animator animator;
 
-
 	// Public Properties
 	public bool IsAlive => State != CharacterState.Dead;
 

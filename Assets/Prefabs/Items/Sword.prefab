@@ -99,9 +99,12 @@ MonoBehaviour:
         range: 0
         moveSpeed: 0
         xpValue: 0
-    effects:
-    - {fileID: 11400000, guid: de98a16f40fc7214ab6b85b17006fd90, type: 2}
+    effects: []
     dropChance: 0.1
+  noEffectWeight: 1
+  possibleEffects:
+  - weight: 1
+    effect: {fileID: 11400000, guid: de98a16f40fc7214ab6b85b17006fd90, type: 2}
 --- !u!65 &892726615595024836
 BoxCollider:
   m_ObjectHideFlags: 0
