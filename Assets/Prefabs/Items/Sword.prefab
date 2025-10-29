@@ -101,10 +101,12 @@ MonoBehaviour:
         xpValue: 0
     effects: []
     dropChance: 0.1
-  noEffectWeight: 1
+  noEffectWeight: 5
   possibleEffects:
-  - weight: 1
+  - weight: 4
     effect: {fileID: 11400000, guid: de98a16f40fc7214ab6b85b17006fd90, type: 2}
+  - weight: 1
+    effect: {fileID: 11400000, guid: 99944df92e5e41540a96e7eb4a97675d, type: 2}
 --- !u!65 &892726615595024836
 BoxCollider:
   m_ObjectHideFlags: 0

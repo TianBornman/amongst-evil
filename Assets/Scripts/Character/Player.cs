@@ -1,5 +1,6 @@
 using Midevil.Item;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -14,6 +15,15 @@ public class Player : Character
 	[HideInInspector] public float neededXp;
 
 	// Override Methods
+	protected override void Awake()
+	{
+		base.Awake();
+
+		CharacterAnimAPI animAPI = GetComponentInChildren<CharacterAnimAPI>();
+		// Navigate to main menu
+		animAPI.Disappear = () => UiManager.Instance.ShowDeathScreen();
+	}
+
 	protected override void Start()
 	{
 		base.Start();

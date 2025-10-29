@@ -210,6 +210,17 @@ public class Character : StateMachine<CharacterState>
 	}
 
 	// Protected Methods
+	protected virtual void Awake()
+	{
+		agent = GetComponent<NavMeshAgent>();
+		animator = GetComponentInChildren<Animator>();
+
+		CharacterAnimAPI animAPI = GetComponentInChildren<CharacterAnimAPI>();
+		animAPI.CheckValidTarget = () => CheckValidTarget();
+		animAPI.Attack = Attack;
+		animAPI.Disappear = () => Destroy(gameObject);
+	}
+
 	protected virtual void Start()
 	{
 		if (PlayerManager.Instance.player != null)
@@ -238,17 +249,6 @@ public class Character : StateMachine<CharacterState>
 	}
 
 	// Private Methods
-	private void Awake()
-	{
-		agent = GetComponent<NavMeshAgent>();
-		animator = GetComponentInChildren<Animator>();
-
-		CharacterAnimAPI animAPI = GetComponentInChildren<CharacterAnimAPI>();
-		animAPI.CheckValidTarget = () => CheckValidTarget();
-		animAPI.Attack = Attack;
-		animAPI.Disappear = () => Destroy(gameObject);
-	}
-
 	private void Attack()
 	{
 		if (!CheckValidTarget() && IsAlive) return;

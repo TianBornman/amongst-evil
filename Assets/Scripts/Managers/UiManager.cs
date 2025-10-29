@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class UiManager : Singleton<UiManager>
@@ -138,6 +139,11 @@ public class UiManager : Singleton<UiManager>
 	{
 		var equipSlot = statsUi.rootVisualElement.Q<VisualElement>("Equipped").Q<ItemElement>(type.ToString());
 		equipSlot?.ClearItem();
+	}
+
+	public void ShowDeathScreen()
+	{
+		SceneManager.LoadScene("Sect");
 	}
 
 	// Private Methods
