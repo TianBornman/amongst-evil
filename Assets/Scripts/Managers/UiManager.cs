@@ -1,3 +1,4 @@
+using Midevil.Ability;
 using Midevil.Item;
 using Midevil.UI.Elements;
 using Midevil.UpgradeCard;
@@ -88,6 +89,16 @@ public class UiManager : Singleton<UiManager>
 
 		var leaveButton = itemPickupUI.rootVisualElement.Q<ClickableElement>("Leave");
 		leaveButton.SetClickHandler(evt => HideItemPickUp());
+	}
+
+	public void BindAbility(int index, Ability ability)
+	{
+		var abilityElement = gameUi.rootVisualElement.Q<VisualElement>("Abilities").Query<AbilityElement>().ToList();
+
+		if (index < 0 || index >= abilityElement.Count)
+			return;
+
+		abilityElement[index].SetAbility(ability);
 	}
 
 	public void ShowLevelUp()

@@ -16,7 +16,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Block",
+                    "name": "Ability",
                     "type": "Button",
                     "id": "dd997ff4-f7d0-438b-96d1-e0e9f94a903f",
                     "expectedControlType": "",
@@ -51,11 +51,44 @@
                 {
                     "name": "",
                     "id": "2f8a395e-20c9-439c-9428-4acd80125177",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "Scale(factor=0)",
                     "groups": "",
-                    "action": "Block",
+                    "action": "Ability",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f45dc087-a35f-41a9-a444-0335c8c22b93",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "Scale",
+                    "groups": "",
+                    "action": "Ability",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7ae790c8-6775-4d55-9207-c6cf602d158e",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "Scale(factor=2)",
+                    "groups": "",
+                    "action": "Ability",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "661083ba-673b-4eb6-927d-f6794b36d60e",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "Scale(factor=3)",
+                    "groups": "",
+                    "action": "Ability",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

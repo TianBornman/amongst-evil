@@ -1,3 +1,4 @@
+using Midevil.Ability;
 using Midevil.Effect;
 using Midevil.Item;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ public class Character : StateMachine<CharacterState>
 	public Stats baseStats;
 	public List<Buff> buffs = new();
 	public List<Effect> effects = new();
+	public List<Ability> abilities = new();
 	public List<Item> drops = new();
 
 	[Header("References")]
@@ -171,6 +173,11 @@ public class Character : StateMachine<CharacterState>
 		RecalculateStats();
 	}
 
+	public void AddAbility(Ability ability)
+	{
+		abilities.Add(ability);
+	}
+
 	public void RemoveBuff(Buff buff)
 	{
 		buffs.Remove(buff);
@@ -265,6 +272,9 @@ public class Character : StateMachine<CharacterState>
 			if (effect.IsExpired)
 				RemoveEffect(effect);
 		}
+
+		foreach (var ability in abilities)
+			ability?.Update(Time.deltaTime);
 	}
 
 	// Private Methods

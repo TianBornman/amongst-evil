@@ -18,3 +18,30 @@
     min-height: 50%;
     max-height: 50%;
 }
+
+.ability-slot {
+    background-color: rgba(0, 0, 0, 0.57);
+    flex-basis: 0;
+    flex-grow: 1;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    margin-right: 10px;
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+}
+
+.ability-slot VisualElement {
+    height: 100%;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.ability-slot Label {
+    position: absolute;
+    color: rgb(255, 255, 255);
+    bottom: 5px;
+    right: 5px;
+}

@@ -1,3 +1,4 @@
+using Midevil.Ability;
 using Midevil.Item;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,29 +11,27 @@ public class Player : Character
 	#region Input
 
 	private InputSystem_Actions inputActions;
-	private InputAction blockAction;
+	private InputAction abilityAction;
 
 	private void OnEnable()
 	{
 		inputActions = new InputSystem_Actions();
-		blockAction = inputActions.Player.Block;
+		abilityAction = inputActions.Player.Ability;
 
 		inputActions.Enable();
-		blockAction.performed += OnBlock;
+		abilityAction.performed += OnAbility;
 	}
 
 	private void OnDisable()
 	{
-		blockAction.performed -= OnBlock;
+		abilityAction.performed -= OnAbility;
 		inputActions.Disable();
 	}
 
-	private void OnBlock(InputAction.CallbackContext context)
+	private void OnAbility(InputAction.CallbackContext context)
 	{
-		if (State == CharacterState.Blocking)
-			SetState(CharacterState.Attacking);
-		else if (State == CharacterState.Attacking)
-			SetState(CharacterState.Blocking);
+		int slot = (int)context.ReadValue<float>();
+		UseAbility(slot);
 	}
 
 	#endregion
@@ -40,8 +39,11 @@ public class Player : Character
 	// Editor References
 	[Header("References")]
 	public Transform cameraPosition;
+	public List<AbilityData> startingAbilities;
 
 	// Public Variables
+	[HideInInspector] public AbilitySlot[] abilitySlots = new AbilitySlot[4];
+
 	[HideInInspector] public float currentXp;
 	[HideInInspector] public float neededXp;
 
@@ -63,6 +65,13 @@ public class Player : Character
 		neededXp = GetNeededXp(stats.level);
 
 		UiManager.Instance.BindPlayerStats(this);
+
+		for (int i = 0; i < startingAbilities.Count && i < abilitySlots.Length; i++)
+		{
+			abilities.Add(startingAbilities[i].CreateRuntime(this));
+			abilitySlots[i].assignedAbility = abilities[i];
+			UiManager.Instance.BindAbility(i, abilities[i]);
+		}
 	}
 
 	protected override void Update()
@@ -134,6 +143,16 @@ public class Player : Character
 			currentXp -= neededXp;
 			LevelUp();
 		}
+	}
+
+	public void AssignAbilitySlot(int slot, Ability ability)
+	{
+		abilitySlots[slot].assignedAbility = ability;
+	}
+
+	public void UseAbility(int slot)
+	{
+		abilitySlots[slot].assignedAbility?.TryUse();
 	}
 
 	// Private Methods
