@@ -10,6 +10,8 @@ public class Stats
 	public float health;
 	public float maxHealth;
 	public float levelHeal;
+	public float blockChance;
+	public float dodgeChance;
 	public float damage;
 	public float attackSpeed;
 	public float critChance;
@@ -25,6 +27,8 @@ public class Stats
 		health = Math.Min(health + (newMaxHealth - maxHealth), newMaxHealth);
 		maxHealth = newMaxHealth;
 		levelHeal = baseStats.levelHeal + buffs.Sum(b => b.stats.levelHeal);
+		blockChance = baseStats.blockChance + buffs.Sum(b => b.stats.blockChance);
+		dodgeChance = baseStats.dodgeChance + buffs.Sum(b => b.stats.dodgeChance);
 		damage = Scale(baseStats.damage, buffs.Sum(b => b.stats.damage));
 		attackSpeed = baseStats.attackSpeed + buffs.Sum(b => b.stats.attackSpeed);
 		critChance = baseStats.critChance + buffs.Sum(b => b.stats.critChance);

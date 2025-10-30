@@ -46,6 +46,9 @@ public class Character : StateMachine<CharacterState>
 			case CharacterState.Attacking:
 				Attacking();
 				break;
+			case CharacterState.Blocking:
+				Block();
+				break;
 			case CharacterState.Dead:
 				Die();
 				break;
@@ -78,7 +81,13 @@ public class Character : StateMachine<CharacterState>
 		agent.isStopped = true;
 
 		transform.LookAt(target.transform);
+		animator.SetBool("Blocking", false);
 		animator.SetBool("Attacking", true);
+	}
+
+	private void Block()
+	{
+		animator.SetBool("Blocking", true);
 	}
 
 	private void Die()
@@ -112,6 +121,16 @@ public class Character : StateMachine<CharacterState>
 
 	public void Damage(float damage, float critChance = 0, float critDamage = 0)
 	{
+		var isBlock = Random.value < stats.blockChance;
+
+		if (isBlock)
+			return;
+
+		var isDodge = Random.value < stats.dodgeChance;
+
+		if (isDodge)
+			return;
+
 		var isCrit = Random.value < critChance;
 
 		if (isCrit)

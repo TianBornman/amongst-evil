@@ -3,9 +3,40 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : Character
 {
+	#region Input
+
+	private InputSystem_Actions inputActions;
+	private InputAction blockAction;
+
+	private void OnEnable()
+	{
+		inputActions = new InputSystem_Actions();
+		blockAction = inputActions.Player.Block;
+
+		inputActions.Enable();
+		blockAction.performed += OnBlock;
+	}
+
+	private void OnDisable()
+	{
+		blockAction.performed -= OnBlock;
+		inputActions.Disable();
+	}
+
+	private void OnBlock(InputAction.CallbackContext context)
+	{
+		if (State == CharacterState.Blocking)
+			SetState(CharacterState.Attacking);
+		else if (State == CharacterState.Attacking)
+			SetState(CharacterState.Blocking);
+	}
+
+	#endregion
+
 	// Editor References
 	[Header("References")]
 	public Transform cameraPosition;
