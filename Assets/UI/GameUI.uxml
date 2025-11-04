@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/UI/GameUI.uss?fileID=7433441132597879392&amp;guid=770ca3aa6f2d05f4db9808749135ea23&amp;type=3#GameUI" />
     <ui:VisualElement name="Abilities" style="flex-grow: 1; margin-top: auto; width: 40%; margin-right: auto; margin-left: auto; height: auto; max-height: 10%; min-height: 13%; background-color: rgba(0, 0, 0, 0.52); border-top-left-radius: 15px; border-top-right-radius: 15px; flex-direction: row; padding-top: 10px; padding-right: 0; padding-bottom: 10px; padding-left: 10px;">
         <Midevil.UI.Elements.AbilityElement charges="2" icon-texture="project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-6527069497977903076&amp;guid=5cbe1ef74b3c7ff4bb988460ea3c61d2&amp;type=3#console.warnicon@2x" />
-        <Midevil.UI.Elements.AbilityElement />
+        <Midevil.UI.Elements.AbilityElement charges="2" />
         <Midevil.UI.Elements.AbilityElement />
         <Midevil.UI.Elements.AbilityElement />
     </ui:VisualElement>

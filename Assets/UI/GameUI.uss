@@ -39,9 +39,17 @@
     -unity-background-scale-mode: scale-to-fit;
 }
 
-.ability-slot Label {
+.ability-slot #charges {
     position: absolute;
     color: rgb(255, 255, 255);
     bottom: 5px;
     right: 5px;
+}
+
+.ability-slot #cooldown {
+    position: absolute;
+    color: rgb(255, 255, 255);
+    bottom: auto;
+    right: 5px;
+    top: 5px;
 }

@@ -8,10 +8,11 @@ namespace Midevil.Ability
 		public AbilityData data;
 
 		private float cooldownTimer;
-		private bool isConsumable;
+		public bool isConsumable;
 		private int remainingCharges;
 
 		public event Action<int> OnChargesChanged;
+		public event Action<float> OnCooldownChanged;
 
 		public int RemainingCharges
 		{
@@ -21,6 +22,17 @@ namespace Midevil.Ability
 				if (remainingCharges == value) return;
 				remainingCharges = value;
 				OnChargesChanged?.Invoke(remainingCharges);
+			}
+		}
+
+		public float CooldownTimer
+		{
+			get => cooldownTimer;
+			set
+			{
+				if (cooldownTimer == value) return;
+				cooldownTimer = value;
+				OnCooldownChanged?.Invoke(cooldownTimer);
 			}
 		}
 
@@ -37,8 +49,10 @@ namespace Midevil.Ability
 
 		public virtual void Update(float deltaTime)
 		{
-			if (cooldownTimer > 0f)
-				cooldownTimer -= deltaTime;
+			if (CooldownTimer > 0f)
+			{
+				CooldownTimer -= deltaTime;
+			}
 		}
 
 		public void TryUse()
@@ -52,7 +66,7 @@ namespace Midevil.Ability
 				RemainingCharges--;
 
 			Execute();
-			cooldownTimer = data.cooldown;
+			CooldownTimer = data.cooldown;
 
 			//if (data.isConsumable && remainingCharges <= 0)
 			//	owner.AbilityManager.RemoveAbility(this);
@@ -60,6 +74,6 @@ namespace Midevil.Ability
 
 		protected abstract void Execute();
 
-		public void ResetCooldown() => cooldownTimer = 0f;
+		public void ResetCooldown() => CooldownTimer = 0f;
 	}
 }

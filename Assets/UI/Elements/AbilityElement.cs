@@ -3,6 +3,7 @@ using UnityEditor.UIElements;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Unity.Collections.LowLevel.Unsafe;
 
 namespace Midevil.UI.Elements
 {
@@ -10,7 +11,8 @@ namespace Midevil.UI.Elements
 	public partial class AbilityElement : ClickableElement
 	{
 		private VisualElement icon;
-		private Label label;
+		private Label chargesLabel;
+		private Label cooldownLabel;
 
 		[UxmlAttribute]
 		public Texture2D IconTexture
@@ -22,8 +24,15 @@ namespace Midevil.UI.Elements
 		[UxmlAttribute]
 		public string Charges
 		{
-			get => label.text;
-			set => label.text = value;
+			get => chargesLabel.text;
+			set => chargesLabel.text = value;
+		}		
+		
+		[UxmlAttribute]
+		public string CoolDown
+		{
+			get => cooldownLabel.text;
+			set => cooldownLabel.text = value;
 		}
 
 		public AbilityElement()
@@ -33,28 +42,51 @@ namespace Midevil.UI.Elements
 
 			// Create children
 			icon = new VisualElement();
-			label = new Label("5");
+
+			chargesLabel = new Label("5");
+			chargesLabel.name = "charges";
+
+			cooldownLabel = new Label("2");
+			cooldownLabel.name = "cooldown";
 
 			Add(icon);
-			Add(label);
+			Add(chargesLabel);
+			Add(cooldownLabel);
 
 			ClearItem();
 		}
 
 		// Public accessors
 		public VisualElement Icon => icon;
-		public Label Label => label;
+		public Label ChargesLabel => chargesLabel;
+		public Label CooldownLabel => cooldownLabel;
 
 		// Public Methods
 		public void SetAbility(Ability.Ability ability)
 		{
 			IconTexture = ability.data.icon;
-			label.text = ability.RemainingCharges.ToString();
+			chargesLabel.text = ability.RemainingCharges.ToString("F1");
+			cooldownLabel.text = ability.CooldownTimer.ToString("F1");
+
+			if (!ability.isConsumable)
+				chargesLabel.visible = false;
+
+			cooldownLabel.visible = false;
 
 			// Subscribe to live updates
 			ability.OnChargesChanged += newValue =>
 			{
-				label.text = newValue.ToString();
+				chargesLabel.text = newValue.ToString("F1");
+			};
+
+			ability.OnCooldownChanged += newValue =>
+			{
+				if (newValue <= 0)
+					cooldownLabel.visible = false;
+				else
+					cooldownLabel.visible = true;
+
+				cooldownLabel.text = newValue.ToString("F1");
 			};
 		}
 
