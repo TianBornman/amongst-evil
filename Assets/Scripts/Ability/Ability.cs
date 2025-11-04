@@ -4,6 +4,7 @@ namespace Midevil.Ability
 {
 	public abstract class Ability
 	{
+		public Guid id;
 		protected Character owner;
 		public AbilityData data;
 

@@ -5,6 +5,7 @@ using Midevil.UpgradeCard;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Playables;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -99,6 +100,16 @@ public class UiManager : Singleton<UiManager>
 			return;
 
 		abilityElement[index].SetAbility(ability);
+	}
+
+	public void ClearAbility(int index)
+	{
+		var abilityElement = gameUi.rootVisualElement.Q<VisualElement>("Abilities").Query<AbilityElement>().ToList();
+
+		if (index < 0 || index >= abilityElement.Count)
+			return;
+
+		abilityElement[index].Clear();
 	}
 
 	public void ShowLevelUp()

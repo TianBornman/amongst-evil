@@ -81,7 +81,6 @@ MonoBehaviour:
   cameraPosition: {fileID: 5489311698338238782}
   startingAbilities:
   - {fileID: 11400000, guid: f9430b0a9ab831e4788d08fc92070a24, type: 2}
-  - {fileID: 11400000, guid: 61b22ddd1ab8b3e4290615732a6ef897, type: 2}
   abilitySlots:
   - slotIndex: 0
   - slotIndex: 0

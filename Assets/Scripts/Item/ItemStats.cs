@@ -1,3 +1,4 @@
+using Midevil.Ability;
 using Midevil.Effect;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ namespace Midevil.Item
 	[Serializable]
 	public struct ItemStats
 	{
+		public Guid id;
 		public string name;
 		[TextArea] public string description;
 		public ItemType type;
@@ -15,6 +17,7 @@ namespace Midevil.Item
 		public GameObject visual;
 		public ItemAnimationType animationType;
 		public Buff buff;
+		public AbilityData ability;
 		public List<EffectData> effects;
 		public float dropChance;
 	}

@@ -1,9 +1,5 @@
-using Midevil.Ability;
-using UnityEditor.UIElements;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Unity.Collections.LowLevel.Unsafe;
 
 namespace Midevil.UI.Elements
 {
@@ -26,10 +22,10 @@ namespace Midevil.UI.Elements
 		{
 			get => chargesLabel.text;
 			set => chargesLabel.text = value;
-		}		
-		
+		}
+
 		[UxmlAttribute]
-		public string CoolDown
+		public string Cooldown
 		{
 			get => cooldownLabel.text;
 			set => cooldownLabel.text = value;
@@ -65,8 +61,8 @@ namespace Midevil.UI.Elements
 		public void SetAbility(Ability.Ability ability)
 		{
 			IconTexture = ability.data.icon;
-			chargesLabel.text = ability.RemainingCharges.ToString("F1");
-			cooldownLabel.text = ability.CooldownTimer.ToString("F1");
+			Charges = ability.RemainingCharges.ToString();
+			Cooldown = ability.CooldownTimer.ToString("f1");
 
 			if (!ability.isConsumable)
 				chargesLabel.visible = false;
@@ -76,7 +72,7 @@ namespace Midevil.UI.Elements
 			// Subscribe to live updates
 			ability.OnChargesChanged += newValue =>
 			{
-				chargesLabel.text = newValue.ToString("F1");
+				Charges = newValue.ToString();
 			};
 
 			ability.OnCooldownChanged += newValue =>
@@ -86,7 +82,7 @@ namespace Midevil.UI.Elements
 				else
 					cooldownLabel.visible = true;
 
-				cooldownLabel.text = newValue.ToString("F1");
+				Cooldown = newValue.ToString("f1");
 			};
 		}
 
@@ -94,6 +90,7 @@ namespace Midevil.UI.Elements
 		{
 			IconTexture = null;
 			Charges = string.Empty;
+			Cooldown = string.Empty;
 
 			UnsetClickHandler();
 		}

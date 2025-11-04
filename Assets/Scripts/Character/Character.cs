@@ -173,11 +173,6 @@ public class Character : StateMachine<CharacterState>
 		RecalculateStats();
 	}
 
-	public void AddAbility(Ability ability)
-	{
-		abilities.Add(ability);
-	}
-
 	public void RemoveBuff(Buff buff)
 	{
 		buffs.Remove(buff);
@@ -190,49 +185,6 @@ public class Character : StateMachine<CharacterState>
 
 		effects.Remove(effect);
 		RecalculateStats();
-	}
-
-	public virtual void EquipItem(ItemStats item)
-	{
-		AddBuff(item.buff);
-
-		foreach (var effect in item.effects)
-			AddEffect(effect.CreateRuntime());
-
-		switch (item.type)
-		{
-			case ItemType.Head:
-				break;
-			case ItemType.Weapon:
-				Instantiate(item.visual, weaponPos);
-				UpdateAnimations(item.animationType);
-				break;
-			case ItemType.Offhand:
-				break;
-			default:
-				break;
-		}
-	}
-
-	public virtual void UnequipItem(ItemStats item)
-	{
-		RemoveBuff(item.buff);
-
-		// TODO: Remove effects added by the item
-
-		switch (item.type)
-		{
-			case ItemType.Head:
-				break;
-			case ItemType.Weapon:
-				RemoveChildren(weaponPos);
-				UpdateAnimations(ItemAnimationType.Unarmed);
-				break;
-			case ItemType.Offhand:
-				break;
-			default:
-				break;
-		}
 	}
 
 	// Protected Methods
@@ -275,6 +227,69 @@ public class Character : StateMachine<CharacterState>
 
 		foreach (var ability in abilities)
 			ability?.Update(Time.deltaTime);
+	}
+
+	public virtual void AddAbility(Ability ability)
+	{
+		abilities.Add(ability);
+	}
+
+	public virtual void RemoveAbility(Ability ability)
+	{
+		abilities.Remove(ability);
+	}
+
+	public virtual void EquipItem(ItemStats item)
+	{
+		AddBuff(item.buff);
+
+		foreach (var effect in item.effects)
+			AddEffect(effect.CreateRuntime());
+
+		var ability = item.ability.CreateRuntime(this);
+		ability.id = item.id;
+
+		AddAbility(ability);
+
+		switch (item.type)
+		{
+			case ItemType.Head:
+				break;
+			case ItemType.Weapon:
+				Instantiate(item.visual, weaponPos);
+				UpdateAnimations(item.animationType);
+				break;
+			case ItemType.Offhand:
+				break;
+			default:
+				break;
+		}
+	}
+
+	public virtual void UnequipItem(ItemStats item)
+	{
+		RemoveBuff(item.buff);
+
+		// TODO: Remove effects added by the item
+
+		var ability = abilities.FirstOrDefault(ability => ability.id == item.id);
+
+		if (ability != null)
+			RemoveAbility(ability);
+
+		switch (item.type)
+		{
+			case ItemType.Head:
+				break;
+			case ItemType.Weapon:
+				RemoveChildren(weaponPos);
+				UpdateAnimations(ItemAnimationType.Unarmed);
+				break;
+			case ItemType.Offhand:
+				break;
+			default:
+				break;
+		}
 	}
 
 	// Private Methods

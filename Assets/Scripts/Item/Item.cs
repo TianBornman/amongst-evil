@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Guid = System.Guid;
 
 namespace Midevil.Item
 {
@@ -15,6 +16,8 @@ namespace Midevil.Item
 		// Private Methods
 		private void Awake()
 		{
+			stats.id = Guid.NewGuid();
+
 			var totalWeight = noEffectWeight + possibleEffects.Sum(e => e.weight);
 			var randomValue = Random.Range(0, totalWeight);
 

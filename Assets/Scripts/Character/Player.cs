@@ -66,12 +66,8 @@ public class Player : Character
 
 		UiManager.Instance.BindPlayerStats(this);
 
-		for (int i = 0; i < startingAbilities.Count && i < abilitySlots.Length; i++)
-		{
-			abilities.Add(startingAbilities[i].CreateRuntime(this));
-			abilitySlots[i].assignedAbility = abilities[i];
-			UiManager.Instance.BindAbility(i, abilities[i]);
-		}
+		foreach (var ability in startingAbilities)
+			AddAbility(ability.CreateRuntime(this));
 	}
 
 	protected override void Update()
@@ -119,6 +115,20 @@ public class Player : Character
 		base.UnequipItem(item);
 
 		UiManager.Instance.UnequipItem(item.type);
+	}
+
+	public override void AddAbility(Ability ability)
+	{
+		base.AddAbility(ability);
+
+		BindAbility(ability);
+	}
+
+	public override void RemoveAbility(Ability ability)
+	{
+		ClearAbility(ability);
+
+		base.RemoveAbility(ability);
 	}
 
 	// State Methods
@@ -191,6 +201,24 @@ public class Player : Character
 	private float GetNeededXp(int level)
 	{
 		return 10f * Mathf.Pow(level, 1.3f) + 5f * level;
+	}
+
+	private void BindAbility(Ability ability)
+	{
+		for (int i = 0; i < abilities.Count && i < abilitySlots.Length; i++)
+		{
+			if (abilitySlots[i].HasAbility)
+				continue;
+
+			abilitySlots[i].assignedAbility = abilities[i];
+			UiManager.Instance.BindAbility(i, abilities[i]);
+		}
+	}
+
+	private void ClearAbility(Ability ability)
+	{
+		var slot = abilitySlots.FirstOrDefault(slot => slot.assignedAbility == ability);
+		slot.Clear();
 	}
 
 	private IEnumerator GetTarget()

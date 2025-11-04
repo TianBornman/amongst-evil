@@ -9,5 +9,11 @@ namespace Midevil.Ability
 		public Ability assignedAbility;
 
 		public bool HasAbility => assignedAbility != null;
+
+		public void Clear()
+		{
+			assignedAbility = null;
+			UiManager.Instance.ClearAbility(slotIndex + 1);
+		}
 	}
 }
