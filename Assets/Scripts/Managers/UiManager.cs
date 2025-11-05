@@ -109,7 +109,7 @@ public class UiManager : Singleton<UiManager>
 		if (index < 0 || index >= abilityElement.Count)
 			return;
 
-		abilityElement[index].Clear();
+		abilityElement[index].ClearItem();
 	}
 
 	public void ShowLevelUp()

@@ -12,8 +12,8 @@ namespace Midevil.Ability
 		public bool isConsumable;
 		private int remainingCharges;
 
-		public event Action<int> OnChargesChanged;
-		public event Action<float> OnCooldownChanged;
+		public Action<int> OnChargesChanged;
+		public Action<float> OnCooldownChanged;
 
 		public int RemainingCharges
 		{

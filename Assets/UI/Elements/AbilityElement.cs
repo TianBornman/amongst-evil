@@ -70,20 +70,8 @@ namespace Midevil.UI.Elements
 			cooldownLabel.visible = false;
 
 			// Subscribe to live updates
-			ability.OnChargesChanged += newValue =>
-			{
-				Charges = newValue.ToString();
-			};
-
-			ability.OnCooldownChanged += newValue =>
-			{
-				if (newValue <= 0)
-					cooldownLabel.visible = false;
-				else
-					cooldownLabel.visible = true;
-
-				Cooldown = newValue.ToString("f1");
-			};
+			ability.OnChargesChanged = UpdateCharges;
+			ability.OnCooldownChanged = UpdateCooldown;
 		}
 
 		public void ClearItem()
@@ -93,6 +81,21 @@ namespace Midevil.UI.Elements
 			Cooldown = string.Empty;
 
 			UnsetClickHandler();
+		}
+
+		private void UpdateCharges(int value)
+		{
+			Charges = value.ToString();
+		}
+
+		private void UpdateCooldown(float value)
+		{
+			if (value <= 0)
+				cooldownLabel.visible = false;
+			else
+				cooldownLabel.visible = true;
+
+			Cooldown = value.ToString("f1");
 		}
 	}
 }
