@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fireball
   m_EditorClassIdentifier: Assembly-CSharp::Midevil.Ability.FireballAbilityData
   abilityName: Fireball
-  icon: {fileID: 3506167780502562645, guid: 5cbe1ef74b3c7ff4bb988460ea3c61d2, type: 3}
+  icon: {fileID: 2800000, guid: 4eb815ee4acf67d459a2ccc671daca61, type: 3}
   cooldown: 1
   manaCost: 0
   isConsumable: 0

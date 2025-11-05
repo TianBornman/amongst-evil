@@ -159,31 +159,9 @@ public class Character : StateMachine<CharacterState>
 		RecalculateStats();
 	}
 
-	public void AddEffect(Effect effect)
-	{
-		var sameEffect = effects.FirstOrDefault(b => b.id == effect.id);
-		if (sameEffect != null)
-		{
-			if (sameEffect.RefreshOrStack(effect))
-				return;
-		}
-
-		effect.OnApply(this);
-		effects.Add(effect);
-		RecalculateStats();
-	}
-
 	public void RemoveBuff(Buff buff)
 	{
 		buffs.Remove(buff);
-		RecalculateStats();
-	}
-
-	public void RemoveEffect(Effect effect)
-	{
-		effect.OnRemove(this);
-
-		effects.Remove(effect);
 		RecalculateStats();
 	}
 
@@ -239,12 +217,39 @@ public class Character : StateMachine<CharacterState>
 		abilities.Remove(ability);
 	}
 
+	public virtual void AddEffect(Effect effect)
+	{
+		var sameEffect = effects.FirstOrDefault(b => b.effectType == effect.effectType);
+		if (sameEffect != null)
+		{
+			if (sameEffect.RefreshOrStack(effect))
+				return;
+		}
+
+		effect.OnApply(this);
+		effects.Add(effect);
+		RecalculateStats();
+	}
+
+	public virtual void RemoveEffect(Effect effect)
+	{
+		effect.OnRemove(this);
+
+		effects.Remove(effect);
+		RecalculateStats();
+	}
+
+
 	public virtual void EquipItem(ItemStats item)
 	{
 		AddBuff(item.buff);
 
-		foreach (var effect in item.effects)
-			AddEffect(effect.CreateRuntime());
+		foreach (var effectData in item.effects)
+		{
+			var effect = effectData.CreateRuntime();
+			effect.id = item.id;
+			AddEffect(effect);
+		}
 
 		var ability = item.ability.CreateRuntime(this);
 		ability.id = item.id;
@@ -270,7 +275,13 @@ public class Character : StateMachine<CharacterState>
 	{
 		RemoveBuff(item.buff);
 
-		// TODO: Remove effects added by the item
+		List<Effect> effectsToRemove = new();
+
+		foreach (var effect in effects.Where(ef => ef.id == item.id))
+			effectsToRemove.Add(effect);
+
+		foreach (var effect in effectsToRemove)
+			RemoveEffect(effect);
 
 		var ability = abilities.FirstOrDefault(ability => ability.id == item.id);
 

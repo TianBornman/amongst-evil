@@ -1,38 +1,39 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/GameUI.uss?fileID=7433441132597879392&amp;guid=770ca3aa6f2d05f4db9808749135ea23&amp;type=3#GameUI" />
-    <ui:VisualElement name="Abilities" style="flex-grow: 1; margin-top: auto; width: 40%; margin-right: auto; margin-left: auto; height: auto; max-height: 10%; min-height: 13%; background-color: rgba(0, 0, 0, 0.52); border-top-left-radius: 15px; border-top-right-radius: 15px; flex-direction: row; padding-top: 10px; padding-right: 0; padding-bottom: 10px; padding-left: 10px;">
-        <Midevil.UI.Elements.AbilityElement charges="2" icon-texture="project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-6527069497977903076&amp;guid=5cbe1ef74b3c7ff4bb988460ea3c61d2&amp;type=3#console.warnicon@2x" />
-        <Midevil.UI.Elements.AbilityElement charges="2" />
-        <Midevil.UI.Elements.AbilityElement />
-        <Midevil.UI.Elements.AbilityElement />
-    </ui:VisualElement>
-    <ui:VisualElement name="Level" style="flex-grow: 1; min-height: 5%; max-height: 5%; background-color: rgba(0, 0, 0, 0.52); margin-top: 0; margin-left: auto; margin-right: auto; width: 70%; margin-bottom: 0; border-top-left-radius: 15px; border-top-right-radius: 15px;">
-        <ui:Label text="1" name="Level" style="color: rgb(255, 255, 255); -unity-font-style: bold; -unity-text-align: upper-center;">
-            <Bindings>
-                <ui:DataBinding property="text" data-source-path="stats.level" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" />
-            </Bindings>
-        </ui:Label>
-        <ui:ProgressBar value="22" name="XpBar" class="xpbar">
+    <ui:VisualElement name="Health" style="flex-grow: 1; width: 80%; margin-left: auto; margin-right: auto; height: 5%; margin-bottom: 0; min-height: 5%; max-height: 5%; margin-top: 0; background-color: rgba(0, 0, 0, 0.52); border-top-left-radius: 0; border-top-right-radius: 0; flex-direction: column; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; padding-top: 0; padding-right: 5px; padding-bottom: 10px; padding-left: 5px;">
+        <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+            <ui:ProgressBar value="22" title="Player" name="PlayerHealth" class="healthbar">
+                <Bindings>
+                    <ui:DataBinding property="highValue" data-source-path="stats.maxHealth" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
+                    <ui:DataBinding property="value" data-source-path="stats.health" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
+                    <ui:DataBinding property="title" data-source-path="stats" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Current and Total HP" />
+                </Bindings>
+            </ui:ProgressBar>
+            <ui:Label text="1" name="Level" style="color: rgb(255, 255, 255); -unity-font-style: bold; -unity-text-align: middle-center; flex-grow: 0; flex-basis: auto; width: 50px; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="stats.level" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" />
+                </Bindings>
+            </ui:Label>
+            <ui:ProgressBar value="22" title="Enemy" name="EnemyHealth" class="healthbar">
+                <Bindings>
+                    <ui:DataBinding property="highValue" data-source-path="stats.maxHealth" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
+                    <ui:DataBinding property="value" data-source-path="stats.health" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
+                    <ui:DataBinding property="title" data-source-path="stats" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Current and Total HP" />
+                </Bindings>
+            </ui:ProgressBar>
+        </ui:VisualElement>
+        <ui:ProgressBar value="22" name="XpBar" class="xpbar" style="height: 10px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;">
             <Bindings>
                 <ui:DataBinding property="highValue" data-source-path="neededXp" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" />
                 <ui:DataBinding property="value" data-source-path="currentXp" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" />
             </Bindings>
         </ui:ProgressBar>
     </ui:VisualElement>
-    <ui:VisualElement name="Health" style="flex-grow: 1; width: 80%; margin-left: auto; margin-right: auto; height: 5%; margin-bottom: 0; min-height: 5%; max-height: 5%; margin-top: 0; background-color: rgba(0, 0, 0, 0.52); border-top-left-radius: 15px; border-top-right-radius: 15px; flex-direction: row;">
-        <ui:ProgressBar value="22" title="Player" name="PlayerHealth" class="healthbar">
-            <Bindings>
-                <ui:DataBinding property="highValue" data-source-path="stats.maxHealth" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
-                <ui:DataBinding property="value" data-source-path="stats.health" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
-                <ui:DataBinding property="title" data-source-path="stats" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Current and Total HP" />
-            </Bindings>
-        </ui:ProgressBar>
-        <ui:ProgressBar value="22" title="Enemy" name="EnemyHealth" class="healthbar">
-            <Bindings>
-                <ui:DataBinding property="highValue" data-source-path="stats.maxHealth" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
-                <ui:DataBinding property="value" data-source-path="stats.health" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
-                <ui:DataBinding property="title" data-source-path="stats" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Current and Total HP" />
-            </Bindings>
-        </ui:ProgressBar>
+    <ui:VisualElement name="ActiveEffects" style="flex-grow: 1; min-height: 4%; max-height: 4%; background-color: rgba(0, 0, 0, 0.52); margin-top: 0; margin-left: auto; margin-right: auto; width: 70%; margin-bottom: 0; border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; flex-direction: row;" />
+    <ui:VisualElement name="Abilities" style="flex-grow: 1; margin-top: auto; width: 40%; margin-right: auto; margin-left: auto; height: auto; max-height: 10%; min-height: 13%; background-color: rgba(0, 0, 0, 0.52); border-top-left-radius: 15px; border-top-right-radius: 15px; flex-direction: row; padding-top: 10px; padding-right: 0; padding-bottom: 10px; padding-left: 10px;">
+        <Midevil.UI.Elements.AbilityElement charges="2" icon-texture="project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-6527069497977903076&amp;guid=5cbe1ef74b3c7ff4bb988460ea3c61d2&amp;type=3#console.warnicon@2x" />
+        <Midevil.UI.Elements.AbilityElement charges="2" />
+        <Midevil.UI.Elements.AbilityElement />
+        <Midevil.UI.Elements.AbilityElement />
     </ui:VisualElement>
 </ui:UXML>

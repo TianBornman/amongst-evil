@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Heal On Kill Buff Data
   m_EditorClassIdentifier: Assembly-CSharp::HealOnKillBuffData
   id: healonkill
+  icon: {fileID: 2800000, guid: 312f8149edba4fa45b056ab33e9e63a1, type: 3}
   itemPrefix: Healthy
   duration: -1
   effectId: healing

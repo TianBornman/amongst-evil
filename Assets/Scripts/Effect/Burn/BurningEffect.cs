@@ -8,9 +8,10 @@ namespace Midevil.Effect
 		private float tickInterval = 0.5f;
 		private float tickTimer;
 
-		public BurningEffect(string id, float dps, float duration)
+		public BurningEffect(string effectType, float dps, float duration, Texture2D icon)
 		{
-			this.id = id;
+			this.effectType = effectType;
+			this.icon = icon;
 			this.dps = dps;
 			this.duration = duration;
 		}

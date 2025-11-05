@@ -94,8 +94,8 @@ MonoBehaviour:
         levelHeal: 0
         blockChance: 0
         dodgeChance: 0
-        damage: 0
-        attackSpeed: 0
+        damage: 2
+        attackSpeed: -0.2
         critChance: 0
         critDamage: 0
         range: 0
@@ -103,7 +103,7 @@ MonoBehaviour:
         xpValue: 0
     ability: {fileID: 11400000, guid: 61b22ddd1ab8b3e4290615732a6ef897, type: 2}
     effects: []
-    dropChance: 0.1
+    dropChance: 1
   noEffectWeight: 5
   possibleEffects:
   - weight: 4

@@ -1,10 +1,29 @@
+using System;
+using UnityEngine;
+
 namespace Midevil.Effect
 {
 	public class Effect
 	{
-		public string id;
+		public Guid id;
+		public string effectType;
+		public Texture2D icon;
 		public float duration = -1f;
 		protected float elapsed;
+		public int stackCount;
+
+		public Action<int> OnCountChanged;
+
+		public int StackCount
+		{
+			get => stackCount;
+			set
+			{
+				if (stackCount == value) return;
+				stackCount = value;
+				OnCountChanged?.Invoke(stackCount);
+			}
+		}
 
 		public virtual void OnApply(Character owner) { }
 		public virtual void OnRemove(Character owner) { }

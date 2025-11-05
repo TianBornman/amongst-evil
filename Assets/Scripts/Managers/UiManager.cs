@@ -1,4 +1,5 @@
 using Midevil.Ability;
+using Midevil.Effect;
 using Midevil.Item;
 using Midevil.UI.Elements;
 using Midevil.UpgradeCard;
@@ -110,6 +111,23 @@ public class UiManager : Singleton<UiManager>
 			return;
 
 		abilityElement[index].ClearItem();
+	}
+
+	public void AddEffect(Effect effect)
+	{
+		var effectsElement = gameUi.rootVisualElement.Q<VisualElement>("ActiveEffects");
+
+		var newEffect = new EffectElement();
+		newEffect.name = effect.id.ToString();
+		newEffect.SetEffect(effect);
+		
+		effectsElement.Add(newEffect);
+	}
+
+	public void RemoveEffect(Effect effect)
+	{
+		var effectElement = gameUi.rootVisualElement.Q<VisualElement>("ActiveEffects").Q<EffectElement>(effect.id.ToString());
+		gameUi.rootVisualElement.Q<VisualElement>("ActiveEffects").Remove(effectElement);
 	}
 
 	public void ShowLevelUp()

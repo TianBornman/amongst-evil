@@ -12,7 +12,8 @@ namespace Midevil.Effect
 		{
 			return new HealOnKillEffect
 			{
-				id = id,
+				effectType = effectType,
+				icon = icon,
 				duration = duration,
 				effectId = effectId,
 				healAmount = healAmount

@@ -4,7 +4,8 @@ namespace Midevil.Effect
 {
 	public abstract class EffectData : ScriptableObject
 	{
-		public string id;
+		public string effectType;
+		public Texture2D icon;
 		public string itemPrefix;
 		public float duration = -1;
 

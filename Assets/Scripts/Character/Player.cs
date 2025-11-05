@@ -1,4 +1,5 @@
 using Midevil.Ability;
+using Midevil.Effect;
 using Midevil.Item;
 using System.Collections;
 using System.Collections.Generic;
@@ -129,6 +130,20 @@ public class Player : Character
 		ClearAbility(ability);
 
 		base.RemoveAbility(ability);
+	}
+
+	public override void AddEffect(Effect effect)
+	{
+		base.AddEffect(effect);
+
+		UiManager.Instance.AddEffect(effect);
+	}
+
+	public override void RemoveEffect(Effect effect)
+	{
+		base.RemoveEffect(effect);
+
+		UiManager.Instance.RemoveEffect(effect);
 	}
 
 	// State Methods
