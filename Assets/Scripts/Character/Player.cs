@@ -163,6 +163,8 @@ public class Player : Character
 	{
 		currentXp += amount;
 
+		ResultManager.Instance.results.xpGained += currentXp;
+
 		while (currentXp >= neededXp)
 		{
 			currentXp -= neededXp;

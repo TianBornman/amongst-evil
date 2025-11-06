@@ -1,0 +1,21 @@
+.tab {
+}
+
+.tab #Title {
+    font-size: 30px;
+    -unity-text-align: upper-center;
+    color: rgb(255, 255, 255);
+}
+
+.tab #ContentLine {
+    flex-direction: row;
+    max-height: 35px;
+}
+
+.tab #ContentLine Label {
+    flex-basis: 0;
+    flex-grow: 1;
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+    -unity-text-align: middle-center;
+}

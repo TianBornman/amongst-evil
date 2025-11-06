@@ -102,7 +102,10 @@ public class Character : StateMachine<CharacterState>
 		DropItems();
 
 		if (target is Player player)
+		{
 			player.AddXp(stats.xpValue);
+			ResultManager.Instance.results.kills++;
+		}
 
 		foreach (var buff in killer.effects)
 			if (buff is IOnKill onKill)
@@ -145,6 +148,23 @@ public class Character : StateMachine<CharacterState>
 		foreach (var buff in effects)
 			if (buff is IOnTakeHit onTakeHit)
 				onTakeHit.OnTakeHit(this, target, damage);
+
+		if (target is Player player)
+		{
+			ResultManager.Instance.results.damageDealt += damage;
+
+			if (isCrit)
+				ResultManager.Instance.results.criticalHits++;
+			else
+				ResultManager.Instance.results.hits++;
+		}
+		else
+		{
+			if (damage > 0)
+				ResultManager.Instance.results.damageTaken += damage;
+			else
+				ResultManager.Instance.results.healed += damage;
+		}
 
 		if (stats.health == 0)
 		{

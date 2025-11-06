@@ -84,6 +84,7 @@ searchItemFavorites = [
 	"UpgradeCard, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
 	"Character, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
 	"Midevil.Item.Item, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
+	"Midevil.Model.Result, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
 ]
 savedSearchesSortOrder = 0
 showSavedSearchPanel = true

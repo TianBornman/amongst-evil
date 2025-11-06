@@ -47,6 +47,7 @@ public class UiManager : Singleton<UiManager>
 	public UIDocument statsUi;
 	public UIDocument levelUpUI;
 	public UIDocument itemPickupUI;
+	public UIDocument deathUI;
 
 	// Private Variables
 	private List<ClickableElement> upgradeCards = new();
@@ -183,7 +184,9 @@ public class UiManager : Singleton<UiManager>
 
 	public void ShowDeathScreen()
 	{
-		SceneManager.LoadScene("Sect");
+		deathUI.rootVisualElement.visible = true;
+		deathUI.rootVisualElement.Q<VisualElement>("Results").dataSource = ResultManager.Instance.results;
+		//SceneManager.LoadScene("Sect");
 	}
 
 	// Private Methods
@@ -193,6 +196,7 @@ public class UiManager : Singleton<UiManager>
 		levelUpUI.rootVisualElement.visible = false;
 		upgradeCards = levelUpUI.rootVisualElement.Q<VisualElement>("UpgradeCards").Query<ClickableElement>().ToList();
 		itemPickupUI.rootVisualElement.visible = false;
+		deathUI.rootVisualElement.visible = false;
 	}
 
 	private void MenuToggle()
