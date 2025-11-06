@@ -186,7 +186,6 @@ public class UiManager : Singleton<UiManager>
 	{
 		deathUI.rootVisualElement.visible = true;
 		deathUI.rootVisualElement.Q<VisualElement>("Results").dataSource = ResultManager.Instance.results;
-		//SceneManager.LoadScene("Sect");
 	}
 
 	// Private Methods
@@ -197,6 +196,7 @@ public class UiManager : Singleton<UiManager>
 		upgradeCards = levelUpUI.rootVisualElement.Q<VisualElement>("UpgradeCards").Query<ClickableElement>().ToList();
 		itemPickupUI.rootVisualElement.visible = false;
 		deathUI.rootVisualElement.visible = false;
+		deathUI.rootVisualElement.Q<Button>("Continue").clicked += () => SceneManager.LoadScene("Sect");
 	}
 
 	private void MenuToggle()

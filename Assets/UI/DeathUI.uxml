@@ -1,67 +1,70 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/DeathUI.uss?fileID=7433441132597879392&amp;guid=245a5b4d5518de048ad06a3aadd4e4cc&amp;type=3#DeathUI" />
-    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.52); max-height: 70%; width: 80%; margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; flex-direction: row;">
-        <ui:VisualElement name="Results" class="tab" style="flex-grow: 1; flex-basis: 0;">
-            <ui:Label text="Results" name="Title" />
-            <ui:VisualElement name="ContentLine" style="flex-grow: 1;">
-                <ui:Label text="XP Gained:" />
-                <ui:Label text="Label">
-                    <Bindings>
-                        <ui:DataBinding property="text" data-source-path="xpGained" data-source-type="Midevil.Model.Result, Assembly-CSharp" binding-mode="ToTarget" />
-                    </Bindings>
-                </ui:Label>
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.52); max-height: 70%; width: 80%; margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; flex-direction: column;">
+        <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+            <ui:VisualElement name="Results" class="tab" style="flex-grow: 1; flex-basis: 0;">
+                <ui:Label text="Results" name="Title" />
+                <ui:VisualElement name="ContentLine" style="flex-grow: 1;">
+                    <ui:Label text="XP Gained:" />
+                    <ui:Label text="Label">
+                        <Bindings>
+                            <ui:DataBinding property="text" data-source-path="xpGained" data-source-type="Midevil.Model.Result, Assembly-CSharp" binding-mode="ToTarget" />
+                        </Bindings>
+                    </ui:Label>
+                </ui:VisualElement>
+                <ui:VisualElement name="ContentLine" style="flex-grow: 1;">
+                    <ui:Label text="Kills:" />
+                    <ui:Label text="Label">
+                        <Bindings>
+                            <ui:DataBinding property="text" data-source-path="kills" data-source-type="Midevil.Model.Result, Assembly-CSharp" binding-mode="ToTarget" />
+                        </Bindings>
+                    </ui:Label>
+                </ui:VisualElement>
+                <ui:VisualElement name="ContentLine" style="flex-grow: 1;">
+                    <ui:Label text="Damage Dealt:" />
+                    <ui:Label text="Label">
+                        <Bindings>
+                            <ui:DataBinding property="text" data-source-path="damageDealt" data-source-type="Midevil.Model.Result, Assembly-CSharp" binding-mode="ToTarget" />
+                        </Bindings>
+                    </ui:Label>
+                </ui:VisualElement>
+                <ui:VisualElement name="ContentLine" style="flex-grow: 1;">
+                    <ui:Label text="Damage Taken:" />
+                    <ui:Label text="Label">
+                        <Bindings>
+                            <ui:DataBinding property="text" data-source-path="damageTaken" data-source-type="Midevil.Model.Result, Assembly-CSharp" binding-mode="ToTarget" />
+                        </Bindings>
+                    </ui:Label>
+                </ui:VisualElement>
+                <ui:VisualElement name="ContentLine" style="flex-grow: 1;">
+                    <ui:Label text="Healed:" />
+                    <ui:Label text="Label">
+                        <Bindings>
+                            <ui:DataBinding property="text" data-source-path="healed" data-source-type="Midevil.Model.Result, Assembly-CSharp" binding-mode="ToTarget" />
+                        </Bindings>
+                    </ui:Label>
+                </ui:VisualElement>
+                <ui:VisualElement name="ContentLine" style="flex-grow: 1;">
+                    <ui:Label text="Hits:" />
+                    <ui:Label text="Label">
+                        <Bindings>
+                            <ui:DataBinding property="text" data-source-path="hits" data-source-type="Midevil.Model.Result, Assembly-CSharp" binding-mode="ToTarget" />
+                        </Bindings>
+                    </ui:Label>
+                </ui:VisualElement>
+                <ui:VisualElement name="ContentLine" style="flex-grow: 1;">
+                    <ui:Label text="Critical Hits:" />
+                    <ui:Label text="Label">
+                        <Bindings>
+                            <ui:DataBinding property="text" data-source-path="criticalHits" data-source-type="Midevil.Model.Result, Assembly-CSharp" binding-mode="ToTarget" />
+                        </Bindings>
+                    </ui:Label>
+                </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="ContentLine" style="flex-grow: 1;">
-                <ui:Label text="Kills:" />
-                <ui:Label text="Label">
-                    <Bindings>
-                        <ui:DataBinding property="text" data-source-path="kills" data-source-type="Midevil.Model.Result, Assembly-CSharp" binding-mode="ToTarget" />
-                    </Bindings>
-                </ui:Label>
-            </ui:VisualElement>
-            <ui:VisualElement name="ContentLine" style="flex-grow: 1;">
-                <ui:Label text="Damage Dealt:" />
-                <ui:Label text="Label">
-                    <Bindings>
-                        <ui:DataBinding property="text" data-source-path="damageDealt" data-source-type="Midevil.Model.Result, Assembly-CSharp" binding-mode="ToTarget" />
-                    </Bindings>
-                </ui:Label>
-            </ui:VisualElement>
-            <ui:VisualElement name="ContentLine" style="flex-grow: 1;">
-                <ui:Label text="Damage Taken:" />
-                <ui:Label text="Label">
-                    <Bindings>
-                        <ui:DataBinding property="text" data-source-path="damageTaken" data-source-type="Midevil.Model.Result, Assembly-CSharp" binding-mode="ToTarget" />
-                    </Bindings>
-                </ui:Label>
-            </ui:VisualElement>
-            <ui:VisualElement name="ContentLine" style="flex-grow: 1;">
-                <ui:Label text="Healed:" />
-                <ui:Label text="Label">
-                    <Bindings>
-                        <ui:DataBinding property="text" data-source-path="healed" data-source-type="Midevil.Model.Result, Assembly-CSharp" binding-mode="ToTarget" />
-                    </Bindings>
-                </ui:Label>
-            </ui:VisualElement>
-            <ui:VisualElement name="ContentLine" style="flex-grow: 1;">
-                <ui:Label text="Hits:" />
-                <ui:Label text="Label">
-                    <Bindings>
-                        <ui:DataBinding property="text" data-source-path="hits" data-source-type="Midevil.Model.Result, Assembly-CSharp" binding-mode="ToTarget" />
-                    </Bindings>
-                </ui:Label>
-            </ui:VisualElement>
-            <ui:VisualElement name="ContentLine" style="flex-grow: 1;">
-                <ui:Label text="Critical Hits:" />
-                <ui:Label text="Label">
-                    <Bindings>
-                        <ui:DataBinding property="text" data-source-path="criticalHits" data-source-type="Midevil.Model.Result, Assembly-CSharp" binding-mode="ToTarget" />
-                    </Bindings>
-                </ui:Label>
+            <ui:VisualElement name="PlayerStats" class="tab" style="flex-grow: 1; flex-basis: 0;">
+                <ui:Label text="Stats" name="Title" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="PlayerStats" class="tab" style="flex-grow: 1; flex-basis: 0;">
-            <ui:Label text="Stats" name="Title" />
-        </ui:VisualElement>
+        <ui:Button text="Continue" name="Continue" style="margin-top: 15px; margin-right: auto; margin-bottom: 15px; margin-left: auto; width: 20%; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;" />
     </ui:VisualElement>
 </ui:UXML>
