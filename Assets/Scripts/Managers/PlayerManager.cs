@@ -13,7 +13,10 @@ public class PlayerManager : Singleton<PlayerManager>
 	public void AddItem(ItemStats item)
 	{
 		items.Add(item);
-		player.AddBuff(item.buff);
+
+		if (item.type == ItemType.Relic)
+			player.AddBuff(item.buff);
+
 		UiManager.Instance.AddItem(item);
 	}
 

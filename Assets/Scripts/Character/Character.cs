@@ -1,6 +1,7 @@
 using Midevil.Ability;
 using Midevil.Effect;
 using Midevil.Item;
+using Guid = System.Guid;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -262,6 +263,7 @@ public class Character : StateMachine<CharacterState>
 
 	public virtual void EquipItem(ItemStats item)
 	{
+		item.buff.id = item.id;
 		AddBuff(item.buff);
 
 		foreach (var effectData in item.effects)
@@ -293,7 +295,8 @@ public class Character : StateMachine<CharacterState>
 
 	public virtual void UnequipItem(ItemStats item)
 	{
-		RemoveBuff(item.buff);
+		var buff = buffs.Where(buff => buff.id == item.id).FirstOrDefault();
+		RemoveBuff(buff);
 
 		List<Effect> effectsToRemove = new();
 
@@ -326,7 +329,7 @@ public class Character : StateMachine<CharacterState>
 	// Private Methods
 	private void Attack()
 	{
-		if (!CheckValidTarget() && IsAlive) return;
+		if (!CheckValidTarget() && State == CharacterState.Attacking) return;
 
 		foreach (var buff in effects)
 			if (buff is IOnHit onHit)
