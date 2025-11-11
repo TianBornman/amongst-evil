@@ -5,8 +5,6 @@ using Midevil.UI.Elements;
 using Midevil.UpgradeCard;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEditor.Playables;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -45,9 +43,9 @@ public class UiManager : Singleton<UiManager>
 	[Header("References")]
 	public UIDocument gameUi;
 	public UIDocument statsUi;
-	public UIDocument levelUpUI;
-	public UIDocument itemPickupUI;
-	public UIDocument deathUI;
+	public UIDocument levelUpUi;
+	public UIDocument itemPickupUi;
+	public UIDocument resultsUi;
 
 	// Private Variables
 	private List<ClickableElement> upgradeCards = new();
@@ -61,8 +59,8 @@ public class UiManager : Singleton<UiManager>
 		gameUi.rootVisualElement.Q<ProgressBar>("XpBar").dataSource = player;
 
 		statsUi.rootVisualElement.Q<VisualElement>("Stats").dataSource = player;
-	}	
-	
+	}
+
 	public void BindEnemyStats(Character character)
 	{
 		gameUi.rootVisualElement.Q<ProgressBar>("EnemyHealth").dataSource = character;
@@ -79,18 +77,18 @@ public class UiManager : Singleton<UiManager>
 
 	public void BindItemPickUp(Item item)
 	{
-		var itemElement = itemPickupUI.rootVisualElement.Q<VisualElement>("ItemCard");
+		var itemElement = itemPickupUi.rootVisualElement.Q<VisualElement>("ItemCard");
 		itemElement.dataSource = item;
 
-		var pickUpButton = itemPickupUI.rootVisualElement.Q<ClickableElement>("PickUp");
-		pickUpButton.SetClickHandler(evt => 
+		var pickUpButton = itemPickupUi.rootVisualElement.Q<ClickableElement>("PickUp");
+		pickUpButton.SetClickHandler(evt =>
 		{
 			PlayerManager.Instance.AddItem(item.stats);
 			Destroy(item.gameObject);
 			HideItemPickUp();
 		});
 
-		var leaveButton = itemPickupUI.rootVisualElement.Q<ClickableElement>("Leave");
+		var leaveButton = itemPickupUi.rootVisualElement.Q<ClickableElement>("Leave");
 		leaveButton.SetClickHandler(evt => HideItemPickUp());
 	}
 
@@ -121,7 +119,7 @@ public class UiManager : Singleton<UiManager>
 		var newEffect = new EffectElement();
 		newEffect.name = effect.id.ToString();
 		newEffect.SetEffect(effect);
-		
+
 		effectsElement.Add(newEffect);
 	}
 
@@ -133,25 +131,25 @@ public class UiManager : Singleton<UiManager>
 
 	public void ShowLevelUp()
 	{
-		levelUpUI.rootVisualElement.visible = true;
+		levelUpUi.rootVisualElement.visible = true;
 		Pause();
 	}
 
 	public void HideLevelUp()
 	{
-		levelUpUI.rootVisualElement.visible = false;
+		levelUpUi.rootVisualElement.visible = false;
 		Resume();
 	}
 
 	public void ShowItemPickUp()
 	{
-		itemPickupUI.rootVisualElement.visible = true;
+		itemPickupUi.rootVisualElement.visible = true;
 		Pause();
 	}
 
 	public void HideItemPickUp()
 	{
-		itemPickupUI.rootVisualElement.visible = false;
+		itemPickupUi.rootVisualElement.visible = false;
 		Resume();
 	}
 
@@ -182,21 +180,37 @@ public class UiManager : Singleton<UiManager>
 		equipSlot?.ClearItem();
 	}
 
+	public void ShowResults()
+	{
+		resultsUi.rootVisualElement.visible = true;
+	}
+
 	public void ShowDeathScreen()
 	{
-		deathUI.rootVisualElement.visible = true;
-		deathUI.rootVisualElement.Q<VisualElement>("Results").dataSource = ResultManager.Instance.results;
+		ShowResults();
+
+		resultsUi.rootVisualElement.Q<Button>("Continue").visible = true;
+		resultsUi.rootVisualElement.Q<Button>("Flee").visible = false;
+		resultsUi.rootVisualElement.Q<Button>("FightOn").visible = false;
 	}
 
 	// Private Methods
 	private void Start()
 	{
 		statsUi.rootVisualElement.visible = false;
-		levelUpUI.rootVisualElement.visible = false;
-		upgradeCards = levelUpUI.rootVisualElement.Q<VisualElement>("UpgradeCards").Query<ClickableElement>().ToList();
-		itemPickupUI.rootVisualElement.visible = false;
-		deathUI.rootVisualElement.visible = false;
-		deathUI.rootVisualElement.Q<Button>("Continue").clicked += () => SceneManager.LoadScene("Sect");
+		levelUpUi.rootVisualElement.visible = false;
+		upgradeCards = levelUpUi.rootVisualElement.Q<VisualElement>("UpgradeCards").Query<ClickableElement>().ToList();
+		itemPickupUi.rootVisualElement.visible = false;
+
+		// Results
+		resultsUi.rootVisualElement.visible = false;
+		resultsUi.rootVisualElement.Q<VisualElement>("Results").dataSource = ResultManager.Instance.results;
+		resultsUi.rootVisualElement.Q<Button>("Flee").clicked += Flee;
+		resultsUi.rootVisualElement.Q<Button>("FightOn").clicked += SpawnWave;
+
+		var continueButton = resultsUi.rootVisualElement.Q<Button>("Continue");
+		continueButton.clicked += Flee;
+		continueButton.visible = false;
 	}
 
 	private void MenuToggle()
@@ -221,5 +235,16 @@ public class UiManager : Singleton<UiManager>
 	{
 		Time.timeScale = 1;
 		canToggleMenu = true;
+	}
+
+	private void Flee()
+	{
+		SceneManager.LoadScene("Sect");
+	}
+
+	private void SpawnWave()
+	{
+		resultsUi.rootVisualElement.visible = false;
+		SpawnManager.Instance.SpawnWave();
 	}
 }

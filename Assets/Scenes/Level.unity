@@ -966,9 +966,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UiManager
   gameUi: {fileID: 1427888952}
   statsUi: {fileID: 118663543}
-  levelUpUI: {fileID: 1071038453}
-  itemPickupUI: {fileID: 1300904447}
-  deathUI: {fileID: 2065815354}
+  levelUpUi: {fileID: 1071038453}
+  itemPickupUi: {fileID: 1300904447}
+  resultsUi: {fileID: 2065815354}
 --- !u!4 &1433965212
 Transform:
   m_ObjectHideFlags: 0
@@ -1086,6 +1086,7 @@ MonoBehaviour:
     damageDealt: 0
     damageTaken: 0
     healed: 0
+    hits: 0
     criticalHits: 0
     abilitiesUsed: 0
 --- !u!1 &2065815353
@@ -1099,7 +1100,7 @@ GameObject:
   - component: {fileID: 2065815355}
   - component: {fileID: 2065815354}
   m_Layer: 0
-  m_Name: Death UI
+  m_Name: Results UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

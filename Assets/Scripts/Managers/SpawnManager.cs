@@ -12,7 +12,7 @@ public class SpawnManager : Singleton<SpawnManager>
 	public float width;
 	public float length;
 	public float minDistance;
-	public bool spawnBoss = false;
+	public bool bossSpawned = false;
 
 	// Public Variables
 	[HideInInspector] public List<Character> spawnedCharacters = new();
@@ -24,21 +24,23 @@ public class SpawnManager : Singleton<SpawnManager>
 
 		if (spawnedCharacters.Count <= 0)
 		{
-			if (spawnBoss)
-				SpawnBoss();
+			if (bossSpawned)
+				UiManager.Instance.ShowResults();
 			else
-				SpawnCharacters();
+				SpawnBoss();
 		}
 	}
 
 	// Private Methods
 	private void Start()
 	{
-		SpawnCharacters();
+		SpawnWave();
 	}
 
-	private void SpawnCharacters() // Uses Rejection Sampling to avoid clustering
+	public void SpawnWave() // Uses Rejection Sampling to avoid clustering
 	{
+		bossSpawned = false;
+
 		List<Vector3> positions = new List<Vector3>();
 		int randomCount = Random.Range(8, 12);
 
@@ -65,8 +67,6 @@ public class SpawnManager : Singleton<SpawnManager>
 			var characterPrefab = characters[Random.Range(0, characters.Count)];
 			spawnedCharacters.Add(Instantiate(characterPrefab, newPos, Quaternion.identity));
 		}
-
-		spawnBoss = true;
 	}
 
 	private bool TooClose(Vector3 pos, List<Vector3> existing)
@@ -84,6 +84,6 @@ public class SpawnManager : Singleton<SpawnManager>
 		var bossPrefab = bossCharacters[Random.Range(0, bossCharacters.Count)];
 		spawnedCharacters.Add(Instantiate(bossPrefab, Vector3.zero, Quaternion.identity));
 
-		spawnBoss = false;
+		bossSpawned = true;
 	}
 }
