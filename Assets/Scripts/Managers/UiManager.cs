@@ -24,12 +24,21 @@ public class UiManager : Singleton<UiManager>
 
 		inputActions.Enable();
 		menuToggleAction.performed += OnMenuToggle;
+
+		SceneManager.sceneLoaded += OnSceneLoaded;
 	}
 
-	private void OnDisable()
+	protected override void OnDisable()
 	{
+		if (Instance != this)
+			return;
+
+		base.OnDisable();
+
 		menuToggleAction.performed -= OnMenuToggle;
 		inputActions.Disable();
+
+		SceneManager.sceneLoaded -= OnSceneLoaded;
 	}
 
 	private void OnMenuToggle(InputAction.CallbackContext context)
@@ -41,15 +50,51 @@ public class UiManager : Singleton<UiManager>
 
 	// Editor Variables
 	[Header("References")]
-	public UIDocument gameUi;
-	public UIDocument statsUi;
-	public UIDocument levelUpUi;
-	public UIDocument itemPickupUi;
-	public UIDocument resultsUi;
+	public UIDocument gameUiPrefab;
+	public UIDocument statsUiPrefab;
+	public UIDocument levelUpUiPrefab;
+	public UIDocument itemPickupUiPrefab;
+	public UIDocument resultsUiPrefab;
+
+	[HideInInspector] public UIDocument gameUi;
+	[HideInInspector] public UIDocument statsUi;
+	[HideInInspector] public UIDocument levelUpUi;
+	[HideInInspector] public UIDocument itemPickupUi;
+	[HideInInspector] public UIDocument resultsUi;
 
 	// Private Variables
 	private List<ClickableElement> upgradeCards = new();
 	private bool canToggleMenu = true;
+
+	// Override Methods
+	private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+	{
+		if (scene.buildIndex == 0)
+			return;
+
+		// Spawn UIs
+		gameUi = Instantiate(gameUiPrefab).GetComponent<UIDocument>();
+		statsUi = Instantiate(statsUiPrefab).GetComponent<UIDocument>();
+		levelUpUi = Instantiate(levelUpUiPrefab).GetComponent<UIDocument>();
+		itemPickupUi = Instantiate(itemPickupUiPrefab).GetComponent<UIDocument>();
+		resultsUi = Instantiate(resultsUiPrefab).GetComponent<UIDocument>();
+
+		// Config
+		statsUi.rootVisualElement.visible = false;
+		levelUpUi.rootVisualElement.visible = false;
+		upgradeCards = levelUpUi.rootVisualElement.Q<VisualElement>("UpgradeCards").Query<ClickableElement>().ToList();
+		itemPickupUi.rootVisualElement.visible = false;
+
+		// Results
+		resultsUi.rootVisualElement.visible = false;
+		resultsUi.rootVisualElement.Q<VisualElement>("Results").dataSource = ResultManager.Instance.results;
+		resultsUi.rootVisualElement.Q<Button>("Flee").clicked += Flee;
+		resultsUi.rootVisualElement.Q<Button>("FightOn").clicked += SpawnWave;
+
+		var continueButton = resultsUi.rootVisualElement.Q<Button>("Continue");
+		continueButton.clicked += Flee;
+		continueButton.visible = false;
+	}
 
 	// Public Methods
 	public void BindPlayerStats(Player player)
@@ -195,24 +240,6 @@ public class UiManager : Singleton<UiManager>
 	}
 
 	// Private Methods
-	private void Start()
-	{
-		statsUi.rootVisualElement.visible = false;
-		levelUpUi.rootVisualElement.visible = false;
-		upgradeCards = levelUpUi.rootVisualElement.Q<VisualElement>("UpgradeCards").Query<ClickableElement>().ToList();
-		itemPickupUi.rootVisualElement.visible = false;
-
-		// Results
-		resultsUi.rootVisualElement.visible = false;
-		resultsUi.rootVisualElement.Q<VisualElement>("Results").dataSource = ResultManager.Instance.results;
-		resultsUi.rootVisualElement.Q<Button>("Flee").clicked += Flee;
-		resultsUi.rootVisualElement.Q<Button>("FightOn").clicked += SpawnWave;
-
-		var continueButton = resultsUi.rootVisualElement.Q<Button>("Continue");
-		continueButton.clicked += Flee;
-		continueButton.visible = false;
-	}
-
 	private void MenuToggle()
 	{
 		if (!canToggleMenu) return;

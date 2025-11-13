@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Unity.AI.Navigation;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SpawnManager : Singleton<SpawnManager>
 {
@@ -22,14 +23,6 @@ public class SpawnManager : Singleton<SpawnManager>
 	// Private Variables
 	private MapSegment currentSegment;
 
-	// Override Methods
-	protected override void Awake()
-	{
-		base.Awake();
-
-		currentSegment = FindFirstObjectByType<MapSegment>();
-	}
-
 	// Public Methods
 	public void RemoveCharacter(Character character)
 	{
@@ -48,8 +41,29 @@ public class SpawnManager : Singleton<SpawnManager>
 	}
 
 	// Private Methods
-	private void Start()
+	private void OnEnable()
 	{
+		SceneManager.sceneLoaded += OnSceneLoaded;
+	}
+
+	protected override void OnDisable()
+	{
+		if (Instance != this)
+			return;
+
+		base.OnDisable();
+
+		SceneManager.sceneLoaded -= OnSceneLoaded;
+	}
+
+	private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+	{
+		if (scene.buildIndex == 0)
+			return;
+
+		currentSegment = FindFirstObjectByType<MapSegment>();
+
+		spawnedCharacters.Clear();
 		SpawnWave();
 	}
 

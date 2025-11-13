@@ -6,7 +6,8 @@ public class DamageNumberManager : Singleton<DamageNumberManager>
 {
 	// Editor Variables
 	[Header("References")]
-	public UIDocument uiDocument;
+	[HideInInspector] public UIDocument uiDocument;
+	public UIDocument uiDocumentPrefab;
 	public VisualTreeAsset damageNumberTemplate;
 	public int initialPoolSize = 20;
 
@@ -23,6 +24,8 @@ public class DamageNumberManager : Singleton<DamageNumberManager>
 		base.Awake();
 
 		mainCamera = Camera.main;
+
+		uiDocument = Instantiate(uiDocumentPrefab).GetComponent<UIDocument>();
 		root = uiDocument.rootVisualElement;
 
 		for (int i = 0; i < initialPoolSize; i++)
