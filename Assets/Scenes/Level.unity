@@ -283,7 +283,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
-  m_LocalPosition: {x: 0, y: 6, z: -10}
+  m_LocalPosition: {x: 0, y: 4, z: -5.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -603,7 +603,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnManager
   characters:
-  - {fileID: 8996435584707828427, guid: e71732e6d0d75144fbbf6cacc32c9df6, type: 3}
   - {fileID: 8996435584707828427, guid: a99288e9fee881946a6b1b924b5c4695, type: 3}
   bossCharacters:
   - {fileID: 8996435584707828427, guid: a3912b4bd6fe08d4891d3a18143833a3, type: 3}
@@ -656,7 +655,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RefManager
   unarmed: {fileID: 22100000, guid: e8d243891ff574e41a9a75d2e3a32bd7, type: 2}
-  sword1H: {fileID: 22100000, guid: b854024ce9bd3084ea8f9729bcae48b4, type: 2}
+  sword1H: {fileID: 22100000, guid: 2dae7f461ac6c8a45ad1630c5f4b2485, type: 2}
 --- !u!114 &1433965218
 MonoBehaviour:
   m_ObjectHideFlags: 0
