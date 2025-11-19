@@ -604,6 +604,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpawnManager
   characters:
   - {fileID: 8996435584707828427, guid: e71732e6d0d75144fbbf6cacc32c9df6, type: 3}
+  - {fileID: 8996435584707828427, guid: a99288e9fee881946a6b1b924b5c4695, type: 3}
   bossCharacters:
   - {fileID: 8996435584707828427, guid: a3912b4bd6fe08d4891d3a18143833a3, type: 3}
   segments:
