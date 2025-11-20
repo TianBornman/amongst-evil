@@ -2,7 +2,11 @@ namespace Midevil.Item
 {
 	public enum ItemType
 	{
-		Head,
+		Helmet,
+		Armour,
+		Gloves,
+		Leggings,
+		Boots,
 		Weapon,
 		Offhand,
 		Relic

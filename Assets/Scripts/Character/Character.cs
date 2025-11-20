@@ -19,6 +19,11 @@ public class Character : StateMachine<CharacterState>
 
 	[Header("References")]
 	public Transform weaponPos;
+	public SkinnedMeshRenderer helmetSkin;
+	public SkinnedMeshRenderer armourSkin;
+	public SkinnedMeshRenderer glovesSkin;
+	public SkinnedMeshRenderer leggingsSKin;
+	public SkinnedMeshRenderer bootsSkin;
 
 	// Protected Variables
 	protected Character target;
@@ -273,14 +278,24 @@ public class Character : StateMachine<CharacterState>
 			AddEffect(effect);
 		}
 
-		var ability = item.ability.CreateRuntime(this);
-		ability.id = item.id;
+		if (item.ability != null)
+		{
+			var ability = item.ability.CreateRuntime(this);
+			ability.id = item.id;
 
-		AddAbility(ability);
+			AddAbility(ability);
+		}
 
 		switch (item.type)
 		{
-			case ItemType.Head:
+			case ItemType.Helmet:
+				break;
+			case ItemType.Armour:
+				var skinnedRenderer = item.visual.GetComponentInChildren<SkinnedMeshRenderer>();
+				armourSkin.sharedMesh = skinnedRenderer.sharedMesh;
+				armourSkin.materials = skinnedRenderer.sharedMaterials;
+
+				armourSkin.gameObject.SetActive(true);
 				break;
 			case ItemType.Weapon:
 				Instantiate(item.visual, weaponPos);
@@ -313,7 +328,10 @@ public class Character : StateMachine<CharacterState>
 
 		switch (item.type)
 		{
-			case ItemType.Head:
+			case ItemType.Helmet:
+				break;
+			case ItemType.Armour:
+				armourSkin.gameObject.SetActive(false);
 				break;
 			case ItemType.Weapon:
 				RemoveChildren(weaponPos);

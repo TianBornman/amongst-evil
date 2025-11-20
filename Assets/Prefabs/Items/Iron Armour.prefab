@@ -29,7 +29,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 557561634396816974}
+  - {fileID: 9106274709155961392}
   m_Father: {fileID: 8087722210665149801}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7682369121278780191
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 892726615595024836}
   - component: {fileID: 2300073132557222906}
   m_Layer: 0
-  m_Name: Sword
+  m_Name: Iron Armour
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -80,36 +80,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
   stats:
-    name: Rusty Sword
-    description: And old and rusty sword, better than fists i suppose
-    type: 5
+    name: Iron Armour
+    description: Good ol trusty iron armour
+    type: 1
     icon: {fileID: 2800000, guid: 4befd49e264c60043bdefcdba889e9fb, type: 3}
-    visual: {fileID: 919132149155446097, guid: 50719c12b0e062a48aabcf0f23c01db6, type: 3}
-    animationType: 2
+    visual: {fileID: 919132149155446097, guid: de3d71627f962a745b2ac481357295b3, type: 3}
+    animationType: 0
     buff:
       stats:
         level: 0
-        health: 0
+        health: 10
         maxHealth: 0
         levelHeal: 0
         blockChance: 0
         dodgeChance: 0
-        damage: 2
-        attackSpeed: -0.2
+        damage: 0
+        attackSpeed: 0
         critChance: 0
         critDamage: 0
         range: 0
         moveSpeed: 0
         xpValue: 0
-    ability: {fileID: 11400000, guid: 61b22ddd1ab8b3e4290615732a6ef897, type: 2}
+    ability: {fileID: 0}
     effects: []
-    dropChance: 0.1
-  noEffectWeight: 5
-  possibleEffects:
-  - weight: 4
-    effect: {fileID: 11400000, guid: de98a16f40fc7214ab6b85b17006fd90, type: 2}
-  - weight: 1
-    effect: {fileID: 11400000, guid: 99944df92e5e41540a96e7eb4a97675d, type: 2}
+    dropChance: 1
+  noEffectWeight: 0
+  possibleEffects: []
 --- !u!65 &892726615595024836
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -129,8 +125,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.5, y: 1.8, z: 0.2}
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Size: {x: 0.5, y: 0.7758776, z: 0.2887967}
+  m_Center: {x: 0, y: 0.0708161, z: -0.0029598922}
 --- !u!54 &2300073132557222906
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -158,7 +154,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!1001 &15307569596113317
+--- !u!1001 &8778999897083887067
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -166,57 +162,57 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9053581328317596734}
     m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 50719c12b0e062a48aabcf0f23c01db6, type: 3}
+    - target: {fileID: -8679921383154817045, guid: de3d71627f962a745b2ac481357295b3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 50719c12b0e062a48aabcf0f23c01db6, type: 3}
+    - target: {fileID: -8679921383154817045, guid: de3d71627f962a745b2ac481357295b3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1.364
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 50719c12b0e062a48aabcf0f23c01db6, type: 3}
+    - target: {fileID: -8679921383154817045, guid: de3d71627f962a745b2ac481357295b3, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 50719c12b0e062a48aabcf0f23c01db6, type: 3}
+    - target: {fileID: -8679921383154817045, guid: de3d71627f962a745b2ac481357295b3, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 50719c12b0e062a48aabcf0f23c01db6, type: 3}
+    - target: {fileID: -8679921383154817045, guid: de3d71627f962a745b2ac481357295b3, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.000000021855694
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 50719c12b0e062a48aabcf0f23c01db6, type: 3}
+    - target: {fileID: -8679921383154817045, guid: de3d71627f962a745b2ac481357295b3, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 50719c12b0e062a48aabcf0f23c01db6, type: 3}
+    - target: {fileID: -8679921383154817045, guid: de3d71627f962a745b2ac481357295b3, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 50719c12b0e062a48aabcf0f23c01db6, type: 3}
+    - target: {fileID: -8679921383154817045, guid: de3d71627f962a745b2ac481357295b3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 50719c12b0e062a48aabcf0f23c01db6, type: 3}
+    - target: {fileID: -8679921383154817045, guid: de3d71627f962a745b2ac481357295b3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 50719c12b0e062a48aabcf0f23c01db6, type: 3}
+    - target: {fileID: -8679921383154817045, guid: de3d71627f962a745b2ac481357295b3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 50719c12b0e062a48aabcf0f23c01db6, type: 3}
+    - target: {fileID: 919132149155446097, guid: de3d71627f962a745b2ac481357295b3, type: 3}
       propertyPath: m_Name
-      value: sword_1handed
+      value: Iron Armour
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 50719c12b0e062a48aabcf0f23c01db6, type: 3}
---- !u!4 &557561634396816974 stripped
+  m_SourcePrefab: {fileID: 100100000, guid: de3d71627f962a745b2ac481357295b3, type: 3}
+--- !u!4 &9106274709155961392 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 50719c12b0e062a48aabcf0f23c01db6, type: 3}
-  m_PrefabInstance: {fileID: 15307569596113317}
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: de3d71627f962a745b2ac481357295b3, type: 3}
+  m_PrefabInstance: {fileID: 8778999897083887067}
   m_PrefabAsset: {fileID: 0}

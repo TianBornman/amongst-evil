@@ -82,7 +82,7 @@ MonoBehaviour:
   stats:
     name: Beer Mug
     description: Make you forget the lasses and troubles
-    type: 3
+    type: 7
     icon: {fileID: 2800000, guid: c05bdc473d4da0449bf004ae12820884, type: 3}
     visual: {fileID: 919132149155446097, guid: dda0c529107853547bfbdbcaba03290c, type: 3}
     animationType: 0
@@ -92,6 +92,8 @@ MonoBehaviour:
         health: 0
         maxHealth: 0
         levelHeal: 0
+        blockChance: 0
+        dodgeChance: 0
         damage: 2
         attackSpeed: -0.5
         critChance: 0.2
@@ -99,7 +101,11 @@ MonoBehaviour:
         range: 0
         moveSpeed: 0
         xpValue: 0
+    ability: {fileID: 0}
+    effects: []
     dropChance: 0.1
+  noEffectWeight: 0
+  possibleEffects: []
 --- !u!65 &892726615595024836
 BoxCollider:
   m_ObjectHideFlags: 0
