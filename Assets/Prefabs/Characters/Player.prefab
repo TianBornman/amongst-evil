@@ -139,13 +139,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2547646392640143150}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.07282347, y: 0.008376998, z: -0.71054405, w: 0.69982415}
-  m_LocalPosition: {x: 0.000047529087, y: -0.00068253855, z: -0.000074126205}
-  m_LocalScale: {x: 0.010000014, y: 0.009999997, z: 0.010000005}
+  m_LocalRotation: {x: -0.14082338, y: 0.009453345, z: -0.7327711, w: 0.6656772}
+  m_LocalPosition: {x: -0.00007, y: 0.00092, z: -0.00017}
+  m_LocalScale: {x: 0.010000011, y: 0.009999995, z: 0.010000006}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4307980257704593318}
-  m_LocalEulerAnglesHint: {x: 6.536, y: -5.3, z: -91.174}
+  m_Father: {fileID: 8542860517829479656}
+  m_LocalEulerAnglesHint: {x: 6.383, y: -11.179, z: -91.836}
 --- !u!1 &4246293401596104162
 GameObject:
   m_ObjectHideFlags: 0
@@ -716,7 +716,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 6589370798497656635, guid: 21b75deedcc45814c965b58edce0115b, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 1600315592521786485, guid: 21b75deedcc45814c965b58edce0115b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1224518398597499159}
     m_AddedComponents:
@@ -730,11 +730,6 @@ PrefabInstance:
 --- !u!137 &2424530802477093003 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 4692338525906663446, guid: 21b75deedcc45814c965b58edce0115b, type: 3}
-  m_PrefabInstance: {fileID: 6970201048252688541}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &4307980257704593318 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6589370798497656635, guid: 21b75deedcc45814c965b58edce0115b, type: 3}
   m_PrefabInstance: {fileID: 6970201048252688541}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &7435893307958710134 stripped
@@ -781,3 +776,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e4216c826c527147a88a8691a3be4d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterAnimAPI
+--- !u!4 &8542860517829479656 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1600315592521786485, guid: 21b75deedcc45814c965b58edce0115b, type: 3}
+  m_PrefabInstance: {fileID: 6970201048252688541}
+  m_PrefabAsset: {fileID: 0}
