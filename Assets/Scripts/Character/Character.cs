@@ -205,7 +205,7 @@ public class Character : StateMachine<CharacterState>
 
 	protected virtual void Start()
 	{
-		if (PlayerManager.Instance.player != null)
+		if (PlayerManager.Instance != null && PlayerManager.Instance.player != null)
 			stats.level = PlayerManager.Instance.player.stats.level;
 		else
 			stats.level = 1;

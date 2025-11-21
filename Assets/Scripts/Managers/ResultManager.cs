@@ -1,4 +1,4 @@
-using Midevil.Model;
+using Midevil.Models;
 
 public class ResultManager : Singleton<ResultManager>
 {

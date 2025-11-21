@@ -260,7 +260,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4587043758673760684, guid: 231c35ba740bf8349b26f95a6ac38bec, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 2.11
       objectReference: {fileID: 0}
     - target: {fileID: 4587043758673760684, guid: 231c35ba740bf8349b26f95a6ac38bec, type: 3}
       propertyPath: m_LocalPosition.y
@@ -268,7 +268,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4587043758673760684, guid: 231c35ba740bf8349b26f95a6ac38bec, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -6.7
       objectReference: {fileID: 0}
     - target: {fileID: 4587043758673760684, guid: 231c35ba740bf8349b26f95a6ac38bec, type: 3}
       propertyPath: m_LocalRotation.w
@@ -338,6 +338,7 @@ GameObject:
   m_Component:
   - component: {fileID: 779597637}
   - component: {fileID: 779597638}
+  - component: {fileID: 779597639}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -373,6 +374,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuManager
   mainMenuUi: {fileID: 1247076367}
+--- !u!114 &779597639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779597636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 149b9c2984bde474f860d15321895429, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RecruitManager
+  recruitPrefabs:
+  - {fileID: 293148930564006070, guid: 2114384642ae75f4eab9463762407f55, type: 3}
 --- !u!1 &796161468
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,6 +433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6c221ae84b62ba4eb2161584efb942b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuCamera
+  hubPosition: {fileID: 1492632129}
 --- !u!1 &798549104
 GameObject:
   m_ObjectHideFlags: 0
@@ -898,6 +914,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3a0157fbc31bde4abb68fe8daeab5f7, type: 3}
+--- !u!1 &1492632128
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1492632129}
+  m_Layer: 0
+  m_Name: Hub Position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1492632129
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1492632128}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.24924938, z: -0, w: 0.96843934}
+  m_LocalPosition: {x: 0.63, y: 0, z: 0.36}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 28.866, z: 0}
 --- !u!1001 &1795330636
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -964,6 +1011,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2020498264}
+  - component: {fileID: 2020498265}
   m_Layer: 0
   m_Name: Terrain
   m_TagString: Untagged
@@ -993,6 +1041,38 @@ Transform:
   - {fileID: 410394971}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2020498265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2020498263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshSurface
+  m_SerializedVersion: 0
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: b46d3a5c261b472478c1afe069903c61, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1001 &2039655538
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1055,6 +1135,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 796161469}
+  - {fileID: 1492632129}
   - {fileID: 88164340}
   - {fileID: 2020498264}
   - {fileID: 779597637}

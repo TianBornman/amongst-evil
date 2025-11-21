@@ -8,7 +8,7 @@
                     <ui:Label text="XP Gained:" />
                     <ui:Label text="Label">
                         <Bindings>
-                            <ui:DataBinding property="text" data-source-path="xpGained" data-source-type="Midevil.Model.Result, Assembly-CSharp" binding-mode="ToTarget" />
+                            <ui:DataBinding property="text" data-source-path="xpGained" data-source-type="Midevil.Models.Result, Assembly-CSharp" binding-mode="ToTarget" />
                         </Bindings>
                     </ui:Label>
                 </ui:VisualElement>
@@ -16,7 +16,7 @@
                     <ui:Label text="Kills:" />
                     <ui:Label text="Label">
                         <Bindings>
-                            <ui:DataBinding property="text" data-source-path="kills" data-source-type="Midevil.Model.Result, Assembly-CSharp" binding-mode="ToTarget" />
+                            <ui:DataBinding property="text" data-source-path="kills" data-source-type="Midevil.Models.Result, Assembly-CSharp" binding-mode="ToTarget" />
                         </Bindings>
                     </ui:Label>
                 </ui:VisualElement>
@@ -24,7 +24,7 @@
                     <ui:Label text="Damage Dealt:" />
                     <ui:Label text="Label">
                         <Bindings>
-                            <ui:DataBinding property="text" data-source-path="damageDealt" data-source-type="Midevil.Model.Result, Assembly-CSharp" binding-mode="ToTarget" />
+                            <ui:DataBinding property="text" data-source-path="damageDealt" data-source-type="Midevil.Models.Result, Assembly-CSharp" binding-mode="ToTarget" />
                         </Bindings>
                     </ui:Label>
                 </ui:VisualElement>
@@ -32,7 +32,7 @@
                     <ui:Label text="Damage Taken:" />
                     <ui:Label text="Label">
                         <Bindings>
-                            <ui:DataBinding property="text" data-source-path="damageTaken" data-source-type="Midevil.Model.Result, Assembly-CSharp" binding-mode="ToTarget" />
+                            <ui:DataBinding property="text" data-source-path="damageTaken" data-source-type="Midevil.Models.Result, Assembly-CSharp" binding-mode="ToTarget" />
                         </Bindings>
                     </ui:Label>
                 </ui:VisualElement>
@@ -40,7 +40,7 @@
                     <ui:Label text="Healed:" />
                     <ui:Label text="Label">
                         <Bindings>
-                            <ui:DataBinding property="text" data-source-path="healed" data-source-type="Midevil.Model.Result, Assembly-CSharp" binding-mode="ToTarget" />
+                            <ui:DataBinding property="text" data-source-path="healed" data-source-type="Midevil.Models.Result, Assembly-CSharp" binding-mode="ToTarget" />
                         </Bindings>
                     </ui:Label>
                 </ui:VisualElement>
@@ -48,7 +48,7 @@
                     <ui:Label text="Hits:" />
                     <ui:Label text="Label">
                         <Bindings>
-                            <ui:DataBinding property="text" data-source-path="hits" data-source-type="Midevil.Model.Result, Assembly-CSharp" binding-mode="ToTarget" />
+                            <ui:DataBinding property="text" data-source-path="hits" data-source-type="Midevil.Models.Result, Assembly-CSharp" binding-mode="ToTarget" />
                         </Bindings>
                     </ui:Label>
                 </ui:VisualElement>
@@ -56,7 +56,7 @@
                     <ui:Label text="Critical Hits:" />
                     <ui:Label text="Label">
                         <Bindings>
-                            <ui:DataBinding property="text" data-source-path="criticalHits" data-source-type="Midevil.Model.Result, Assembly-CSharp" binding-mode="ToTarget" />
+                            <ui:DataBinding property="text" data-source-path="criticalHits" data-source-type="Midevil.Models.Result, Assembly-CSharp" binding-mode="ToTarget" />
                         </Bindings>
                     </ui:Label>
                 </ui:VisualElement>

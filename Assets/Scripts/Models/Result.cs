@@ -1,6 +1,6 @@
 using System;
 
-namespace Midevil.Model
+namespace Midevil.Models
 {
 	[Serializable]
 	public class Result
