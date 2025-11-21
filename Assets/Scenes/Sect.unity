@@ -338,6 +338,7 @@ GameObject:
   m_Component:
   - component: {fileID: 779597637}
   - component: {fileID: 779597638}
+  - component: {fileID: 779597640}
   - component: {fileID: 779597639}
   m_Layer: 0
   m_Name: Managers
@@ -373,7 +374,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f97f9915dd0b39418e970277423bd30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuManager
-  mainMenuUi: {fileID: 1247076367}
 --- !u!114 &779597639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -388,6 +388,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RecruitManager
   recruitPrefabs:
   - {fileID: 293148930564006070, guid: 2114384642ae75f4eab9463762407f55, type: 3}
+--- !u!114 &779597640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779597636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aeafa753dc3dd164f93c532e96fb62b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HubUiManager
+  mainMenuUiPrefab: {fileID: 3909201742078510678, guid: 4174dd415d4850f4582926134d0c6194, type: 3}
+  recruitmentUIPrefab: {fileID: 7439391192158440223, guid: be3efbd1f52735b40b4c4d326d21379b, type: 3}
+  mainMenuUi: {fileID: 0}
+  recruitmentUI: {fileID: 0}
 --- !u!1 &796161468
 GameObject:
   m_ObjectHideFlags: 0
@@ -797,61 +813,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2020498264}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1247076366
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1247076368}
-  - component: {fileID: 1247076367}
-  m_Layer: 0
-  m_Name: Main Menu UI
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1247076367
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1247076366}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
-  m_PanelSettings: {fileID: 11400000, guid: 3c6657242c36519419e43fe512fbaeff, type: 2}
-  m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: 9af29d5e89928d147b8907a5591958af, type: 3}
-  m_SortingOrder: 0
-  m_Position: 0
-  m_WorldSpaceSizeMode: 1
-  m_WorldSpaceWidth: 1920
-  m_WorldSpaceHeight: 1080
-  m_PivotReferenceSize: 0
-  m_Pivot: 0
-  m_WorldSpaceCollider: {fileID: 0}
---- !u!4 &1247076368
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1247076366}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1259028133 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4587043758673760684, guid: e02e934b46d1fe6458bafc7a49606df5, type: 3}
@@ -1139,4 +1100,3 @@ SceneRoots:
   - {fileID: 88164340}
   - {fileID: 2020498264}
   - {fileID: 779597637}
-  - {fileID: 1247076368}
