@@ -17,15 +17,18 @@ public class UiManager : Singleton<UiManager>
 	private InputSystem_Actions inputActions;
 	private InputAction menuToggleAction;
 
-	private void OnEnable()
+	protected override void OnEnable()
 	{
+		if (Instance != this)
+			return;
+
+		base.OnEnable();
+
 		inputActions = new InputSystem_Actions();
 		menuToggleAction = inputActions.Player.MenuToggle;
 
 		inputActions.Enable();
 		menuToggleAction.performed += OnMenuToggle;
-
-		SceneManager.sceneLoaded += OnSceneLoaded;
 	}
 
 	protected override void OnDisable()
@@ -37,8 +40,6 @@ public class UiManager : Singleton<UiManager>
 
 		menuToggleAction.performed -= OnMenuToggle;
 		inputActions.Disable();
-
-		SceneManager.sceneLoaded -= OnSceneLoaded;
 	}
 
 	private void OnMenuToggle(InputAction.CallbackContext context)
@@ -67,7 +68,7 @@ public class UiManager : Singleton<UiManager>
 	private bool canToggleMenu = true;
 
 	// Override Methods
-	private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+	protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
 		if (scene.buildIndex == 0)
 			return;

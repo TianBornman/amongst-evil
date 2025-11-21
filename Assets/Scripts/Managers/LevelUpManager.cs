@@ -7,7 +7,6 @@ public class LevelUpManager : Singleton<LevelUpManager>
 {
 	// Editor Variables
 	[Header("References")]
-	public Player player;
 	public List<UpgradeCard> upgrades;
 
 	// Public Methods
@@ -26,14 +25,7 @@ public class LevelUpManager : Singleton<LevelUpManager>
 
 	public void ApplyUpgrade(UpgradeCard card)
 	{
-		player.AddBuff(card.buff);
+		PlayerManager.Instance.player.AddBuff(card.buff);
 		UiManager.Instance.HideLevelUp();
-	}
-
-	// Private Methods
-	private void Start()
-	{
-		if (player == null)
-			player = FindFirstObjectByType<Player>();
 	}
 }

@@ -1,5 +1,6 @@
 using Midevil.Item;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : Singleton<PlayerManager>
 {
@@ -8,6 +9,15 @@ public class PlayerManager : Singleton<PlayerManager>
 
 	// Private Variables
 	private List<ItemStats> items = new();
+
+	// Override Methods
+	protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+	{
+		if (scene.buildIndex == 0)
+			return;
+
+		player = FindFirstObjectByType<Player>();
+	}
 
 	// Public Methods
 	public void AddItem(ItemStats item)
@@ -28,11 +38,5 @@ public class PlayerManager : Singleton<PlayerManager>
 	public void UnequipItem(ItemStats item)
 	{
 		player.UnequipItem(item);
-	}
-
-	// Private Methods
-	private void Start()
-	{
-		player = FindFirstObjectByType<Player>();
 	}
 }

@@ -41,22 +41,7 @@ public class SpawnManager : Singleton<SpawnManager>
 	}
 
 	// Private Methods
-	private void OnEnable()
-	{
-		SceneManager.sceneLoaded += OnSceneLoaded;
-	}
-
-	protected override void OnDisable()
-	{
-		if (Instance != this)
-			return;
-
-		base.OnDisable();
-
-		SceneManager.sceneLoaded -= OnSceneLoaded;
-	}
-
-	private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+	protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
 		if (scene.buildIndex == 0)
 			return;

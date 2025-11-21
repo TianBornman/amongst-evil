@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
@@ -16,9 +17,23 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 		DontDestroyOnLoad(gameObject);
 	}
 
+	protected virtual void OnEnable()
+	{
+		SceneManager.sceneLoaded += HandleSceneLoaded;
+	}
+
 	protected virtual void OnDisable()
 	{
+		SceneManager.sceneLoaded -= HandleSceneLoaded;
+
 		if (Instance == this)
 			Instance = null;
 	}
+
+	private void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
+	{
+		OnSceneLoaded(scene, mode);
+	}
+
+	protected virtual void OnSceneLoaded(Scene scene, LoadSceneMode mode) { }
 }

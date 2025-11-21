@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class DamageNumberManager : Singleton<DamageNumberManager>
@@ -19,14 +20,18 @@ public class DamageNumberManager : Singleton<DamageNumberManager>
 	private readonly List<DamageNumber> active = new();
 
 	// Override Methods
-	protected override void Awake()
+	protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
-		base.Awake();
+		if (scene.buildIndex == 0)
+			return;
 
 		mainCamera = Camera.main;
 
 		uiDocument = Instantiate(uiDocumentPrefab).GetComponent<UIDocument>();
 		root = uiDocument.rootVisualElement;
+
+		pool.Clear();
+		active.Clear();
 
 		for (int i = 0; i < initialPoolSize; i++)
 			pool.Enqueue(CreateNewElement());
