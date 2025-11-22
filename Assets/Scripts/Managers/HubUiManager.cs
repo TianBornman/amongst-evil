@@ -19,7 +19,7 @@ public class HubUiManager : Singleton<HubUiManager>
 	// Override Methods
 	protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
-		if (scene.buildIndex != 0)
+		if (!GameManager.Instance.AtHub)
 			return;
 
 		// Spawn UIs
@@ -61,5 +61,10 @@ public class HubUiManager : Singleton<HubUiManager>
 		}
 
 		bloodVaultUi.rootVisualElement.visible = true;
+	}
+
+	public void HideBloodVaultUI()
+	{
+		bloodVaultUi.rootVisualElement.visible = false;
 	}
 }

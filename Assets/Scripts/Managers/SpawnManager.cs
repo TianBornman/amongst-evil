@@ -43,7 +43,7 @@ public class SpawnManager : Singleton<SpawnManager>
 	// Private Methods
 	protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
-		if (scene.buildIndex == 0)
+		if (GameManager.Instance.AtHub)
 			return;
 
 		currentSegment = FindFirstObjectByType<MapSegment>();

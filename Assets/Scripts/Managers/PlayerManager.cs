@@ -13,7 +13,7 @@ public class PlayerManager : Singleton<PlayerManager>
 	// Override Methods
 	protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
-		if (scene.buildIndex == 0)
+		if (GameManager.Instance.AtHub)
 			return;
 
 		player = FindFirstObjectByType<Player>();

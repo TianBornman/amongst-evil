@@ -44,6 +44,9 @@ public class UiManager : Singleton<UiManager>
 
 	private void OnMenuToggle(InputAction.CallbackContext context)
 	{
+		if (GameManager.Instance.AtHub)
+			return;
+
 		MenuToggle();
 	}
 
@@ -70,7 +73,7 @@ public class UiManager : Singleton<UiManager>
 	// Override Methods
 	protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
-		if (scene.buildIndex == 0)
+		if (GameManager.Instance.AtHub)
 			return;
 
 		// Spawn UIs
@@ -255,13 +258,13 @@ public class UiManager : Singleton<UiManager>
 
 	private void Pause()
 	{
-		Time.timeScale = 0;
+		GameManager.Instance.PauseGame();
 		canToggleMenu = false;
 	}
 
 	private void Resume()
 	{
-		Time.timeScale = 1;
+		GameManager.Instance.ResumeGame();
 		canToggleMenu = true;
 	}
 

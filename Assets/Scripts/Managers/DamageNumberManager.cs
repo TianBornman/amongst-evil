@@ -22,7 +22,7 @@ public class DamageNumberManager : Singleton<DamageNumberManager>
 	// Override Methods
 	protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
-		if (scene.buildIndex == 0)
+		if (GameManager.Instance.AtHub)
 			return;
 
 		mainCamera = Camera.main;

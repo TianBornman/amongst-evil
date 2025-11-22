@@ -1,4 +1,5 @@
 ﻿using Midevil.Models;
+using UnityEngine;
 
 public class RecruitCharacter : Character
 {
@@ -7,12 +8,15 @@ public class RecruitCharacter : Character
 	{
 		base.Interact();
 
-		HubUiManager.Instance.UpdateRecruitmentUI(identity);
-		RecruitManager.Instance.playerIdentity = identity;
+		HubManager.Instance.FocusCharacter(this);
 	}
 
 	#endregion
 
+	// Editor Variables
+	[Header("Recruit Character")]
+	public Transform cameraPos;
+
 	// Public Variables
-	public Identity identity;
+	[HideInInspector] public Identity identity;
 }

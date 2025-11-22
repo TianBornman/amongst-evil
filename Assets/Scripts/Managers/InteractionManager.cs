@@ -55,6 +55,9 @@ public class InteractionManager : Singleton<InteractionManager>
 	// Private Methods
 	private void Update()
 	{
+		if (GameManager.Instance.IsGamePaused || GameManager.Instance.AtMenu)
+			return;
+
 		Vector2 mousePos = Mouse.current.position.ReadValue();
 		Ray ray = Camera.main.ScreenPointToRay(mousePos);
 

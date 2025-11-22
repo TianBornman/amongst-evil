@@ -7,6 +7,7 @@ public class Cart : MonoBehaviour, IInteractable
 
 	public void Interact()
 	{
+		GameManager.Instance.LeaveHub();
 		SceneManager.LoadScene("Level");
 	}
 

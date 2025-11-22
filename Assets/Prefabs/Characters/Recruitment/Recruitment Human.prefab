@@ -34,6 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4615464832995508770}
+  - {fileID: 7520627762888410576}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &293148930564006070
@@ -84,9 +85,10 @@ MonoBehaviour:
   glovesSkin: {fileID: 0}
   leggingsSKin: {fileID: 0}
   bootsSkin: {fileID: 0}
+  cameraPos: {fileID: 7520627762888410576}
   identity:
     name: 
-    profileIcon: {fileID: 2800000, guid: 950b70a91b8180b49aab9803e984d3cb, type: 3}
+    profileIcon: 0
 --- !u!114 &5479236539335497120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,6 +152,37 @@ CapsuleCollider:
   m_Height: 1.75
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!1 &2239910603072660129
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7520627762888410576}
+  m_Layer: 0
+  m_Name: Camera Pos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7520627762888410576
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2239910603072660129}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: -6.22, z: -10.72}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8736108515495512286}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &2547646392640143150
 GameObject:
   m_ObjectHideFlags: 0

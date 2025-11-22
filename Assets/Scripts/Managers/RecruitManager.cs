@@ -1,7 +1,7 @@
 ﻿using Midevil.Models;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class RecruitManager : Singleton<RecruitManager>
 {
@@ -11,9 +11,12 @@ public class RecruitManager : Singleton<RecruitManager>
 
 	[HideInInspector] public Identity playerIdentity;
 
-	// Private Methods
-	private void Start()
+	// Override Methods
+	protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
+		if (!GameManager.Instance.AtHub)
+			return;
+
 		var recruitmentCount = Random.Range(2, 5);
 
 		for (int i = 0; i < recruitmentCount; i++)

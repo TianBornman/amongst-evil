@@ -12,6 +12,7 @@ namespace Midevil.Models
 		public void Randomize()
 		{
 			name = NameGenerator.GetRandomName();
+			profileIcon = IconReferenceIndex.HumanIcon;
 		}
 	}
 }
