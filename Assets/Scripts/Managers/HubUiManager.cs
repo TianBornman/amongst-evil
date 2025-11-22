@@ -51,7 +51,9 @@ public class HubUiManager : Singleton<HubUiManager>
 	public void ShowBloodVaultUI()
 	{
 		var data = BloodvaultManager.Load();
-		var list = bloodVaultUi.rootVisualElement.Q<VisualElement>("List");
+		var list = bloodVaultUi.rootVisualElement.Q<ScrollView>("List");
+
+		list.Clear();
 
 		foreach (var entry in data.entries)
 		{

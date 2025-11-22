@@ -1,12 +1,12 @@
 .blood-vault-entry {
-    padding-top: 15px;
-    padding-right: 15px;
-    padding-bottom: 15px;
-    padding-left: 15px;
-    margin-top: 15px;
-    margin-right: 15px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    margin-top: 10px;
+    margin-right: 10px;
     margin-bottom: 0;
-    margin-left: 15px;
+    margin-left: 10px;
     background-color: rgb(70, 70, 70);
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
@@ -28,4 +28,72 @@
 .blood-vault-entry #TextContainer {
     flex-basis: 0;
     flex-grow: 8;
+}
+
+.list-view {
+}
+
+.list-view Scroller {
+    width: 12px;
+    margin-right: 10px;
+}
+
+.list-view Scroller > #unity-low-button {
+    display: none;
+}
+
+.list-view Scroller > #unity-high-button {
+    display: none;
+}
+
+.list-view Scroller > #unity-slider {
+    width: 12px;
+    min-width: 12px;
+    margin-top: 10px;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+}
+
+.list-view Scroller > #unity-slider #unity-tracker {
+    background-color: rgb(70, 70, 70);
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+}
+
+.list-view Scroller > #unity-slider #unity-dragger {
+    left: auto;
+    position: relative;
+    margin-left: 3px;
+    margin-right: 3px;
+    width: auto;
+    background-color: rgb(31, 31, 31);
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    margin-bottom: 3px;
+}
+
+.list-view Scroller > #unity-slider #unity-drag-container {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.list-view > #unity-content-and-vertical-scroll-container {
+    padding-bottom: 15px;
 }
