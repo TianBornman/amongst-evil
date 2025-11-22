@@ -38,9 +38,9 @@ public class HubUiManager : Singleton<HubUiManager>
 		recruitmentUI.rootVisualElement.visible = true;
 	}
 
-	public void UpdateRecruitmentUI(RecruitData data)
+	public void UpdateRecruitmentUI(Identity identity)
 	{
 		var recruitmentElement = recruitmentUI.rootVisualElement.Q<VisualElement>("RecuitmentProfile");
-		recruitmentElement.Q<Label>().text = data.name;
+		recruitmentElement.Q<Label>().text = identity.name;
 	}
 }

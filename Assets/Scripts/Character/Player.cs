@@ -1,6 +1,7 @@
 using Midevil.Ability;
 using Midevil.Effect;
 using Midevil.Item;
+using Midevil.Models;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,13 +49,16 @@ public class Player : Character
 	[HideInInspector] public float currentXp;
 	[HideInInspector] public float neededXp;
 
+	public Identity identity;
+
 	// Override Methods
 	protected override void Awake()
 	{
 		base.Awake();
 
+		identity = RecruitManager.Instance.playerIdentity;
+
 		CharacterAnimAPI animAPI = GetComponentInChildren<CharacterAnimAPI>();
-		// Navigate to main menu
 		animAPI.Disappear = () => UiManager.Instance.ShowDeathScreen();
 	}
 

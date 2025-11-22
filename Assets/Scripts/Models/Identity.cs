@@ -4,7 +4,7 @@ using System;
 namespace Midevil.Models
 {
 	[Serializable]
-	public class RecruitData
+	public class Identity
 	{
 		public string name;
 

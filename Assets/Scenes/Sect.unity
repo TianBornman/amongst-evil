@@ -340,6 +340,7 @@ GameObject:
   - component: {fileID: 779597638}
   - component: {fileID: 779597640}
   - component: {fileID: 779597639}
+  - component: {fileID: 779597641}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -388,6 +389,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RecruitManager
   recruitPrefabs:
   - {fileID: 293148930564006070, guid: 2114384642ae75f4eab9463762407f55, type: 3}
+  playerIdentity:
+    name: 
 --- !u!114 &779597640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,6 +407,18 @@ MonoBehaviour:
   recruitmentUIPrefab: {fileID: 7439391192158440223, guid: be3efbd1f52735b40b4c4d326d21379b, type: 3}
   mainMenuUi: {fileID: 0}
   recruitmentUI: {fileID: 0}
+--- !u!114 &779597641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779597636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5085930abbfaaa4a8dc8f2e0f2e47ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionManager
 --- !u!1 &796161468
 GameObject:
   m_ObjectHideFlags: 0

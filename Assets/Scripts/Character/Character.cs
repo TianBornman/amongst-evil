@@ -1,14 +1,30 @@
 using Midevil.Ability;
 using Midevil.Effect;
 using Midevil.Item;
-using Guid = System.Guid;
+using Midevil.Models;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using Guid = System.Guid;
 
-public class Character : StateMachine<CharacterState>
+public class Character : StateMachine<CharacterState>, IInteractable
 {
+	#region Interactable
+	public virtual void Interact() { }
+
+	public void OnHoverEnter()
+	{
+		outline.enabled = true;
+	}
+
+	public void OnHoverExit()
+	{
+		outline.enabled = false;
+	}
+
+	#endregion
+
 	// Editor variables
 	[HideInInspector] public Stats stats;
 	public Stats baseStats;
@@ -31,6 +47,7 @@ public class Character : StateMachine<CharacterState>
 
 	protected NavMeshAgent agent;
 	protected Animator animator;
+	protected Outline outline;
 
 	// Public Properties
 	public bool IsAlive => State != CharacterState.Dead;
@@ -196,6 +213,8 @@ public class Character : StateMachine<CharacterState>
 	{
 		agent = GetComponent<NavMeshAgent>();
 		animator = GetComponentInChildren<Animator>();
+		outline = GetComponent<Outline>();
+		outline.enabled = false;
 
 		CharacterAnimAPI animAPI = GetComponentInChildren<CharacterAnimAPI>();
 		animAPI.CheckValidTarget = () => CheckValidTarget();

@@ -30,11 +30,11 @@ namespace Midevil.Helpers
 
 		public static string GetRandomName()
 		{
-			string first = prefixes[UnityEngine.Random.Range(0, prefixes.Length)] +
-						   suffixes[UnityEngine.Random.Range(0, suffixes.Length)];
+			string first = prefixes[Random.Range(0, prefixes.Length)] +
+						   suffixes[Random.Range(0, suffixes.Length)];
 
-			string last = surnamePrefixes[UnityEngine.Random.Range(0, surnamePrefixes.Length)] +
-						  surnameSuffixes[UnityEngine.Random.Range(0, surnameSuffixes.Length)];
+			string last = surnamePrefixes[Random.Range(0, surnamePrefixes.Length)] +
+						  surnameSuffixes[Random.Range(0, surnameSuffixes.Length)];
 
 			return $"{first} {last}";
 		}
