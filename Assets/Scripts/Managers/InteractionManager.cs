@@ -64,14 +64,17 @@ public class InteractionManager : Singleton<InteractionManager>
 
 			if (selectable != selectedInteractable)
 			{
-				selectedInteractable?.OnHoverExit();
+				if (selectedInteractable != null)
+					selectedInteractable.OnHoverExit();
+
 				selectedInteractable = selectable;
-				selectedInteractable?.OnHoverEnter();
+
+				if (selectedInteractable != null)
+					selectedInteractable.OnHoverEnter();
 			}
 		}
 		else if (selectedInteractable != null)
 		{
-			selectedInteractable?.OnHoverExit();
 			selectedInteractable = null;
 		}
 	}

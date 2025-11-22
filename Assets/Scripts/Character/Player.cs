@@ -2,6 +2,7 @@ using Midevil.Ability;
 using Midevil.Effect;
 using Midevil.Item;
 using Midevil.Models;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -102,6 +103,7 @@ public class Player : Character
 				Attacking();
 				break;
 			case CharacterState.Dead:
+				Die();
 				break;
 			default:
 				break;
@@ -161,6 +163,22 @@ public class Player : Character
 		if (target != null)
 			target.SetTarget(this);
 	}
+
+	private void Die()
+	{
+		var entry = new BloodVaultEntry
+		{
+			identity = identity,
+			result = ResultManager.Instance.results,
+			causeOfDeath = "Defeated in battle",
+			timeOfDeath = DateTime.Now
+		};
+
+		BloodvaultManager.Add(entry);
+
+		RecruitManager.Instance.playerIdentity = null;
+		ResultManager.Instance.results = new Result();
+	}	
 
 	// Public Methods
 	public void AddXp(float amount)

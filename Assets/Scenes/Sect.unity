@@ -404,9 +404,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HubUiManager
   mainMenuUiPrefab: {fileID: 3909201742078510678, guid: 4174dd415d4850f4582926134d0c6194, type: 3}
-  recruitmentUIPrefab: {fileID: 7439391192158440223, guid: be3efbd1f52735b40b4c4d326d21379b, type: 3}
+  recruitmentUiPrefab: {fileID: 7439391192158440223, guid: be3efbd1f52735b40b4c4d326d21379b, type: 3}
+  bloodVaultUiPrefab: {fileID: 7439391192158440223, guid: cf51b1a74dd8f644a915bc1bc7357d9f, type: 3}
   mainMenuUi: {fileID: 0}
-  recruitmentUI: {fileID: 0}
+  recruitmentUi: {fileID: 0}
+  bloodVaultUi: {fileID: 0}
 --- !u!114 &779597641
 MonoBehaviour:
   m_ObjectHideFlags: 0

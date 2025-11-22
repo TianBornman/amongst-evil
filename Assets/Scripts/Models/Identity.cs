@@ -1,5 +1,6 @@
 ﻿using Midevil.Helpers;
 using System;
+using UnityEngine;
 
 namespace Midevil.Models
 {
@@ -7,6 +8,7 @@ namespace Midevil.Models
 	public class Identity
 	{
 		public string name;
+		public Texture2D profileIcon;
 
 		public void Randomize()
 		{

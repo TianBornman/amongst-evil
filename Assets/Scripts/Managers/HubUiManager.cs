@@ -9,10 +9,12 @@ public class HubUiManager : Singleton<HubUiManager>
 	// Editor Variables
 	[Header("References")]
 	public UIDocument mainMenuUiPrefab;
-	public UIDocument recruitmentUIPrefab;
+	public UIDocument recruitmentUiPrefab;
+	public UIDocument bloodVaultUiPrefab;
 
 	[HideInInspector] public UIDocument mainMenuUi;
-	[HideInInspector] public UIDocument recruitmentUI;
+	[HideInInspector] public UIDocument recruitmentUi;
+	[HideInInspector] public UIDocument bloodVaultUi;
 
 	// Override Methods
 	protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -22,11 +24,13 @@ public class HubUiManager : Singleton<HubUiManager>
 
 		// Spawn UIs
 		mainMenuUi = Instantiate(mainMenuUiPrefab).GetComponent<UIDocument>();
-		recruitmentUI = Instantiate(recruitmentUIPrefab).GetComponent<UIDocument>();
+		recruitmentUi = Instantiate(recruitmentUiPrefab).GetComponent<UIDocument>();
+		bloodVaultUi = Instantiate(bloodVaultUiPrefab).GetComponent<UIDocument>();
 
 		// Config
 		mainMenuUi.rootVisualElement.visible = true;
-		recruitmentUI.rootVisualElement.visible = false;
+		recruitmentUi.rootVisualElement.visible = false;
+		bloodVaultUi.rootVisualElement.visible = false;
 
 		mainMenuUi.rootVisualElement.Q<Button>("Play").clicked += HubManager.Instance.StartGame;
 	}
@@ -35,12 +39,27 @@ public class HubUiManager : Singleton<HubUiManager>
 	public void ShowRecruitmentUI()
 	{
 		mainMenuUi.rootVisualElement.visible = false;
-		recruitmentUI.rootVisualElement.visible = true;
+		recruitmentUi.rootVisualElement.visible = true;
 	}
 
 	public void UpdateRecruitmentUI(Identity identity)
 	{
-		var recruitmentElement = recruitmentUI.rootVisualElement.Q<VisualElement>("RecuitmentProfile");
+		var recruitmentElement = recruitmentUi.rootVisualElement.Q<VisualElement>("RecuitmentProfile");
 		recruitmentElement.Q<Label>().text = identity.name;
+	}
+
+	public void ShowBloodVaultUI()
+	{
+		var data = BloodvaultManager.Load();
+		var list = bloodVaultUi.rootVisualElement.Q<VisualElement>("List");
+
+		foreach (var entry in data.entries)
+		{
+			var item = new BloodVaultEntryElement();
+			item.SetEntry(entry);
+			list.Add(item);
+		}
+
+		bloodVaultUi.rootVisualElement.visible = true;
 	}
 }

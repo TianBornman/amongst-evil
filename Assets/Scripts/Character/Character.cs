@@ -1,16 +1,15 @@
 using Midevil.Ability;
 using Midevil.Effect;
 using Midevil.Item;
-using Midevil.Models;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
-using Guid = System.Guid;
 
 public class Character : StateMachine<CharacterState>, IInteractable
 {
 	#region Interactable
+
 	public virtual void Interact() { }
 
 	public void OnHoverEnter()
