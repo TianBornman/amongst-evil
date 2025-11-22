@@ -517,6 +517,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 234402710}
     m_Modifications:
+    - target: {fileID: 4148748511308327818, guid: 8f5e8b64bc7486b4b9f915f73e7844f7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 6036829668396300223, guid: 8f5e8b64bc7486b4b9f915f73e7844f7, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6036829668396300223, guid: 8f5e8b64bc7486b4b9f915f73e7844f7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6330030923541117274, guid: 8f5e8b64bc7486b4b9f915f73e7844f7, type: 3}
+      propertyPath: m_NavMeshData
+      value: 
+      objectReference: {fileID: 23800000, guid: ff8e50e90ecc27d40b058f18bcb0053a, type: 2}
+    - target: {fileID: 6330030923541117274, guid: 8f5e8b64bc7486b4b9f915f73e7844f7, type: 3}
+      propertyPath: m_UseGeometry
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6477726066662708240, guid: 8f5e8b64bc7486b4b9f915f73e7844f7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -560,6 +580,10 @@ PrefabInstance:
     - target: {fileID: 7514504893948424950, guid: 8f5e8b64bc7486b4b9f915f73e7844f7, type: 3}
       propertyPath: m_Name
       value: Map Segment
+      objectReference: {fileID: 0}
+    - target: {fileID: 7742018457925051635, guid: 8f5e8b64bc7486b4b9f915f73e7844f7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.08
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

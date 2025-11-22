@@ -96,6 +96,7 @@ MonoBehaviour:
   neededXp: 0
   identity:
     name: 
+    profileIcon: 0
 --- !u!114 &195132132207412687
 MonoBehaviour:
   m_ObjectHideFlags: 0
