@@ -1,0 +1,235 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5038134502726167767
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7581474657553268615}
+  - component: {fileID: 4613144601582675217}
+  - component: {fileID: 380976165915660900}
+  - component: {fileID: 347833669294759239}
+  - component: {fileID: 6180556048356105748}
+  - component: {fileID: 8855869245339968022}
+  - component: {fileID: 8755541639046059873}
+  - component: {fileID: 1379321088363961944}
+  - component: {fileID: 4116647614242413867}
+  - component: {fileID: 710674332889533623}
+  - component: {fileID: 7630648152501158786}
+  - component: {fileID: 4104278376203029293}
+  m_Layer: 0
+  m_Name: Managers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7581474657553268615
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5038134502726167767}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4613144601582675217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5038134502726167767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 039b81a077f61254d9a992d024e353a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UiManager
+  gameUiPrefab: {fileID: 3670246563805305712, guid: 319465061d9a43045af2100b312a85c9, type: 3}
+  statsUiPrefab: {fileID: 7942399990081477409, guid: 9303dc8e44c9e5a45bbf887102ac87a2, type: 3}
+  levelUpUiPrefab: {fileID: 1089905083543233751, guid: eb6de1c484ee5194ca9420923eb78f26, type: 3}
+  itemPickupUiPrefab: {fileID: 456671677652603895, guid: 5c6eb613b94d2714d9e1cef62cee419c, type: 3}
+  resultsUiPrefab: {fileID: 3473710269598148652, guid: cfb83c6e78596a94abbfd7bf0909a004, type: 3}
+  gameUi: {fileID: 3670246563805305712, guid: 319465061d9a43045af2100b312a85c9, type: 3}
+  statsUi: {fileID: 7942399990081477409, guid: 9303dc8e44c9e5a45bbf887102ac87a2, type: 3}
+  levelUpUi: {fileID: 1089905083543233751, guid: eb6de1c484ee5194ca9420923eb78f26, type: 3}
+  itemPickupUi: {fileID: 456671677652603895, guid: 5c6eb613b94d2714d9e1cef62cee419c, type: 3}
+  resultsUi: {fileID: 3473710269598148652, guid: cfb83c6e78596a94abbfd7bf0909a004, type: 3}
+--- !u!114 &380976165915660900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5038134502726167767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6157acc3b4b178408542e81c32c0b7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelUpManager
+  upgrades:
+  - {fileID: 11400000, guid: a3f9c139f8c7adc4cb5243c716d87a26, type: 2}
+  - {fileID: 11400000, guid: ba072fc6e3f57a1428d336aa90cc358b, type: 2}
+  - {fileID: 11400000, guid: 91962d6afd5520f48941604d738eba58, type: 2}
+  - {fileID: 11400000, guid: c442fcb88b7624249937d27ed7304860, type: 2}
+  - {fileID: 11400000, guid: 0cd943492348df949997bd872ea7057a, type: 2}
+  - {fileID: 11400000, guid: ab8e7c38299c49848bc9275b38369317, type: 2}
+  - {fileID: 11400000, guid: ba4bcad4ccfddcf4d8e563c631e157bd, type: 2}
+--- !u!114 &347833669294759239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5038134502726167767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db64b834e823fc498166f97dbb2cc1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpawnManager
+  characters:
+  - {fileID: 8996435584707828427, guid: a99288e9fee881946a6b1b924b5c4695, type: 3}
+  bossCharacters:
+  - {fileID: 8996435584707828427, guid: a3912b4bd6fe08d4891d3a18143833a3, type: 3}
+  segments:
+  - {fileID: 8202679225242908416, guid: 8f5e8b64bc7486b4b9f915f73e7844f7, type: 3}
+  width: 45
+  length: 45
+  minDistance: 10
+  bossSpawned: 0
+  spawnedCharacters: []
+--- !u!114 &6180556048356105748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5038134502726167767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeface424b9618a479a1e4ad44cdd2a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageNumberManager
+  uiDocument: {fileID: 0}
+  uiDocumentPrefab: {fileID: 2823809242809627518, guid: 75b2dd0471973294a858ab10b2377138, type: 3}
+  damageNumberTemplate: {fileID: 9197481963319205126, guid: c324ab00d76798048b10481093c82b83, type: 3}
+  initialPoolSize: 20
+--- !u!114 &8855869245339968022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5038134502726167767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0b2c7bae8e1fe34cad9db88795a57d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerManager
+  player: {fileID: 0}
+--- !u!114 &8755541639046059873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5038134502726167767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce6e15d0c0f51534fbb1da3fbba79fa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResultManager
+  results:
+    xpGained: 0
+    kills: 0
+    damageDealt: 0
+    damageTaken: 0
+    healed: 0
+    hits: 0
+    criticalHits: 0
+    abilitiesUsed: 0
+--- !u!114 &1379321088363961944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5038134502726167767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08a9e3c3094ec714587001810d186e13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RefManager
+  unarmed: {fileID: 22100000, guid: e8d243891ff574e41a9a75d2e3a32bd7, type: 2}
+  sword1H: {fileID: 22100000, guid: 2dae7f461ac6c8a45ad1630c5f4b2485, type: 2}
+  icons:
+  - index: 0
+    icon: {fileID: 2800000, guid: 950b70a91b8180b49aab9803e984d3cb, type: 3}
+--- !u!114 &4116647614242413867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5038134502726167767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f97f9915dd0b39418e970277423bd30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MainMenuManager
+--- !u!114 &710674332889533623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5038134502726167767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aeafa753dc3dd164f93c532e96fb62b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HubUiManager
+  mainMenuUiPrefab: {fileID: 3909201742078510678, guid: 4174dd415d4850f4582926134d0c6194, type: 3}
+  recruitmentUiPrefab: {fileID: 7439391192158440223, guid: be3efbd1f52735b40b4c4d326d21379b, type: 3}
+  bloodVaultUiPrefab: {fileID: 7439391192158440223, guid: cf51b1a74dd8f644a915bc1bc7357d9f, type: 3}
+  mainMenuUi: {fileID: 0}
+  recruitmentUi: {fileID: 0}
+  bloodVaultUi: {fileID: 0}
+--- !u!114 &7630648152501158786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5038134502726167767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 149b9c2984bde474f860d15321895429, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RecruitManager
+  recruitPrefabs:
+  - {fileID: 293148930564006070, guid: 2114384642ae75f4eab9463762407f55, type: 3}
+  playerIdentity:
+    name: 
+    profileIcon: 0
+--- !u!114 &4104278376203029293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5038134502726167767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5085930abbfaaa4a8dc8f2e0f2e47ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionManager

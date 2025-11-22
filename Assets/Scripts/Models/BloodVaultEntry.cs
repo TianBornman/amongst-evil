@@ -9,7 +9,7 @@ namespace Midevil.Models
 		public Identity identity;
 		public Result result;
 		public string causeOfDeath;
-		public DateTime timeOfDeath;
+		public string timeOfDeath;
 	}
 
 	public class BloodVaultData

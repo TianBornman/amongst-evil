@@ -171,7 +171,7 @@ public class Player : Character
 			identity = identity,
 			result = ResultManager.Instance.results,
 			causeOfDeath = "Defeated in battle",
-			timeOfDeath = DateTime.Now
+			timeOfDeath = DateTime.Now.ToString("g")
 		};
 
 		BloodvaultManager.Add(entry);

@@ -70,10 +70,10 @@ namespace Midevil.UI.Elements
 		// Public Methods
 		public void SetEntry(BloodVaultEntry entry)
 		{
-			ProfileTexture = entry.identity.profileIcon;
+			ProfileTexture = RefManager.Instance.GetIcon(entry.identity.profileIcon);
 			Name = entry.identity.name;
 			CauseOfDeath = entry.causeOfDeath;
-			TimeOfDeath = entry.timeOfDeath.ToString("g");
+			TimeOfDeath = entry.timeOfDeath;
 		}
 	}
 }
