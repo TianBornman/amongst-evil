@@ -5,6 +5,8 @@ using Midevil.UI.Elements;
 using Midevil.UpgradeCard;
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
+using UnityEditor.Playables;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -202,25 +204,37 @@ public class UiManager : Singleton<UiManager>
 		Resume();
 	}
 
-	public void AddItem(ItemStats item)
+	public void UpdateItems()
 	{
-		if (item.type == ItemType.Relic)
-		{
-			var newItemElement = new ItemElement();
-			newItemElement.SetItem(item);
+		var itemElements = statsUi.rootVisualElement.Q<VisualElement>("Items").Query<ItemElement>().ToList();
 
-			statsUi.rootVisualElement.Q<VisualElement>("Relics").Add(newItemElement);
-			return;
+		for (int i = 0; i < itemElements.Count; i++)
+		{
+			var itemElement = itemElements[i];
+
+			if (i < PlayerManager.Instance.items.Count)
+				itemElement.SetItem(PlayerManager.Instance.items[i]);
+			else
+				itemElement.ClearItem();
 		}
 
-		var itemElement = statsUi.rootVisualElement.Q<VisualElement>("Items").Q<ItemElement>();
-		itemElement.SetItem(item);
+		var player = PlayerManager.Instance.player;
+
+		if (player.weapon != null)
+			EquipItem(player.weapon.Value);
+		else
+			UnequipItem(ItemType.Weapon);
+
+		if (player.armour != null)
+			EquipItem(player.armour.Value);
+		else
+			UnequipItem(ItemType.Armour);
 	}
 
 	public void EquipItem(ItemStats item)
 	{
 		var equipSlot = statsUi.rootVisualElement.Q<VisualElement>("Equipped").Q<ItemElement>(item.type.ToString());
-		equipSlot?.SetItem(item);
+		equipSlot.SetItem(item);
 	}
 
 	public void UnequipItem(ItemType type)

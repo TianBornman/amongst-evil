@@ -6,9 +6,7 @@ public class PlayerManager : Singleton<PlayerManager>
 {
 	// Public Variables
 	public Player player;
-
-	// Private Variables
-	private List<ItemStats> items = new();
+	public List<ItemStats> items = new();
 
 	// Override Methods
 	protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -27,7 +25,13 @@ public class PlayerManager : Singleton<PlayerManager>
 		if (item.type == ItemType.Relic)
 			player.AddBuff(item.buff);
 
-		UiManager.Instance.AddItem(item);
+		UiManager.Instance.UpdateItems();
+	}
+
+	public void RemoveItem(ItemStats item)
+	{
+		items.Remove(item);
+		UiManager.Instance.UpdateItems();
 	}
 
 	public void EquipItem(ItemStats item)

@@ -103,7 +103,7 @@ MonoBehaviour:
         xpValue: 0
     ability: {fileID: 0}
     effects: []
-    dropChance: 0.2
+    dropChance: 1
   noEffectWeight: 0
   possibleEffects: []
 --- !u!65 &892726615595024836

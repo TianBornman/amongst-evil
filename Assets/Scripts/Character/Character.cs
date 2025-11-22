@@ -40,6 +40,9 @@ public class Character : StateMachine<CharacterState>, IInteractable
 	public SkinnedMeshRenderer leggingsSKin;
 	public SkinnedMeshRenderer bootsSkin;
 
+	public ItemStats? weapon;
+	public ItemStats? armour;
+
 	// Protected Variables
 	protected Character target;
 	protected Character killer;
@@ -309,6 +312,11 @@ public class Character : StateMachine<CharacterState>, IInteractable
 			case ItemType.Helmet:
 				break;
 			case ItemType.Armour:
+				if (armour != null)
+					UnequipItem(armour.Value);
+
+				armour = item;
+
 				var skinnedRenderer = item.visual.GetComponentInChildren<SkinnedMeshRenderer>();
 				armourSkin.sharedMesh = skinnedRenderer.sharedMesh;
 				armourSkin.materials = skinnedRenderer.sharedMaterials;
@@ -316,6 +324,11 @@ public class Character : StateMachine<CharacterState>, IInteractable
 				armourSkin.gameObject.SetActive(true);
 				break;
 			case ItemType.Weapon:
+				if (weapon != null)
+					UnequipItem(weapon.Value);
+
+				weapon = item;
+
 				Instantiate(item.visual, weaponPos);
 				UpdateAnimations(item.animationType);
 				break;
@@ -349,9 +362,11 @@ public class Character : StateMachine<CharacterState>, IInteractable
 			case ItemType.Helmet:
 				break;
 			case ItemType.Armour:
+				armour = null;
 				armourSkin.gameObject.SetActive(false);
 				break;
 			case ItemType.Weapon:
+				weapon = null;
 				RemoveChildren(weaponPos);
 				UpdateAnimations(ItemAnimationType.Unarmed);
 				break;

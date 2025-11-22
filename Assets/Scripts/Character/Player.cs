@@ -114,14 +114,14 @@ public class Player : Character
 	{
 		base.EquipItem(item);
 
-		UiManager.Instance.EquipItem(item);
+		PlayerManager.Instance.RemoveItem(item);
 	}
 
 	public override void UnequipItem(ItemStats item)
 	{
 		base.UnequipItem(item);
 
-		UiManager.Instance.UnequipItem(item.type);
+		PlayerManager.Instance.AddItem(item);
 	}
 
 	public override void AddAbility(Ability ability)

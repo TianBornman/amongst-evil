@@ -11,7 +11,7 @@ namespace Midevil.UI.Elements
 		private Label label;
 
 		private Texture2D defaultIcon;
-		private string defaultTitle;
+		private string defaultTitle = string.Empty;
 
 		private bool isEquipSlot = false;
 
@@ -36,7 +36,6 @@ namespace Midevil.UI.Elements
 			set => label.text = value;
 		}
 
-
 		[UxmlAttribute]
 		public string DefaultTitle
 		{
@@ -50,6 +49,8 @@ namespace Midevil.UI.Elements
 			get => isEquipSlot;
 			set => isEquipSlot = value;
 		}
+
+		public bool IsEmpty => IconTexture == defaultIcon && Title == defaultTitle;
 
 		public ItemElement()
 		{
@@ -92,14 +93,9 @@ namespace Midevil.UI.Elements
 		private void EquipItem(ItemStats item)
 		{
 			if (isEquipSlot)
-			{
 				PlayerManager.Instance.UnequipItem(item);
-				PlayerManager.Instance.AddItem(item);
-			}
 			else
 				PlayerManager.Instance.EquipItem(item);
-			
-			ClearItem();
 		}
 	}
 }
