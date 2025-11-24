@@ -80,6 +80,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
   stats:
+    index: 1
     name: Iron Armour
     description: Good ol trusty iron armour
     type: 1

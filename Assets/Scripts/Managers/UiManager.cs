@@ -98,7 +98,7 @@ public class UiManager : Singleton<UiManager>
 		resultsUi.rootVisualElement.Q<Button>("FightOn").clicked += SpawnWave;
 
 		var continueButton = resultsUi.rootVisualElement.Q<Button>("Continue");
-		continueButton.clicked += Flee;
+		continueButton.clicked += Die;
 		continueButton.visible = false;
 	}
 
@@ -286,6 +286,12 @@ public class UiManager : Singleton<UiManager>
 	{
 		Resume();
 		PlayerManager.Instance.player.identity.Flee();
+		SceneManager.LoadScene("Sect");
+	}
+
+	private void Die()
+	{
+		Resume();
 		SceneManager.LoadScene("Sect");
 	}
 

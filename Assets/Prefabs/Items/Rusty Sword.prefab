@@ -80,6 +80,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
   stats:
+    index: 2
     name: Rusty Sword
     description: And old and rusty sword, better than fists i suppose
     type: 5

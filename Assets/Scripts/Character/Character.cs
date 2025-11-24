@@ -317,6 +317,7 @@ public class Character : StateMachine<CharacterState>, IInteractable
 					UnequipItem(identity.armour.Value);
 
 				identity.armour = item;
+				identity.armourRefIndex = item.index;
 
 				var skinnedRenderer = item.visual.GetComponentInChildren<SkinnedMeshRenderer>();
 				armourSkin.sharedMesh = skinnedRenderer.sharedMesh;
@@ -329,6 +330,7 @@ public class Character : StateMachine<CharacterState>, IInteractable
 					UnequipItem(identity.weapon.Value);
 
 				identity.weapon = item;
+				identity.weaponRefIndex = item.index;
 
 				Instantiate(item.visual, weaponPos);
 				UpdateAnimations(item.animationType);
@@ -384,11 +386,21 @@ public class Character : StateMachine<CharacterState>, IInteractable
 		if (identity.level > 0)
 			stats.level = identity.level;
 
-		if (identity.armour != null)
-			EquipItem(identity.armour.Value);
+		if (identity.armourRefIndex > 0)
+		{
+			EquipIndexItem(identity.armourRefIndex);
+		}
 
-		if (identity.weapon != null)
-			EquipItem(identity.weapon.Value);
+		if (identity.weaponRefIndex > 0)
+		{
+			EquipIndexItem(identity.weaponRefIndex);
+		}
+	}
+
+	private void EquipIndexItem(ItemReferenceIndex index)
+	{
+		var item = RefManager.Instance.GetItem(index);
+		EquipItem(item.stats);
 	}
 
 	private void Attack()

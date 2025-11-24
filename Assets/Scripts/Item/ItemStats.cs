@@ -10,6 +10,7 @@ namespace Midevil.Item
 	public struct ItemStats
 	{
 		public Guid id;
+		public ItemReferenceIndex index;
 		public string name;
 		[TextArea] public string description;
 		public ItemType type;

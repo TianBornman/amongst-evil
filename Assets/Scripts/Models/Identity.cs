@@ -7,22 +7,25 @@ namespace Midevil.Models
 	[Serializable]
 	public class Identity
 	{
-		public Guid id;
+		public string id;
 		public string characterName;
 		public IconReferenceIndex profileIcon;
 
 		public int level = -1;
 		public float xp = 0;
 
-		public ItemStats? weapon;
-		public ItemStats? armour;
+		[NonSerialized] public ItemStats? weapon;
+		public ItemReferenceIndex weaponRefIndex;
+
+		[NonSerialized] public ItemStats? armour;
+		public ItemReferenceIndex armourRefIndex;
 
 		[NonSerialized] public Result currentResult = new();
 		public Result lifeTimeResult = new();
 
 		public void Randomize()
 		{
-			id = Guid.NewGuid();
+			id = Guid.NewGuid().ToString();
 			characterName = NameGenerator.GetRandomName();
 			profileIcon = IconReferenceIndex.HumanIcon;
 		}
