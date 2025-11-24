@@ -1,6 +1,7 @@
 using Midevil.Ability;
 using Midevil.Effect;
 using Midevil.Item;
+using Midevil.Models;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -31,6 +32,7 @@ public class Character : StateMachine<CharacterState>, IInteractable
 	public List<Effect> effects = new();
 	public List<Ability> abilities = new();
 	public List<Item> drops = new();
+	public Identity identity;
 
 	[Header("References")]
 	public Transform weaponPos;
@@ -39,9 +41,6 @@ public class Character : StateMachine<CharacterState>, IInteractable
 	public SkinnedMeshRenderer glovesSkin;
 	public SkinnedMeshRenderer leggingsSKin;
 	public SkinnedMeshRenderer bootsSkin;
-
-	public ItemStats? weapon;
-	public ItemStats? armour;
 
 	// Protected Variables
 	protected Character target;
@@ -129,7 +128,7 @@ public class Character : StateMachine<CharacterState>, IInteractable
 		if (target is Player player)
 		{
 			player.AddXp(stats.xpValue);
-			ResultManager.Instance.results.kills++;
+			PlayerManager.Instance.player.Results.kills++;
 		}
 
 		foreach (var buff in killer.effects)
@@ -176,19 +175,19 @@ public class Character : StateMachine<CharacterState>, IInteractable
 
 		if (target is Player player)
 		{
-			ResultManager.Instance.results.damageDealt += damage;
+			PlayerManager.Instance.player.Results.damageDealt += damage;
 
 			if (isCrit)
-				ResultManager.Instance.results.criticalHits++;
+				PlayerManager.Instance.player.Results.criticalHits++;
 			else
-				ResultManager.Instance.results.hits++;
+				PlayerManager.Instance.player.Results.hits++;
 		}
 		else
 		{
 			if (damage > 0)
-				ResultManager.Instance.results.damageTaken += damage;
+				PlayerManager.Instance.player.Results.damageTaken += damage;
 			else
-				ResultManager.Instance.results.healed += damage;
+				PlayerManager.Instance.player.Results.healed += damage;
 		}
 
 		if (stats.health == 0)
@@ -230,6 +229,8 @@ public class Character : StateMachine<CharacterState>, IInteractable
 			stats.level = PlayerManager.Instance.player.stats.level;
 		else
 			stats.level = 1;
+
+		SetupIdentity();
 
 		RecalculateStats();
 
@@ -312,10 +313,10 @@ public class Character : StateMachine<CharacterState>, IInteractable
 			case ItemType.Helmet:
 				break;
 			case ItemType.Armour:
-				if (armour != null)
-					UnequipItem(armour.Value);
+				if (identity.armour != null)
+					UnequipItem(identity.armour.Value);
 
-				armour = item;
+				identity.armour = item;
 
 				var skinnedRenderer = item.visual.GetComponentInChildren<SkinnedMeshRenderer>();
 				armourSkin.sharedMesh = skinnedRenderer.sharedMesh;
@@ -324,10 +325,10 @@ public class Character : StateMachine<CharacterState>, IInteractable
 				armourSkin.gameObject.SetActive(true);
 				break;
 			case ItemType.Weapon:
-				if (weapon != null)
-					UnequipItem(weapon.Value);
+				if (identity.weapon != null)
+					UnequipItem(identity.weapon.Value);
 
-				weapon = item;
+				identity.weapon = item;
 
 				Instantiate(item.visual, weaponPos);
 				UpdateAnimations(item.animationType);
@@ -362,11 +363,11 @@ public class Character : StateMachine<CharacterState>, IInteractable
 			case ItemType.Helmet:
 				break;
 			case ItemType.Armour:
-				armour = null;
+				identity.armour = null;
 				armourSkin.gameObject.SetActive(false);
 				break;
 			case ItemType.Weapon:
-				weapon = null;
+				identity.weapon = null;
 				RemoveChildren(weaponPos);
 				UpdateAnimations(ItemAnimationType.Unarmed);
 				break;
@@ -378,6 +379,18 @@ public class Character : StateMachine<CharacterState>, IInteractable
 	}
 
 	// Private Methods
+	private void SetupIdentity()
+	{
+		if (identity.level > 0)
+			stats.level = identity.level;
+
+		if (identity.armour != null)
+			EquipItem(identity.armour.Value);
+
+		if (identity.weapon != null)
+			EquipItem(identity.weapon.Value);
+	}
+
 	private void Attack()
 	{
 		if (!CheckValidTarget() && State == CharacterState.Attacking) return;

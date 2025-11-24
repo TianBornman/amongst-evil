@@ -93,7 +93,7 @@ public class UiManager : Singleton<UiManager>
 
 		// Results
 		resultsUi.rootVisualElement.visible = false;
-		resultsUi.rootVisualElement.Q<VisualElement>("Results").dataSource = ResultManager.Instance.results;
+		resultsUi.rootVisualElement.Q<VisualElement>("Results").dataSource = PlayerManager.Instance.player.Results;
 		resultsUi.rootVisualElement.Q<Button>("Flee").clicked += Flee;
 		resultsUi.rootVisualElement.Q<Button>("FightOn").clicked += SpawnWave;
 
@@ -220,13 +220,13 @@ public class UiManager : Singleton<UiManager>
 
 		var player = PlayerManager.Instance.player;
 
-		if (player.weapon != null)
-			EquipItem(player.weapon.Value);
+		if (player.identity.weapon != null)
+			EquipItem(player.identity.weapon.Value);
 		else
 			UnequipItem(ItemType.Weapon);
 
-		if (player.armour != null)
-			EquipItem(player.armour.Value);
+		if (player.identity.armour != null)
+			EquipItem(player.identity.armour.Value);
 		else
 			UnequipItem(ItemType.Armour);
 	}
@@ -284,6 +284,8 @@ public class UiManager : Singleton<UiManager>
 
 	private void Flee()
 	{
+		Resume();
+		PlayerManager.Instance.player.identity.Flee();
 		SceneManager.LoadScene("Sect");
 	}
 

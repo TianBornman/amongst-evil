@@ -79,6 +79,11 @@ MonoBehaviour:
     xpValue: 0
   buffs: []
   drops: []
+  identity:
+    characterName: 
+    profileIcon: 0
+    level: 1
+    xp: -1
   weaponPos: {fileID: 0}
   helmetSkin: {fileID: 0}
   armourSkin: {fileID: 2424530802477093003}
@@ -86,9 +91,6 @@ MonoBehaviour:
   leggingsSKin: {fileID: 0}
   bootsSkin: {fileID: 0}
   cameraPos: {fileID: 7520627762888410576}
-  identity:
-    name: 
-    profileIcon: 0
 --- !u!114 &5479236539335497120
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -76,6 +76,9 @@ public class DamageNumberManager : Singleton<DamageNumberManager>
 
 	private void Update()
 	{
+		if (mainCamera == null)
+			return;
+
 		for (int i = active.Count - 1; i >= 0; i--)
 		{
 			var dmg = active[i];

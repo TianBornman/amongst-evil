@@ -45,7 +45,7 @@ public class HubUiManager : Singleton<HubUiManager>
 	public void UpdateRecruitmentUI(Identity identity)
 	{
 		var recruitmentElement = recruitmentUi.rootVisualElement.Q<VisualElement>("RecuitmentProfile");
-		recruitmentElement.Q<Label>().text = identity.name;
+		recruitmentElement.Q<Label>().text = identity.characterName;
 	}
 
 	public void ShowBloodVaultUI()

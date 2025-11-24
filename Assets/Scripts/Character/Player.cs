@@ -50,7 +50,8 @@ public class Player : Character
 	[HideInInspector] public float currentXp;
 	[HideInInspector] public float neededXp;
 
-	public Identity identity;
+	// Public Properties
+	public Result Results => identity.currentResult;
 
 	// Override Methods
 	protected override void Awake()
@@ -67,8 +68,10 @@ public class Player : Character
 	{
 		base.Start();
 
-		stats.level = 1;
+		stats.level = identity.level;
 		neededXp = GetNeededXp(stats.level);
+
+		AddXp(identity.xp);
 
 		UiManager.Instance.BindPlayerStats(this);
 
@@ -169,15 +172,12 @@ public class Player : Character
 		var entry = new BloodVaultEntry
 		{
 			identity = identity,
-			result = ResultManager.Instance.results,
-			causeOfDeath = "Defeated in battle",
-			timeOfDeath = DateTime.Now.ToString("g")
+			status = BloodVaultStatus.Dead
 		};
 
-		BloodvaultManager.Add(entry);
+		BloodvaultManager.AddOrUpdate(entry);
 
 		RecruitManager.Instance.playerIdentity = null;
-		ResultManager.Instance.results = new Result();
 	}	
 
 	// Public Methods
@@ -185,7 +185,7 @@ public class Player : Character
 	{
 		currentXp += amount;
 
-		ResultManager.Instance.results.xpGained += currentXp;
+		Results.xpGained += currentXp;
 
 		while (currentXp >= neededXp)
 		{

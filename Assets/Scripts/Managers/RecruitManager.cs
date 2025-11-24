@@ -12,6 +12,13 @@ public class RecruitManager : Singleton<RecruitManager>
 	[HideInInspector] public Identity playerIdentity;
 
 	// Override Methods
+	override protected void Awake()
+	{
+		base.Awake();
+
+		playerIdentity = null;
+	}
+
 	protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
 		if (!GameManager.Instance.AtHub)
@@ -22,7 +29,14 @@ public class RecruitManager : Singleton<RecruitManager>
 		for (int i = 0; i < recruitmentCount; i++)
 		{
 			var recruitData = new Identity();
-			recruitData.Randomize();
+
+			if (playerIdentity != null)
+			{
+				recruitData = playerIdentity;
+				playerIdentity = null;
+			}
+			else
+				recruitData.Randomize();
 
 			var recruitPrefab = recruitPrefabs[Random.Range(0, recruitPrefabs.Count)];
 			var spawnPosition = transform.position + (Vector3)(Random.insideUnitCircle * 5f);
@@ -30,5 +44,12 @@ public class RecruitManager : Singleton<RecruitManager>
 
 			recruitInstance.identity = recruitData;
 		}
+	}
+
+	// Public Methods
+	public void RecruitPlayer(Identity identity)
+	{
+		playerIdentity = identity;
+		identity.currentResult = new();
 	}
 }

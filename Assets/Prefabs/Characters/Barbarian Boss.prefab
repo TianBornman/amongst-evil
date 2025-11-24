@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5019694336578043345}
   - component: {fileID: 8996435584707828427}
+  - component: {fileID: -849515497836562832}
   - component: {fileID: 6899715613453911756}
   - component: {fileID: 6718143040978402789}
-  - component: {fileID: -849515497836562832}
   m_Layer: 6
   m_Name: Barbarian Boss
   m_TagString: Untagged
@@ -65,25 +65,46 @@ MonoBehaviour:
   baseStats:
     level: 0
     health: 0
-    maxHealth: 15
+    maxHealth: 2
     levelHeal: 0
     blockChance: 0
     dodgeChance: 0
-    damage: 2
+    damage: 0
     attackSpeed: 0.7
     critChance: 0.1
     critDamage: 1.5
     range: 0
     moveSpeed: 0
-    xpValue: 19
+    xpValue: 0
   buffs: []
   drops: []
+  identity:
+    characterName: 
+    profileIcon: 0
   weaponPos: {fileID: 0}
   helmetSkin: {fileID: 0}
   armourSkin: {fileID: 0}
   glovesSkin: {fileID: 0}
   leggingsSKin: {fileID: 0}
   bootsSkin: {fileID: 0}
+--- !u!114 &-849515497836562832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6205208127605437622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!195 &6899715613453911756
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -129,24 +150,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &-849515497836562832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6205208127605437622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Outline
-  outlineMode: 0
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 2
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!1 &7839918675088990373
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,10 +179,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 8066527324473750710}
+  - {fileID: 982498414026808787}
   m_Father: {fileID: 5019694336578043345}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &7527967577549575005
+--- !u!1001 &731888159978076728
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -187,78 +190,74 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8989957997770811342}
     m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 910174e1a13769845814cbc32e1ef40b, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 21b75deedcc45814c965b58edce0115b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 910174e1a13769845814cbc32e1ef40b, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 21b75deedcc45814c965b58edce0115b, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 910174e1a13769845814cbc32e1ef40b, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 21b75deedcc45814c965b58edce0115b, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 910174e1a13769845814cbc32e1ef40b, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 21b75deedcc45814c965b58edce0115b, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 910174e1a13769845814cbc32e1ef40b, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 21b75deedcc45814c965b58edce0115b, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 910174e1a13769845814cbc32e1ef40b, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 21b75deedcc45814c965b58edce0115b, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 910174e1a13769845814cbc32e1ef40b, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 21b75deedcc45814c965b58edce0115b, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 910174e1a13769845814cbc32e1ef40b, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 21b75deedcc45814c965b58edce0115b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 910174e1a13769845814cbc32e1ef40b, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 21b75deedcc45814c965b58edce0115b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 910174e1a13769845814cbc32e1ef40b, type: 3}
+    - target: {fileID: -8679921383154817045, guid: 21b75deedcc45814c965b58edce0115b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 910174e1a13769845814cbc32e1ef40b, type: 3}
+    - target: {fileID: 919132149155446097, guid: 21b75deedcc45814c965b58edce0115b, type: 3}
       propertyPath: m_Name
-      value: Barbarian
+      value: Base Human
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: -6057219835555335545, guid: 910174e1a13769845814cbc32e1ef40b, type: 3}
-    - {fileID: -2765639428920411087, guid: 910174e1a13769845814cbc32e1ef40b, type: 3}
-    - {fileID: -7288516747110828034, guid: 910174e1a13769845814cbc32e1ef40b, type: 3}
-    - {fileID: -3443577493287228248, guid: 910174e1a13769845814cbc32e1ef40b, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 910174e1a13769845814cbc32e1ef40b, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 21b75deedcc45814c965b58edce0115b, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3198133293457140367}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 910174e1a13769845814cbc32e1ef40b, type: 3}
+      addedObject: {fileID: 8803117027391795234}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 21b75deedcc45814c965b58edce0115b, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 9170025061503885616}
-  m_SourcePrefab: {fileID: 100100000, guid: 910174e1a13769845814cbc32e1ef40b, type: 3}
---- !u!1 &7258077953467952652 stripped
+      addedObject: {fileID: 7520796797596122580}
+  m_SourcePrefab: {fileID: 100100000, guid: 21b75deedcc45814c965b58edce0115b, type: 3}
+--- !u!1 &498027875153446761 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 910174e1a13769845814cbc32e1ef40b, type: 3}
-  m_PrefabInstance: {fileID: 7527967577549575005}
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 21b75deedcc45814c965b58edce0115b, type: 3}
+  m_PrefabInstance: {fileID: 731888159978076728}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &3198133293457140367
+--- !u!95 &8803117027391795234
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7258077953467952652}
+  m_GameObject: {fileID: 498027875153446761}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: ff00e280b0efd6f4fbdea133306f7d29, type: 2}
@@ -273,20 +272,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &9170025061503885616
+--- !u!114 &7520796797596122580
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7258077953467952652}
+  m_GameObject: {fileID: 498027875153446761}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e4216c826c527147a88a8691a3be4d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterAnimAPI
---- !u!4 &8066527324473750710 stripped
+--- !u!4 &982498414026808787 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 910174e1a13769845814cbc32e1ef40b, type: 3}
-  m_PrefabInstance: {fileID: 7527967577549575005}
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 21b75deedcc45814c965b58edce0115b, type: 3}
+  m_PrefabInstance: {fileID: 731888159978076728}
   m_PrefabAsset: {fileID: 0}

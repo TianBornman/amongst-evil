@@ -9,8 +9,8 @@ namespace Midevil.UI.Elements
 	{
 		private VisualElement profile;
 		private Label nameLabel;
-		private Label causeOfDeathLabel;
-		private Label timeOfDeathLabel;
+		private Label statusLabel;
+		private Label killsLabel;
 
 		[UxmlAttribute]
 		public Texture2D ProfileTexture
@@ -28,17 +28,17 @@ namespace Midevil.UI.Elements
 
 
 		[UxmlAttribute]
-		public string CauseOfDeath
+		public string Status
 		{
-			get => causeOfDeathLabel.text;
-			set => causeOfDeathLabel.text = value;
+			get => statusLabel.text;
+			set => statusLabel.text = value;
 		}
 
 		[UxmlAttribute]
-		public string TimeOfDeath
+		public string Kills
 		{
-			get => timeOfDeathLabel.text;
-			set => timeOfDeathLabel.text = value;
+			get => killsLabel.text;
+			set => killsLabel.text = value;
 		}
 
 		public BloodVaultEntryElement()
@@ -49,13 +49,13 @@ namespace Midevil.UI.Elements
 			// Create children
 			profile = new VisualElement() { name = "Icon" };
 			nameLabel = new Label() { name = "Name" };
-			causeOfDeathLabel = new Label() { name = "Cause" };
-			timeOfDeathLabel = new Label() { name = "Time" };
+			statusLabel = new Label() { name = "Status" };
+			killsLabel = new Label() { name = "Kills" };
 
 			var textContainer = new VisualElement() { name = "TextContainer" };
 			textContainer.Add(nameLabel);
-			textContainer.Add(causeOfDeathLabel);
-			textContainer.Add(timeOfDeathLabel);
+			textContainer.Add(statusLabel);
+			textContainer.Add(killsLabel);
 
 			Add(profile);
 			Add(textContainer);
@@ -64,16 +64,16 @@ namespace Midevil.UI.Elements
 		// Public accessors
 		public VisualElement Profile => profile;
 		public Label NameLabel => nameLabel;
-		public Label CauseOfDeathLabel => causeOfDeathLabel;
-		public Label TimeOfDeathLabel => timeOfDeathLabel;
+		public Label StatusLabel => statusLabel;
+		public Label KillsLabel => KillsLabel;
 
 		// Public Methods
 		public void SetEntry(BloodVaultEntry entry)
 		{
 			ProfileTexture = RefManager.Instance.GetIcon(entry.identity.profileIcon);
-			Name = entry.identity.name;
-			CauseOfDeath = entry.causeOfDeath;
-			TimeOfDeath = entry.timeOfDeath;
+			Name = entry.identity.characterName;
+			Status = entry.status.ToString();
+			Kills = entry.identity.lifeTimeResult.kills.ToString();
 		}
 	}
 }

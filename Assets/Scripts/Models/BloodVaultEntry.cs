@@ -7,13 +7,17 @@ namespace Midevil.Models
 	public class BloodVaultEntry
 	{
 		public Identity identity;
-		public Result result;
-		public string causeOfDeath;
-		public string timeOfDeath;
+		public BloodVaultStatus status;
 	}
 
 	public class BloodVaultData
 	{
 		public List<BloodVaultEntry> entries = new();
+	}
+
+	public enum BloodVaultStatus
+	{
+		Dead, 
+		Alive
 	}
 }

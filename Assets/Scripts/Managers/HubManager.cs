@@ -1,3 +1,4 @@
+using Midevil.Models;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -79,10 +80,24 @@ public class HubManager : Singleton<HubManager>
 		mainMenuCamera.targetPosition = mainMenuCamera.hubPosition;
 	}
 
+	public void StartRun()
+	{
+		var bloodVaultEntry = new BloodVaultEntry
+		{
+			identity = RecruitManager.Instance.playerIdentity,
+			status = BloodVaultStatus.Alive
+		};
+
+		BloodvaultManager.AddOrUpdate(bloodVaultEntry);
+
+		GameManager.Instance.LeaveHub();
+		SceneManager.LoadScene("Level");
+	}
+
 	public void FocusCharacter(RecruitCharacter recruitCharacter)
 	{
 		HubUiManager.Instance.UpdateRecruitmentUI(recruitCharacter.identity);
-		RecruitManager.Instance.playerIdentity = recruitCharacter.identity;
+		RecruitManager.Instance.RecruitPlayer(recruitCharacter.identity);
 
 		ZoomOnTransform(recruitCharacter.cameraPos);
 	}

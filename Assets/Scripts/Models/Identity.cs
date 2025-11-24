@@ -1,4 +1,5 @@
 ﻿using Midevil.Helpers;
+using Midevil.Item;
 using System;
 
 namespace Midevil.Models
@@ -6,13 +7,41 @@ namespace Midevil.Models
 	[Serializable]
 	public class Identity
 	{
-		public string name;
+		public Guid id;
+		public string characterName;
 		public IconReferenceIndex profileIcon;
+
+		public int level = -1;
+		public float xp = 0;
+
+		public ItemStats? weapon;
+		public ItemStats? armour;
+
+		[NonSerialized] public Result currentResult = new();
+		public Result lifeTimeResult = new();
 
 		public void Randomize()
 		{
-			name = NameGenerator.GetRandomName();
+			id = Guid.NewGuid();
+			characterName = NameGenerator.GetRandomName();
 			profileIcon = IconReferenceIndex.HumanIcon;
+		}
+
+		public void Flee()
+		{
+			level = PlayerManager.Instance.player.stats.level;
+			xp = PlayerManager.Instance.player.currentXp;
+
+			lifeTimeResult.Add(currentResult);
+			currentResult = new();
+
+			var bloodVaultEntry = new BloodVaultEntry
+			{
+				identity = this,
+				status = BloodVaultStatus.Alive
+			};
+
+			BloodvaultManager.AddOrUpdate(bloodVaultEntry);
 		}
 	}
 }

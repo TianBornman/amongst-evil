@@ -16,27 +16,39 @@ public static class BloodvaultManager
 
 		if (!File.Exists(filePath))
 		{
-			cachedData = new();
+			cachedData = new BloodVaultData();
 			Save();
 			return cachedData;
 		}
 
 		string json = File.ReadAllText(filePath);
-		cachedData = JsonUtility.FromJson<BloodVaultData>(json);
-
-		if (cachedData == null)
-			cachedData = new BloodVaultData();
+		cachedData = JsonUtility.FromJson<BloodVaultData>(json)
+					  ?? new BloodVaultData();
 
 		return cachedData;
 	}
 
-	public static void Add(BloodVaultEntry entry)
+	public static void AddOrUpdate(BloodVaultEntry entry)
 	{
-		Load().entries.Add(entry);
+		var data = Load();
+
+		var existing = data.entries
+			.Find(e => e.identity.id == entry.identity.id);
+
+		if (existing != null)
+		{
+			existing.identity = entry.identity;
+			existing.status = entry.status;
+		}
+		else
+		{
+			data.entries.Add(entry);
+		}
+
 		Save();
 	}
 
-	public static void Save()
+	private static void Save()
 	{
 		string json = JsonUtility.ToJson(cachedData, true);
 		File.WriteAllText(filePath, json);

@@ -16,7 +16,4 @@ public class RecruitCharacter : Character
 	// Editor Variables
 	[Header("Recruit Character")]
 	public Transform cameraPos;
-
-	// Public Variables
-	[HideInInspector] public Identity identity;
 }

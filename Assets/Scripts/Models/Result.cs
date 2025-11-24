@@ -16,5 +16,17 @@ namespace Midevil.Models
 		public int hits;
 		public int criticalHits;
 		public int abilitiesUsed;
+
+		public void Add(Result other)
+		{
+			xpGained += other.xpGained;
+			kills += other.kills;
+			damageDealt += other.damageDealt;
+			damageTaken += other.damageTaken;
+			healed += other.healed;
+			hits += other.hits;
+			criticalHits += other.criticalHits;
+			abilitiesUsed += other.abilitiesUsed;
+		}
 	}
 }
