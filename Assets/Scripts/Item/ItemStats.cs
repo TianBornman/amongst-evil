@@ -1,4 +1,3 @@
-using Midevil.Ability;
 using Midevil.Effect;
 using System;
 using System.Collections.Generic;
@@ -7,7 +6,7 @@ using UnityEngine;
 namespace Midevil.Item
 {
 	[Serializable]
-	public struct ItemStats
+	public class ItemStats
 	{
 		public Guid id;
 		public ItemReferenceIndex index;
@@ -18,8 +17,10 @@ namespace Midevil.Item
 		public GameObject visual;
 		public ItemAnimationType animationType;
 		public Buff buff;
-		public AbilityData ability;
+		public AbilityReferenceIndex abilityIndex;
 		public List<EffectData> effects;
+		[HideInInspector] public EffectReferenceIndex effectIndex;
 		public float dropChance;
+		public bool shouldRoll;
 	}
 }

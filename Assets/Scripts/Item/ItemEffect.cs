@@ -7,6 +7,6 @@ namespace Midevil.Item
 	public class ItemEffect
 	{
 		public float weight;
-		public EffectData effect;
+		public EffectReferenceIndex effectIndex;
 	}
 }

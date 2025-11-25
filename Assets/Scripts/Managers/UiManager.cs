@@ -221,12 +221,12 @@ public class UiManager : Singleton<UiManager>
 		var player = PlayerManager.Instance.player;
 
 		if (player.identity.weapon != null)
-			EquipItem(player.identity.weapon.Value);
+			EquipItem(player.identity.weapon);
 		else
 			UnequipItem(ItemType.Weapon);
 
 		if (player.identity.armour != null)
-			EquipItem(player.identity.armour.Value);
+			EquipItem(player.identity.armour);
 		else
 			UnequipItem(ItemType.Armour);
 	}

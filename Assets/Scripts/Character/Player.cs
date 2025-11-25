@@ -42,7 +42,7 @@ public class Player : Character
 	// Editor References
 	[Header("References")]
 	public Transform cameraPosition;
-	public List<AbilityData> startingAbilities;
+	public List<AbilityReferenceIndex> startingAbilities;
 
 	// Public Variables
 	[HideInInspector] public AbilitySlot[] abilitySlots = new AbilitySlot[4];
@@ -75,8 +75,11 @@ public class Player : Character
 
 		UiManager.Instance.BindPlayerStats(this);
 
-		foreach (var ability in startingAbilities)
-			AddAbility(ability.CreateRuntime(this));
+		foreach (var abilityIndex in startingAbilities)
+		{
+			var abilityData = RefManager.Instance.GetAbility(abilityIndex);
+			AddAbility(abilityData.CreateRuntime(this));
+		}
 	}
 
 	protected override void Update()

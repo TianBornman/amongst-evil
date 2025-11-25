@@ -80,6 +80,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
   stats:
+    index: 0
     name: Beer Mug
     description: Make you forget the lasses and troubles
     type: 7
@@ -101,9 +102,11 @@ MonoBehaviour:
         range: 0
         moveSpeed: 0
         xpValue: 0
-    ability: {fileID: 0}
+    abilityIndex: 0
     effects: []
-    dropChance: 0.1
+    effectIndex: 0
+    dropChance: 0
+    shouldRoll: 0
   noEffectWeight: 0
   possibleEffects: []
 --- !u!65 &892726615595024836

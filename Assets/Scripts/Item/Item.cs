@@ -1,8 +1,7 @@
+using Midevil.Helpers;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using Guid = System.Guid;
 
 namespace Midevil.Item
 {
@@ -16,25 +15,7 @@ namespace Midevil.Item
 		// Private Methods
 		private void Awake()
 		{
-			stats.id = Guid.NewGuid();
-
-			var totalWeight = noEffectWeight + possibleEffects.Sum(e => e.weight);
-			var randomValue = Random.Range(0, totalWeight);
-
-			float cumulative = noEffectWeight;
-
-			if (randomValue <= cumulative) return;
-
-			foreach (var effect in possibleEffects)
-			{
-				cumulative += effect.weight;
-				if (randomValue <= cumulative)
-				{
-					stats.name = $"{effect.effect.itemPrefix} {stats.name}";
-					stats.effects.Add(effect.effect);
-					return;
-				}
-			}
+			ItemHelper.Setup(stats);
 		}
 
 		private void Start()

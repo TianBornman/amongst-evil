@@ -1,3 +1,5 @@
+using Midevil.Ability;
+using Midevil.Effect;
 using Midevil.Item;
 using System;
 using System.Collections.Generic;
@@ -13,6 +15,8 @@ public class RefManager : Singleton<RefManager>
 	[Header("Reference Index")]
 	public List<IconReference> icons;
 	public List<ItemReference> items;
+	public List<EffectReference> effects;
+	public List<AbilityReference> abilities;
 
 	// Public Methods
 	public Texture2D GetIcon(IconReferenceIndex index)
@@ -23,6 +27,16 @@ public class RefManager : Singleton<RefManager>
 	public Item GetItem(ItemReferenceIndex index)
 	{
 		return items.Find(x => x.index == index).item;
+	}
+
+	public EffectData GetEffect(EffectReferenceIndex index)
+	{
+		return effects.Find(x => x.index == index).effect;
+	}
+
+	public AbilityData GetAbility(AbilityReferenceIndex index)
+	{
+		return abilities.Find(x => x.index == index).ability;
 	}
 }
 
@@ -50,4 +64,32 @@ public enum ItemReferenceIndex
 	None,
 	IronArmour,
 	RustySword
+}
+
+[Serializable]
+public struct EffectReference
+{
+	public EffectReferenceIndex index;
+	public EffectData effect;
+}
+
+public enum EffectReferenceIndex
+{
+	None,
+	HealOnKill,
+	BurnOnHit
+}
+
+[Serializable]
+public struct AbilityReference
+{
+	public AbilityReferenceIndex index;
+	public AbilityData ability;
+}
+
+public enum AbilityReferenceIndex
+{
+	None,
+	HealthPotion,
+	Fireball
 }

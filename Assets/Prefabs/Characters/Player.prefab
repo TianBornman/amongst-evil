@@ -78,6 +78,23 @@ MonoBehaviour:
     xpValue: 0
   buffs: []
   drops: []
+  identity:
+    id: 
+    characterName: 
+    profileIcon: 0
+    level: -1
+    xp: 0
+    weaponRefIndex: 0
+    armourRefIndex: 0
+    lifeTimeResult:
+      xpGained: 0
+      kills: 0
+      damageDealt: 0
+      damageTaken: 0
+      healed: 0
+      hits: 0
+      criticalHits: 0
+      abilitiesUsed: 0
   weaponPos: {fileID: 1224518398597499159}
   helmetSkin: {fileID: 0}
   armourSkin: {fileID: 2424530802477093003}
@@ -85,8 +102,7 @@ MonoBehaviour:
   leggingsSKin: {fileID: 0}
   bootsSkin: {fileID: 0}
   cameraPosition: {fileID: 5489311698338238782}
-  startingAbilities:
-  - {fileID: 11400000, guid: f9430b0a9ab831e4788d08fc92070a24, type: 2}
+  startingAbilities: 01000000
   abilitySlots:
   - slotIndex: 0
   - slotIndex: 0
@@ -94,9 +110,6 @@ MonoBehaviour:
   - slotIndex: 0
   currentXp: 0
   neededXp: 0
-  identity:
-    name: 
-    profileIcon: 0
 --- !u!114 &195132132207412687
 MonoBehaviour:
   m_ObjectHideFlags: 0

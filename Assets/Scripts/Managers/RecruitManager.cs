@@ -50,6 +50,7 @@ public class RecruitManager : Singleton<RecruitManager>
 	{
 		playerIdentity = identity;
 		identity.currentResult = new();
+		ClearGear(identity);
 	}
 
 	// Private Methods
@@ -59,5 +60,11 @@ public class RecruitManager : Singleton<RecruitManager>
 		var recruitInstance = Instantiate(prefab, spawnPosition, Quaternion.identity);
 
 		recruitInstance.identity = identity;
+	}
+
+	private void ClearGear(Identity identity)
+	{
+		identity.weapon = null;
+		identity.armour = null;
 	}
 }

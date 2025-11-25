@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3f158960c09281e48bb0758eac8f42a2, type: 3}
-  m_Name: Heal On Kill Buff Data
+  m_Name: Heal On Kill
   m_EditorClassIdentifier: Assembly-CSharp::HealOnKillBuffData
-  id: healonkill
+  effectType: healonkill
   icon: {fileID: 2800000, guid: 312f8149edba4fa45b056ab33e9e63a1, type: 3}
   itemPrefix: Healthy
   duration: -1

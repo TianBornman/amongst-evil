@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fc324ccd328f4c47aa55793c58222b3, type: 3}
   m_Name: Burn On Hit
   m_EditorClassIdentifier: Assembly-CSharp::BurnOnHitBuffData
-  id: burnonhit
+  effectType: burnonhit
   icon: {fileID: 2800000, guid: 51b21bae7150ed94dabf5a844b6b1786, type: 3}
   itemPrefix: Flaming
   duration: -1
-  effectId: burning
+  childEffectType: burning
   effectDps: 1
   effectDuration: 5

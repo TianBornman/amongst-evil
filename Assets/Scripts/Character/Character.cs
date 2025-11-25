@@ -1,5 +1,6 @@
 using Midevil.Ability;
 using Midevil.Effect;
+using Midevil.Helpers;
 using Midevil.Item;
 using Midevil.Models;
 using System.Collections.Generic;
@@ -300,9 +301,11 @@ public class Character : StateMachine<CharacterState>, IInteractable
 			AddEffect(effect);
 		}
 
-		if (item.ability != null)
+		if (item.abilityIndex != AbilityReferenceIndex.None)
 		{
-			var ability = item.ability.CreateRuntime(this);
+			var abilityData = RefManager.Instance.GetAbility(item.abilityIndex);
+
+			var ability = abilityData.CreateRuntime(this);
 			ability.id = item.id;
 
 			AddAbility(ability);
@@ -314,10 +317,10 @@ public class Character : StateMachine<CharacterState>, IInteractable
 				break;
 			case ItemType.Armour:
 				if (identity.armour != null)
-					UnequipItem(identity.armour.Value);
+					UnequipItem(identity.armour);
 
 				identity.armour = item;
-				identity.armourRefIndex = item.index;
+				identity.armourConfig.Set(item);
 
 				var skinnedRenderer = item.visual.GetComponentInChildren<SkinnedMeshRenderer>();
 				armourSkin.sharedMesh = skinnedRenderer.sharedMesh;
@@ -327,10 +330,10 @@ public class Character : StateMachine<CharacterState>, IInteractable
 				break;
 			case ItemType.Weapon:
 				if (identity.weapon != null)
-					UnequipItem(identity.weapon.Value);
+					UnequipItem(identity.weapon);
 
 				identity.weapon = item;
-				identity.weaponRefIndex = item.index;
+				identity.weaponConfig.Set(item);
 
 				Instantiate(item.visual, weaponPos);
 				UpdateAnimations(item.animationType);
@@ -366,10 +369,12 @@ public class Character : StateMachine<CharacterState>, IInteractable
 				break;
 			case ItemType.Armour:
 				identity.armour = null;
+				identity.armourConfig.Clear();
 				armourSkin.gameObject.SetActive(false);
 				break;
 			case ItemType.Weapon:
 				identity.weapon = null;
+				identity.weaponConfig.Clear();
 				RemoveChildren(weaponPos);
 				UpdateAnimations(ItemAnimationType.Unarmed);
 				break;
@@ -386,21 +391,26 @@ public class Character : StateMachine<CharacterState>, IInteractable
 		if (identity.level > 0)
 			stats.level = identity.level;
 
-		if (identity.armourRefIndex > 0)
+		if (identity.armourConfig.index > 0)
 		{
-			EquipIndexItem(identity.armourRefIndex);
+			EquipItemConfig(identity.armourConfig);
 		}
 
-		if (identity.weaponRefIndex > 0)
+		if (identity.weaponConfig.index > 0)
 		{
-			EquipIndexItem(identity.weaponRefIndex);
+			EquipItemConfig(identity.weaponConfig);
 		}
 	}
 
-	private void EquipIndexItem(ItemReferenceIndex index)
+	private void EquipItemConfig(ItemConfig config)
 	{
-		var item = RefManager.Instance.GetItem(index);
-		EquipItem(item.stats);
+		var item = RefManager.Instance.GetItem(config.index);
+		var itemStats = item.stats.Clone();
+		itemStats.effectIndex = config.effectIndex;
+
+		ItemHelper.Setup(itemStats);
+
+		EquipItem(itemStats);
 	}
 
 	private void Attack()

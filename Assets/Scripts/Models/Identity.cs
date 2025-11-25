@@ -14,11 +14,11 @@ namespace Midevil.Models
 		public int level = -1;
 		public float xp = 0;
 
-		[NonSerialized] public ItemStats? weapon;
-		public ItemReferenceIndex weaponRefIndex;
+		[NonSerialized] public ItemStats weapon;
+		public ItemConfig weaponConfig = new();
 
-		[NonSerialized] public ItemStats? armour;
-		public ItemReferenceIndex armourRefIndex;
+		[NonSerialized] public ItemStats armour;
+		public ItemConfig armourConfig = new();
 
 		[NonSerialized] public Result currentResult = new();
 		public Result lifeTimeResult = new();
