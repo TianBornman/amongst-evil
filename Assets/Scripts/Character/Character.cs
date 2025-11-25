@@ -126,10 +126,10 @@ public class Character : StateMachine<CharacterState>, IInteractable
 
 		DropItems();
 
-		if (target is Player player)
+		if (target is PartyCharacter player)
 		{
 			player.AddXp(stats.xpValue);
-			PlayerManager.Instance.player.Results.kills++;
+			PartyManager.Instance.player.Results.kills++;
 		}
 
 		foreach (var buff in killer.effects)
@@ -174,21 +174,21 @@ public class Character : StateMachine<CharacterState>, IInteractable
 			if (buff is IOnTakeHit onTakeHit)
 				onTakeHit.OnTakeHit(this, target, damage);
 
-		if (target is Player player)
+		if (target is PartyCharacter player)
 		{
-			PlayerManager.Instance.player.Results.damageDealt += damage;
+			PartyManager.Instance.player.Results.damageDealt += damage;
 
 			if (isCrit)
-				PlayerManager.Instance.player.Results.criticalHits++;
+				PartyManager.Instance.player.Results.criticalHits++;
 			else
-				PlayerManager.Instance.player.Results.hits++;
+				PartyManager.Instance.player.Results.hits++;
 		}
 		else
 		{
 			if (damage > 0)
-				PlayerManager.Instance.player.Results.damageTaken += damage;
+				PartyManager.Instance.player.Results.damageTaken += damage;
 			else
-				PlayerManager.Instance.player.Results.healed += damage;
+				PartyManager.Instance.player.Results.healed += damage;
 		}
 
 		if (stats.health == 0)
@@ -226,8 +226,8 @@ public class Character : StateMachine<CharacterState>, IInteractable
 
 	protected virtual void Start()
 	{
-		if (PlayerManager.Instance != null && PlayerManager.Instance.player != null)
-			stats.level = PlayerManager.Instance.player.stats.level;
+		if (PartyManager.Instance != null && PartyManager.Instance.player != null)
+			stats.level = PartyManager.Instance.player.stats.level;
 		else
 			stats.level = 1;
 

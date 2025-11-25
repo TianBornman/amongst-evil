@@ -25,7 +25,7 @@ public class LevelUpManager : Singleton<LevelUpManager>
 
 	public void ApplyUpgrade(UpgradeCard card)
 	{
-		PlayerManager.Instance.player.AddBuff(card.buff);
+		PartyManager.Instance.player.AddBuff(card.buff);
 		UiManager.Instance.HideLevelUp();
 	}
 }

@@ -93,9 +93,9 @@ namespace Midevil.UI.Elements
 		private void EquipItem(ItemStats item)
 		{
 			if (isEquipSlot)
-				PlayerManager.Instance.UnequipItem(item);
+				PartyManager.Instance.UnequipItem(item);
 			else
-				PlayerManager.Instance.EquipItem(item);
+				PartyManager.Instance.EquipItem(item);
 		}
 	}
 }

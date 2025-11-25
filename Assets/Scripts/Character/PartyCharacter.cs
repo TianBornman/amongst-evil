@@ -2,14 +2,13 @@ using Midevil.Ability;
 using Midevil.Effect;
 using Midevil.Item;
 using Midevil.Models;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : Character
+public class PartyCharacter : Character
 {
 	#region Input
 
@@ -120,14 +119,14 @@ public class Player : Character
 	{
 		base.EquipItem(item);
 
-		PlayerManager.Instance.RemoveItem(item);
+		PartyManager.Instance.RemoveItem(item);
 	}
 
 	public override void UnequipItem(ItemStats item)
 	{
 		base.UnequipItem(item);
 
-		PlayerManager.Instance.AddItem(item);
+		PartyManager.Instance.AddItem(item);
 	}
 
 	public override void AddAbility(Ability ability)
@@ -181,7 +180,7 @@ public class Player : Character
 		BloodvaultManager.AddOrUpdate(entry);
 
 		RecruitManager.Instance.playerIdentity = null;
-	}	
+	}
 
 	// Public Methods
 	public void AddXp(float amount)

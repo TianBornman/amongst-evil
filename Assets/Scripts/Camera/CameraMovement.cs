@@ -3,12 +3,12 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
 	// Private Variables
-	private Player player;
+	private PartyCharacter player;
 
 	// Private Methods
 	private void Start()
 	{
-		player = FindFirstObjectByType<Player>();
+		player = FindFirstObjectByType<PartyCharacter>();
 		SetBattleView();
 	}
 

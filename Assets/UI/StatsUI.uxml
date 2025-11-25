@@ -5,7 +5,7 @@
             <ui:Label text="Level:" class="stat-field" />
             <ui:Label text="Label" class="stat-field">
                 <Bindings>
-                    <ui:DataBinding property="text" data-source-path="stats.level" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" />
+                    <ui:DataBinding property="text" data-source-path="stats.level" data-source-type="PartyCharacter, Assembly-CSharp" binding-mode="ToTarget" />
                 </Bindings>
             </ui:Label>
         </ui:VisualElement>
@@ -13,7 +13,7 @@
             <ui:Label text="XP:" class="stat-field" />
             <ui:Label text="Label" class="stat-field">
                 <Bindings>
-                    <ui:DataBinding property="text" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" data-source-path="currentXp" />
+                    <ui:DataBinding property="text" data-source-type="PartyCharacter, Assembly-CSharp" binding-mode="ToTarget" data-source-path="currentXp" />
                 </Bindings>
             </ui:Label>
         </ui:VisualElement>
@@ -21,7 +21,7 @@
             <ui:Label text="Health:" class="stat-field" />
             <ui:Label text="Label" class="stat-field">
                 <Bindings>
-                    <ui:DataBinding property="text" data-source-path="stats" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Current and Total HP" />
+                    <ui:DataBinding property="text" data-source-path="stats" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Current and Total HP" />
                 </Bindings>
             </ui:Label>
         </ui:VisualElement>
@@ -29,7 +29,7 @@
             <ui:Label text="Block Chance:" class="stat-field" />
             <ui:Label text="Label" class="stat-field">
                 <Bindings>
-                    <ui:DataBinding property="text" data-source-path="stats.blockChance" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Float to Percentage" />
+                    <ui:DataBinding property="text" data-source-path="stats.blockChance" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Float to Percentage" />
                 </Bindings>
             </ui:Label>
         </ui:VisualElement>
@@ -37,7 +37,7 @@
             <ui:Label text="Dodge Chance:" class="stat-field" />
             <ui:Label text="Label" class="stat-field">
                 <Bindings>
-                    <ui:DataBinding property="text" data-source-path="stats.dodgeChance" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Float to Percentage" />
+                    <ui:DataBinding property="text" data-source-path="stats.dodgeChance" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Float to Percentage" />
                 </Bindings>
             </ui:Label>
         </ui:VisualElement>
@@ -45,7 +45,7 @@
             <ui:Label text="Damage:" class="stat-field" />
             <ui:Label text="Label" class="stat-field">
                 <Bindings>
-                    <ui:DataBinding property="text" data-source-path="stats.damage" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" />
+                    <ui:DataBinding property="text" data-source-path="stats.damage" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
                 </Bindings>
             </ui:Label>
         </ui:VisualElement>
@@ -53,7 +53,7 @@
             <ui:Label text="Attack Speed:" class="stat-field" />
             <ui:Label text="Label" class="stat-field">
                 <Bindings>
-                    <ui:DataBinding property="text" data-source-path="stats.attackSpeed" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Float to Attack Speed" />
+                    <ui:DataBinding property="text" data-source-path="stats.attackSpeed" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Float to Attack Speed" />
                 </Bindings>
             </ui:Label>
         </ui:VisualElement>
@@ -61,7 +61,7 @@
             <ui:Label text="Critical Chance:" class="stat-field" />
             <ui:Label text="Label" class="stat-field">
                 <Bindings>
-                    <ui:DataBinding property="text" data-source-path="stats.critChance" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Float to Percentage" />
+                    <ui:DataBinding property="text" data-source-path="stats.critChance" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Float to Percentage" />
                 </Bindings>
             </ui:Label>
         </ui:VisualElement>
@@ -69,7 +69,7 @@
             <ui:Label text="Critical Damage:" class="stat-field" />
             <ui:Label text="Label" class="stat-field">
                 <Bindings>
-                    <ui:DataBinding property="text" data-source-path="stats.critDamage" data-source-type="Player, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Float to Percentage" />
+                    <ui:DataBinding property="text" data-source-path="stats.critDamage" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Float to Percentage" />
                 </Bindings>
             </ui:Label>
         </ui:VisualElement>

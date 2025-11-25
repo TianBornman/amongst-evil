@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 195132132207412687}
   - component: {fileID: 4159140879651800418}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Party Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 346180870591823828}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b35873e36d21dbe43b40db2396caaac4, type: 3}
+  m_Script: {fileID: 11500000, guid: 9ce6dc141da469045878ab2d457063cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   stats:
@@ -66,15 +66,15 @@ MonoBehaviour:
     level: 0
     health: 0
     maxHealth: 8
-    levelHeal: 0.2
+    levelHeal: 0.1
     blockChance: 0
     dodgeChance: 0
     damage: 1
     attackSpeed: 1
     critChance: 0.1
     critDamage: 1.5
-    range: 5
-    moveSpeed: 1
+    range: 2
+    moveSpeed: 3
     xpValue: 0
   buffs: []
   drops: []
@@ -84,8 +84,12 @@ MonoBehaviour:
     profileIcon: 0
     level: -1
     xp: 0
-    weaponRefIndex: 0
-    armourRefIndex: 0
+    weaponConfig:
+      index: 0
+      effectIndex: 0
+    armourConfig:
+      index: 0
+      effectIndex: 0
     lifeTimeResult:
       xpGained: 0
       kills: 0

@@ -132,7 +132,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5038134502726167767}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b2c7bae8e1fe34cad9db88795a57d2, type: 3}
+  m_Script: {fileID: 11500000, guid: 2b36e858968a612468fb64194d79d3e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerManager
   player: {fileID: 0}
@@ -219,8 +219,12 @@ MonoBehaviour:
     profileIcon: 0
     level: -1
     xp: 0
-    weaponRefIndex: 0
-    armourRefIndex: 0
+    weaponConfig:
+      index: 0
+      effectIndex: 0
+    armourConfig:
+      index: 0
+      effectIndex: 0
     lifeTimeResult:
       xpGained: 0
       kills: 0

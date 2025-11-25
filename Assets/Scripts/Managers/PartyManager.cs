@@ -2,10 +2,10 @@ using Midevil.Item;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
-public class PlayerManager : Singleton<PlayerManager>
+public class PartyManager : Singleton<PartyManager>
 {
 	// Public Variables
-	public Player player;
+	public PartyCharacter player;
 	public List<ItemStats> items = new();
 
 	// Override Methods
@@ -14,7 +14,7 @@ public class PlayerManager : Singleton<PlayerManager>
 		if (GameManager.Instance.AtHub)
 			return;
 
-		player = FindFirstObjectByType<Player>();
+		player = FindFirstObjectByType<PartyCharacter>();
 	}
 
 	// Public Methods
