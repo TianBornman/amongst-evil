@@ -104,10 +104,10 @@ MonoBehaviour:
         xpValue: 0
     abilityIndex: 2
     effects: []
-    effectIndex: 1
+    effectIndex: 0
     dropChance: 1
-    shouldRoll: 0
-  noEffectWeight: 0
+    shouldRoll: 1
+  noEffectWeight: 5
   possibleEffects:
   - weight: 4
     effectIndex: 1

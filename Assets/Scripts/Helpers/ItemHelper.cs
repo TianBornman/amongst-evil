@@ -32,7 +32,7 @@ namespace Midevil.Helpers
 			};
 		}
 
-		public static void Setup(ItemStats stats, int noEffectWeight = 0, List<ItemEffect> possibleEffects = null)
+		public static void Setup(ItemStats stats, float noEffectWeight = 0, List<ItemEffect> possibleEffects = null)
 		{
 			stats.id = Guid.NewGuid();
 

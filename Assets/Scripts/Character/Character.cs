@@ -407,6 +407,7 @@ public class Character : StateMachine<CharacterState>, IInteractable
 		var item = RefManager.Instance.GetItem(config.index);
 		var itemStats = item.stats.Clone();
 		itemStats.effectIndex = config.effectIndex;
+		itemStats.shouldRoll = false;
 
 		ItemHelper.Setup(itemStats);
 

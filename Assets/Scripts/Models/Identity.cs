@@ -26,6 +26,7 @@ namespace Midevil.Models
 		public void Randomize()
 		{
 			id = Guid.NewGuid().ToString();
+			level = 1;
 			characterName = NameGenerator.GetRandomName();
 			profileIcon = IconReferenceIndex.HumanIcon;
 		}

@@ -19,8 +19,8 @@ namespace Midevil.Item
 		public Buff buff;
 		public AbilityReferenceIndex abilityIndex;
 		public List<EffectData> effects;
-		[HideInInspector] public EffectReferenceIndex effectIndex;
+		public EffectReferenceIndex effectIndex;
 		public float dropChance;
-		public bool shouldRoll;
+		public bool shouldRoll = true;
 	}
 }

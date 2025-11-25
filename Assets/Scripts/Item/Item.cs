@@ -15,7 +15,7 @@ namespace Midevil.Item
 		// Private Methods
 		private void Awake()
 		{
-			ItemHelper.Setup(stats);
+			ItemHelper.Setup(stats, noEffectWeight, possibleEffects);
 		}
 
 		private void Start()
