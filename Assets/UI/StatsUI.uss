@@ -128,3 +128,21 @@
 .selected {
     background-color: rgb(26, 26, 26);
 }
+
+.character-stats {
+    flex-basis: 0;
+    flex-grow: 1;
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    background-color: rgb(41, 41, 41);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.hidden {
+    display: none;
+}

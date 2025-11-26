@@ -95,16 +95,32 @@ public class UiManager : Singleton<UiManager>
 		// Setup character panels
 		var characterPanels = statsUi.rootVisualElement.Q<VisualElement>("CharacterPanels")
 													   .Query<VisualElement>("CharacterPanel").ToList();
-
+		var characterStats = statsUi.rootVisualElement.Q<VisualElement>("CharacterPanels")
+													  .Query<VisualElement>("Stats").ToList();
 		var identities = PartyManager.Instance.partyIdentities;
 
 		for (int i = 0; i < identities.Count; i++)
 		{
 			var panel = characterPanels[i];
+			var stats = characterStats[i];
 			var identity = identities[i];
 
 			panel.name = identity.id.ToString();
 			panel.dataSource = identity;
+
+			panel.Q<VisualElement>("ShowStats").RegisterCallback<ClickEvent>(evt =>
+			{
+				panel.AddToClassList("hidden");
+				stats.RemoveFromClassList("hidden");
+			});
+
+			stats.name = $"{identity.id}-stats";
+
+			stats.Q<VisualElement>("HideStats").RegisterCallback<ClickEvent>(evt =>
+			{
+				stats.AddToClassList("hidden");
+				panel.RemoveFromClassList("hidden");
+			});
 
 			foreach (var item in panel.Query<ItemElement>().ToList())
 				item.CharacterId = identity.id;
@@ -123,14 +139,14 @@ public class UiManager : Singleton<UiManager>
 	}
 
 	// Public Methods
-	//public void BindPlayerStats(PartyCharacter player)
-	//{
-	//	gameUi.rootVisualElement.Q<ProgressBar>("PlayerHealth").dataSource = player;
-	//	gameUi.rootVisualElement.Q<Label>("Level").dataSource = player;
-	//	gameUi.rootVisualElement.Q<ProgressBar>("XpBar").dataSource = player;
+	public void BindPartyMemberStats(PartyCharacter character)
+	{
+		//gameUi.rootVisualElement.Q<ProgressBar>("PlayerHealth").dataSource = player;
+		//gameUi.rootVisualElement.Q<Label>("Level").dataSource = player;
+		//gameUi.rootVisualElement.Q<ProgressBar>("XpBar").dataSource = player;
 
-	//	statsUi.rootVisualElement.Q<VisualElement>("Stats").dataSource = player;
-	//}
+		statsUi.rootVisualElement.Q<VisualElement>($"{character.identity.id}-stats").dataSource = character;
+	}
 
 	//public void BindEnemyStats(Character character)
 	//{

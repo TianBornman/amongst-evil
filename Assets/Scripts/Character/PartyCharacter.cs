@@ -65,6 +65,8 @@ public class PartyCharacter : Character
 	{
 		base.Start();
 
+		UiManager.Instance.BindPartyMemberStats(this);
+
 	//	stats.level = identity.level;
 	//	neededXp = GetNeededXp(stats.level);
 
