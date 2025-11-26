@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class LevelUpManager : Singleton<LevelUpManager>
 {
+	// TODO: Move into an XP system where the entire party gets XP and levels up together
+	// Levels just give minor stat improvements and maybe some version of an ability
+	// Popups only between floors
+
 	// Editor Variables
 	[Header("References")]
 	public List<UpgradeCard> upgrades;
@@ -25,7 +29,7 @@ public class LevelUpManager : Singleton<LevelUpManager>
 
 	public void ApplyUpgrade(UpgradeCard card)
 	{
-		PlayerManager.Instance.player.AddBuff(card.buff);
+		//PlayerManager.Instance.player.AddBuff(card.buff);
 		UiManager.Instance.HideLevelUp();
 	}
 }

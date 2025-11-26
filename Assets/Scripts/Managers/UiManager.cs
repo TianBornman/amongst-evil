@@ -1,6 +1,7 @@
 using Midevil.Ability;
 using Midevil.Effect;
 using Midevil.Item;
+using Midevil.Models;
 using Midevil.UI.Elements;
 using Midevil.UpgradeCard;
 using System;
@@ -91,15 +92,31 @@ public class UiManager : Singleton<UiManager>
 		upgradeCards = levelUpUi.rootVisualElement.Q<VisualElement>("UpgradeCards").Query<ClickableElement>().ToList();
 		itemPickupUi.rootVisualElement.visible = false;
 
+		// Setup character panels
+		var characterPanels = statsUi.rootVisualElement.Q<VisualElement>("CharacterPanels")
+													   .Query<VisualElement>("CharacterPanel").ToList();
+
+		var identities = PartyManager.Instance.partyIdentities;
+
+		for (int i = 0; i < identities.Count; i++)
+		{
+			var panel = characterPanels[i];
+			var identity = identities[i];
+
+			panel.name = identity.id.ToString();
+			panel.dataSource = identity;
+		}
+
 		// Results
 		resultsUi.rootVisualElement.visible = false;
-		resultsUi.rootVisualElement.Q<VisualElement>("Results").dataSource = PlayerManager.Instance.player.Results;
-		resultsUi.rootVisualElement.Q<Button>("Flee").clicked += Flee;
-		resultsUi.rootVisualElement.Q<Button>("FightOn").clicked += SpawnWave;
+		// TODO: How stats are displayed needs to be rethunk
+		//resultsUi.rootVisualElement.Q<VisualElement>("Results").dataSource = PlayerManager.Instance.player.Results;
+		//resultsUi.rootVisualElement.Q<Button>("Flee").clicked += Flee;
+		//resultsUi.rootVisualElement.Q<Button>("FightOn").clicked += SpawnWave;
 
-		var continueButton = resultsUi.rootVisualElement.Q<Button>("Continue");
-		continueButton.clicked += Die;
-		continueButton.visible = false;
+		//var continueButton = resultsUi.rootVisualElement.Q<Button>("Continue");
+		//continueButton.clicked += Die;
+		//continueButton.visible = false;
 	}
 
 	// Public Methods
@@ -128,19 +145,20 @@ public class UiManager : Singleton<UiManager>
 
 	public void BindItemPickUp(Item item)
 	{
-		var itemElement = itemPickupUi.rootVisualElement.Q<VisualElement>("ItemCard");
-		itemElement.dataSource = item;
+		// TODO: Item Pickup needs an overhaul
+		//var itemElement = itemPickupUi.rootVisualElement.Q<VisualElement>("ItemCard");
+		//itemElement.dataSource = item;
 
-		var pickUpButton = itemPickupUi.rootVisualElement.Q<ClickableElement>("PickUp");
-		pickUpButton.SetClickHandler(evt =>
-		{
-			PlayerManager.Instance.AddItem(item.stats);
-			Destroy(item.gameObject);
-			HideItemPickUp();
-		});
+		//var pickUpButton = itemPickupUi.rootVisualElement.Q<ClickableElement>("PickUp");
+		//pickUpButton.SetClickHandler(evt =>
+		//{
+		//	PlayerManager.Instance.AddItem(item.stats);
+		//	Destroy(item.gameObject);
+		//	HideItemPickUp();
+		//});
 
-		var leaveButton = itemPickupUi.rootVisualElement.Q<ClickableElement>("Leave");
-		leaveButton.SetClickHandler(evt => HideItemPickUp());
+		//var leaveButton = itemPickupUi.rootVisualElement.Q<ClickableElement>("Leave");
+		//leaveButton.SetClickHandler(evt => HideItemPickUp());
 	}
 
 	public void BindAbility(int index, Ability ability)
@@ -204,42 +222,49 @@ public class UiManager : Singleton<UiManager>
 		Resume();
 	}
 
-	public void UpdateItems()
+	public void UpdateInventory()
 	{
-		var itemElements = statsUi.rootVisualElement.Q<VisualElement>("Items").Query<ItemElement>().ToList();
+		// TODO: apart of the inventory system overhaul
+		//var itemElements = statsUi.rootVisualElement.Q<VisualElement>("Items").Query<ItemElement>().ToList();
 
-		for (int i = 0; i < itemElements.Count; i++)
+		//for (int i = 0; i < itemElements.Count; i++)
+		//{
+		//	var itemElement = itemElements[i];
+
+		//	if (i < PlayerManager.Instance.items.Count)
+		//		itemElement.SetItem(PlayerManager.Instance.items[i]);
+		//	else
+		//		itemElement.ClearItem();
+		//}
+
+		var identities = PartyManager.Instance.partyIdentities;
+
+		for (int i = 0; i < identities.Count; i++) 
 		{
-			var itemElement = itemElements[i];
+			var identity = identities[i];
+			var panel = statsUi.rootVisualElement.Q<VisualElement>(identity.id.ToString());
 
-			if (i < PlayerManager.Instance.items.Count)
-				itemElement.SetItem(PlayerManager.Instance.items[i]);
+			if (identity.weapon != null)
+				EquipItem(panel, identity.weapon);
 			else
-				itemElement.ClearItem();
+				UnequipItem(panel, ItemType.Weapon);
+
+			if (identity.armour != null)
+				EquipItem(panel, identity.armour);
+			else
+				UnequipItem(panel, ItemType.Armour);
 		}
-
-		var player = PlayerManager.Instance.player;
-
-		if (player.identity.weapon != null)
-			EquipItem(player.identity.weapon);
-		else
-			UnequipItem(ItemType.Weapon);
-
-		if (player.identity.armour != null)
-			EquipItem(player.identity.armour);
-		else
-			UnequipItem(ItemType.Armour);
 	}
 
-	public void EquipItem(ItemStats item)
+	public void EquipItem(VisualElement panel, ItemStats item)
 	{
-		var equipSlot = statsUi.rootVisualElement.Q<VisualElement>("Equipped").Q<ItemElement>(item.type.ToString());
+		var equipSlot = panel.Q<ItemElement>(item.type.ToString());
 		equipSlot.SetItem(item);
 	}
 
-	public void UnequipItem(ItemType type)
+	public void UnequipItem(VisualElement panel, ItemType type)
 	{
-		var equipSlot = statsUi.rootVisualElement.Q<VisualElement>("Equipped").Q<ItemElement>(type.ToString());
+		var equipSlot = panel.Q<ItemElement>(type.ToString());
 		equipSlot?.ClearItem();
 	}
 
@@ -285,7 +310,8 @@ public class UiManager : Singleton<UiManager>
 	private void Flee()
 	{
 		Resume();
-		PlayerManager.Instance.player.identity.Flee();
+		// TODO: Reimagine how fleeing works with the new systems
+		//PlayerManager.Instance.player.identity.Flee();
 		SceneManager.LoadScene("Sect");
 	}
 

@@ -16,10 +16,6 @@
 .hidden {
 }
 
-:root {
-    flex-direction: row;
-}
-
 .inventory-pane {
     background-color: rgb(63, 63, 63);
     margin-top: 10px;
@@ -41,15 +37,15 @@
     border-bottom-right-radius: 15px;
     border-bottom-left-radius: 15px;
     margin-top: 0;
-    margin-right: 0;
+    margin-right: 5px;
     margin-bottom: 5px;
     margin-left: 0;
     padding-top: 5px;
     padding-right: 5px;
     padding-bottom: 5px;
     padding-left: 5px;
-    height: 100%;
-    width: 100%;
+    flex-grow: 1;
+    flex-basis: 0;
 }
 
 .item-slot VisualElement {
@@ -74,6 +70,46 @@
     flex-grow: 1;
 }
 
+.equip-slot {
+    background-color: rgba(31, 31, 31, 0.69);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 5px;
+    margin-left: 0;
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    flex-grow: 1;
+    flex-basis: 0;
+}
+
+.equip-slot VisualElement {
+    -unity-background-scale-mode: scale-to-fit;
+    flex-basis: 0;
+    flex-grow: 3;
+}
+
+.equip-slot Label {
+    color: rgb(255, 255, 255);
+    font-size: 14px;
+    -unity-text-align: middle-center;
+    margin-top: auto;
+    margin-right: 0;
+    margin-bottom: auto;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    flex-basis: 0;
+    flex-grow: 1;
+}
+
 .slot-segment {
     flex-direction: column;
     padding-top: 5px;
@@ -82,4 +118,9 @@
     padding-left: 5px;
     flex-basis: 0;
     flex-grow: 1;
+    align-items: stretch;
+}
+
+.character-panel {
+    flex-direction: row;
 }

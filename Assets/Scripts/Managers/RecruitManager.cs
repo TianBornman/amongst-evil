@@ -10,16 +10,7 @@ public class RecruitManager : Singleton<RecruitManager>
 	[Header("References")]
 	public List<RecruitCharacter> recruitPrefabs;
 
-	[HideInInspector] public Identity playerIdentity;
-
 	// Override Methods
-	override protected void Awake()
-	{
-		base.Awake();
-
-		playerIdentity = null;
-	}
-
 	protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
 		if (!GameManager.Instance.AtHub)
@@ -45,14 +36,6 @@ public class RecruitManager : Singleton<RecruitManager>
 		}
 	}
 
-	// Public Methods
-	public void RecruitPlayer(Identity identity)
-	{
-		playerIdentity = identity;
-		identity.currentResult = new();
-		ClearGear(identity);
-	}
-
 	// Private Methods
 	private void SpawnCharacter(RecruitCharacter prefab, Identity identity)
 	{
@@ -60,11 +43,5 @@ public class RecruitManager : Singleton<RecruitManager>
 		var recruitInstance = Instantiate(prefab, spawnPosition, Quaternion.identity);
 
 		recruitInstance.identity = identity;
-	}
-
-	private void ClearGear(Identity identity)
-	{
-		identity.weapon = null;
-		identity.armour = null;
 	}
 }

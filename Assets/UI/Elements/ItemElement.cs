@@ -47,14 +47,22 @@ namespace Midevil.UI.Elements
 		public bool IsEquipSlot
 		{
 			get => isEquipSlot;
-			set => isEquipSlot = value;
+			set
+			{
+				isEquipSlot = value;
+
+				if (isEquipSlot)
+				{
+					RemoveFromClassList("item-slot");
+					AddToClassList("equip-slot");
+				}
+			}
 		}
 
 		public bool IsEmpty => IconTexture == defaultIcon && Title == defaultTitle;
 
 		public ItemElement()
 		{
-			// Root styling 
 			AddToClassList("item-slot");
 
 			// Create children
@@ -92,10 +100,11 @@ namespace Midevil.UI.Elements
 		// Private Methods
 		private void EquipItem(ItemStats item)
 		{
-			if (isEquipSlot)
-				PlayerManager.Instance.UnequipItem(item);
-			else
-				PlayerManager.Instance.EquipItem(item);
+			// TODO: THis will need to be on a per characeter basis
+			//if (isEquipSlot)
+			//	PlayerManager.Instance.UnequipItem(item);
+			//else
+			//	PlayerManager.Instance.EquipItem(item);
 		}
 	}
 }

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Midevil.Models;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
@@ -49,16 +51,46 @@ public class PartyManager : Singleton<PartyManager>
 	public PartyCharacter partyCharacterPrefab;
 
 	// Public Variables
-	private Party playerParty;
+	public int maxPartySize = 3;
+	public List<Identity> partyIdentities = new();
+	public Party playerParty;
 
 	// Override Methods
 	protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
 		if (GameManager.Instance.AtHub)
+		{
+			partyIdentities = new();
 			return;
+		}
 
 		playerParty = FindFirstObjectByType<Party>();
-		playerParty.AddPrefabMember(partyCharacterPrefab);
+
+		foreach (Identity identity in partyIdentities)
+			playerParty.AddPrefabMember(partyCharacterPrefab, identity);
+	}
+
+	// Public Methods
+	public void RecruitPartyMember(Identity identity)
+	{
+		if (partyIdentities.Count >= maxPartySize)
+			return;
+		
+		partyIdentities.Add(identity);
+	}
+
+	public void StartRun()
+	{
+		foreach (Identity identity in partyIdentities)
+		{
+			var bloodVaultEntry = new BloodVaultEntry
+			{
+				identity = identity,
+				status = BloodVaultStatus.Alive
+			};
+
+			BloodvaultManager.AddOrUpdate(bloodVaultEntry);
+		}
 	}
 
 	// Private Methods

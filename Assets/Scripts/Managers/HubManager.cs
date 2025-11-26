@@ -82,13 +82,10 @@ public class HubManager : Singleton<HubManager>
 
 	public void StartRun()
 	{
-		var bloodVaultEntry = new BloodVaultEntry
-		{
-			identity = RecruitManager.Instance.playerIdentity,
-			status = BloodVaultStatus.Alive
-		};
+		if (PartyManager.Instance.partyIdentities.Count == 0)
+			return;
 
-		BloodvaultManager.AddOrUpdate(bloodVaultEntry);
+		PartyManager.Instance.StartRun();
 
 		GameManager.Instance.LeaveHub();
 		SceneManager.LoadScene("Level");
@@ -96,8 +93,8 @@ public class HubManager : Singleton<HubManager>
 
 	public void FocusCharacter(RecruitCharacter recruitCharacter)
 	{
-		HubUiManager.Instance.UpdateRecruitmentUI(recruitCharacter.identity);
-		RecruitManager.Instance.RecruitPlayer(recruitCharacter.identity);
+		PartyManager.Instance.RecruitPartyMember(recruitCharacter.identity);
+		HubUiManager.Instance.UpdateRecruitmentUI();
 
 		ZoomOnTransform(recruitCharacter.cameraPos);
 	}

@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 380976165915660900}
   - component: {fileID: 347833669294759239}
   - component: {fileID: 6180556048356105748}
-  - component: {fileID: 8855869245339968022}
   - component: {fileID: 1379321088363961944}
   - component: {fileID: 4116647614242413867}
   - component: {fileID: 710674332889533623}
@@ -124,20 +123,6 @@ MonoBehaviour:
   uiDocumentPrefab: {fileID: 2823809242809627518, guid: 75b2dd0471973294a858ab10b2377138, type: 3}
   damageNumberTemplate: {fileID: 9197481963319205126, guid: c324ab00d76798048b10481093c82b83, type: 3}
   initialPoolSize: 20
---- !u!114 &8855869245339968022
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5038134502726167767}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54b73e16e12173f40931d289fdb8cbf3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerManager
-  player: {fileID: 0}
-  items: []
 --- !u!114 &1379321088363961944
 MonoBehaviour:
   m_ObjectHideFlags: 0

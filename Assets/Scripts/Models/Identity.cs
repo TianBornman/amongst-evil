@@ -33,8 +33,9 @@ namespace Midevil.Models
 
 		public void Flee()
 		{
-			level = PlayerManager.Instance.player.stats.level;
-			xp = PlayerManager.Instance.player.currentXp;
+			// TODO: Make sure each individual stat is saved properly
+			//level = PlayerManager.Instance.player.stats.level;
+			//xp = PlayerManager.Instance.player.currentXp;
 
 			lifeTimeResult.Add(currentResult);
 			currentResult = new();

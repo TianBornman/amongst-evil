@@ -42,10 +42,16 @@ public class HubUiManager : Singleton<HubUiManager>
 		recruitmentUi.rootVisualElement.visible = true;
 	}
 
-	public void UpdateRecruitmentUI(Identity identity)
+	public void UpdateRecruitmentUI()
 	{
-		var recruitmentElement = recruitmentUi.rootVisualElement.Q<VisualElement>("RecuitmentProfile");
-		recruitmentElement.Q<Label>().text = identity.characterName;
+		var recruitmentElements = recruitmentUi.rootVisualElement.Q<VisualElement>("Profiles")
+																 .Query<VisualElement>("Profile").ToList();
+		var identities = PartyManager.Instance.partyIdentities;
+
+		for (int i = 0; i < identities.Count; i++) 
+		{
+			recruitmentElements[i].Q<Label>().text = identities[i].characterName;
+		}
 	}
 
 	public void ShowBloodVaultUI()

@@ -119,14 +119,16 @@ public class PartyCharacter : Character
 	{
 		base.EquipItem(item);
 
-		PlayerManager.Instance.RemoveItem(item);
+		// TODO: Revise inventory management
+		//PlayerManager.Instance.RemoveItem(item);
 	}
 
 	public override void UnequipItem(ItemStats item)
 	{
 		base.UnequipItem(item);
 
-		PlayerManager.Instance.AddItem(item);
+		// TODO: Revise inventory management
+		//PlayerManager.Instance.AddItem(item);
 	}
 
 	public override void AddAbility(Ability ability)
@@ -183,8 +185,6 @@ public class PartyCharacter : Character
 		};
 
 		BloodvaultManager.AddOrUpdate(entry);
-
-		RecruitManager.Instance.playerIdentity = null;
 	}
 
 	// Public Methods

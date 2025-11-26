@@ -126,11 +126,12 @@ public class Character : StateMachine<CharacterState>, IInteractable
 
 		DropItems();
 
-		if (target is PartyCharacter player)
-		{
-			player.AddXp(stats.xpValue);
-			PlayerManager.Instance.player.Results.kills++;
-		}
+		// TODO: Make sure only players get XP, but together with party XP sharing
+		//if (target is PartyCharacter player)
+		//{
+		//	player.AddXp(stats.xpValue);
+		//	PlayerManager.Instance.player.Results.kills++;
+		//}
 
 		foreach (var buff in killer.effects)
 			if (buff is IOnKill onKill)
@@ -174,22 +175,23 @@ public class Character : StateMachine<CharacterState>, IInteractable
 			if (buff is IOnTakeHit onTakeHit)
 				onTakeHit.OnTakeHit(this, target, damage);
 
-		if (target is PartyCharacter player)
-		{
-			PlayerManager.Instance.player.Results.damageDealt += damage;
+		// TODO: Reimplement stats tracking
+		//if (target is PartyCharacter player)
+		//{
+		//	PlayerManager.Instance.player.Results.damageDealt += damage;
 
-			if (isCrit)
-				PlayerManager.Instance.player.Results.criticalHits++;
-			else
-				PlayerManager.Instance.player.Results.hits++;
-		}
-		else
-		{
-			if (damage > 0)
-				PlayerManager.Instance.player.Results.damageTaken += damage;
-			else
-				PlayerManager.Instance.player.Results.healed += damage;
-		}
+		//	if (isCrit)
+		//		PlayerManager.Instance.player.Results.criticalHits++;
+		//	else
+		//		PlayerManager.Instance.player.Results.hits++;
+		//}
+		//else
+		//{
+		//	if (damage > 0)
+		//		PlayerManager.Instance.player.Results.damageTaken += damage;
+		//	else
+		//		PlayerManager.Instance.player.Results.healed += damage;
+		//}
 
 		if (stats.health == 0)
 		{
@@ -226,10 +228,11 @@ public class Character : StateMachine<CharacterState>, IInteractable
 
 	protected virtual void Start()
 	{
-		if (PlayerManager.Instance != null && PlayerManager.Instance.player != null)
-			stats.level = PlayerManager.Instance.player.stats.level;
-		else
-			stats.level = 1;
+		// TODO: Reimplement level setting
+		//if (PlayerManager.Instance != null && PlayerManager.Instance.player != null)
+		//	stats.level = PlayerManager.Instance.player.stats.level;
+		//else
+		//	stats.level = 1;
 
 		SetupIdentity();
 

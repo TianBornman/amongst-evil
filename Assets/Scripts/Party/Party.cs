@@ -1,3 +1,4 @@
+using Midevil.Models;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,25 +7,20 @@ public class Party : MonoBehaviour
 {
 	// Editor Variables
 	[Header("Settings")]
-	public int maxPartySize = 3;
 	public Transform waypoint;
-
 	public List<PartyCharacter> members = new();
 
 	// Private Variables
 	private List<PartyPosition> positions;
 
 	// Public Methods
-	public bool AddPrefabMember(PartyCharacter memberPrefab)
+	public bool AddPrefabMember(PartyCharacter memberPrefab, Identity identity)
 	{
-		if (members.Count >= maxPartySize)
-			return false;
-
 		var openPosition = positions.FirstOrDefault(p => !p.isOccupied);
 		openPosition.isOccupied = true;
 
 		PartyCharacter newMember = Instantiate(memberPrefab, transform);
-		newMember.identity = RecruitManager.Instance.playerIdentity;
+		newMember.identity = identity;
 		newMember.partyPosition = openPosition.transform;
 
 		members.Add(newMember);
@@ -33,9 +29,6 @@ public class Party : MonoBehaviour
 
 	public bool AddMember(PartyCharacter newMember)
 	{
-		if (members.Count >= maxPartySize)
-			return false;
-
 		members.Add(newMember);
 		return true;
 	}
@@ -55,5 +48,10 @@ public class Party : MonoBehaviour
 	private void Awake()
 	{
 		positions = GetComponentsInChildren<PartyPosition>().ToList();
+	}
+
+	private void Start()
+	{
+		UiManager.Instance.UpdateInventory();
 	}
 }
