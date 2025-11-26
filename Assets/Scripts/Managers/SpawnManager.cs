@@ -57,8 +57,7 @@ public class SpawnManager : Singleton<SpawnManager>
 		bossSpawned = false;
 
 		List<Vector3> positions = new List<Vector3>();
-		//int randomCount = Random.Range(8, 12);
-		int randomCount = 1;
+		int randomCount = Random.Range(8, 12);
 
 		for (int i = 0; i < randomCount; i++)
 		{

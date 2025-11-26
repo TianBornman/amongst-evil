@@ -44,8 +44,6 @@ public class PartyCharacter : Character
 	public List<AbilityReferenceIndex> startingAbilities;
 
 	// Public Variables
-	[HideInInspector] public Transform partyPosition;
-
 	[HideInInspector] public AbilitySlot[] abilitySlots = new AbilitySlot[4];
 
 	[HideInInspector] public float currentXp;
@@ -67,26 +65,18 @@ public class PartyCharacter : Character
 	{
 		base.Start();
 
-		stats.level = identity.level;
-		neededXp = GetNeededXp(stats.level);
+	//	stats.level = identity.level;
+	//	neededXp = GetNeededXp(stats.level);
 
-		AddXp(identity.xp);
+	//	AddXp(identity.xp);
 
-		UiManager.Instance.BindPlayerStats(this);
+	//	UiManager.Instance.BindPlayerStats(this);
 
-		foreach (var abilityIndex in startingAbilities)
-		{
-			var abilityData = RefManager.Instance.GetAbility(abilityIndex);
-			AddAbility(abilityData.CreateRuntime(this));
-		}
-	}
-
-	protected override void Update()
-	{
-		base.Update();
-
-		if (State == CharacterState.Moving)
-			Move();
+	//	foreach (var abilityIndex in startingAbilities)
+	//	{
+	//		var abilityData = RefManager.Instance.GetAbility(abilityIndex);
+	//		AddAbility(abilityData.CreateRuntime(this));
+	//	}
 	}
 
 	protected override void SetState(CharacterState state)
@@ -115,33 +105,33 @@ public class PartyCharacter : Character
 		}
 	}
 
-	public override void AddAbility(Ability ability)
-	{
-		base.AddAbility(ability);
+	//public override void AddAbility(Ability ability)
+	//{
+	//	base.AddAbility(ability);
 
-		BindAbility(ability);
-	}
+	//	BindAbility(ability);
+	//}
 
-	public override void RemoveAbility(Ability ability)
-	{
-		ClearAbility(ability);
+	//public override void RemoveAbility(Ability ability)
+	//{
+	//	ClearAbility(ability);
 
-		base.RemoveAbility(ability);
-	}
+	//	base.RemoveAbility(ability);
+	//}
 
-	public override void AddEffect(Effect effect)
-	{
-		base.AddEffect(effect);
+	//public override void AddEffect(Effect effect)
+	//{
+	//	base.AddEffect(effect);
 
-		UiManager.Instance.AddEffect(effect);
-	}
+	//	UiManager.Instance.AddEffect(effect);
+	//}
 
-	public override void RemoveEffect(Effect effect)
-	{
-		base.RemoveEffect(effect);
+	//public override void RemoveEffect(Effect effect)
+	//{
+	//	base.RemoveEffect(effect);
 
-		UiManager.Instance.RemoveEffect(effect);
-	}
+	//	UiManager.Instance.RemoveEffect(effect);
+	//}
 
 	public void CheckPositionChanged()
 	{
@@ -167,7 +157,11 @@ public class PartyCharacter : Character
 	// State Methods
 	private void Idle()
 	{
-		//StartCoroutine(GetTarget());
+		if (PartyManager.Instance.playerParty.InCombat)
+		{
+			var target = PartyManager.Instance.playerParty.GetTarget(this);
+			SetTarget(target);
+		}
 	}
 
 	private void Attacking()
@@ -212,26 +206,6 @@ public class PartyCharacter : Character
 	}
 
 	// Private Methods
-	private void Move()
-	{
-		if (target == null && Vector3.Distance(transform.position, partyPosition.position) < 0.2)
-		{
-			SetState(CharacterState.Idle);
-			return;
-		}
-
-		if (target == null)
-		{
-			agent.SetDestination(partyPosition.position);
-			return;
-		}
-		else
-			agent.SetDestination(target.transform.position);
-
-		if (stats.range >= Vector3.Distance(transform.position, target.transform.position))
-			SetState(CharacterState.Attacking);
-	}
-
 	private Character GetClosestTarget()
 	{
 		var targets = SpawnManager.Instance.spawnedCharacters;
@@ -255,23 +229,23 @@ public class PartyCharacter : Character
 		return 10f * Mathf.Pow(level, 1.3f) + 5f * level;
 	}
 
-	private void BindAbility(Ability ability)
-	{
-		for (int i = 0; i < abilities.Count && i < abilitySlots.Length; i++)
-		{
-			if (abilitySlots[i].HasAbility)
-				continue;
+	//private void BindAbility(Ability ability)
+	//{
+	//	for (int i = 0; i < abilities.Count && i < abilitySlots.Length; i++)
+	//	{
+	//		if (abilitySlots[i].HasAbility)
+	//			continue;
 
-			abilitySlots[i].assignedAbility = abilities[i];
-			UiManager.Instance.BindAbility(i, abilities[i]);
-		}
-	}
+	//		abilitySlots[i].assignedAbility = abilities[i];
+	//		UiManager.Instance.BindAbility(i, abilities[i]);
+	//	}
+	//}
 
-	private void ClearAbility(Ability ability)
-	{
-		var slot = abilitySlots.FirstOrDefault(slot => slot.assignedAbility == ability);
-		slot.Clear();
-	}
+	//private void ClearAbility(Ability ability)
+	//{
+	//	var slot = abilitySlots.FirstOrDefault(slot => slot.assignedAbility == ability);
+	//	slot.Clear();
+	//}
 
 	private IEnumerator GetTarget()
 	{

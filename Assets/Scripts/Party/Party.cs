@@ -3,15 +3,44 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Party : MonoBehaviour
+public class Party : StateMachine<PartyState>
 {
 	// Editor Variables
 	[Header("Settings")]
 	public Transform waypoint;
 	public List<PartyCharacter> members = new();
 
+	// Public Variables
+	public List<Character> combatEnemies = new();
+
 	// Private Variables
 	private List<PartyPosition> positions;
+	private CameraMovement cameraMovement;
+
+	// Public Properties
+	public bool InCombat => State == PartyState.Combat;
+
+	// Override Methods
+	protected override void SetState(PartyState state)
+	{
+		base.SetState(state);
+
+		switch (state)
+		{
+			case PartyState.Idle:
+				cameraMovement.SetMapView();
+				break;
+			case PartyState.Combat:
+				SetPosition(GetGroupCenter());
+				cameraMovement.SetBattleView();
+
+				foreach (var character in members)
+					character.SetIdle();
+				break;
+			default:
+				break;
+		}
+	}
 
 	// Public Methods
 	public void AddPrefabMember(PartyCharacter memberPrefab, Identity identity)
@@ -19,9 +48,9 @@ public class Party : MonoBehaviour
 		var openPosition = positions.FirstOrDefault(p => !p.isOccupied);
 		openPosition.isOccupied = true;
 
-		PartyCharacter newMember = Instantiate(memberPrefab, transform);
+		PartyCharacter newMember = Instantiate(memberPrefab, openPosition.transform.position, Quaternion.identity, transform);
 		newMember.identity = identity;
-		newMember.partyPosition = openPosition.transform;
+		newMember.idlePos = openPosition.transform;
 
 		members.Add(newMember);
 	}
@@ -37,14 +66,51 @@ public class Party : MonoBehaviour
 			member.CheckPositionChanged();
 	}
 
+	public void AddEnemyInRange(Character character)
+	{
+		if (combatEnemies.Count == 0 || !combatEnemies.Contains(character))
+			combatEnemies.Add(character);
+
+		SetState(PartyState.Combat);
+	}
+
+	public void RemoveEnemyInRange(Character character)
+	{
+		combatEnemies.Remove(character);	
+
+		if (combatEnemies.Count == 0)
+			SetState(PartyState.Idle);
+	}
+
+	public Character GetTarget(PartyCharacter member)
+	{
+		var target = combatEnemies.OrderBy(enemy => Vector3.Distance(member.transform.position, enemy.transform.position)).FirstOrDefault();
+		return target;
+	}
+
 	// Private Methods
 	private void Awake()
 	{
 		positions = GetComponentsInChildren<PartyPosition>().ToList();
+		cameraMovement = FindFirstObjectByType<CameraMovement>();
 	}
 
 	private void Start()
 	{
+		SetState(PartyState.Idle);
 		UiManager.Instance.UpdateCharacterPanels();
+	}
+
+	private Vector3 GetGroupCenter()
+	{
+		if (combatEnemies == null || combatEnemies.Count == 0)
+			return Vector3.zero;
+
+		Bounds b = new Bounds(combatEnemies[0].transform.position, Vector3.zero);
+
+		for (int i = 1; i < combatEnemies.Count; i++)
+			b.Encapsulate(combatEnemies[i].transform.position);
+
+		return b.center;
 	}
 }

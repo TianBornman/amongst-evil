@@ -5,7 +5,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using static UnityEditor.Progress;
 
 public class PartyManager : Singleton<PartyManager>
 {
@@ -78,7 +77,7 @@ public class PartyManager : Singleton<PartyManager>
 	{
 		if (partyIdentities.Count >= maxPartySize)
 			return;
-		
+
 		partyIdentities.Add(identity);
 	}
 
@@ -112,7 +111,7 @@ public class PartyManager : Singleton<PartyManager>
 	{
 		var character = playerParty.members.Where(member => member.identity.id == id).FirstOrDefault();
 
-		if (character == null) 
+		if (character == null)
 			return;
 
 		character.UnequipItem(item);

@@ -140,7 +140,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 444a3c538ac989146bb4873ef024c79f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Party
-  maxPartySize: 3
   waypoint: {fileID: 8449520283702531535}
   members: []
 --- !u!1 &6604404071685838134

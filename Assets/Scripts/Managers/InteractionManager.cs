@@ -61,7 +61,7 @@ public class InteractionManager : Singleton<InteractionManager>
 		Vector2 mousePos = Mouse.current.position.ReadValue();
 		Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
-		if (Physics.Raycast(ray, out RaycastHit hit, 1000))
+		if (Physics.Raycast(ray, out RaycastHit hit, 1000, RefManager.Instance.targetableMask))
 		{
 			hit.transform.TryGetComponent<IInteractable>(out var selectable);
 

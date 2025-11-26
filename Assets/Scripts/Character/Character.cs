@@ -29,6 +29,8 @@ public class Character : StateMachine<CharacterState>, IInteractable
 	// Editor variables
 	[HideInInspector] public Stats stats;
 	public Stats baseStats;
+	public Team team;
+	public List<Team> targetTeams;
 	public List<Buff> buffs = new();
 	public List<Effect> effects = new();
 	public List<Ability> abilities = new();
@@ -42,6 +44,7 @@ public class Character : StateMachine<CharacterState>, IInteractable
 	public SkinnedMeshRenderer glovesSkin;
 	public SkinnedMeshRenderer leggingsSKin;
 	public SkinnedMeshRenderer bootsSkin;
+	public Transform idlePos;
 
 	// Protected Variables
 	protected Character target;
@@ -140,14 +143,20 @@ public class Character : StateMachine<CharacterState>, IInteractable
 		foreach (var buff in effects)
 			if (buff is IOnDeath onDeath)
 				onDeath.OnDeath(this, killer);
+
+		PartyManager.Instance.playerParty.RemoveEnemyInRange(this);
 	}
 
 	// Public Methods
+	public void SetIdle()
+	{
+		SetState(CharacterState.Idle);
+	}
+
 	public void SetTarget(Character character)
 	{
 		target = character;
-		UiManager.Instance.BindEnemyStats(this);
-		SetState(CharacterState.Attacking);
+		SetState(CharacterState.Moving);
 	}
 
 	public void Damage(float damage, float critChance = 0, float critDamage = 0)
@@ -223,7 +232,7 @@ public class Character : StateMachine<CharacterState>, IInteractable
 		CharacterAnimAPI animAPI = GetComponentInChildren<CharacterAnimAPI>();
 		animAPI.CheckValidTarget = () => CheckValidTarget();
 		animAPI.Attack = Attack;
-		animAPI.Disappear = () => Destroy(gameObject);
+		animAPI.Disappear = () => gameObject.SetActive(false);
 	}
 
 	protected virtual void Start()
@@ -235,6 +244,9 @@ public class Character : StateMachine<CharacterState>, IInteractable
 		//	stats.level = 1;
 
 		SetupIdentity();
+
+		if (idlePos == null)
+			idlePos = transform;
 
 		RecalculateStats();
 
@@ -257,6 +269,10 @@ public class Character : StateMachine<CharacterState>, IInteractable
 
 		foreach (var ability in abilities)
 			ability?.Update(Time.deltaTime);
+
+
+		if (State == CharacterState.Moving)
+			Move();
 	}
 
 	public virtual void AddAbility(Ability ability)
@@ -417,9 +433,29 @@ public class Character : StateMachine<CharacterState>, IInteractable
 		EquipItem(itemStats);
 	}
 
+	private void Move()
+	{
+		if (target == null && Vector3.Distance(transform.position, idlePos.position) < 0.2)
+		{
+			SetState(CharacterState.Idle);
+			return;
+		}
+
+		if (target == null)
+		{
+			agent.SetDestination(idlePos.position);
+			return;
+		}
+		else
+			agent.SetDestination(target.transform.position);
+
+		if (stats.range >= Vector3.Distance(transform.position, target.transform.position))
+			SetState(CharacterState.Attacking);
+	}
+
 	private void Attack()
 	{
-		if (!CheckValidTarget() && State == CharacterState.Attacking) return;
+		if (!CheckValidTarget()) return;
 
 		foreach (var buff in effects)
 			if (buff is IOnHit onHit)
