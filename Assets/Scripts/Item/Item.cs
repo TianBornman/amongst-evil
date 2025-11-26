@@ -5,30 +5,45 @@ using UnityEngine;
 
 namespace Midevil.Item
 {
-	public class Item : MonoBehaviour
+	public class Item : MonoBehaviour, IInteractable
 	{
+		#region Interactable
+
+		public void Interact()
+		{
+			if (InventoryManager.Instance.AddItem(stats))
+				Destroy(gameObject);
+		}
+
+		public void OnHoverEnter()
+		{
+			outline.enabled = true;
+		}
+
+		public void OnHoverExit()
+		{
+			if (outline != null)
+				outline.enabled = false;
+		}
+
+		#endregion
+
 		// Editor Variables
 		public ItemStats stats;
 		public float noEffectWeight;
 		public List<ItemEffect> possibleEffects = new();
 
+		// Private Variables
+		private Outline outline;
+
 		// Private Methods
 		private void Awake()
 		{
+			outline = GetComponent<Outline>();
+			outline.enabled = false;
+
 			ItemHelper.Setup(stats, noEffectWeight, possibleEffects);
 		}
-
-		private void Start()
-		{
-			StartCoroutine(ShowItemUI());
-		}
-
-		private IEnumerator ShowItemUI()
-		{
-			yield return new WaitForSeconds(1.5f);
-
-			UiManager.Instance.BindItemPickUp(this);
-			UiManager.Instance.ShowItemPickUp();
-		}
+		
 	}
 }

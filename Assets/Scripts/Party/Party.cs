@@ -14,7 +14,7 @@ public class Party : MonoBehaviour
 	private List<PartyPosition> positions;
 
 	// Public Methods
-	public bool AddPrefabMember(PartyCharacter memberPrefab, Identity identity)
+	public void AddPrefabMember(PartyCharacter memberPrefab, Identity identity)
 	{
 		var openPosition = positions.FirstOrDefault(p => !p.isOccupied);
 		openPosition.isOccupied = true;
@@ -24,13 +24,6 @@ public class Party : MonoBehaviour
 		newMember.partyPosition = openPosition.transform;
 
 		members.Add(newMember);
-		return true;
-	}
-
-	public bool AddMember(PartyCharacter newMember)
-	{
-		members.Add(newMember);
-		return true;
 	}
 
 	public void SetPosition(Vector3 position)
@@ -52,6 +45,6 @@ public class Party : MonoBehaviour
 
 	private void Start()
 	{
-		UiManager.Instance.UpdateInventory();
+		UiManager.Instance.UpdateCharacterPanels();
 	}
 }

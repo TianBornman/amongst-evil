@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 4104278376203029293}
   - component: {fileID: 6149381767881795992}
   - component: {fileID: 8199098711593982560}
+  - component: {fileID: 9140475944043942649}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -202,27 +203,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RecruitManager
   recruitPrefabs:
   - {fileID: 293148930564006070, guid: 2114384642ae75f4eab9463762407f55, type: 3}
-  playerIdentity:
-    id: 
-    characterName: 
-    profileIcon: 0
-    level: -1
-    xp: 0
-    weaponConfig:
-      index: 0
-      effectIndex: 0
-    armourConfig:
-      index: 0
-      effectIndex: 0
-    lifeTimeResult:
-      xpGained: 0
-      kills: 0
-      damageDealt: 0
-      damageTaken: 0
-      healed: 0
-      hits: 0
-      criticalHits: 0
-      abilitiesUsed: 0
 --- !u!114 &4104278376203029293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,3 +240,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PartyManager
   partyCharacterPrefab: {fileID: 8460943302599302354, guid: ece96a51ea3ae89488e5d05e3bc5e328, type: 3}
+  maxPartySize: 3
+  partyIdentities: []
+  playerParty: {fileID: 0}
+--- !u!114 &9140475944043942649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5038134502726167767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8a53cd8261d4a74c8608f47f8020902, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InventoryManager
+  maxItems: 9
+  runInventory: []

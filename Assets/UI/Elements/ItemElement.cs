@@ -1,6 +1,8 @@
 using Midevil.Item;
+using System;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static UnityEditor.Progress;
 
 namespace Midevil.UI.Elements
 {
@@ -59,7 +61,7 @@ namespace Midevil.UI.Elements
 			}
 		}
 
-		public bool IsEmpty => IconTexture == defaultIcon && Title == defaultTitle;
+		public string CharacterId { get; set; }
 
 		public ItemElement()
 		{
@@ -86,7 +88,7 @@ namespace Midevil.UI.Elements
 			Title = item.name;
 
 			if (item.type != ItemType.Relic)
-				SetClickHandler(evt => EquipItem(item));
+				SetClickHandler(evt => SelectItem(item));
 		}
 
 		public void ClearItem()
@@ -94,17 +96,34 @@ namespace Midevil.UI.Elements
 			IconTexture = defaultIcon;
 			Title = defaultTitle;
 
-			UnsetClickHandler();
+			SetClickHandler(evt => SelectItem(null));
 		}
 
 		// Private Methods
-		private void EquipItem(ItemStats item)
+		private void SelectItem(ItemStats item)
 		{
-			// TODO: THis will need to be on a per characeter basis
-			//if (isEquipSlot)
-			//	PlayerManager.Instance.UnequipItem(item);
-			//else
-			//	PlayerManager.Instance.EquipItem(item);
+			if (isEquipSlot)
+			{
+				if (InventoryManager.Instance.selectedItem != null)
+				{
+					PartyManager.Instance.EquipItem(CharacterId, InventoryManager.Instance.selectedItem);
+					InventoryManager.Instance.ClearSelectedItem();
+
+					return;
+				}
+
+				if (item == null)
+					return;
+
+				PartyManager.Instance.UnequipItem(CharacterId, item);
+			}
+			else
+			{
+				if (item == null)
+					return;
+
+				InventoryManager.Instance.SetSelectedItem(item, this);
+			}
 		}
 	}
 }

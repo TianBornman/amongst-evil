@@ -1,8 +1,11 @@
-﻿using Midevil.Models;
+﻿using Midevil.Item;
+using Midevil.Models;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using static UnityEditor.Progress;
 
 public class PartyManager : Singleton<PartyManager>
 {
@@ -90,7 +93,29 @@ public class PartyManager : Singleton<PartyManager>
 			};
 
 			BloodvaultManager.AddOrUpdate(bloodVaultEntry);
+
+			identity.ClearGear();
 		}
+	}
+
+	public void EquipItem(string id, ItemStats item)
+	{
+		var character = playerParty.members.Where(member => member.identity.id == id).FirstOrDefault();
+
+		if (character == null)
+			return;
+
+		character.EquipItem(item);
+	}
+
+	public void UnequipItem(string id, ItemStats item)
+	{
+		var character = playerParty.members.Where(member => member.identity.id == id).FirstOrDefault();
+
+		if (character == null) 
+			return;
+
+		character.UnequipItem(item);
 	}
 
 	// Private Methods

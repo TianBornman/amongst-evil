@@ -31,6 +31,12 @@ namespace Midevil.Models
 			profileIcon = IconReferenceIndex.HumanIcon;
 		}
 
+		public void ClearGear()
+		{
+			weapon = null;
+			armour = null;
+		}
+
 		public void Flee()
 		{
 			// TODO: Make sure each individual stat is saved properly

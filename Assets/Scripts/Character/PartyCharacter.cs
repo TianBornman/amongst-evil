@@ -115,22 +115,6 @@ public class PartyCharacter : Character
 		}
 	}
 
-	public override void EquipItem(ItemStats item)
-	{
-		base.EquipItem(item);
-
-		// TODO: Revise inventory management
-		//PlayerManager.Instance.RemoveItem(item);
-	}
-
-	public override void UnequipItem(ItemStats item)
-	{
-		base.UnequipItem(item);
-
-		// TODO: Revise inventory management
-		//PlayerManager.Instance.AddItem(item);
-	}
-
 	public override void AddAbility(Ability ability)
 	{
 		base.AddAbility(ability);
@@ -162,6 +146,22 @@ public class PartyCharacter : Character
 	public void CheckPositionChanged()
 	{
 		SetState(CharacterState.Moving);
+	}
+
+	public override void EquipItem(ItemStats item)
+	{
+		base.EquipItem(item);
+
+		InventoryManager.Instance.RemoveItem(item);
+		UiManager.Instance.UpdateCharacterPanels();
+	}
+
+	public override void UnequipItem(ItemStats item)
+	{
+		base.UnequipItem(item);
+
+		InventoryManager.Instance.AddItem(item);
+		UiManager.Instance.UpdateCharacterPanels();
 	}
 
 	// State Methods

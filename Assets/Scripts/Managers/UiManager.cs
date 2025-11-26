@@ -105,6 +105,9 @@ public class UiManager : Singleton<UiManager>
 
 			panel.name = identity.id.ToString();
 			panel.dataSource = identity;
+
+			foreach (var item in panel.Query<ItemElement>().ToList())
+				item.CharacterId = identity.id;
 		}
 
 		// Results
@@ -141,24 +144,6 @@ public class UiManager : Singleton<UiManager>
 
 		upgradeCards[index].dataSource = card;
 		upgradeCards[index].SetClickHandler(evt => onClick(card));
-	}
-
-	public void BindItemPickUp(Item item)
-	{
-		// TODO: Item Pickup needs an overhaul
-		//var itemElement = itemPickupUi.rootVisualElement.Q<VisualElement>("ItemCard");
-		//itemElement.dataSource = item;
-
-		//var pickUpButton = itemPickupUi.rootVisualElement.Q<ClickableElement>("PickUp");
-		//pickUpButton.SetClickHandler(evt =>
-		//{
-		//	PlayerManager.Instance.AddItem(item.stats);
-		//	Destroy(item.gameObject);
-		//	HideItemPickUp();
-		//});
-
-		//var leaveButton = itemPickupUi.rootVisualElement.Q<ClickableElement>("Leave");
-		//leaveButton.SetClickHandler(evt => HideItemPickUp());
 	}
 
 	public void BindAbility(int index, Ability ability)
@@ -210,36 +195,27 @@ public class UiManager : Singleton<UiManager>
 		Resume();
 	}
 
-	public void ShowItemPickUp()
-	{
-		itemPickupUi.rootVisualElement.visible = true;
-		Pause();
-	}
-
-	public void HideItemPickUp()
-	{
-		itemPickupUi.rootVisualElement.visible = false;
-		Resume();
-	}
-
 	public void UpdateInventory()
 	{
-		// TODO: apart of the inventory system overhaul
-		//var itemElements = statsUi.rootVisualElement.Q<VisualElement>("Items").Query<ItemElement>().ToList();
+		var itemElements = statsUi.rootVisualElement.Q<VisualElement>("Items").Query<ItemElement>().ToList();
+		var items = InventoryManager.Instance.runInventory;
 
-		//for (int i = 0; i < itemElements.Count; i++)
-		//{
-		//	var itemElement = itemElements[i];
+		for (int i = 0; i < itemElements.Count; i++)
+		{
+			var itemElement = itemElements[i];
 
-		//	if (i < PlayerManager.Instance.items.Count)
-		//		itemElement.SetItem(PlayerManager.Instance.items[i]);
-		//	else
-		//		itemElement.ClearItem();
-		//}
+			if (i < items.Count)
+				itemElement.SetItem(items[i]);
+			else
+				itemElement.ClearItem();
+		}
+	}
 
+	public void UpdateCharacterPanels()
+	{
 		var identities = PartyManager.Instance.partyIdentities;
 
-		for (int i = 0; i < identities.Count; i++) 
+		for (int i = 0; i < identities.Count; i++)
 		{
 			var identity = identities[i];
 			var panel = statsUi.rootVisualElement.Q<VisualElement>(identity.id.ToString());
