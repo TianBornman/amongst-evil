@@ -44,6 +44,8 @@ public class PartyCharacter : Character
 	public List<AbilityReferenceIndex> startingAbilities;
 
 	// Public Variables
+	[HideInInspector] public Transform partyPosition;
+
 	[HideInInspector] public AbilitySlot[] abilitySlots = new AbilitySlot[4];
 
 	[HideInInspector] public float currentXp;
@@ -56,8 +58,6 @@ public class PartyCharacter : Character
 	protected override void Awake()
 	{
 		base.Awake();
-
-		identity = RecruitManager.Instance.playerIdentity;
 
 		CharacterAnimAPI animAPI = GetComponentInChildren<CharacterAnimAPI>();
 		animAPI.Disappear = () => UiManager.Instance.ShowDeathScreen();
@@ -119,14 +119,14 @@ public class PartyCharacter : Character
 	{
 		base.EquipItem(item);
 
-		PartyManager.Instance.RemoveItem(item);
+		PlayerManager.Instance.RemoveItem(item);
 	}
 
 	public override void UnequipItem(ItemStats item)
 	{
 		base.UnequipItem(item);
 
-		PartyManager.Instance.AddItem(item);
+		PlayerManager.Instance.AddItem(item);
 	}
 
 	public override void AddAbility(Ability ability)
@@ -157,10 +157,15 @@ public class PartyCharacter : Character
 		UiManager.Instance.RemoveEffect(effect);
 	}
 
+	public void CheckPositionChanged()
+	{
+		SetState(CharacterState.Moving);
+	}
+
 	// State Methods
 	private void Idle()
 	{
-		StartCoroutine(GetTarget());
+		//StartCoroutine(GetTarget());
 	}
 
 	private void Attacking()
@@ -209,13 +214,19 @@ public class PartyCharacter : Character
 	// Private Methods
 	private void Move()
 	{
-		if (target == null)
+		if (target == null && Vector3.Distance(transform.position, partyPosition.position) < 0.2)
 		{
 			SetState(CharacterState.Idle);
 			return;
 		}
 
-		agent.SetDestination(target.transform.position);
+		if (target == null)
+		{
+			agent.SetDestination(partyPosition.position);
+			return;
+		}
+		else
+			agent.SetDestination(target.transform.position);
 
 		if (stats.range >= Vector3.Distance(transform.position, target.transform.position))
 			SetState(CharacterState.Attacking);

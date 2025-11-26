@@ -93,7 +93,7 @@ public class UiManager : Singleton<UiManager>
 
 		// Results
 		resultsUi.rootVisualElement.visible = false;
-		resultsUi.rootVisualElement.Q<VisualElement>("Results").dataSource = PartyManager.Instance.player.Results;
+		resultsUi.rootVisualElement.Q<VisualElement>("Results").dataSource = PlayerManager.Instance.player.Results;
 		resultsUi.rootVisualElement.Q<Button>("Flee").clicked += Flee;
 		resultsUi.rootVisualElement.Q<Button>("FightOn").clicked += SpawnWave;
 
@@ -134,7 +134,7 @@ public class UiManager : Singleton<UiManager>
 		var pickUpButton = itemPickupUi.rootVisualElement.Q<ClickableElement>("PickUp");
 		pickUpButton.SetClickHandler(evt =>
 		{
-			PartyManager.Instance.AddItem(item.stats);
+			PlayerManager.Instance.AddItem(item.stats);
 			Destroy(item.gameObject);
 			HideItemPickUp();
 		});
@@ -212,13 +212,13 @@ public class UiManager : Singleton<UiManager>
 		{
 			var itemElement = itemElements[i];
 
-			if (i < PartyManager.Instance.items.Count)
-				itemElement.SetItem(PartyManager.Instance.items[i]);
+			if (i < PlayerManager.Instance.items.Count)
+				itemElement.SetItem(PlayerManager.Instance.items[i]);
 			else
 				itemElement.ClearItem();
 		}
 
-		var player = PartyManager.Instance.player;
+		var player = PlayerManager.Instance.player;
 
 		if (player.identity.weapon != null)
 			EquipItem(player.identity.weapon);
@@ -285,7 +285,7 @@ public class UiManager : Singleton<UiManager>
 	private void Flee()
 	{
 		Resume();
-		PartyManager.Instance.player.identity.Flee();
+		PlayerManager.Instance.player.identity.Flee();
 		SceneManager.LoadScene("Sect");
 	}
 

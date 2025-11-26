@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 7630648152501158786}
   - component: {fileID: 4104278376203029293}
   - component: {fileID: 6149381767881795992}
+  - component: {fileID: 8199098711593982560}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -132,7 +133,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5038134502726167767}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b36e858968a612468fb64194d79d3e7, type: 3}
+  m_Script: {fileID: 11500000, guid: 54b73e16e12173f40931d289fdb8cbf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerManager
   player: {fileID: 0}
@@ -149,6 +150,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08a9e3c3094ec714587001810d186e13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RefManager
+  targetableMask:
+    serializedVersion: 2
+    m_Bits: 8
   unarmed: {fileID: 22100000, guid: e8d243891ff574e41a9a75d2e3a32bd7, type: 2}
   sword1H: {fileID: 22100000, guid: 2dae7f461ac6c8a45ad1630c5f4b2485, type: 2}
   icons:
@@ -258,3 +262,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53b2b916e555f5949a7de730f22f45bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+--- !u!114 &8199098711593982560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5038134502726167767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b36e858968a612468fb64194d79d3e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PartyManager
+  partyCharacterPrefab: {fileID: 8460943302599302354, guid: ece96a51ea3ae89488e5d05e3bc5e328, type: 3}

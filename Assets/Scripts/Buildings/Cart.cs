@@ -17,7 +17,8 @@ public class Cart : MonoBehaviour, IInteractable
 
 	public void OnHoverExit()
 	{
-		outline.enabled = false;
+		if (outline != null)
+			outline.enabled = false;
 	}
 
 	#endregion

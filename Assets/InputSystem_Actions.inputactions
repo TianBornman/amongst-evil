@@ -41,6 +41,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "CameraToggle",
+                    "type": "Button",
+                    "id": "14592550-fc3a-46eb-b117-c84e3934cc7e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SetPartyTarget",
+                    "type": "Button",
+                    "id": "e4dff6f1-bb2d-4cc1-bb54-459b0c05304b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -129,6 +147,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Escape",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ad23dd5d-5f3e-4fb3-ad94-016a342bb4e5",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CameraToggle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "39971295-f1bf-4787-bce8-7f777cac5549",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SetPartyTarget",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

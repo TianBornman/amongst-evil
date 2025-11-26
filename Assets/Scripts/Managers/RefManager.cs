@@ -8,6 +8,9 @@ using UnityEngine;
 public class RefManager : Singleton<RefManager>
 {
 	// Editor Variables
+	[Header("Layer Masks")]
+	public LayerMask targetableMask;
+
 	[Header("Animations")]
 	public AnimatorOverrideController unarmed;
 	public AnimatorOverrideController sword1H;

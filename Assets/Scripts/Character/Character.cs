@@ -129,7 +129,7 @@ public class Character : StateMachine<CharacterState>, IInteractable
 		if (target is PartyCharacter player)
 		{
 			player.AddXp(stats.xpValue);
-			PartyManager.Instance.player.Results.kills++;
+			PlayerManager.Instance.player.Results.kills++;
 		}
 
 		foreach (var buff in killer.effects)
@@ -176,19 +176,19 @@ public class Character : StateMachine<CharacterState>, IInteractable
 
 		if (target is PartyCharacter player)
 		{
-			PartyManager.Instance.player.Results.damageDealt += damage;
+			PlayerManager.Instance.player.Results.damageDealt += damage;
 
 			if (isCrit)
-				PartyManager.Instance.player.Results.criticalHits++;
+				PlayerManager.Instance.player.Results.criticalHits++;
 			else
-				PartyManager.Instance.player.Results.hits++;
+				PlayerManager.Instance.player.Results.hits++;
 		}
 		else
 		{
 			if (damage > 0)
-				PartyManager.Instance.player.Results.damageTaken += damage;
+				PlayerManager.Instance.player.Results.damageTaken += damage;
 			else
-				PartyManager.Instance.player.Results.healed += damage;
+				PlayerManager.Instance.player.Results.healed += damage;
 		}
 
 		if (stats.health == 0)
@@ -226,8 +226,8 @@ public class Character : StateMachine<CharacterState>, IInteractable
 
 	protected virtual void Start()
 	{
-		if (PartyManager.Instance != null && PartyManager.Instance.player != null)
-			stats.level = PartyManager.Instance.player.stats.level;
+		if (PlayerManager.Instance != null && PlayerManager.Instance.player != null)
+			stats.level = PlayerManager.Instance.player.stats.level;
 		else
 			stats.level = 1;
 

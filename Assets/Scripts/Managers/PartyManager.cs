@@ -1,12 +1,55 @@
-using Midevil.Item;
-using System.Collections.Generic;
+﻿using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class PartyManager : Singleton<PartyManager>
 {
+	#region Input
+
+	private InputSystem_Actions inputActions;
+	private InputAction setPartyTargetAction;
+
+	protected override void OnEnable()
+	{
+		if (Instance != this)
+			return;
+
+		base.OnEnable();
+
+		inputActions = new InputSystem_Actions();
+		setPartyTargetAction = inputActions.Player.SetPartyTarget;
+
+		inputActions.Enable();
+		setPartyTargetAction.performed += OnSetPartyTarget;
+	}
+
+	protected override void OnDisable()
+	{
+		if (Instance != this)
+			return;
+
+		base.OnDisable();
+
+		setPartyTargetAction.performed -= OnSetPartyTarget;
+		inputActions.Disable();
+	}
+
+	private void OnSetPartyTarget(InputAction.CallbackContext context)
+	{
+		if (GameManager.Instance.AtHub)
+			return;
+
+		SetPartyTarget();
+	}
+
+	#endregion
+
+	// Editor Variables
+	[Header("References")]
+	public PartyCharacter partyCharacterPrefab;
+
 	// Public Variables
-	public PartyCharacter player;
-	public List<ItemStats> items = new();
+	private Party playerParty;
 
 	// Override Methods
 	protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -14,33 +57,19 @@ public class PartyManager : Singleton<PartyManager>
 		if (GameManager.Instance.AtHub)
 			return;
 
-		player = FindFirstObjectByType<PartyCharacter>();
+		playerParty = FindFirstObjectByType<Party>();
+		playerParty.AddPrefabMember(partyCharacterPrefab);
 	}
 
-	// Public Methods
-	public void AddItem(ItemStats item)
+	// Private Methods
+	private void SetPartyTarget()
 	{
-		items.Add(item);
+		Vector2 mousePos = Mouse.current.position.ReadValue();
+		Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
-		if (item.type == ItemType.Relic)
-			player.AddBuff(item.buff);
-
-		UiManager.Instance.UpdateItems();
-	}
-
-	public void RemoveItem(ItemStats item)
-	{
-		items.Remove(item);
-		UiManager.Instance.UpdateItems();
-	}
-
-	public void EquipItem(ItemStats item)
-	{
-		player.EquipItem(item);
-	}
-
-	public void UnequipItem(ItemStats item)
-	{
-		player.UnequipItem(item);
+		if (Physics.Raycast(ray, out RaycastHit hit, 1000, RefManager.Instance.targetableMask))
+		{
+			playerParty.SetPosition(hit.point);
+		}
 	}
 }
