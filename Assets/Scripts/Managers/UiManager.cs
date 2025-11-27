@@ -179,7 +179,8 @@ public class UiManager : Singleton<UiManager>
 		if (index < 0 || index >= abilityElement.Count)
 			return;
 
-		abilityElement[index].ClearItem();
+		abilityElement[index].dataSource = null;
+		abilityElement[index].ClearAbility();
 	}
 
 	public void AddEffect(Effect effect)

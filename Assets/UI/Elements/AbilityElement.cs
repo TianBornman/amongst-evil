@@ -50,7 +50,7 @@ namespace Midevil.UI.Elements
 			Add(chargesLabel);
 			Add(cooldownLabel);
 
-			ClearItem();
+			ClearAbility();
 		}
 
 		// Public accessors
@@ -59,15 +59,7 @@ namespace Midevil.UI.Elements
 		public Label CooldownLabel => cooldownLabel;
 
 		// Public Methods
-		public void SetAbility(Ability.Ability ability)
-		{
-			if (!ability.isConsumable)
-				chargesLabel.visible = false;
-
-			cooldownLabel.visible = false;
-		}
-
-		public void ClearItem()
+		public void ClearAbility()
 		{
 			IconTexture = null;
 			Charges = string.Empty;

@@ -64,9 +64,6 @@ public class Party : StateMachine<PartyState>
 			case PartyState.Combat:
 				SetPosition(GetGroupCenter());
 				cameraMovement.SetBattleView();
-
-				foreach (var character in members)
-					character.SetIdle();
 				break;
 			default:
 				break;
@@ -149,6 +146,9 @@ public class Party : StateMachine<PartyState>
 
 	private void Start()
 	{
+		for (int i = 0; i < abilitySlots.Length; i++)
+			abilitySlots[i].slotIndex = i;
+
 		SetState(PartyState.Idle);
 		UiManager.Instance.UpdateCharacterPanels();
 	}

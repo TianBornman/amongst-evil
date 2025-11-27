@@ -13,12 +13,15 @@ namespace Midevil.Ability
 
 		public void TryUseAbility()
 		{
-			character.TryUseAbility(abilityId);
+			if (character != null)
+				character.TryUseAbility(abilityId);
 		}
 
 		public void Clear()
 		{
-			UiManager.Instance.ClearAbility(slotIndex + 1);
+			abilityId = Guid.Empty;
+			character = null;
+			UiManager.Instance.ClearAbility(slotIndex);
 		}
 	}
 }

@@ -59,11 +59,8 @@ public class PartyCharacter : Character
 
 		switch (State)
 		{
-			case CharacterState.Idle:
-				Idle();
-				break;
 			case CharacterState.Moving:
-				// Moving();
+				Moving();
 				break;
 			case CharacterState.Attacking:
 				Attacking();
@@ -126,9 +123,9 @@ public class PartyCharacter : Character
 	}
 
 	// State Methods
-	private void Idle()
+	private void Moving()
 	{
-		if (PartyManager.Instance.playerParty.InCombat)
+		if (target == null && PartyManager.Instance.playerParty.InCombat)
 		{
 			var target = PartyManager.Instance.playerParty.GetTarget(this);
 			SetTarget(target);
@@ -166,22 +163,7 @@ public class PartyCharacter : Character
 		}
 	}
 
-	public void TryUseAbility(Guid id)
-	{
-		var ability = abilities.FirstOrDefault(ab => ab.id == id);
-		ability?.TryUse();
-	}
-
 	// Private Methods
-	private Character GetClosestTarget()
-	{
-		var targets = SpawnManager.Instance.spawnedCharacters;
-
-		return targets.OrderBy(target => Vector3.Distance(transform.position, target.transform.position))
-					  .Select(target => target.GetComponent<Character>())
-					  .FirstOrDefault(target => target.IsAlive);
-	}
-
 	private void LevelUp()
 	{
 		stats.level++;
@@ -194,19 +176,5 @@ public class PartyCharacter : Character
 	private float GetNeededXp(int level)
 	{
 		return 10f * Mathf.Pow(level, 1.3f) + 5f * level;
-	}
-
-	private IEnumerator GetTarget()
-	{
-		while (target == null)
-		{
-			var getTarget = GetClosestTarget();
-			target = getTarget;
-
-			if (target != null)
-				SetState(CharacterState.Moving);
-
-			yield return new WaitForSeconds(1f);
-		}
 	}
 }

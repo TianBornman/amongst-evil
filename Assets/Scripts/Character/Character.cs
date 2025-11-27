@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using Guid = System.Guid;
 
 public class Character : StateMachine<CharacterState>, IInteractable
 {
@@ -54,8 +55,24 @@ public class Character : StateMachine<CharacterState>, IInteractable
 	protected Animator animator;
 	protected Outline outline;
 
+	// Private Variables
+	private bool isAttacking;
+	private bool isCasting;
+	private Ability currentAbility;
+
 	// Public Properties
 	public bool IsAlive => State != CharacterState.Dead;
+
+	// Private Properties
+	public bool IsAttacking
+	{
+		get => isAttacking;
+		set
+		{
+			isAttacking = value;
+			animator.SetBool("Attack", isAttacking);
+		}
+	}
 
 	// Override Methods
 	protected override void SetState(CharacterState state)
@@ -67,59 +84,23 @@ public class Character : StateMachine<CharacterState>, IInteractable
 
 		switch (State)
 		{
-			case CharacterState.Idle:
-				Idle();
-				break;
-			case CharacterState.Moving:
-				Moving();
-				break;
-			case CharacterState.Attacking:
-				Attacking();
-				break;
-			case CharacterState.Ability:
-				Ability();
-				break;
-			case CharacterState.Dead:
-				Die();
-				break;
-			default:
-				break;
+			case CharacterState.Moving: Moving(); break;
+			case CharacterState.Attacking: Attacking(); break;
+			case CharacterState.Dead: Die(); break;
 		}
 	}
 
 	// State Methods
-	private void Idle()
-	{
-		target = null;
-
-		agent.isStopped = true;
-
-		animator.SetFloat("Speed", 0);
-		animator.SetBool("Ability", false);
-		animator.SetBool("Attacking", false);
-	}
-
 	private void Moving()
 	{
 		agent.isStopped = false;
-
-		animator.SetFloat("Speed", 1);
-		animator.SetBool("Ability", false);
-		animator.SetBool("Attacking", false);
+		IsAttacking = false;
 	}
 
 	private void Attacking()
 	{
 		agent.isStopped = true;
-
-		transform.LookAt(target.transform);
-		animator.SetBool("Ability", false);
-		animator.SetBool("Attacking", true);
-	}
-
-	private void Ability()
-	{
-		animator.SetBool("Ability", true);
+		IsAttacking = true;
 	}
 
 	private void Die()
@@ -150,15 +131,9 @@ public class Character : StateMachine<CharacterState>, IInteractable
 	}
 
 	// Public Methods
-	public void SetIdle()
-	{
-		SetState(CharacterState.Idle);
-	}
-
 	public void SetTarget(Character character)
 	{
 		target = character;
-		SetState(CharacterState.Moving);
 	}
 
 	public void Damage(float damage, float critChance = 0, float critDamage = 0)
@@ -232,8 +207,9 @@ public class Character : StateMachine<CharacterState>, IInteractable
 		outline.enabled = false;
 
 		CharacterAnimAPI animAPI = GetComponentInChildren<CharacterAnimAPI>();
-		animAPI.CheckValidTarget = () => CheckValidTarget();
 		animAPI.Attack = Attack;
+		animAPI.Ability = CastAbility;
+		animAPI.AbilityFinished = CastAbilityFinished;
 		animAPI.Disappear = () => gameObject.SetActive(false);
 	}
 
@@ -252,7 +228,7 @@ public class Character : StateMachine<CharacterState>, IInteractable
 
 		RecalculateStats();
 
-		SetState(CharacterState.Idle);
+		SetState(CharacterState.Moving);
 	}
 
 	protected virtual void Update()
@@ -272,9 +248,28 @@ public class Character : StateMachine<CharacterState>, IInteractable
 		foreach (var ability in abilities)
 			ability?.Update(Time.deltaTime);
 
+		if (agent.velocity.magnitude > 0)
+			animator.SetFloat("Speed", 1);
+		else
+			animator.SetFloat("Speed", 0);
 
 		if (State == CharacterState.Moving)
 			Move();
+	}
+
+	public void TryUseAbility(Guid id)
+	{
+		if (currentAbility != null)
+			return;
+
+		var ability = abilities.FirstOrDefault(ab => ab.id == id);
+
+		if (ability == null || !ability.IsReady)
+			return;
+
+		currentAbility = ability;
+		animator.SetTrigger("Ability");
+		isCasting = true;
 	}
 
 	public virtual void AddAbility(Ability ability)
@@ -308,7 +303,6 @@ public class Character : StateMachine<CharacterState>, IInteractable
 		effects.Remove(effect);
 		RecalculateStats();
 	}
-
 
 	public virtual void EquipItem(ItemStats item)
 	{
@@ -437,15 +431,21 @@ public class Character : StateMachine<CharacterState>, IInteractable
 
 	private void Move()
 	{
-		if (target == null && Vector3.Distance(transform.position, idlePos.position) < 0.2)
+		if (isCasting)
 		{
-			SetState(CharacterState.Idle);
+			agent.isStopped = true;
 			return;
 		}
+		else 
+			agent.isStopped = false;
 
-		if (target == null)
+		if (target == null && Vector3.Distance(transform.position, idlePos.position) < 0.2)
+			return;
+
+		if (target == null || !target.IsAlive)
 		{
 			agent.SetDestination(idlePos.position);
+			SetState(CharacterState.Moving);
 			return;
 		}
 		else
@@ -457,13 +457,28 @@ public class Character : StateMachine<CharacterState>, IInteractable
 
 	private void Attack()
 	{
-		if (!CheckValidTarget()) return;
+		if (!target.IsAlive) 
+			SetState(CharacterState.Moving);
 
 		foreach (var buff in effects)
 			if (buff is IOnHit onHit)
 				onHit.OnHit(this, target, stats.damage);
 
+		transform.LookAt(target.transform);
 		target.Damage(stats.damage, stats.critChance, stats.critDamage);
+	}
+
+	private void CastAbility()
+	{
+		if (currentAbility != null)
+
+		currentAbility.TryUse();
+	}
+
+	private void CastAbilityFinished()
+	{
+		currentAbility = null;
+		isCasting = false;
 	}
 
 	private void RecalculateStats()
@@ -471,17 +486,6 @@ public class Character : StateMachine<CharacterState>, IInteractable
 		stats.Recalculate(baseStats, buffs);
 
 		animator.SetFloat("AttackSpeed", stats.attackSpeed);
-	}
-
-	private bool CheckValidTarget()
-	{
-		if (target == null || !target.IsAlive)
-		{
-			SetState(CharacterState.Idle);
-			return false;
-		}
-
-		return true;
 	}
 
 	private void DropItems()
