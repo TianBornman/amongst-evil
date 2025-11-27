@@ -69,6 +69,7 @@ providers = {
 objectSelectors = {
 }
 recentSearches = [
+	"type: ns:\"Midevil.Ability\""
 	"type: ns:\"\""
 	"type: ns:\"Midevil\""
 	"type: character"
@@ -87,6 +88,7 @@ searchItemFavorites = [
 	"Midevil.Model.Result, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
 	"System.Runtime.CompilerServices.AsyncMethodBuilderCore+<>c, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
 	"Midevil.Models.Result, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
+	"Midevil.Ability.Ability, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
 ]
 savedSearchesSortOrder = 0
 showSavedSearchPanel = true

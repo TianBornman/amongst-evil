@@ -30,10 +30,48 @@
         </ui:ProgressBar>
     </ui:VisualElement>
     <ui:VisualElement name="ActiveEffects" style="flex-grow: 1; min-height: 4%; max-height: 4%; background-color: rgba(0, 0, 0, 0.52); margin-top: 0; margin-left: auto; margin-right: auto; width: 70%; margin-bottom: 0; border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; flex-direction: row;" />
-    <ui:VisualElement name="Abilities" style="flex-grow: 1; margin-top: auto; width: 40%; margin-right: auto; margin-left: auto; height: auto; max-height: 10%; min-height: 13%; background-color: rgba(0, 0, 0, 0.52); border-top-left-radius: 15px; border-top-right-radius: 15px; flex-direction: row; padding-top: 10px; padding-right: 0; padding-bottom: 10px; padding-left: 10px;">
-        <Midevil.UI.Elements.AbilityElement charges="2" icon-texture="project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-6527069497977903076&amp;guid=5cbe1ef74b3c7ff4bb988460ea3c61d2&amp;type=3#console.warnicon@2x" />
-        <Midevil.UI.Elements.AbilityElement charges="2" />
-        <Midevil.UI.Elements.AbilityElement />
-        <Midevil.UI.Elements.AbilityElement />
+    <ui:VisualElement name="Abilities" style="flex-grow: 1; margin-top: auto; width: 60%; margin-right: auto; margin-left: auto; height: auto; max-height: 10%; min-height: 13%; background-color: rgba(0, 0, 0, 0.52); border-top-left-radius: 15px; border-top-right-radius: 15px; flex-direction: row; padding-top: 10px; padding-right: 0; padding-bottom: 10px; padding-left: 10px;">
+        <Midevil.UI.Elements.AbilityElement charges="2" icon-texture="project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-6527069497977903076&amp;guid=5cbe1ef74b3c7ff4bb988460ea3c61d2&amp;type=3#console.warnicon@2x">
+            <Bindings>
+                <ui:DataBinding property="IconTexture" data-source-path="data.icon" data-source-type="Midevil.Ability.Ability, Assembly-CSharp" binding-mode="ToTarget" />
+                <ui:DataBinding property="Charges" data-source-path="remainingCharges" data-source-type="Midevil.Ability.Ability, Assembly-CSharp" binding-mode="ToTarget" />
+                <ui:DataBinding property="Cooldown" data-source-path="cooldownTimer" data-source-type="Midevil.Ability.Ability, Assembly-CSharp" binding-mode="ToTarget" />
+            </Bindings>
+        </Midevil.UI.Elements.AbilityElement>
+        <Midevil.UI.Elements.AbilityElement charges="2" icon-texture="project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-6527069497977903076&amp;guid=5cbe1ef74b3c7ff4bb988460ea3c61d2&amp;type=3#console.warnicon@2x">
+            <Bindings>
+                <ui:DataBinding property="IconTexture" data-source-path="data.icon" data-source-type="Midevil.Ability.Ability, Assembly-CSharp" binding-mode="ToTarget" />
+                <ui:DataBinding property="Charges" data-source-path="remainingCharges" data-source-type="Midevil.Ability.Ability, Assembly-CSharp" binding-mode="ToTarget" />
+                <ui:DataBinding property="Cooldown" data-source-path="cooldownTimer" data-source-type="Midevil.Ability.Ability, Assembly-CSharp" binding-mode="ToTarget" />
+            </Bindings>
+        </Midevil.UI.Elements.AbilityElement>
+        <Midevil.UI.Elements.AbilityElement charges="2" icon-texture="project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-6527069497977903076&amp;guid=5cbe1ef74b3c7ff4bb988460ea3c61d2&amp;type=3#console.warnicon@2x">
+            <Bindings>
+                <ui:DataBinding property="IconTexture" data-source-path="data.icon" data-source-type="Midevil.Ability.Ability, Assembly-CSharp" binding-mode="ToTarget" />
+                <ui:DataBinding property="Charges" data-source-path="remainingCharges" data-source-type="Midevil.Ability.Ability, Assembly-CSharp" binding-mode="ToTarget" />
+                <ui:DataBinding property="Cooldown" data-source-path="cooldownTimer" data-source-type="Midevil.Ability.Ability, Assembly-CSharp" binding-mode="ToTarget" />
+            </Bindings>
+        </Midevil.UI.Elements.AbilityElement>
+        <Midevil.UI.Elements.AbilityElement charges="2" icon-texture="project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-6527069497977903076&amp;guid=5cbe1ef74b3c7ff4bb988460ea3c61d2&amp;type=3#console.warnicon@2x">
+            <Bindings>
+                <ui:DataBinding property="IconTexture" data-source-path="data.icon" data-source-type="Midevil.Ability.Ability, Assembly-CSharp" binding-mode="ToTarget" />
+                <ui:DataBinding property="Charges" data-source-path="remainingCharges" data-source-type="Midevil.Ability.Ability, Assembly-CSharp" binding-mode="ToTarget" />
+                <ui:DataBinding property="Cooldown" data-source-path="cooldownTimer" data-source-type="Midevil.Ability.Ability, Assembly-CSharp" binding-mode="ToTarget" />
+            </Bindings>
+        </Midevil.UI.Elements.AbilityElement>
+        <Midevil.UI.Elements.AbilityElement charges="2" icon-texture="project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-6527069497977903076&amp;guid=5cbe1ef74b3c7ff4bb988460ea3c61d2&amp;type=3#console.warnicon@2x">
+            <Bindings>
+                <ui:DataBinding property="IconTexture" data-source-path="data.icon" data-source-type="Midevil.Ability.Ability, Assembly-CSharp" binding-mode="ToTarget" />
+                <ui:DataBinding property="Charges" data-source-path="remainingCharges" data-source-type="Midevil.Ability.Ability, Assembly-CSharp" binding-mode="ToTarget" />
+                <ui:DataBinding property="Cooldown" data-source-path="cooldownTimer" data-source-type="Midevil.Ability.Ability, Assembly-CSharp" binding-mode="ToTarget" />
+            </Bindings>
+        </Midevil.UI.Elements.AbilityElement>
+        <Midevil.UI.Elements.AbilityElement charges="2" icon-texture="project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-6527069497977903076&amp;guid=5cbe1ef74b3c7ff4bb988460ea3c61d2&amp;type=3#console.warnicon@2x">
+            <Bindings>
+                <ui:DataBinding property="IconTexture" data-source-path="data.icon" data-source-type="Midevil.Ability.Ability, Assembly-CSharp" binding-mode="ToTarget" />
+                <ui:DataBinding property="Charges" data-source-path="remainingCharges" data-source-type="Midevil.Ability.Ability, Assembly-CSharp" binding-mode="ToTarget" />
+                <ui:DataBinding property="Cooldown" data-source-path="cooldownTimer" data-source-type="Midevil.Ability.Ability, Assembly-CSharp" binding-mode="ToTarget" />
+            </Bindings>
+        </Midevil.UI.Elements.AbilityElement>
     </ui:VisualElement>
 </ui:UXML>

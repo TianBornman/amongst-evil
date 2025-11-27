@@ -3,6 +3,6 @@
 	Idle,
 	Moving,
 	Attacking,
-	Blocking,
+	Ability,
 	Dead
 }

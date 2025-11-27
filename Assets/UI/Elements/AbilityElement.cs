@@ -1,30 +1,31 @@
+using Unity.Properties;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Midevil.UI.Elements
 {
 	[UxmlElement]
-	public partial class AbilityElement : ClickableElement
+	public partial class AbilityElement : BindableElement
 	{
 		private VisualElement icon;
 		private Label chargesLabel;
 		private Label cooldownLabel;
 
-		[UxmlAttribute]
+		[UxmlAttribute, CreateProperty]
 		public Texture2D IconTexture
 		{
 			get => icon.style.backgroundImage.value.texture;
 			set => icon.style.backgroundImage = new StyleBackground(value);
 		}
 
-		[UxmlAttribute]
+		[UxmlAttribute, CreateProperty]
 		public string Charges
 		{
 			get => chargesLabel.text;
 			set => chargesLabel.text = value;
 		}
 
-		[UxmlAttribute]
+		[UxmlAttribute, CreateProperty]
 		public string Cooldown
 		{
 			get => cooldownLabel.text;
@@ -60,18 +61,10 @@ namespace Midevil.UI.Elements
 		// Public Methods
 		public void SetAbility(Ability.Ability ability)
 		{
-			IconTexture = ability.data.icon;
-			Charges = ability.RemainingCharges.ToString();
-			Cooldown = ability.CooldownTimer.ToString("f1");
-
 			if (!ability.isConsumable)
 				chargesLabel.visible = false;
 
 			cooldownLabel.visible = false;
-
-			// Subscribe to live updates
-			ability.OnChargesChanged = UpdateCharges;
-			ability.OnCooldownChanged = UpdateCooldown;
 		}
 
 		public void ClearItem()
@@ -79,23 +72,6 @@ namespace Midevil.UI.Elements
 			IconTexture = null;
 			Charges = string.Empty;
 			Cooldown = string.Empty;
-
-			UnsetClickHandler();
-		}
-
-		private void UpdateCharges(int value)
-		{
-			Charges = value.ToString();
-		}
-
-		private void UpdateCooldown(float value)
-		{
-			if (value <= 0)
-				cooldownLabel.visible = false;
-			else
-				cooldownLabel.visible = true;
-
-			Cooldown = value.ToString("f1");
 		}
 	}
 }

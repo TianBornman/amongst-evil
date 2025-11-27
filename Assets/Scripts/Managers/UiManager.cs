@@ -169,7 +169,7 @@ public class UiManager : Singleton<UiManager>
 		if (index < 0 || index >= abilityElement.Count)
 			return;
 
-		abilityElement[index].SetAbility(ability);
+		abilityElement[index].dataSource = ability;
 	}
 
 	public void ClearAbility(int index)

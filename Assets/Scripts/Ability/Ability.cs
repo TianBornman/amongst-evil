@@ -4,55 +4,31 @@ namespace Midevil.Ability
 {
 	public abstract class Ability
 	{
-		public Guid id;
+		public Guid id = Guid.Empty;
 		protected Character owner;
 		public AbilityData data;
 
-		private float cooldownTimer;
+		public float cooldownTimer;
 		public bool isConsumable;
-		private int remainingCharges;
-
-		public Action<int> OnChargesChanged;
-		public Action<float> OnCooldownChanged;
-
-		public int RemainingCharges
-		{
-			get => remainingCharges;
-			set
-			{
-				if (remainingCharges == value) return;
-				remainingCharges = value;
-				OnChargesChanged?.Invoke(remainingCharges);
-			}
-		}
-
-		public float CooldownTimer
-		{
-			get => cooldownTimer;
-			set
-			{
-				if (cooldownTimer == value) return;
-				cooldownTimer = value;
-				OnCooldownChanged?.Invoke(cooldownTimer);
-			}
-		}
+		public int remainingCharges;
 
 		protected Ability(Character owner, AbilityData data)
 		{
 			this.owner = owner;
 			this.data = data;
 
+			id = Guid.NewGuid();
 			isConsumable = data.isConsumable;
 			remainingCharges = data.maxCharges;
 		}
 
-		public bool IsReady => cooldownTimer <= 0f && RemainingCharges > 0;
+		public bool IsReady => cooldownTimer <= 0f && remainingCharges > 0;
 
 		public virtual void Update(float deltaTime)
 		{
-			if (CooldownTimer > 0f)
+			if (cooldownTimer > 0f)
 			{
-				CooldownTimer -= deltaTime;
+				cooldownTimer -= deltaTime;
 			}
 		}
 
@@ -64,10 +40,10 @@ namespace Midevil.Ability
 			//owner.CurrentStats.mana -= data.manaCost;
 
 			if (isConsumable)
-				RemainingCharges--;
+				remainingCharges--;
 
 			Execute();
-			CooldownTimer = data.cooldown;
+			cooldownTimer = data.cooldown;
 
 			//if (data.isConsumable && remainingCharges <= 0)
 			//	owner.AbilityManager.RemoveAbility(this);
@@ -75,6 +51,6 @@ namespace Midevil.Ability
 
 		protected abstract void Execute();
 
-		public void ResetCooldown() => CooldownTimer = 0f;
+		public void ResetCooldown() => cooldownTimer = 0f;
 	}
 }

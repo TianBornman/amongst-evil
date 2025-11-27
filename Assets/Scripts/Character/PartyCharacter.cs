@@ -1,51 +1,20 @@
 using Midevil.Ability;
-using Midevil.Effect;
 using Midevil.Item;
 using Midevil.Models;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using Guid = System.Guid;
 
 public class PartyCharacter : Character
 {
-	#region Input
-
-	private InputSystem_Actions inputActions;
-	private InputAction abilityAction;
-
-	private void OnEnable()
-	{
-		inputActions = new InputSystem_Actions();
-		abilityAction = inputActions.Player.Ability;
-
-		inputActions.Enable();
-		abilityAction.performed += OnAbility;
-	}
-
-	private void OnDisable()
-	{
-		abilityAction.performed -= OnAbility;
-		inputActions.Disable();
-	}
-
-	private void OnAbility(InputAction.CallbackContext context)
-	{
-		int slot = (int)context.ReadValue<float>();
-		UseAbility(slot);
-	}
-
-	#endregion
-
 	// Editor References
 	[Header("References")]
 	public Transform cameraPosition;
 	public List<AbilityReferenceIndex> startingAbilities;
 
 	// Public Variables
-	[HideInInspector] public AbilitySlot[] abilitySlots = new AbilitySlot[4];
-
 	[HideInInspector] public float currentXp;
 	[HideInInspector] public float neededXp;
 
@@ -67,18 +36,18 @@ public class PartyCharacter : Character
 
 		UiManager.Instance.BindPartyMemberStats(this);
 
-	//	stats.level = identity.level;
-	//	neededXp = GetNeededXp(stats.level);
+		//	stats.level = identity.level;
+		//	neededXp = GetNeededXp(stats.level);
 
-	//	AddXp(identity.xp);
+		//	AddXp(identity.xp);
 
-	//	UiManager.Instance.BindPlayerStats(this);
+		//	UiManager.Instance.BindPlayerStats(this);
 
-	//	foreach (var abilityIndex in startingAbilities)
-	//	{
-	//		var abilityData = RefManager.Instance.GetAbility(abilityIndex);
-	//		AddAbility(abilityData.CreateRuntime(this));
-	//	}
+		foreach (var abilityIndex in startingAbilities)
+		{
+			var abilityData = RefManager.Instance.GetAbility(abilityIndex);
+			AddAbility(abilityData.CreateRuntime(this));
+		}
 	}
 
 	protected override void SetState(CharacterState state)
@@ -107,19 +76,19 @@ public class PartyCharacter : Character
 		}
 	}
 
-	//public override void AddAbility(Ability ability)
-	//{
-	//	base.AddAbility(ability);
+	public override void AddAbility(Ability ability)
+	{
+		base.AddAbility(ability);
 
-	//	BindAbility(ability);
-	//}
+		PartyManager.Instance.playerParty.BindAbility(ability, this);
+	}
 
-	//public override void RemoveAbility(Ability ability)
-	//{
-	//	ClearAbility(ability);
+	public override void RemoveAbility(Ability ability)
+	{
+		base.RemoveAbility(ability);
 
-	//	base.RemoveAbility(ability);
-	//}
+		PartyManager.Instance.playerParty.ClearAbility(ability);
+	}
 
 	//public override void AddEffect(Effect effect)
 	//{
@@ -197,14 +166,10 @@ public class PartyCharacter : Character
 		}
 	}
 
-	public void AssignAbilitySlot(int slot, Ability ability)
+	public void TryUseAbility(Guid id)
 	{
-		abilitySlots[slot].assignedAbility = ability;
-	}
-
-	public void UseAbility(int slot)
-	{
-		abilitySlots[slot].assignedAbility?.TryUse();
+		var ability = abilities.FirstOrDefault(ab => ab.id == id);
+		ability?.TryUse();
 	}
 
 	// Private Methods
@@ -230,24 +195,6 @@ public class PartyCharacter : Character
 	{
 		return 10f * Mathf.Pow(level, 1.3f) + 5f * level;
 	}
-
-	//private void BindAbility(Ability ability)
-	//{
-	//	for (int i = 0; i < abilities.Count && i < abilitySlots.Length; i++)
-	//	{
-	//		if (abilitySlots[i].HasAbility)
-	//			continue;
-
-	//		abilitySlots[i].assignedAbility = abilities[i];
-	//		UiManager.Instance.BindAbility(i, abilities[i]);
-	//	}
-	//}
-
-	//private void ClearAbility(Ability ability)
-	//{
-	//	var slot = abilitySlots.FirstOrDefault(slot => slot.assignedAbility == ability);
-	//	slot.Clear();
-	//}
 
 	private IEnumerator GetTarget()
 	{

@@ -76,8 +76,8 @@ public class Character : StateMachine<CharacterState>, IInteractable
 			case CharacterState.Attacking:
 				Attacking();
 				break;
-			case CharacterState.Blocking:
-				Block();
+			case CharacterState.Ability:
+				Ability();
 				break;
 			case CharacterState.Dead:
 				Die();
@@ -95,6 +95,7 @@ public class Character : StateMachine<CharacterState>, IInteractable
 		agent.isStopped = true;
 
 		animator.SetFloat("Speed", 0);
+		animator.SetBool("Ability", false);
 		animator.SetBool("Attacking", false);
 	}
 
@@ -103,6 +104,7 @@ public class Character : StateMachine<CharacterState>, IInteractable
 		agent.isStopped = false;
 
 		animator.SetFloat("Speed", 1);
+		animator.SetBool("Ability", false);
 		animator.SetBool("Attacking", false);
 	}
 
@@ -111,13 +113,13 @@ public class Character : StateMachine<CharacterState>, IInteractable
 		agent.isStopped = true;
 
 		transform.LookAt(target.transform);
-		animator.SetBool("Blocking", false);
+		animator.SetBool("Ability", false);
 		animator.SetBool("Attacking", true);
 	}
 
-	private void Block()
+	private void Ability()
 	{
-		animator.SetBool("Blocking", true);
+		animator.SetBool("Ability", true);
 	}
 
 	private void Die()

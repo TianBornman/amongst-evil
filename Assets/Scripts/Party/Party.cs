@@ -1,16 +1,47 @@
+using Midevil.Ability;
 using Midevil.Models;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Party : StateMachine<PartyState>
 {
+	#region Input
+
+	private InputSystem_Actions inputActions;
+	private InputAction abilityAction;
+
+	private void OnEnable()
+	{
+		inputActions = new InputSystem_Actions();
+		abilityAction = inputActions.Player.Ability;
+
+		inputActions.Enable();
+		abilityAction.performed += OnAbility;
+	}
+
+	private void OnDisable()
+	{
+		abilityAction.performed -= OnAbility;
+		inputActions.Disable();
+	}
+
+	private void OnAbility(InputAction.CallbackContext context)
+	{
+		int slot = (int)context.ReadValue<float>();
+		UseAbility(slot);
+	}
+
+	#endregion
+
 	// Editor Variables
 	[Header("Settings")]
 	public Transform waypoint;
 	public List<PartyCharacter> members = new();
 
 	// Public Variables
+	[HideInInspector] public AbilitySlot[] abilitySlots = new AbilitySlot[6];
 	public List<Character> combatEnemies = new();
 
 	// Private Variables
@@ -88,6 +119,27 @@ public class Party : StateMachine<PartyState>
 		return target;
 	}
 
+	public void BindAbility(Ability ability, PartyCharacter character)
+	{
+		for (int i = 0; i < abilitySlots.Length; i++)
+		{
+			if (abilitySlots[i].HasAbility)
+				continue;
+
+			abilitySlots[i].abilityId = ability.id;
+			abilitySlots[i].character = character;
+
+			UiManager.Instance.BindAbility(i, ability);
+			break;
+		}
+	}
+
+	public void ClearAbility(Ability ability)
+	{
+		var slot = abilitySlots.FirstOrDefault(slot => slot.abilityId == ability.id);
+		slot.Clear();
+	}
+
 	// Private Methods
 	private void Awake()
 	{
@@ -112,5 +164,10 @@ public class Party : StateMachine<PartyState>
 			b.Encapsulate(combatEnemies[i].transform.position);
 
 		return b.center;
+	}
+
+	private void UseAbility(int slot)
+	{
+		abilitySlots[slot].TryUseAbility();
 	}
 }
