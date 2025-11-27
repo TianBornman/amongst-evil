@@ -31,6 +31,20 @@ namespace Midevil.Models
 			profileIcon = IconReferenceIndex.HumanIcon;
 		}
 
+		public void Save(BloodVaultStatus status)
+		{
+			lifeTimeResult.Add(currentResult);
+			currentResult = new();
+
+			var bloodVaultEntry = new BloodVaultEntry
+			{
+				identity = this,
+				status = status
+			};
+
+			BloodvaultManager.AddOrUpdate(bloodVaultEntry);
+		}
+
 		public void ClearGear()
 		{
 			weapon = null;
@@ -43,29 +57,12 @@ namespace Midevil.Models
 			//level = PlayerManager.Instance.player.stats.level;
 			//xp = PlayerManager.Instance.player.currentXp;
 
-			lifeTimeResult.Add(currentResult);
-			currentResult = new();
-
-			var bloodVaultEntry = new BloodVaultEntry
-			{
-				identity = this,
-				status = BloodVaultStatus.Alive
-			};
-
-			BloodvaultManager.AddOrUpdate(bloodVaultEntry);
+			Save(BloodVaultStatus.Alive);
 		}
 
 		public void Die()
 		{
-			lifeTimeResult.Add(currentResult);
-
-			var bloodVaultEntry = new BloodVaultEntry
-			{
-				identity = this,
-				status = BloodVaultStatus.Dead
-			};
-
-			BloodvaultManager.AddOrUpdate(bloodVaultEntry);
+			Save(BloodVaultStatus.Dead);
 		}
 	}
 }

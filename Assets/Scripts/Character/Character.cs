@@ -179,7 +179,7 @@ public class Character : StateMachine<CharacterState>, IInteractable
 			if (buff is IOnTakeHit onTakeHit)
 				onTakeHit.OnTakeHit(this, target, damage);
 
-		identity.currentResult.damageDealt += damage;
+		attacker.identity.currentResult.damageDealt += damage;
 
 		// Stat Tracking
 		if (isCrit)
@@ -189,7 +189,7 @@ public class Character : StateMachine<CharacterState>, IInteractable
 
 		identity.currentResult.damageTaken += damage;
 
-		if (stats.health == 0 && killer == null)
+		if (stats.health == 0)
 		{
 			killer = attacker;
 			SetState(CharacterState.Dead);
@@ -481,7 +481,7 @@ public class Character : StateMachine<CharacterState>, IInteractable
 
 	private void Attack()
 	{
-		if (!target.IsAlive) 
+		if (target == null || !target.IsAlive) 
 			SetState(CharacterState.Moving);
 
 		foreach (var buff in effects)

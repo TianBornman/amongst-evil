@@ -130,8 +130,8 @@ public class UiManager : Singleton<UiManager>
 		// Results
 		resultsUi.rootVisualElement.visible = false;
 		resultsUi.rootVisualElement.Q<VisualElement>("Results").dataSource = PartyManager.Instance.partyResults;
-		//resultsUi.rootVisualElement.Q<Button>("Flee").clicked += Flee;
-		//resultsUi.rootVisualElement.Q<Button>("FightOn").clicked += SpawnWave;
+		resultsUi.rootVisualElement.Q<Button>("Flee").clicked += Flee;
+		resultsUi.rootVisualElement.Q<Button>("FightOn").clicked += SpawnWave;
 
 		var continueButton = resultsUi.rootVisualElement.Q<Button>("Continue");
 		continueButton.clicked += Die;
@@ -306,16 +306,15 @@ public class UiManager : Singleton<UiManager>
 	private void Flee()
 	{
 		Resume();
-		// TODO: Reimagine how fleeing works with the new systems
-		//PlayerManager.Instance.player.identity.Flee();
 		SceneManager.LoadScene("Sect");
+		PartyManager.Instance.EndRun();
 	}
 
 	private void Die()
 	{
 		Resume();
-		PartyManager.Instance.partyResults = new();
 		SceneManager.LoadScene("Sect");
+		PartyManager.Instance.EndRun();
 	}
 
 	private void SpawnWave()

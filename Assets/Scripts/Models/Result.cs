@@ -28,5 +28,17 @@ namespace Midevil.Models
 			criticalHits += other.criticalHits;
 			abilitiesUsed += other.abilitiesUsed;
 		}
+
+		public void Clear()
+		{
+			xpGained = 0;
+			kills = 0;
+			damageDealt = 0;
+			damageTaken = 0;
+			healed = 0;
+			hits = 0;
+			criticalHits = 0;
+			abilitiesUsed = 0;
+		}
 	}
 }

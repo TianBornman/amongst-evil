@@ -108,6 +108,16 @@ public class PartyManager : Singleton<PartyManager>
 
 	public void EndRun()
 	{
+		partyResults.Clear();
+
+		foreach (var character in playerParty.members)
+			character.identity.Save(BloodVaultStatus.Alive);
+	}
+
+	public void CalculateStats()
+	{
+		partyResults.Clear();
+
 		foreach (Identity identity in partyIdentities)
 			partyResults.Add(identity.currentResult);
 	}
@@ -134,6 +144,8 @@ public class PartyManager : Singleton<PartyManager>
 
 	public void BindAbility(Ability ability, PartyCharacter partyCharacter) => playerParty.BindAbility(ability, partyCharacter);
 	public void ClearAbility(Ability ability) => playerParty.ClearAbility(ability);
+
+	public void SetPartyTarget(Vector3 position) => playerParty.SetPosition(position);
 
 	// Private Methods
 	private void SetPartyTarget()

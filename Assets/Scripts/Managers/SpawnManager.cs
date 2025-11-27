@@ -32,6 +32,7 @@ public class SpawnManager : Singleton<SpawnManager>
 		{
 			if (bossSpawned)
 			{
+				PartyManager.Instance.CalculateStats();
 				UiManager.Instance.ShowResults();
 				SpawnMapSegment();
 			}
