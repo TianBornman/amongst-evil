@@ -314,6 +314,7 @@ public class UiManager : Singleton<UiManager>
 	private void Die()
 	{
 		Resume();
+		PartyManager.Instance.partyResults = new();
 		SceneManager.LoadScene("Sect");
 	}
 
