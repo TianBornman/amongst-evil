@@ -56,6 +56,9 @@ public class PartyManager : Singleton<PartyManager>
 	// Public Variables
 	public int maxPartySize = 3;
 	public List<Identity> partyIdentities = new();
+	public Result partyResults = new();
+
+	// Private Variables
 	private Party playerParty;
 
 	// Public Properties
@@ -103,8 +106,11 @@ public class PartyManager : Singleton<PartyManager>
 		}
 	}
 
-	public void AddEnemyInRange(Character character) => playerParty.AddEnemyInRange(character);
-	public void RemoveEnemyInRange(Character character) => playerParty.RemoveEnemyInRange(character);
+	public void EndRun()
+	{
+		foreach (Identity identity in partyIdentities)
+			partyResults.Add(identity.currentResult);
+	}
 
 	public void EquipItem(string id, ItemStats item)
 	{
@@ -128,8 +134,6 @@ public class PartyManager : Singleton<PartyManager>
 
 	public void BindAbility(Ability ability, PartyCharacter partyCharacter) => playerParty.BindAbility(ability, partyCharacter);
 	public void ClearAbility(Ability ability) => playerParty.ClearAbility(ability);
-
-	public Character GetTarget(PartyCharacter charater) => playerParty.GetTarget(charater);
 
 	// Private Methods
 	private void SetPartyTarget()

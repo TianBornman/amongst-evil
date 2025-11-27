@@ -23,7 +23,7 @@ namespace Midevil.Effect
 			{
 				tickTimer = tickInterval;
 				float damage = dps * tickInterval;
-				owner.Damage(damage);
+				owner.Damage(owner, damage);
 			}
 		}
 

@@ -129,8 +129,7 @@ public class UiManager : Singleton<UiManager>
 
 		// Results
 		resultsUi.rootVisualElement.visible = false;
-		// TODO: How stats are displayed needs to be rethunk
-		//resultsUi.rootVisualElement.Q<VisualElement>("Results").dataSource = PlayerManager.Instance.player.Results;
+		resultsUi.rootVisualElement.Q<VisualElement>("Results").dataSource = PartyManager.Instance.partyResults;
 		//resultsUi.rootVisualElement.Q<Button>("Flee").clicked += Flee;
 		//resultsUi.rootVisualElement.Q<Button>("FightOn").clicked += SpawnWave;
 

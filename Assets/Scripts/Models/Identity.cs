@@ -54,5 +54,18 @@ namespace Midevil.Models
 
 			BloodvaultManager.AddOrUpdate(bloodVaultEntry);
 		}
+
+		public void Die()
+		{
+			lifeTimeResult.Add(currentResult);
+
+			var bloodVaultEntry = new BloodVaultEntry
+			{
+				identity = this,
+				status = BloodVaultStatus.Dead
+			};
+
+			BloodvaultManager.AddOrUpdate(bloodVaultEntry);
+		}
 	}
 }

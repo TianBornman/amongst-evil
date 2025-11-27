@@ -134,13 +134,7 @@ public class PartyCharacter : Character
 
 	private void Die()
 	{
-		var entry = new BloodVaultEntry
-		{
-			identity = identity,
-			status = BloodVaultStatus.Dead
-		};
-
-		BloodvaultManager.AddOrUpdate(entry);
+		identity.Die();
 	}
 
 	// Public Methods
@@ -162,7 +156,7 @@ public class PartyCharacter : Character
 	{
 		stats.level++;
 		neededXp = GetNeededXp(stats.level);
-		Damage(-stats.maxHealth * stats.levelHeal);
+		Heal(stats.maxHealth * stats.levelHeal);
 
 		LevelUpManager.Instance.LevelUp();
 	}

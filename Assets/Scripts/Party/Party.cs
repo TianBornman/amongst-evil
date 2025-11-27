@@ -88,6 +88,7 @@ public class Party : StateMachine<PartyState>
 
 		if (members.Count <= 0 )
 		{
+			PartyManager.Instance.EndRun();
 			UiManager.Instance.ShowDeathScreen();
 		}
 	}

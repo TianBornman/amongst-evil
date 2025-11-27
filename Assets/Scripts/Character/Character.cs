@@ -121,6 +121,8 @@ public class Character : StateMachine<CharacterState>, IInteractable
 		//	PlayerManager.Instance.player.Results.kills++;
 		//}
 
+		killer.identity.currentResult.kills++;
+
 		foreach (var buff in killer.effects)
 			if (buff is IOnKill onKill)
 				onKill.OnKill(this, killer);
@@ -147,8 +149,11 @@ public class Character : StateMachine<CharacterState>, IInteractable
 		ReevaluateTarget();
 	}
 
-	public void Damage(float damage, float critChance = 0, float critDamage = 0)
+	public void Damage(Character attacker, float damage, float critChance = 0, float critDamage = 0)
 	{
+		if (State == CharacterState.Dead)
+			return;
+
 		var isBlock = Random.value < stats.blockChance;
 
 		if (isBlock)
@@ -164,7 +169,9 @@ public class Character : StateMachine<CharacterState>, IInteractable
 		if (isCrit)
 			damage *= critDamage;
 
-		DamageNumberManager.Instance.ShowDamage(transform.position + Vector3.up * 1.5f, Mathf.Abs(damage), damage > 0 ? Color.red : Color.green);
+		damage = Mathf.Clamp(damage, 0, float.MaxValue);
+
+		DamageNumberManager.Instance.ShowDamage(transform.position + Vector3.up * 1.5f, Mathf.Abs(damage), Color.red);
 
 		stats.health = Mathf.Clamp(stats.health - damage, 0, stats.maxHealth);
 
@@ -172,29 +179,32 @@ public class Character : StateMachine<CharacterState>, IInteractable
 			if (buff is IOnTakeHit onTakeHit)
 				onTakeHit.OnTakeHit(this, target, damage);
 
-		// TODO: Reimplement stats tracking
-		//if (target is PartyCharacter player)
-		//{
-		//	PlayerManager.Instance.player.Results.damageDealt += damage;
+		identity.currentResult.damageDealt += damage;
 
-		//	if (isCrit)
-		//		PlayerManager.Instance.player.Results.criticalHits++;
-		//	else
-		//		PlayerManager.Instance.player.Results.hits++;
-		//}
-		//else
-		//{
-		//	if (damage > 0)
-		//		PlayerManager.Instance.player.Results.damageTaken += damage;
-		//	else
-		//		PlayerManager.Instance.player.Results.healed += damage;
-		//}
+		// Stat Tracking
+		if (isCrit)
+			attacker.identity.currentResult.criticalHits++;
+		else
+			attacker.identity.currentResult.hits++;
 
-		if (stats.health == 0)
+		identity.currentResult.damageTaken += damage;
+
+		if (stats.health == 0 && killer == null)
 		{
-			killer = target;
+			killer = attacker;
 			SetState(CharacterState.Dead);
 		}
+	}
+
+	public void Heal(float amount)
+	{
+		amount = Mathf.Clamp(amount, 0, float.MaxValue);
+
+		DamageNumberManager.Instance.ShowDamage(transform.position + Vector3.up * 1.5f, Mathf.Abs(amount), Color.green);
+
+		stats.health = Mathf.Clamp(stats.health + amount, 0, stats.maxHealth);
+
+		identity.currentResult.healed += amount;
 	}
 
 	public void AddBuff(Buff buff)
@@ -479,7 +489,7 @@ public class Character : StateMachine<CharacterState>, IInteractable
 				onHit.OnHit(this, target, stats.damage);
 
 		transform.LookAt(target.transform);
-		target.Damage(stats.damage, stats.critChance, stats.critDamage);
+		target.Damage(this, stats.damage, stats.critChance, stats.critDamage);
 	}
 
 	private void CastAbility()

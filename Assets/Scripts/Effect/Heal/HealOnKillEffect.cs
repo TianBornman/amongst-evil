@@ -10,7 +10,7 @@ namespace Midevil.Effect
 
 		public void OnKill(Character owner, Character killer)
 		{
-			killer.Damage(-healAmount);
+			killer.Heal(healAmount);
 		}
 	}
 }

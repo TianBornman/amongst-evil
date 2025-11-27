@@ -10,7 +10,7 @@ namespace Midevil.Ability
 
 		protected override void Execute()
 		{
-			owner.Damage(-Potion.healAmount);
+			owner.Heal(Potion.healAmount);
 			Debug.Log($"Used {Potion.abilityName}, healed {Potion.healAmount}");
 		}
 	}

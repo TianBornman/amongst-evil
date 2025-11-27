@@ -1,6 +1,6 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/Results%20UI.uss?fileID=7433441132597879392&amp;guid=245a5b4d5518de048ad06a3aadd4e4cc&amp;type=3#Results UI" />
-    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.52); max-height: 70%; width: 80%; margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; flex-direction: column;">
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.52); max-height: 70%; width: 30%; margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; flex-direction: column;">
         <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
             <ui:VisualElement name="Results" class="tab" style="flex-grow: 1; flex-basis: 0;">
                 <ui:Label text="Results" name="Title" />
@@ -60,9 +60,6 @@
                         </Bindings>
                     </ui:Label>
                 </ui:VisualElement>
-            </ui:VisualElement>
-            <ui:VisualElement name="PlayerStats" class="tab" style="flex-grow: 1; flex-basis: 0;">
-                <ui:Label text="Stats" name="Title" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement style="flex-direction: row;">
