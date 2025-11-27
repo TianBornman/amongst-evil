@@ -17,16 +17,18 @@ public class CharacterDetectionRange : MonoBehaviour
 		{
 			if (character.targetTeams.Contains(enemy.team))
 			{
-				if (character is PartyCharacter)
-				{
-					PartyManager.Instance.playerParty.AddEnemyInRange(enemy);
-					enemy.SetTarget(character);
-				}
-				else
-				{
-					PartyManager.Instance.playerParty.AddEnemyInRange(character);
-					character.SetTarget(enemy);
-				}
+				character.AddTarget(enemy);
+			}
+		}
+	}
+
+	private void OnTriggerExit(Collider other)
+	{
+		if (other.gameObject.TryGetComponent<Character>(out var enemy))
+		{
+			if (character.targetTeams.Contains(enemy.team))
+			{
+				character.RemoveTarget(enemy);
 			}
 		}
 	}

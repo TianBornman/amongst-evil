@@ -27,7 +27,7 @@ public class PartyCharacter : Character
 		base.Awake();
 
 		CharacterAnimAPI animAPI = GetComponentInChildren<CharacterAnimAPI>();
-		animAPI.Disappear = () => UiManager.Instance.ShowDeathScreen();
+		animAPI.Disappear = () => PartyManager.Instance.RemovePartyMember(this);
 	}
 
 	protected override void Start()
@@ -63,7 +63,7 @@ public class PartyCharacter : Character
 				Moving();
 				break;
 			case CharacterState.Attacking:
-				Attacking();
+				//Attacking();
 				break;
 			case CharacterState.Dead:
 				Die();
@@ -77,14 +77,14 @@ public class PartyCharacter : Character
 	{
 		base.AddAbility(ability);
 
-		PartyManager.Instance.playerParty.BindAbility(ability, this);
+		PartyManager.Instance.BindAbility(ability, this);
 	}
 
 	public override void RemoveAbility(Ability ability)
 	{
 		base.RemoveAbility(ability);
 
-		PartyManager.Instance.playerParty.ClearAbility(ability);
+		PartyManager.Instance.ClearAbility(ability);
 	}
 
 	//public override void AddEffect(Effect effect)
@@ -125,17 +125,11 @@ public class PartyCharacter : Character
 	// State Methods
 	private void Moving()
 	{
-		if (target == null && PartyManager.Instance.playerParty.InCombat)
-		{
-			var target = PartyManager.Instance.playerParty.GetTarget(this);
-			SetTarget(target);
-		}
-	}
-
-	private void Attacking()
-	{
-		if (target != null)
-			target.SetTarget(this);
+		//if (target == null && PartyManager.Instance.InCombat)
+		//{
+		//	var target = PartyManager.Instance.GetTarget(this);
+		//	SetTarget(target);
+		//}
 	}
 
 	private void Die()

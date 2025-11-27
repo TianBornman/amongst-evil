@@ -47,6 +47,8 @@ public class Character : StateMachine<CharacterState>, IInteractable
 	public SkinnedMeshRenderer bootsSkin;
 	public Transform idlePos;
 
+	public List<Character> targets = new();
+
 	// Protected Variables
 	protected Character target;
 	protected Character killer;
@@ -127,13 +129,22 @@ public class Character : StateMachine<CharacterState>, IInteractable
 			if (buff is IOnDeath onDeath)
 				onDeath.OnDeath(this, killer);
 
-		PartyManager.Instance.playerParty.RemoveEnemyInRange(this);
+		//PartyManager.Instance.RemoveEnemyInRange(this);
 	}
 
 	// Public Methods
-	public void SetTarget(Character character)
+	public void AddTarget(Character character)
 	{
-		target = character;
+		if (targets.Contains(character)) return;
+
+		targets.Add(character);
+		ReevaluateTarget();
+	}
+
+	public void RemoveTarget(Character character)
+	{
+		targets.Remove(character);
+		ReevaluateTarget();
 	}
 
 	public void Damage(float damage, float critChance = 0, float critDamage = 0)
@@ -436,16 +447,19 @@ public class Character : StateMachine<CharacterState>, IInteractable
 			agent.isStopped = true;
 			return;
 		}
-		else 
+		else
 			agent.isStopped = false;
 
 		if (target == null && Vector3.Distance(transform.position, idlePos.position) < 0.2)
+		{
 			return;
+		}
 
 		if (target == null || !target.IsAlive)
 		{
 			agent.SetDestination(idlePos.position);
 			SetState(CharacterState.Moving);
+			ReevaluateTarget();
 			return;
 		}
 		else
@@ -479,6 +493,18 @@ public class Character : StateMachine<CharacterState>, IInteractable
 	{
 		currentAbility = null;
 		isCasting = false;
+	}
+
+	private void ReevaluateTarget()
+	{
+		if (targets.Count <= 0 || !targets.Where(target => target.IsAlive).Any())
+		{
+			target = null;
+			targets.Clear();
+			return;
+		}
+
+		target = targets.Where(target => target.IsAlive).OrderBy(target => Vector3.Distance(target.transform.position, transform.position)).FirstOrDefault();
 	}
 
 	private void RecalculateStats()

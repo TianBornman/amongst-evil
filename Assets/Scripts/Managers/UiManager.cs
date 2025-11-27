@@ -6,6 +6,7 @@ using Midevil.UI.Elements;
 using Midevil.UpgradeCard;
 using System;
 using System.Collections.Generic;
+using System.Security.Principal;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEditor.Playables;
 using UnityEngine;
@@ -133,9 +134,9 @@ public class UiManager : Singleton<UiManager>
 		//resultsUi.rootVisualElement.Q<Button>("Flee").clicked += Flee;
 		//resultsUi.rootVisualElement.Q<Button>("FightOn").clicked += SpawnWave;
 
-		//var continueButton = resultsUi.rootVisualElement.Q<Button>("Continue");
-		//continueButton.clicked += Die;
-		//continueButton.visible = false;
+		var continueButton = resultsUi.rootVisualElement.Q<Button>("Continue");
+		continueButton.clicked += Die;
+		continueButton.visible = false;
 	}
 
 	// Public Methods
@@ -146,6 +147,9 @@ public class UiManager : Singleton<UiManager>
 		//gameUi.rootVisualElement.Q<ProgressBar>("XpBar").dataSource = player;
 
 		statsUi.rootVisualElement.Q<VisualElement>($"{character.identity.id}-stats").dataSource = character;
+
+		var bars = statsUi.rootVisualElement.Q<VisualElement>(character.identity.id.ToString()).Q<VisualElement>("Bars");
+		bars.dataSource = character;
 	}
 
 	//public void BindEnemyStats(Character character)

@@ -42,7 +42,6 @@ public class Party : StateMachine<PartyState>
 
 	// Public Variables
 	[HideInInspector] public AbilitySlot[] abilitySlots = new AbilitySlot[6];
-	public List<Character> combatEnemies = new();
 
 	// Private Variables
 	private List<PartyPosition> positions;
@@ -83,6 +82,16 @@ public class Party : StateMachine<PartyState>
 		members.Add(newMember);
 	}
 
+	public void RemoveMember(PartyCharacter character)
+	{
+		members.Remove(character);
+
+		if (members.Count <= 0 )
+		{
+			UiManager.Instance.ShowDeathScreen();
+		}
+	}
+
 	public void SetPosition(Vector3 position)
 	{
 		waypoint.position = position;
@@ -96,24 +105,25 @@ public class Party : StateMachine<PartyState>
 
 	public void AddEnemyInRange(Character character)
 	{
-		if (combatEnemies.Count == 0 || !combatEnemies.Contains(character))
-			combatEnemies.Add(character);
+		//if (combatEnemies.Count == 0 || !combatEnemies.Contains(character))
+		//	combatEnemies.Add(character);
 
-		SetState(PartyState.Combat);
+		//SetState(PartyState.Combat);
 	}
 
 	public void RemoveEnemyInRange(Character character)
 	{
-		combatEnemies.Remove(character);	
+		//combatEnemies.Remove(character);	
 
-		if (combatEnemies.Count == 0)
-			SetState(PartyState.Idle);
+		//if (combatEnemies.Count == 0)
+		//	SetState(PartyState.Idle);
 	}
 
 	public Character GetTarget(PartyCharacter member)
 	{
-		var target = combatEnemies.OrderBy(enemy => Vector3.Distance(member.transform.position, enemy.transform.position)).FirstOrDefault();
-		return target;
+		//var target = combatEnemies.OrderBy(enemy => Vector3.Distance(member.transform.position, enemy.transform.position)).FirstOrDefault();
+		//return target;
+		return new();
 	}
 
 	public void BindAbility(Ability ability, PartyCharacter character)
@@ -155,15 +165,16 @@ public class Party : StateMachine<PartyState>
 
 	private Vector3 GetGroupCenter()
 	{
-		if (combatEnemies == null || combatEnemies.Count == 0)
-			return Vector3.zero;
+		//if (combatEnemies == null || combatEnemies.Count == 0)
+		//	return Vector3.zero;
 
-		Bounds b = new Bounds(combatEnemies[0].transform.position, Vector3.zero);
+		//Bounds b = new Bounds(combatEnemies[0].transform.position, Vector3.zero);
 
-		for (int i = 1; i < combatEnemies.Count; i++)
-			b.Encapsulate(combatEnemies[i].transform.position);
+		//for (int i = 1; i < combatEnemies.Count; i++)
+		//	b.Encapsulate(combatEnemies[i].transform.position);
 
-		return b.center;
+		//return b.center;
+		return new();
 	}
 
 	private void UseAbility(int slot)

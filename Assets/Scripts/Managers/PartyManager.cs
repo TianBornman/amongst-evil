@@ -1,4 +1,5 @@
-﻿using Midevil.Item;
+﻿using Midevil.Ability;
+using Midevil.Item;
 using Midevil.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,7 +56,10 @@ public class PartyManager : Singleton<PartyManager>
 	// Public Variables
 	public int maxPartySize = 3;
 	public List<Identity> partyIdentities = new();
-	public Party playerParty;
+	private Party playerParty;
+
+	// Public Properties
+	public bool InCombat => playerParty.InCombat;
 
 	// Override Methods
 	protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -81,6 +85,8 @@ public class PartyManager : Singleton<PartyManager>
 		partyIdentities.Add(identity);
 	}
 
+	public void RemovePartyMember(PartyCharacter character) => playerParty.RemoveMember(character);
+
 	public void StartRun()
 	{
 		foreach (Identity identity in partyIdentities)
@@ -96,6 +102,9 @@ public class PartyManager : Singleton<PartyManager>
 			identity.ClearGear();
 		}
 	}
+
+	public void AddEnemyInRange(Character character) => playerParty.AddEnemyInRange(character);
+	public void RemoveEnemyInRange(Character character) => playerParty.RemoveEnemyInRange(character);
 
 	public void EquipItem(string id, ItemStats item)
 	{
@@ -116,6 +125,11 @@ public class PartyManager : Singleton<PartyManager>
 
 		character.UnequipItem(item);
 	}
+
+	public void BindAbility(Ability ability, PartyCharacter partyCharacter) => playerParty.BindAbility(ability, partyCharacter);
+	public void ClearAbility(Ability ability) => playerParty.ClearAbility(ability);
+
+	public Character GetTarget(PartyCharacter charater) => playerParty.GetTarget(charater);
 
 	// Private Methods
 	private void SetPartyTarget()
