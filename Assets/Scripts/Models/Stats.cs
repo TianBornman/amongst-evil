@@ -14,6 +14,7 @@ public class Stats
 	public float dodgeChance;
 	public float damage;
 	public float attackSpeed;
+	public float castSpeed;
 	public float critChance;
 	public float critDamage;
 	public float range;
@@ -31,6 +32,7 @@ public class Stats
 		dodgeChance = baseStats.dodgeChance + buffs.Sum(b => b.stats.dodgeChance);
 		damage = Scale(baseStats.damage, buffs.Sum(b => b.stats.damage));
 		attackSpeed = baseStats.attackSpeed + buffs.Sum(b => b.stats.attackSpeed);
+		castSpeed = baseStats.castSpeed + buffs.Sum(b => b.stats.castSpeed);
 		critChance = baseStats.critChance + buffs.Sum(b => b.stats.critChance);
 		critDamage = baseStats.critDamage + buffs.Sum(b => b.stats.critDamage);
 		range = baseStats.range + buffs.Sum(b => b.stats.range);

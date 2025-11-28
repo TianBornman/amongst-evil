@@ -10,6 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8736108515495512286}
   - component: {fileID: 293148930564006070}
+  - component: {fileID: 7246356993931102507}
+  - component: {fileID: 1676904547834996192}
+  - component: {fileID: 4631836140190394835}
   - component: {fileID: 5479236539335497120}
   - component: {fileID: 4159140879651800418}
   - component: {fileID: 1848065477163420730}
@@ -58,6 +61,7 @@ MonoBehaviour:
     dodgeChance: 0
     damage: 0
     attackSpeed: 0
+    castSpeed: 0
     critChance: 0
     critDamage: 0
     range: 0
@@ -72,11 +76,14 @@ MonoBehaviour:
     dodgeChance: 0
     damage: 1
     attackSpeed: 1
+    castSpeed: 0
     critChance: 0.1
     critDamage: 1.5
     range: 5
     moveSpeed: 1
     xpValue: 0
+  team: 0
+  targetTeams: 
   buffs: []
   drops: []
   identity:
@@ -85,6 +92,12 @@ MonoBehaviour:
     profileIcon: 0
     level: 1
     xp: -1
+    weaponConfig:
+      index: 0
+      effectIndex: 0
+    armourConfig:
+      index: 0
+      effectIndex: 0
     lifeTimeResult:
       xpGained: 0
       kills: 0
@@ -94,13 +107,58 @@ MonoBehaviour:
       hits: 0
       criticalHits: 0
       abilitiesUsed: 0
+  target: {fileID: 0}
+  targets: []
+  idlePos: {fileID: 0}
+  equipment: {fileID: 0}
+  abilities: {fileID: 0}
+  effects: {fileID: 0}
+  agent: {fileID: 0}
+  animator: {fileID: 0}
+  cameraPos: {fileID: 7520627762888410576}
+--- !u!114 &7246356993931102507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 346180870591823828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70528a7cb8aab384e984bf02aa463038, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterAbilities
+--- !u!114 &1676904547834996192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 346180870591823828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2654e88ab80060d4ebd79c3ced7fc8cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterEffects
+--- !u!114 &4631836140190394835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 346180870591823828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7802070cc5f6b0429ad124d99f4a82b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterEquipment
   weaponPos: {fileID: 1224518398597499159}
   helmetSkin: {fileID: 0}
   armourSkin: {fileID: 2424530802477093003}
   glovesSkin: {fileID: 0}
   leggingsSKin: {fileID: 0}
   bootsSkin: {fileID: 0}
-  cameraPos: {fileID: 7520627762888410576}
+  idlePos: {fileID: 0}
 --- !u!114 &5479236539335497120
 MonoBehaviour:
   m_ObjectHideFlags: 0

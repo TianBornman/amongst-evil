@@ -89,7 +89,7 @@ public class PartyManager : Singleton<PartyManager>
 		if (character == null)
 			return;
 
-		character.EquipItem(item);
+		character.equipment.EquipItem(item);
 	}
 
 	public void UnequipItem(string id, ItemStats item)
@@ -99,7 +99,7 @@ public class PartyManager : Singleton<PartyManager>
 		if (character == null)
 			return;
 
-		character.UnequipItem(item);
+		character.equipment.UnequipItem(item);
 	}
 
 	public void BindAbility(Ability ability, PartyCharacter partyCharacter) => playerParty.BindAbility(ability, partyCharacter);

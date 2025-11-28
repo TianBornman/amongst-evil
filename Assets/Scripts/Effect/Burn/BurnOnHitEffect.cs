@@ -8,7 +8,7 @@ namespace Midevil.Effect
 
 		public void OnHit(Character owner, Character target, float damage)
 		{
-			target.AddEffect(new BurningEffect(childEffectType, effectDps, effectDuration, icon));
+			target.effects.AddEffect(new BurningEffect(childEffectType, effectDps, effectDuration, icon));
 		}
 	}
 }

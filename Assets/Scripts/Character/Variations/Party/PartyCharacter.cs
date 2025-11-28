@@ -46,45 +46,15 @@ public class PartyCharacter : Character
 		foreach (var abilityIndex in startingAbilities)
 		{
 			var abilityData = RefManager.Instance.GetAbility(abilityIndex);
-			AddAbility(abilityData.CreateRuntime(this));
+			abilities.AddAbility(abilityData.CreateRuntime(this));
 		}
 	}
 
-	protected override void SetState(CharacterState state)
+	public override void Die()
 	{
-		if (State == CharacterState.Dead)
-			return;
+		base.Die();
 
-		base.SetState(state);
-
-		switch (State)
-		{
-			case CharacterState.Moving:
-				Moving();
-				break;
-			case CharacterState.Attacking:
-				//Attacking();
-				break;
-			case CharacterState.Dead:
-				Die();
-				break;
-			default:
-				break;
-		}
-	}
-
-	public override void AddAbility(Ability ability)
-	{
-		base.AddAbility(ability);
-
-		PartyManager.Instance.BindAbility(ability, this);
-	}
-
-	public override void RemoveAbility(Ability ability)
-	{
-		base.RemoveAbility(ability);
-
-		PartyManager.Instance.ClearAbility(ability);
+		identity.Die();
 	}
 
 	//public override void AddEffect(Effect effect)
@@ -103,38 +73,7 @@ public class PartyCharacter : Character
 
 	public void CheckPositionChanged()
 	{
-		SetState(CharacterState.Moving);
-	}
-
-	public override void EquipItem(ItemStats item)
-	{
-		base.EquipItem(item);
-
-		InventoryManager.Instance.RemoveItem(item);
-		UiManager.Instance.UpdateCharacterPanels();
-	}
-
-	public override void UnequipItem(ItemStats item)
-	{
-		base.UnequipItem(item);
-
-		InventoryManager.Instance.AddItem(item);
-		UiManager.Instance.UpdateCharacterPanels();
-	}
-
-	// State Methods
-	private void Moving()
-	{
-		//if (target == null && PartyManager.Instance.InCombat)
-		//{
-		//	var target = PartyManager.Instance.GetTarget(this);
-		//	SetTarget(target);
-		//}
-	}
-
-	private void Die()
-	{
-		identity.Die();
+		SetState(new MoveState(this));
 	}
 
 	// Public Methods

@@ -10,6 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5019694336578043345}
   - component: {fileID: 8996435584707828427}
+  - component: {fileID: 5829374800386703578}
+  - component: {fileID: 2191096681404343785}
+  - component: {fileID: 1928026351640178941}
   - component: {fileID: -849515497836562832}
   - component: {fileID: 6899715613453911756}
   - component: {fileID: 6718143040978402789}
@@ -58,6 +61,7 @@ MonoBehaviour:
     dodgeChance: 0
     damage: 0
     attackSpeed: 0
+    castSpeed: 0
     critChance: 0
     critDamage: 0
     range: 0
@@ -72,6 +76,7 @@ MonoBehaviour:
     dodgeChance: 0
     damage: 1
     attackSpeed: 0.7
+    castSpeed: 0
     critChance: 0.1
     critDamage: 1.5
     range: 2
@@ -102,6 +107,49 @@ MonoBehaviour:
       hits: 0
       criticalHits: 0
       abilitiesUsed: 0
+  target: {fileID: 0}
+  targets: []
+  idlePos: {fileID: 0}
+  equipment: {fileID: 0}
+  abilities: {fileID: 0}
+  effects: {fileID: 0}
+  animator: {fileID: 0}
+--- !u!114 &5829374800386703578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6205208127605437622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70528a7cb8aab384e984bf02aa463038, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterAbilities
+--- !u!114 &2191096681404343785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6205208127605437622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2654e88ab80060d4ebd79c3ced7fc8cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterEffects
+--- !u!114 &1928026351640178941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6205208127605437622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7802070cc5f6b0429ad124d99f4a82b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterEquipment
   weaponPos: {fileID: 0}
   helmetSkin: {fileID: 0}
   armourSkin: {fileID: 0}
@@ -109,7 +157,6 @@ MonoBehaviour:
   leggingsSKin: {fileID: 0}
   bootsSkin: {fileID: 0}
   idlePos: {fileID: 0}
-  targets: []
 --- !u!114 &-849515497836562832
 MonoBehaviour:
   m_ObjectHideFlags: 0

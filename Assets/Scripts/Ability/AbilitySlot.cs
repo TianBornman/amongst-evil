@@ -14,7 +14,7 @@ namespace Midevil.Ability
 		public void TryUseAbility()
 		{
 			if (character != null)
-				character.TryUseAbility(abilityId);
+				character.abilities.TryUseAbility(abilityId);
 		}
 
 		public void Clear()
