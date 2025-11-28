@@ -4,44 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class InteractionManager : Singleton<InteractionManager>
 {
-	#region Input
-
-	private InputSystem_Actions inputActions;
-	private InputAction selectionAction;
-
-	protected override void OnEnable()
-	{
-		if (Instance != this)
-			return;
-
-		base.OnEnable();
-
-		inputActions = new InputSystem_Actions();
-		selectionAction = inputActions.Player.Selection;
-
-		inputActions.Enable();
-		selectionAction.performed += OnInteractAction;
-	}
-
-	protected override void OnDisable()
-	{
-		if (Instance != this)
-			return;
-
-		base.OnDisable();
-
-		selectionAction.performed -= OnInteractAction;
-		inputActions.Disable();
-	}
-
-	private void OnInteractAction(InputAction.CallbackContext context)
-	{
-		if (selectedInteractable != null)
-			selectedInteractable.Interact();
-	}
-
-	#endregion
-
 	// Private Variables
 	[HideInInspector] private IInteractable selectedInteractable;
 
@@ -53,6 +15,17 @@ public class InteractionManager : Singleton<InteractionManager>
 	}
 
 	// Private Methods
+	private void Start()
+	{
+		InputManager.Instance.SelectionAction = Selection;
+	}
+
+	private void Selection()
+	{
+		if (selectedInteractable != null)
+			selectedInteractable.Interact();
+	}
+
 	private void Update()
 	{
 		if (GameManager.Instance.IsGamePaused || GameManager.Instance.AtMenu)

@@ -9,46 +9,6 @@ using UnityEngine.SceneManagement;
 
 public class PartyManager : Singleton<PartyManager>
 {
-	#region Input
-
-	private InputSystem_Actions inputActions;
-	private InputAction setPartyTargetAction;
-
-	protected override void OnEnable()
-	{
-		if (Instance != this)
-			return;
-
-		base.OnEnable();
-
-		inputActions = new InputSystem_Actions();
-		setPartyTargetAction = inputActions.Player.SetPartyTarget;
-
-		inputActions.Enable();
-		setPartyTargetAction.performed += OnSetPartyTarget;
-	}
-
-	protected override void OnDisable()
-	{
-		if (Instance != this)
-			return;
-
-		base.OnDisable();
-
-		setPartyTargetAction.performed -= OnSetPartyTarget;
-		inputActions.Disable();
-	}
-
-	private void OnSetPartyTarget(InputAction.CallbackContext context)
-	{
-		if (GameManager.Instance.AtHub)
-			return;
-
-		SetPartyTarget();
-	}
-
-	#endregion
-
 	// Editor Variables
 	[Header("References")]
 	public PartyCharacter partyCharacterPrefab;
@@ -148,8 +108,16 @@ public class PartyManager : Singleton<PartyManager>
 	public void SetPartyTarget(Vector3 position) => playerParty.SetPosition(position);
 
 	// Private Methods
+	private void Start()
+	{
+		InputManager.Instance.SetPartyTargetAction = SetPartyTarget;
+	}
+
 	private void SetPartyTarget()
 	{
+		if (GameManager.Instance.AtHub)
+			return;
+
 		Vector2 mousePos = Mouse.current.position.ReadValue();
 		Ray ray = Camera.main.ScreenPointToRay(mousePos);
 

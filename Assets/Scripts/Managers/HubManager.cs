@@ -5,47 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class HubManager : Singleton<HubManager>
 {
-	#region Input
-
-	private InputSystem_Actions inputActions;
-	private InputAction escapeAction;
-
-	protected override void OnEnable()
-	{
-		if (Instance != this)
-			return;
-
-		base.OnEnable();
-
-		inputActions = new InputSystem_Actions();
-		escapeAction = inputActions.Player.Escape;
-
-		inputActions.Enable();
-		escapeAction.performed += OnEscape;
-	}
-
-	protected override void OnDisable()
-	{
-		if (Instance != this)
-			return;
-
-		base.OnDisable();
-
-		escapeAction.performed -= OnEscape;
-		inputActions.Disable();
-	}
-
-	private void OnEscape(InputAction.CallbackContext context)
-	{
-		if (!GameManager.Instance.AtHub)
-			return;
-
-		mainMenuCamera.targetPosition = mainMenuCamera.hubPosition;
-		HubUiManager.Instance.HideBloodVaultUI();
-	}
-
-	#endregion
-
 	// Private Variables
 	private MainMenuCamera mainMenuCamera;
 
@@ -100,6 +59,20 @@ public class HubManager : Singleton<HubManager>
 	}
 
 	// Private Methods
+	private void Start()
+	{
+		InputManager.Instance.EscapeAction = Escape;
+	}
+
+	private void Escape()
+	{
+		if (!GameManager.Instance.AtHub)
+			return;
+
+		mainMenuCamera.targetPosition = mainMenuCamera.hubPosition;
+		HubUiManager.Instance.HideBloodVaultUI();
+	}
+
 	private void ZoomOnTransform(Transform transform)
 	{
 		mainMenuCamera.targetPosition = transform;

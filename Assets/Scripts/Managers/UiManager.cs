@@ -1,61 +1,16 @@
 using Midevil.Ability;
 using Midevil.Effect;
 using Midevil.Item;
-using Midevil.Models;
 using Midevil.UI.Elements;
 using Midevil.UpgradeCard;
 using System;
 using System.Collections.Generic;
-using System.Security.Principal;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
-using UnityEditor.Playables;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class UiManager : Singleton<UiManager>
 {
-	#region Input
-
-	private InputSystem_Actions inputActions;
-	private InputAction menuToggleAction;
-
-	protected override void OnEnable()
-	{
-		if (Instance != this)
-			return;
-
-		base.OnEnable();
-
-		inputActions = new InputSystem_Actions();
-		menuToggleAction = inputActions.Player.MenuToggle;
-
-		inputActions.Enable();
-		menuToggleAction.performed += OnMenuToggle;
-	}
-
-	protected override void OnDisable()
-	{
-		if (Instance != this)
-			return;
-
-		base.OnDisable();
-
-		menuToggleAction.performed -= OnMenuToggle;
-		inputActions.Disable();
-	}
-
-	private void OnMenuToggle(InputAction.CallbackContext context)
-	{
-		if (GameManager.Instance.AtHub)
-			return;
-
-		MenuToggle();
-	}
-
-	#endregion
-
 	// Editor Variables
 	[Header("References")]
 	public UIDocument gameUiPrefab;
@@ -279,9 +234,18 @@ public class UiManager : Singleton<UiManager>
 	}
 
 	// Private Methods
+	private void Start()
+	{
+		InputManager.Instance.MenuToggleAction = MenuToggle;
+	}
+
 	private void MenuToggle()
 	{
-		if (!canToggleMenu) return;
+		if (GameManager.Instance.AtHub)
+			return;
+
+		if (!canToggleMenu) 
+			return;
 
 		statsUi.rootVisualElement.visible = !statsUi.rootVisualElement.visible;
 

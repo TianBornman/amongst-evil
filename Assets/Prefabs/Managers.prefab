@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 6149381767881795992}
   - component: {fileID: 8199098711593982560}
   - component: {fileID: 9140475944043942649}
+  - component: {fileID: 904286726997639696}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -242,7 +243,15 @@ MonoBehaviour:
   partyCharacterPrefab: {fileID: 8460943302599302354, guid: ece96a51ea3ae89488e5d05e3bc5e328, type: 3}
   maxPartySize: 3
   partyIdentities: []
-  playerParty: {fileID: 0}
+  partyResults:
+    xpGained: 0
+    kills: 0
+    damageDealt: 0
+    damageTaken: 0
+    healed: 0
+    hits: 0
+    criticalHits: 0
+    abilitiesUsed: 0
 --- !u!114 &9140475944043942649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,3 +294,15 @@ MonoBehaviour:
     effectIndex: 0
     dropChance: 0
     shouldRoll: 1
+--- !u!114 &904286726997639696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5038134502726167767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55dc5e72668b7084e81883d11f0806c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InputManager

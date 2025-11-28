@@ -7,34 +7,6 @@ using UnityEngine.InputSystem;
 
 public class Party : StateMachine<PartyState>
 {
-	#region Input
-
-	private InputSystem_Actions inputActions;
-	private InputAction abilityAction;
-
-	private void OnEnable()
-	{
-		inputActions = new InputSystem_Actions();
-		abilityAction = inputActions.Player.Ability;
-
-		inputActions.Enable();
-		abilityAction.performed += OnAbility;
-	}
-
-	private void OnDisable()
-	{
-		abilityAction.performed -= OnAbility;
-		inputActions.Disable();
-	}
-
-	private void OnAbility(InputAction.CallbackContext context)
-	{
-		int slot = (int)context.ReadValue<float>();
-		UseAbility(slot);
-	}
-
-	#endregion
-
 	// Editor Variables
 	[Header("Settings")]
 	public Transform waypoint;
@@ -162,6 +134,8 @@ public class Party : StateMachine<PartyState>
 
 		SetState(PartyState.Idle);
 		UiManager.Instance.UpdateCharacterPanels();
+
+		InputManager.Instance.AbilityAction = UseAbility;
 	}
 
 	private Vector3 GetGroupCenter()
@@ -178,8 +152,9 @@ public class Party : StateMachine<PartyState>
 		return new();
 	}
 
-	private void UseAbility(int slot)
+	private void UseAbility(InputAction.CallbackContext context)
 	{
+		int slot = (int)context.ReadValue<float>();
 		abilitySlots[slot].TryUseAbility();
 	}
 }

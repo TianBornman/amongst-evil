@@ -1,35 +1,7 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class CameraMovement : StateMachine<CameraState>
 {
-	#region Input
-
-	private InputSystem_Actions inputActions;
-	private InputAction cameraToggleAction;
-
-	private void OnEnable()
-	{
-		inputActions = new InputSystem_Actions();
-		cameraToggleAction = inputActions.Player.CameraToggle;
-
-		inputActions.Enable();
-		cameraToggleAction.performed += OnCameraToggle;
-	}
-
-	private void OnDisable()
-	{
-		cameraToggleAction.performed -= OnCameraToggle;
-		inputActions.Disable();
-	}
-
-	private void OnCameraToggle(InputAction.CallbackContext context)
-	{
-		CameraToggle();
-	}
-
-	#endregion
-
 	// Editor Variables
 	public Transform mapView;
 	public Transform partyView;
@@ -79,6 +51,8 @@ public class CameraMovement : StateMachine<CameraState>
 	private void Start()
 	{
 		SetMapView();
+
+		InputManager.Instance.CameraToggleAction = CameraToggle;
 	}
 
 	private void Update()
