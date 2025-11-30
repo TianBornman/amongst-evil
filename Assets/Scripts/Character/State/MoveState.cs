@@ -22,10 +22,8 @@ public class MoveState : ICharacterState
 
 	public void Update()
 	{
-		if (character.agent.velocity.magnitude > 0)
-			character.animator.SetFloat("Speed", 1);
-		else
-			character.animator.SetFloat("Speed", 0);
+		float normalized = character.agent.velocity.magnitude / character.agent.speed;
+		character.animator.SetFloat("Speed", normalized);
 
 		if (character.target == null && Vector3.Distance(character.transform.position, character.idlePos.position) < 0.2)
 		{

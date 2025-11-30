@@ -115,6 +115,7 @@ MonoBehaviour:
   equipment: {fileID: 0}
   abilities: {fileID: 0}
   effects: {fileID: 0}
+  agent: {fileID: 0}
   animator: {fileID: 0}
   cameraPosition: {fileID: 5489311698338238782}
   startingAbilities: 01000000
@@ -192,7 +193,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.3
   m_Speed: 6
-  m_Acceleration: 8
+  m_Acceleration: 30
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
