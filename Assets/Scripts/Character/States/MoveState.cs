@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class MoveState : ICharacterState
+public class MoveState : IState
 {
 	private Character character;
 

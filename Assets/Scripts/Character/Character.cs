@@ -11,7 +11,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(CharacterEffects))]
 [RequireComponent(typeof(CharacterEquipment))]
 [RequireComponent(typeof(HealthbarVisual))]
-public class Character : MonoBehaviour, IInteractable
+public class Character : StateMachine, IInteractable
 {
 	#region Interactable
 
@@ -25,19 +25,6 @@ public class Character : MonoBehaviour, IInteractable
 	public void OnHoverExit()
 	{
 		outline.enabled = false;
-	}
-
-	#endregion
-
-	#region State
-
-	private ICharacterState state;
-
-	public void SetState(ICharacterState state)
-	{
-		this.state?.Exit();
-		this.state = state;
-		state.Enter();
 	}
 
 	#endregion
@@ -73,6 +60,7 @@ public class Character : MonoBehaviour, IInteractable
 
 	// Public Properties
 	public bool IsAlive => stats.health > 0;
+	public bool InBattle => target != null;
 
 	// Public Methods
 	public void AddTarget(Character character)
@@ -148,6 +136,40 @@ public class Character : MonoBehaviour, IInteractable
 		identity.currentResult.healed += amount;
 	}
 
+	public void Attack()
+	{
+		if (target == null || !target.IsAlive)
+			SetState(new MoveState(this));
+
+		foreach (var buff in currentEffects)
+			if (buff is IOnHit onHit)
+				onHit.OnHit(this, target, stats.damage);
+
+		transform.LookAt(target.transform);
+		target.Damage(this, stats.damage, stats.critChance, stats.critDamage);
+	}
+
+	public virtual void ReevaluateTarget()
+	{
+		if (targets.Count <= 0 || !targets.Where(target => target.IsAlive).Any())
+		{
+			target = null;
+			targets.Clear();
+			return;
+		}
+
+		target = targets.Where(target => target.IsAlive).OrderBy(target => Vector3.Distance(target.transform.position, transform.position)).FirstOrDefault();
+	}
+
+	public void RecalculateStats()
+	{
+		stats.Recalculate(baseStats, buffs);
+
+		healthBar.SetHealth(stats.health, stats.maxHealth);
+		animator.SetFloat("AttackSpeed", stats.attackSpeed);
+	}
+
+
 	public virtual void Die()
 	{
 		SpawnManager.Instance.RemoveCharacter(this);
@@ -219,11 +241,6 @@ public class Character : MonoBehaviour, IInteractable
 		RecalculateStats();
 	}
 
-	protected virtual void Update()
-	{
-		state.Update();
-	}
-
 	// Private Methods
 	private void SetupIdentity()
 	{
@@ -231,39 +248,6 @@ public class Character : MonoBehaviour, IInteractable
 			stats.level = identity.level;
 
 		equipment.SetupIdentity();
-	}
-
-	public void Attack()
-	{
-		if (target == null || !target.IsAlive)
-			SetState(new MoveState(this));
-
-		foreach (var buff in currentEffects)
-			if (buff is IOnHit onHit)
-				onHit.OnHit(this, target, stats.damage);
-
-		transform.LookAt(target.transform);
-		target.Damage(this, stats.damage, stats.critChance, stats.critDamage);
-	}
-
-	public void ReevaluateTarget()
-	{
-		if (targets.Count <= 0 || !targets.Where(target => target.IsAlive).Any())
-		{
-			target = null;
-			targets.Clear();
-			return;
-		}
-
-		target = targets.Where(target => target.IsAlive).OrderBy(target => Vector3.Distance(target.transform.position, transform.position)).FirstOrDefault();
-	}
-
-	public void RecalculateStats()
-	{
-		stats.Recalculate(baseStats, buffs);
-
-		healthBar.SetHealth(stats.health, stats.maxHealth);
-		animator.SetFloat("AttackSpeed", stats.attackSpeed);
 	}
 
 	private void DropItems()

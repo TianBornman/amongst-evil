@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CameraMovement : StateMachine<CameraState>
+public class CameraMovement : MonoBehaviour
 {
 	// Editor Variables
 	public Transform mapView;
@@ -8,49 +8,25 @@ public class CameraMovement : StateMachine<CameraState>
 
 	// Private Variables
 	private Transform target;
+	bool explore;
 
-	// Override Methods
-	protected override void SetState(CameraState state)
+	// Public Methods
+	public void Explore()
 	{
-		base.SetState(state);
-
-		switch (state)
-		{
-			case CameraState.MapView:
-				MapView();
-				break;
-			case CameraState.BattleView:
-				BattleView();
-				break;
-		}
-	}
-
-	// State Methods
-	private void MapView()
-	{
+		explore = true;
 		target = mapView;
 	}
 
-	private void BattleView()
+	public void Battle()
 	{
+		explore = false;
 		target = partyView;
-	}
-
-	// Public Methods
-	public void SetMapView()
-	{
-		SetState(CameraState.MapView);
-	}
-
-	public void SetBattleView()
-	{
-		SetState(CameraState.BattleView);
 	}
 
 	// Private Methods
 	private void Start()
 	{
-		SetMapView();
+		Explore();
 
 		InputManager.Instance.CameraToggleAction = CameraToggle;
 	}
@@ -67,9 +43,9 @@ public class CameraMovement : StateMachine<CameraState>
 
 	private void CameraToggle()
 	{
-		if (State == CameraState.MapView)
-			SetBattleView();
+		if (explore)
+			Battle();
 		else
-			SetMapView();
+			Explore();
 	}
 }

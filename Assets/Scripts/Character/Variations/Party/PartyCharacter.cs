@@ -1,11 +1,6 @@
-using Midevil.Ability;
-using Midevil.Item;
 using Midevil.Models;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using Guid = System.Guid;
 
 public class PartyCharacter : Character
 {
@@ -48,6 +43,13 @@ public class PartyCharacter : Character
 			var abilityData = RefManager.Instance.GetAbility(abilityIndex);
 			abilities.AddAbility(abilityData.CreateRuntime(this));
 		}
+	}
+
+	public override void ReevaluateTarget()
+	{
+		base.ReevaluateTarget();
+
+		PartyManager.Instance.CheckBattle();
 	}
 
 	public override void Die()

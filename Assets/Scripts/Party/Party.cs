@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Party : StateMachine<PartyState>
+public class Party : StateMachine
 {
 	// Editor Variables
 	[Header("Settings")]
@@ -14,32 +14,10 @@ public class Party : StateMachine<PartyState>
 
 	// Public Variables
 	[HideInInspector] public AbilitySlot[] abilitySlots = new AbilitySlot[6];
+	[HideInInspector] public CameraMovement cameraMovement;
 
 	// Private Variables
 	private List<PartyPosition> positions;
-	private CameraMovement cameraMovement;
-
-	// Public Properties
-	public bool InCombat => State == PartyState.Combat;
-
-	// Override Methods
-	protected override void SetState(PartyState state)
-	{
-		base.SetState(state);
-
-		switch (state)
-		{
-			case PartyState.Idle:
-				cameraMovement.SetMapView();
-				break;
-			case PartyState.Combat:
-				SetPosition(GetGroupCenter());
-				cameraMovement.SetBattleView();
-				break;
-			default:
-				break;
-		}
-	}
 
 	// Public Methods
 	public void AddPrefabMember(PartyCharacter memberPrefab, Identity identity)
@@ -76,27 +54,14 @@ public class Party : StateMachine<PartyState>
 			member.CheckPositionChanged();
 	}
 
-	public void AddEnemyInRange(Character character)
+	public void CheckBattle()
 	{
-		//if (combatEnemies.Count == 0 || !combatEnemies.Contains(character))
-		//	combatEnemies.Add(character);
+		bool inCombat = members.Where(member => member.InBattle).Any();
 
-		//SetState(PartyState.Combat);
-	}
-
-	public void RemoveEnemyInRange(Character character)
-	{
-		//combatEnemies.Remove(character);	
-
-		//if (combatEnemies.Count == 0)
-		//	SetState(PartyState.Idle);
-	}
-
-	public Character GetTarget(PartyCharacter member)
-	{
-		//var target = combatEnemies.OrderBy(enemy => Vector3.Distance(member.transform.position, enemy.transform.position)).FirstOrDefault();
-		//return target;
-		return new();
+		if (inCombat)
+			SetState(new BattleState(this));
+		else 
+			SetState(new ExploreState(this));
 	}
 
 	public void BindAbility(Ability ability, PartyCharacter character)
@@ -120,6 +85,26 @@ public class Party : StateMachine<PartyState>
 		slot.Clear();
 	}
 
+	public Vector3 GetGroupCenter()
+	{
+		var positions = members.Where(member => member.IsAlive)
+									 .Select(member => member.transform.position)
+									 .ToList();
+
+		var enemyPositions = members.Where(member => member.IsAlive)
+									.Select(member => member.target.transform.position)
+									.ToList();
+
+		positions.AddRange(enemyPositions);
+
+		var bound = new Bounds(positions.FirstOrDefault(), Vector3.zero);
+
+		foreach (var member in positions)
+			bound.Encapsulate(member);
+
+		return bound.center;
+	}
+
 	// Private Methods
 	private void Awake()
 	{
@@ -132,24 +117,10 @@ public class Party : StateMachine<PartyState>
 		for (int i = 0; i < abilitySlots.Length; i++)
 			abilitySlots[i].slotIndex = i;
 
-		SetState(PartyState.Idle);
+		SetState(new ExploreState(this));
 		UiManager.Instance.UpdateCharacterPanels();
 
 		InputManager.Instance.AbilityAction = UseAbility;
-	}
-
-	private Vector3 GetGroupCenter()
-	{
-		//if (combatEnemies == null || combatEnemies.Count == 0)
-		//	return Vector3.zero;
-
-		//Bounds b = new Bounds(combatEnemies[0].transform.position, Vector3.zero);
-
-		//for (int i = 1; i < combatEnemies.Count; i++)
-		//	b.Encapsulate(combatEnemies[i].transform.position);
-
-		//return b.center;
-		return new();
 	}
 
 	private void UseAbility(InputAction.CallbackContext context)

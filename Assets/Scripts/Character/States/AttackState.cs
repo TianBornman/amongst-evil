@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class AttackState : ICharacterState
+public class AttackState : IState
 {
 	private Character character;
 	private float timeRemaining;

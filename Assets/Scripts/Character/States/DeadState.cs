@@ -1,4 +1,4 @@
-﻿public class DeadState : ICharacterState
+﻿public class DeadState : IState
 {
 	private Character character;
 

@@ -21,9 +21,6 @@ public class PartyManager : Singleton<PartyManager>
 	// Private Variables
 	private Party playerParty;
 
-	// Public Properties
-	public bool InCombat => playerParty.InCombat;
-
 	// Override Methods
 	protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
@@ -73,6 +70,8 @@ public class PartyManager : Singleton<PartyManager>
 		foreach (var character in playerParty.members)
 			character.identity.Save(BloodVaultStatus.Alive);
 	}
+
+	public void CheckBattle() => playerParty.CheckBattle();
 
 	public void CalculateStats()
 	{

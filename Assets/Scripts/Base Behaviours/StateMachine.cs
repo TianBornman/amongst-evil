@@ -1,12 +1,21 @@
-using System;
 using UnityEngine;
 
-public class StateMachine<T> : MonoBehaviour where T : Enum
+public class StateMachine : MonoBehaviour
 {
-	public T State { get; private set; }
+	// Private Variables
+	private IState state;
 
-	protected virtual void SetState(T state)
+	// Protected Methods
+	protected virtual void Update()
 	{
-		State = state;
+		state.Update();
+	}
+
+	// Public Methods
+	public void SetState(IState state)
+	{
+		this.state?.Exit();
+		this.state = state;
+		state.Enter();
 	}
 }
