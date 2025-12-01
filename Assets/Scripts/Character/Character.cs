@@ -10,6 +10,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(CharacterAbilities))]
 [RequireComponent(typeof(CharacterEffects))]
 [RequireComponent(typeof(CharacterEquipment))]
+[RequireComponent(typeof(HealthbarVisual))]
 public class Character : MonoBehaviour, IInteractable
 {
 	#region Interactable
@@ -62,6 +63,7 @@ public class Character : MonoBehaviour, IInteractable
 	public CharacterEquipment equipment;
 	public CharacterAbilities abilities;
 	public CharacterEffects effects;
+	public HealthbarVisual healthBar;
 	public NavMeshAgent agent;
 	public Animator animator;
 
@@ -112,6 +114,7 @@ public class Character : MonoBehaviour, IInteractable
 		DamageNumberManager.Instance.ShowDamage(transform.position + Vector3.up * 1.5f, Mathf.Abs(damage), Color.red);
 
 		stats.health = Mathf.Clamp(stats.health - damage, 0, stats.maxHealth);
+		healthBar.SetHealth(stats.health, stats.maxHealth);
 
 		foreach (var buff in currentEffects)
 			if (buff is IOnTakeHit onTakeHit)
@@ -190,6 +193,7 @@ public class Character : MonoBehaviour, IInteractable
 		agent = GetComponent<NavMeshAgent>();
 		animator = GetComponentInChildren<Animator>();
 		outline = GetComponent<Outline>();
+		healthBar = GetComponent<HealthbarVisual>(); 
 		outline.enabled = false;
 
 		CharacterAnimAPI animAPI = GetComponentInChildren<CharacterAnimAPI>();
@@ -258,6 +262,7 @@ public class Character : MonoBehaviour, IInteractable
 	{
 		stats.Recalculate(baseStats, buffs);
 
+		healthBar.SetHealth(stats.health, stats.maxHealth);
 		animator.SetFloat("AttackSpeed", stats.attackSpeed);
 	}
 
