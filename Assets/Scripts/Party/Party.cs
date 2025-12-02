@@ -1,131 +1,144 @@
 using Midevil.Ability;
+using Midevil.Camera;
 using Midevil.Models;
+using Midevil.Party.States;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Party : StateMachine
+namespace Midevil.Party
 {
-	// Editor Variables
-	[Header("Settings")]
-	public Transform waypoint;
-	public List<PartyCharacter> members = new();
-
-	// Public Variables
-	[HideInInspector] public AbilitySlot[] abilitySlots = new AbilitySlot[6];
-	[HideInInspector] public CameraMovement cameraMovement;
-
-	// Private Variables
-	private List<PartyPosition> positions;
-
-	// Public Methods
-	public void AddPrefabMember(PartyCharacter memberPrefab, Identity identity)
+	public class Party : StateMachine
 	{
-		var openPosition = positions.FirstOrDefault(p => !p.isOccupied);
-		openPosition.isOccupied = true;
+		// Editor Variables
+		[Header("Settings")]
+		public Transform waypoint;
+		public Transform partyCenter;
+		public List<PartyCharacter> members = new();
 
-		PartyCharacter newMember = Instantiate(memberPrefab, openPosition.transform.position, Quaternion.identity, transform);
-		newMember.identity = identity;
-		newMember.idlePos = openPosition.transform;
+		// Public Variables
+		[HideInInspector] public AbilitySlot[] abilitySlots = new AbilitySlot[6];
+		[HideInInspector] public CameraMovement cameraMovement;
 
-		members.Add(newMember);
-	}
+		// Private Variables
+		private List<PartyPosition> positions;
 
-	public void RemoveMember(PartyCharacter character)
-	{
-		members.Remove(character);
-
-		if (members.Count <= 0 )
+		// Public Methods
+		public void AddPrefabMember(PartyCharacter memberPrefab, Identity identity)
 		{
-			PartyManager.Instance.CalculateStats();
-			UiManager.Instance.ShowDeathScreen();
+			var openPosition = positions.FirstOrDefault(p => !p.isOccupied);
+			openPosition.isOccupied = true;
+
+			PartyCharacter newMember = Instantiate(memberPrefab, openPosition.transform.position, Quaternion.identity, transform);
+			newMember.identity = identity;
+			newMember.idlePos = openPosition.transform;
+
+			members.Add(newMember);
 		}
-	}
 
-	public void SetPosition(Vector3 position)
-	{
-		waypoint.position = position;
+		public void RemoveMember(PartyCharacter character)
+		{
+			members.Remove(character);
 
-		foreach (PartyPosition partyPosition in positions)
-			partyPosition.SetPosition(position);
+			if (members.Count <= 0)
+			{
+				PartyManager.Instance.CalculateStats();
+				UiManager.Instance.ShowDeathScreen();
+			}
+		}
 
-		foreach (PartyCharacter member in members)
-			member.CheckPositionChanged();
-	}
+		public void SetPosition(Vector3 position)
+		{
+			waypoint.position = position;
 
-	public void CheckBattle()
-	{
-		bool inCombat = members.Where(member => member.InBattle).Any();
+			foreach (PartyPosition partyPosition in positions)
+				partyPosition.SetPosition(position);
 
-		if (inCombat)
-			SetState(new BattleState(this));
-		else 
+			foreach (PartyCharacter member in members)
+				member.CheckPositionChanged();
+		}
+
+		public void CheckBattle()
+		{
+			bool inCombat = members.Where(member => member.InBattle).Any();
+
+			if (inCombat)
+				SetState(new BattleState(this));
+			else
+				SetState(new ExploreState(this));
+		}
+
+		public void BindAbility(Ability.Ability ability, PartyCharacter character)
+		{
+			for (int i = 0; i < abilitySlots.Length; i++)
+			{
+				if (abilitySlots[i].HasAbility)
+					continue;
+
+				abilitySlots[i].abilityId = ability.id;
+				abilitySlots[i].character = character;
+
+				UiManager.Instance.BindAbility(i, ability);
+				break;
+			}
+		}
+
+		public void ClearAbility(Ability.Ability ability)
+		{
+			var slot = abilitySlots.FirstOrDefault(slot => slot.abilityId == ability.id);
+			slot.Clear();
+		}
+
+		// Private Methods
+		private void Awake()
+		{
+			positions = GetComponentsInChildren<PartyPosition>().ToList();
+			cameraMovement = FindFirstObjectByType<CameraMovement>();
+		}
+
+		private void Start()
+		{
+			for (int i = 0; i < abilitySlots.Length; i++)
+				abilitySlots[i].slotIndex = i;
+
 			SetState(new ExploreState(this));
-	}
+			UiManager.Instance.UpdateCharacterPanels();
 
-	public void BindAbility(Ability ability, PartyCharacter character)
-	{
-		for (int i = 0; i < abilitySlots.Length; i++)
-		{
-			if (abilitySlots[i].HasAbility)
-				continue;
-
-			abilitySlots[i].abilityId = ability.id;
-			abilitySlots[i].character = character;
-
-			UiManager.Instance.BindAbility(i, ability);
-			break;
+			InputManager.Instance.AbilityAction = UseAbility;
 		}
-	}
 
-	public void ClearAbility(Ability ability)
-	{
-		var slot = abilitySlots.FirstOrDefault(slot => slot.abilityId == ability.id);
-		slot.Clear();
-	}
+		protected override void Update()
+		{
+			base.Update();
 
-	public Vector3 GetGroupCenter()
-	{
-		var positions = members.Where(member => member.IsAlive)
-									 .Select(member => member.transform.position)
-									 .ToList();
+			SetPartyCenter();
+		}
 
-		var enemyPositions = members.Where(member => member.target != null && member.target.IsAlive)
-									.Select(member => member.target.transform.position)
-									.ToList();
+		private void UseAbility(InputAction.CallbackContext context)
+		{
+			int slot = (int)context.ReadValue<float>();
+			abilitySlots[slot].TryUseAbility();
+		}
 
-		positions.AddRange(enemyPositions);
+		private void SetPartyCenter()
+		{
+			var positions = members.Where(member => member.IsAlive)
+										 .Select(member => member.transform.position)
+										 .ToList();
 
-		var bound = new Bounds(positions.FirstOrDefault(), Vector3.zero);
+			var enemyPositions = members.Where(member => member.target != null && member.target.IsAlive)
+										.Select(member => member.target.transform.position)
+										.ToList();
 
-		foreach (var member in positions)
-			bound.Encapsulate(member);
+			positions.AddRange(enemyPositions);
 
-		return bound.center;
-	}
+			var bound = new Bounds(positions.FirstOrDefault(), Vector3.zero);
 
-	// Private Methods
-	private void Awake()
-	{
-		positions = GetComponentsInChildren<PartyPosition>().ToList();
-		cameraMovement = FindFirstObjectByType<CameraMovement>();
-	}
+			foreach (var member in positions)
+				bound.Encapsulate(member);
 
-	private void Start()
-	{
-		for (int i = 0; i < abilitySlots.Length; i++)
-			abilitySlots[i].slotIndex = i;
-
-		SetState(new ExploreState(this));
-		UiManager.Instance.UpdateCharacterPanels();
-
-		InputManager.Instance.AbilityAction = UseAbility;
-	}
-
-	private void UseAbility(InputAction.CallbackContext context)
-	{
-		int slot = (int)context.ReadValue<float>();
-		abilitySlots[slot].TryUseAbility();
+			partyCenter.position = bound.center;
+		}
 	}
 }

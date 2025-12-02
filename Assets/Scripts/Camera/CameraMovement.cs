@@ -1,59 +1,34 @@
+using Midevil.Camera.States;
 using UnityEngine;
 
-public class CameraMovement : MonoBehaviour
+namespace Midevil.Camera
 {
-	// Editor Variables
-	public Transform mapView;
-	public Transform partyView;
-
-	// Private Variables
-	private Vector3 mapViewOffset;
-	private Transform target;
-	bool explore;
-
-	// Public Methods
-	public void Explore()
+	public class CameraMovement : StateMachine
 	{
-		explore = true;
-		target = mapView;
-	}
+		public Transform partyCenter;
 
-	public void Battle()
-	{
-		explore = false;
-		target = partyView;
-	}
+		public CameraSettings exploreSettings;
+		public CameraSettings combatSettings;
 
-	public void UpdateMapView(Vector3 position)
-	{
-		mapView.position = position + mapViewOffset;
-	}
+		[HideInInspector] public CameraSettings active;
+		[HideInInspector] public CameraSettings targetSettings;
 
-	// Private Methods
-	private void Start()
-	{
-		mapViewOffset = mapView.position;
+		public Transform followTarget;
 
-		Explore();
+		private void Start()
+		{
+			partyCenter = PartyManager.Instance.Center;
+			SetState(new ExploreState(this));
+		}
 
-		InputManager.Instance.CameraToggleAction = CameraToggle;
-	}
+		public void SetBattleState()
+		{
+			SetState(new BattleState(this));
+		}
 
-	private void Update()
-	{
-		if (target == null)
-			return;
-
-		transform.SetPositionAndRotation(
-			Vector3.Lerp(transform.position, target.position, Time.deltaTime * 2),
-			Quaternion.Slerp(transform.rotation, target.rotation, Time.deltaTime * 2));
-	}
-
-	private void CameraToggle()
-	{
-		if (explore)
-			Battle();
-		else
-			Explore();
+		public void SetExploreState()
+		{
+			SetState(new ExploreState(this));
+		}
 	}
 }

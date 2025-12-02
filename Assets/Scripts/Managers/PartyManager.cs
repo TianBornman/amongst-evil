@@ -1,6 +1,7 @@
 ﻿using Midevil.Ability;
 using Midevil.Item;
 using Midevil.Models;
+using Midevil.Party;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -20,6 +21,9 @@ public class PartyManager : Singleton<PartyManager>
 
 	// Private Variables
 	private Party playerParty;
+
+	// Public Property
+	public Transform Center => playerParty.partyCenter;
 
 	// Override Methods
 	protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -105,7 +109,6 @@ public class PartyManager : Singleton<PartyManager>
 	public void ClearAbility(Ability ability) => playerParty.ClearAbility(ability);
 
 	public void SetPartyTarget(Vector3 position) => playerParty.SetPosition(position);
-	public void UpdateExploreView(Vector3 position) => playerParty.cameraMovement.UpdateMapView(position);
 
 	// Private Methods
 	private void Start()

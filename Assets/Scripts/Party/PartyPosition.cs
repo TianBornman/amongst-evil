@@ -1,24 +1,27 @@
 using UnityEngine;
 
-public class PartyPosition : MonoBehaviour
+namespace Midevil.Party
 {
-	// Editor Variables
-	[Header("Settings")]
-
-
-	// Public Variables
-	public Vector3 offset;
-	public bool isOccupied = false;
-
-	// Public Methods
-	public void SetPosition(Vector3 position)
+	public class PartyPosition : MonoBehaviour
 	{
-		transform.position = position + offset;
-	}
+		// Editor Variables
+		[Header("Settings")]
 
-	// Private Methods
-	private void Start()
-	{
-		offset = transform.position - transform.parent.position;
+
+		// Public Variables
+		public Vector3 offset;
+		public bool isOccupied = false;
+
+		// Public Methods
+		public void SetPosition(Vector3 position)
+		{
+			transform.position = position + offset;
+		}
+
+		// Private Methods
+		private void Start()
+		{
+			offset = transform.position - transform.parent.position;
+		}
 	}
 }

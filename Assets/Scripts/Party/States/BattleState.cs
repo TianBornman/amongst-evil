@@ -1,23 +1,25 @@
-public class BattleState : IState
+namespace Midevil.Party.States
 {
-	private Party party;
-
-	public BattleState(Party party)
+	internal class BattleState : IState
 	{
-		this.party = party;
-	}
+		private Party party;
 
-	public void Enter()
-	{
-		party.cameraMovement.Battle();
-		party.cameraMovement.partyView.position = party.GetGroupCenter();
-	}
+		public BattleState(Party party)
+		{
+			this.party = party;
+		}
 
-	public void Exit()
-	{
-	}
+		public void Enter()
+		{
+			party.cameraMovement.SetBattleState();
+		}
 
-	public void Update()
-	{
+		public void Exit()
+		{
+		}
+
+		public void Update()
+		{
+		}
 	}
 }

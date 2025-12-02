@@ -1,22 +1,25 @@
-public class ExploreState : IState
+namespace Midevil.Party.States
 {
-	private Party party;
-
-	public ExploreState(Party party)
+	internal class ExploreState : IState
 	{
-		this.party = party;
-	}
+		private Party party;
 
-	public void Enter()
-	{
-		party.cameraMovement.Explore();
-	}
+		public ExploreState(Party party)
+		{
+			this.party = party;
+		}
 
-	public void Exit()
-	{
-	}
+		public void Enter()
+		{
+			party.cameraMovement.SetExploreState();
+		}
 
-	public void Update()
-	{
+		public void Exit()
+		{
+		}
+
+		public void Update()
+		{
+		}
 	}
 }
