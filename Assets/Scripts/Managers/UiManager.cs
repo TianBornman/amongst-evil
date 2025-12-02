@@ -285,5 +285,7 @@ public class UiManager : Singleton<UiManager>
 	{
 		resultsUi.rootVisualElement.visible = false;
 		SpawnManager.Instance.SpawnWave();
+		PartyManager.Instance.SetPartyTarget(SpawnManager.Instance.currentSegment.connectionPoint.position);
+		PartyManager.Instance.UpdateExploreView(SpawnManager.Instance.currentSegment.transform.position);
 	}
 }

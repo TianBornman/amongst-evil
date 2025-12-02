@@ -91,7 +91,7 @@ public class Party : StateMachine
 									 .Select(member => member.transform.position)
 									 .ToList();
 
-		var enemyPositions = members.Where(member => member.IsAlive)
+		var enemyPositions = members.Where(member => member.target != null && member.target.IsAlive)
 									.Select(member => member.target.transform.position)
 									.ToList();
 

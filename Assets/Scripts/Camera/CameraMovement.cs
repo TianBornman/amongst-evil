@@ -7,6 +7,7 @@ public class CameraMovement : MonoBehaviour
 	public Transform partyView;
 
 	// Private Variables
+	private Vector3 mapViewOffset;
 	private Transform target;
 	bool explore;
 
@@ -23,9 +24,16 @@ public class CameraMovement : MonoBehaviour
 		target = partyView;
 	}
 
+	public void UpdateMapView(Vector3 position)
+	{
+		mapView.position = position + mapViewOffset;
+	}
+
 	// Private Methods
 	private void Start()
 	{
+		mapViewOffset = mapView.position;
+
 		Explore();
 
 		InputManager.Instance.CameraToggleAction = CameraToggle;

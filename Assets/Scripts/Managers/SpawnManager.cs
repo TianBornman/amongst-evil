@@ -19,9 +19,7 @@ public class SpawnManager : Singleton<SpawnManager>
 
 	// Public Variables
 	[HideInInspector] public List<Character> spawnedCharacters = new();
-
-	// Private Variables
-	private MapSegment currentSegment;
+	[HideInInspector] public MapSegment currentSegment;
 
 	// Public Methods
 	public void RemoveCharacter(Character character)

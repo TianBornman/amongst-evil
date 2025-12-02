@@ -105,6 +105,7 @@ public class PartyManager : Singleton<PartyManager>
 	public void ClearAbility(Ability ability) => playerParty.ClearAbility(ability);
 
 	public void SetPartyTarget(Vector3 position) => playerParty.SetPosition(position);
+	public void UpdateExploreView(Vector3 position) => playerParty.cameraMovement.UpdateMapView(position);
 
 	// Private Methods
 	private void Start()
