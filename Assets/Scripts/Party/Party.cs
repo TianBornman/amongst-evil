@@ -123,22 +123,29 @@ namespace Midevil.Party
 
 		private void SetPartyCenter()
 		{
-			var positions = members.Where(member => member.IsAlive)
-										 .Select(member => member.transform.position)
-										 .ToList();
+			bool hasAny = false;
+			Vector3 min = new(float.MaxValue, float.MaxValue, float.MaxValue);
+			Vector3 max = new(float.MinValue, float.MinValue, float.MinValue);
 
-			var enemyPositions = members.Where(member => member.target != null && member.target.IsAlive)
-										.Select(member => member.target.transform.position)
-										.ToList();
+			foreach (var member in members)
+			{
+				if (!member.IsAlive)
+					continue;
 
-			positions.AddRange(enemyPositions);
+				hasAny = true;
+				Vector3 pos = member.transform.position;
 
-			var bound = new Bounds(positions.FirstOrDefault(), Vector3.zero);
+				if (pos.x < min.x) min.x = pos.x;
+				if (pos.y < min.y) min.y = pos.y;
+				if (pos.z < min.z) min.z = pos.z;
 
-			foreach (var member in positions)
-				bound.Encapsulate(member);
+				if (pos.x > max.x) max.x = pos.x;
+				if (pos.y > max.y) max.y = pos.y;
+				if (pos.z > max.z) max.z = pos.z;
+			}
 
-			partyCenter.position = bound.center;
+			if (hasAny)
+				partyCenter.position = (min + max) * 0.5f;
 		}
 	}
 }
