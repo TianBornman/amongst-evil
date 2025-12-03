@@ -77,6 +77,19 @@ public class Character : StateMachine, IInteractable
 		ReevaluateTarget();
 	}
 
+	public virtual void AddXp(float amount, bool shareXp = false)
+	{
+		stats.currentXp += amount;
+
+		identity.currentResult.xpGained += amount;
+
+		while (stats.currentXp >= stats.neededXp)
+		{
+			stats.currentXp -= stats.neededXp;
+			LevelUp();
+		}
+	}
+
 	public void Damage(Character attacker, float damage, float critChance = 0, float critDamage = 0)
 	{
 		if (!IsAlive)
@@ -108,9 +121,9 @@ public class Character : StateMachine, IInteractable
 			if (buff is IOnTakeHit onTakeHit)
 				onTakeHit.OnTakeHit(this, target, damage);
 
+		// Stat Tracking
 		attacker.identity.currentResult.damageDealt += damage;
 
-		// Stat Tracking
 		if (isCrit)
 			attacker.identity.currentResult.criticalHits++;
 		else
@@ -132,6 +145,7 @@ public class Character : StateMachine, IInteractable
 		DamageNumberManager.Instance.ShowDamage(transform.position + Vector3.up * 1.5f, Mathf.Abs(amount), Color.green);
 
 		stats.health = Mathf.Clamp(stats.health + amount, 0, stats.maxHealth);
+		healthBar.SetHealth(stats.health, stats.maxHealth);
 
 		identity.currentResult.healed += amount;
 	}
@@ -176,15 +190,6 @@ public class Character : StateMachine, IInteractable
 
 		DropItems();
 
-		// TODO: Make sure only players get XP, but together with party XP sharing
-		//if (target is PartyCharacter player)
-		//{
-		//	player.AddXp(stats.xpValue);
-		//	PlayerManager.Instance.player.Results.kills++;
-		//}
-
-		killer.identity.currentResult.kills++;
-
 		foreach (var buff in killer.currentEffects)
 			if (buff is IOnKill onKill)
 				onKill.OnKill(this, killer);
@@ -192,6 +197,9 @@ public class Character : StateMachine, IInteractable
 		foreach (var buff in currentEffects)
 			if (buff is IOnDeath onDeath)
 				onDeath.OnDeath(this, killer);
+
+		killer.AddXp(stats.xpValue);
+		killer.identity.currentResult.kills++;
 	}
 
 	public void AddBuff(Buff buff)
@@ -247,7 +255,22 @@ public class Character : StateMachine, IInteractable
 		if (identity.level > 0)
 			stats.level = identity.level;
 
+		stats.currentXp = identity.xp;
+		stats.neededXp = GetNeededXp(stats.level);
+
 		equipment.SetupIdentity();
+	}
+
+	private void LevelUp()
+	{
+		stats.level++;
+		stats.neededXp = GetNeededXp(stats.level);
+		Heal(stats.maxHealth * stats.levelHeal);
+	}
+
+	private float GetNeededXp(int level)
+	{
+		return 10f * Mathf.Pow(level, 1.3f) + 5f * level;
 	}
 
 	private void DropItems()

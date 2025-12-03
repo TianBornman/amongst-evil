@@ -62,7 +62,6 @@ public class UiManager : Singleton<UiManager>
 			var identity = identities[i];
 
 			panel.name = identity.id.ToString();
-			panel.dataSource = identity;
 
 			panel.Q<VisualElement>("ShowStats").RegisterCallback<ClickEvent>(evt =>
 			{
@@ -100,6 +99,7 @@ public class UiManager : Singleton<UiManager>
 		//gameUi.rootVisualElement.Q<Label>("Level").dataSource = player;
 		//gameUi.rootVisualElement.Q<ProgressBar>("XpBar").dataSource = player;
 
+		statsUi.rootVisualElement.Q<VisualElement>($"{character.identity.id}").dataSource = character;
 		statsUi.rootVisualElement.Q<VisualElement>($"{character.identity.id}-stats").dataSource = character;
 
 		var bars = statsUi.rootVisualElement.Q<VisualElement>(character.identity.id.ToString()).Q<VisualElement>("Bars");
@@ -128,6 +128,12 @@ public class UiManager : Singleton<UiManager>
 			return;
 
 		abilityElement[index].dataSource = ability;
+
+		var borderColor = new StyleColor(((PartyCharacter)ability.owner).color);
+		abilityElement[index].style.borderTopColor = borderColor;
+		abilityElement[index].style.borderRightColor = borderColor;
+		abilityElement[index].style.borderLeftColor = borderColor;
+		abilityElement[index].style.borderBottomColor = borderColor;
 	}
 
 	public void ClearAbility(int index)

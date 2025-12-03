@@ -1,5 +1,6 @@
 using Midevil.Ability;
 using Midevil.Camera;
+using Midevil.Helpers;
 using Midevil.Models;
 using Midevil.Party.States;
 using System.Collections.Generic;
@@ -33,6 +34,7 @@ namespace Midevil.Party
 			PartyCharacter newMember = Instantiate(memberPrefab, openPosition.transform.position, Quaternion.identity, transform);
 			newMember.identity = identity;
 			newMember.idlePos = openPosition.transform;
+			newMember.SetIndicatorColor(ColorHelper.GetPartyColor(members.Count));
 
 			members.Add(newMember);
 		}
@@ -52,11 +54,17 @@ namespace Midevil.Party
 		{
 			waypoint.position = position;
 
-			foreach (PartyPosition partyPosition in positions)
+			foreach (var partyPosition in positions)
 				partyPosition.SetPosition(position);
 
-			foreach (PartyCharacter member in members)
+			foreach (var member in members)
 				member.CheckPositionChanged();
+		}
+
+		public void AddPartyXp(float amount, PartyCharacter character)
+		{
+			foreach (var member in members)
+				member.AddXp(amount, true);
 		}
 
 		public void CheckBattle()

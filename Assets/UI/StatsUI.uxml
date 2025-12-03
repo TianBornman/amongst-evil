@@ -13,7 +13,12 @@
                     <ui:VisualElement name="ShowStats" class="slot-segment" style="flex-grow: 1; background-color: rgb(41, 41, 41); border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; margin-top: 5px; margin-bottom: 5px;">
                         <ui:Label text="Label" name="Name" style="-unity-font-style: bold; -unity-text-align: upper-center; color: rgb(255, 255, 255);">
                             <Bindings>
-                                <ui:DataBinding property="text" data-source-path="characterName" data-source-type="Midevil.Models.Identity, Assembly-CSharp" binding-mode="ToTarget" />
+                                <ui:DataBinding property="text" data-source-path="identity.characterName" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
+                            </Bindings>
+                        </ui:Label>
+                        <ui:Label text="Label" name="Level" style="-unity-font-style: bold; -unity-text-align: upper-center; color: rgb(255, 255, 255);">
+                            <Bindings>
+                                <ui:DataBinding property="text" data-source-path="stats.level" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
                             </Bindings>
                         </ui:Label>
                     </ui:VisualElement>
@@ -32,7 +37,13 @@
                             <ui:DataBinding property="title" data-source-path="stats" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Current and Total HP" />
                         </Bindings>
                     </ui:ProgressBar>
-                    <ui:ProgressBar value="22" name="XpBar" style="height: 15px;" />
+                    <ui:ProgressBar value="22" name="XpBar" style="height: 15px;">
+                        <Bindings>
+                            <ui:DataBinding property="highValue" data-source-path="stats.neededXp" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
+                            <ui:DataBinding property="value" data-source-path="stats.currentXp" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
+                            <ui:DataBinding property="title" data-source-path="stats" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Current and Total XP" />
+                        </Bindings>
+                    </ui:ProgressBar>
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="Stats" class="character-stats hidden">
@@ -123,7 +134,12 @@
                     <ui:VisualElement name="ShowStats" class="slot-segment" style="flex-grow: 1; background-color: rgb(41, 41, 41); border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; margin-top: 5px; margin-bottom: 5px;">
                         <ui:Label text="Label" name="Name" style="-unity-font-style: bold; -unity-text-align: upper-center; color: rgb(255, 255, 255);">
                             <Bindings>
-                                <ui:DataBinding property="text" data-source-path="characterName" data-source-type="Midevil.Models.Identity, Assembly-CSharp" binding-mode="ToTarget" />
+                                <ui:DataBinding property="text" data-source-path="identity.characterName" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
+                            </Bindings>
+                        </ui:Label>
+                        <ui:Label text="Label" name="Level" style="-unity-font-style: bold; -unity-text-align: upper-center; color: rgb(255, 255, 255);">
+                            <Bindings>
+                                <ui:DataBinding property="text" data-source-path="stats.level" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
                             </Bindings>
                         </ui:Label>
                     </ui:VisualElement>
@@ -142,7 +158,13 @@
                             <ui:DataBinding property="title" data-source-path="stats" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Current and Total HP" />
                         </Bindings>
                     </ui:ProgressBar>
-                    <ui:ProgressBar value="22" name="XpBar" style="height: 15px;" />
+                    <ui:ProgressBar value="22" name="XpBar" style="height: 15px;">
+                        <Bindings>
+                            <ui:DataBinding property="highValue" data-source-path="stats.neededXp" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
+                            <ui:DataBinding property="value" data-source-path="stats.currentXp" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
+                            <ui:DataBinding property="title" data-source-path="stats" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Current and Total XP" />
+                        </Bindings>
+                    </ui:ProgressBar>
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="Stats" class="character-stats hidden">
@@ -233,7 +255,12 @@
                     <ui:VisualElement name="ShowStats" class="slot-segment" style="flex-grow: 1; background-color: rgb(41, 41, 41); border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; margin-top: 5px; margin-bottom: 5px;">
                         <ui:Label text="Label" name="Name" style="-unity-font-style: bold; -unity-text-align: upper-center; color: rgb(255, 255, 255);">
                             <Bindings>
-                                <ui:DataBinding property="text" data-source-path="characterName" data-source-type="Midevil.Models.Identity, Assembly-CSharp" binding-mode="ToTarget" />
+                                <ui:DataBinding property="text" data-source-path="identity.characterName" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
+                            </Bindings>
+                        </ui:Label>
+                        <ui:Label text="Label" name="Level" style="-unity-font-style: bold; -unity-text-align: upper-center; color: rgb(255, 255, 255);">
+                            <Bindings>
+                                <ui:DataBinding property="text" data-source-path="stats.level" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
                             </Bindings>
                         </ui:Label>
                     </ui:VisualElement>
@@ -252,7 +279,13 @@
                             <ui:DataBinding property="title" data-source-path="stats" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Current and Total HP" />
                         </Bindings>
                     </ui:ProgressBar>
-                    <ui:ProgressBar value="22" name="XpBar" style="height: 15px;" />
+                    <ui:ProgressBar value="22" name="XpBar" style="height: 15px;">
+                        <Bindings>
+                            <ui:DataBinding property="highValue" data-source-path="stats.neededXp" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
+                            <ui:DataBinding property="value" data-source-path="stats.currentXp" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
+                            <ui:DataBinding property="title" data-source-path="stats" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Current and Total XP" />
+                        </Bindings>
+                    </ui:ProgressBar>
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="Stats" class="character-stats hidden">

@@ -6,7 +6,9 @@ using UnityEngine;
 [Serializable]
 public class Stats
 {
-	public int level;
+	public int level = 1;
+	public float currentXp;
+	public float neededXp;
 	public float health;
 	public float maxHealth;
 	public float levelHeal;

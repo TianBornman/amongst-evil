@@ -301,6 +301,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterStats
   stats:
     level: 0
+    currentXp: 0
+    neededXp: 0
     health: 0
     maxHealth: 0
     levelHeal: 0
@@ -316,19 +318,21 @@ MonoBehaviour:
     xpValue: 0
   baseStats:
     level: 0
+    currentXp: 0
+    neededXp: 0
     health: 0
-    maxHealth: 50
+    maxHealth: 9
     levelHeal: 0
     blockChance: 0
     dodgeChance: 0
     damage: 1.4
-    attackSpeed: 0.5
+    attackSpeed: 1
     castSpeed: 0
     critChance: 0.1
     critDamage: 1.5
     range: 2
     moveSpeed: 0
-    xpValue: 16
+    xpValue: 8
   team: 1
   targetTeams: 00000000
   buffs: []

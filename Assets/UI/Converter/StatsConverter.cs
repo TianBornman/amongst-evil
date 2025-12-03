@@ -16,5 +16,11 @@ public class StatsConverter : MonoBehaviour
 		group.AddConverter((ref Stats value) => $"{value.health} / {value.maxHealth}");
 
 		ConverterGroups.RegisterConverterGroup(group);
+
+		group = new ConverterGroup("Current and Total XP");
+
+		group.AddConverter((ref Stats value) => $"{value.currentXp} / {value.neededXp}");
+
+		ConverterGroups.RegisterConverterGroup(group);
 	}
 }

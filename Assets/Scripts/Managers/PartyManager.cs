@@ -75,6 +75,8 @@ public class PartyManager : Singleton<PartyManager>
 			character.identity.Save(BloodVaultStatus.Alive);
 	}
 
+	public void AddPartyXp(float amount, PartyCharacter character) => playerParty.AddPartyXp(amount, character);
+
 	public void CheckBattle() => playerParty.CheckBattle();
 
 	public void CalculateStats()

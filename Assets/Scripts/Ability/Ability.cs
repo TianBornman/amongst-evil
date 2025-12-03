@@ -5,7 +5,7 @@ namespace Midevil.Ability
 	public abstract class Ability
 	{
 		public Guid id = Guid.Empty;
-		protected Character owner;
+		public Character owner;
 		public AbilityData data;
 
 		public float cooldownTimer;
