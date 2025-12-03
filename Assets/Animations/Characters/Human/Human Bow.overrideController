@@ -1,0 +1,13 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Human Bow
+  m_Controller: {fileID: 9100000, guid: ff00e280b0efd6f4fbdea133306f7d29, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 29ef8480e9508504ca17fbf07b00f163, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 3ed4832236744564dbe6da720c09e894, type: 2}

@@ -14,6 +14,7 @@ public class RefManager : Singleton<RefManager>
 	[Header("Animations")]
 	public AnimatorOverrideController unarmed;
 	public AnimatorOverrideController sword1H;
+	public AnimatorOverrideController bow;
 
 	[Header("Reference Index")]
 	public List<IconReference> icons;
@@ -66,7 +67,8 @@ public enum ItemReferenceIndex
 {
 	None,
 	IronArmour,
-	RustySword
+	RustySword,
+	WoodenBow
 }
 
 [Serializable]

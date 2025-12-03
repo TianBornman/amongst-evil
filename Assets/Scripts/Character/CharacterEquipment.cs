@@ -168,6 +168,9 @@ public class CharacterEquipment : MonoBehaviour
 				break;
 			case ItemAnimationType.Sword2H:
 				break;
+			case ItemAnimationType.Bow:
+				character.animator.runtimeAnimatorController = RefManager.Instance.bow;
+				break;
 			case ItemAnimationType.Shield:
 				break;
 			default:

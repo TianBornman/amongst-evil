@@ -9,6 +9,7 @@ namespace Midevil.Item
 		Unarmed,
 		Sword1H,
 		Sword2H,
+		Bow,
 		Shield
 	}
 }
