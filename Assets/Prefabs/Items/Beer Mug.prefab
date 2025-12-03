@@ -42,6 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8087722210665149801}
   - component: {fileID: 5061339707882196942}
+  - component: {fileID: -8252277103583531007}
   - component: {fileID: 892726615595024836}
   - component: {fileID: 2300073132557222906}
   m_Layer: 0
@@ -90,18 +91,23 @@ MonoBehaviour:
     buff:
       stats:
         level: 0
+        currentXp: 0
+        neededXp: 0
         health: 0
         maxHealth: 0
+        size: 0
         levelHeal: 0
         blockChance: 0
         dodgeChance: 0
         damage: 2
         attackSpeed: -0.5
+        castSpeed: 0
         critChance: 0.2
         critDamage: -0.2
         range: 0
         moveSpeed: 0
         xpValue: 0
+        scalingFactor: 1.1
     abilityIndex: 0
     effects: []
     effectIndex: 0
@@ -109,6 +115,24 @@ MonoBehaviour:
     shouldRoll: 0
   noEffectWeight: 0
   possibleEffects: []
+--- !u!114 &-8252277103583531007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7682369121278780191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!65 &892726615595024836
 BoxCollider:
   m_ObjectHideFlags: 0

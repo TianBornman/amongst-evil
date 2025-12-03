@@ -179,6 +179,9 @@ public class Character : StateMachine, IInteractable
 	{
 		stats.Recalculate(baseStats, buffs);
 
+		var size = new Vector3(stats.size, stats.size, stats.size);
+		transform.localScale = size;
+
 		healthBar.SetHealth(stats.health, stats.maxHealth);
 		animator.SetFloat("AttackSpeed", stats.attackSpeed);
 	}

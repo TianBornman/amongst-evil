@@ -305,6 +305,7 @@ MonoBehaviour:
     neededXp: 0
     health: 0
     maxHealth: 0
+    size: 0
     levelHeal: 0
     blockChance: 0
     dodgeChance: 0
@@ -316,23 +317,26 @@ MonoBehaviour:
     range: 0
     moveSpeed: 0
     xpValue: 0
+    scalingFactor: 1.1
   baseStats:
-    level: 0
+    level: 1
     currentXp: 0
     neededXp: 0
     health: 0
-    maxHealth: 9
+    maxHealth: 56
+    size: 1
     levelHeal: 0
     blockChance: 0
     dodgeChance: 0
-    damage: 1.4
+    damage: 8
     attackSpeed: 1
-    castSpeed: 0
-    critChance: 0.1
-    critDamage: 1.5
-    range: 2
+    castSpeed: 1
+    critChance: 0.02
+    critDamage: 1.2
+    range: 1.5
     moveSpeed: 0
-    xpValue: 8
+    xpValue: 1
+    scalingFactor: 1.1
   team: 1
   targetTeams: 00000000
   buffs: []

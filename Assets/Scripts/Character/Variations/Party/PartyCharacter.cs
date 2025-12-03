@@ -42,8 +42,6 @@ public class PartyCharacter : Character
 	{
 		this.color = color;
 		indicatorRenderer.material.color = color;
-		//indicatorRenderer.material.SetColor("_EmissionColor", color * 1.1f);
-		//indicatorRenderer.material.EnableKeyword("_EMISSION");
 	}
 
 	public override void AddXp(float amount, bool shareXp = false)
