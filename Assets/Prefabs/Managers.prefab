@@ -109,6 +109,7 @@ MonoBehaviour:
   minDistance: 10
   bossSpawned: 0
   spawnedCharacters: []
+  currentSegment: {fileID: 0}
 --- !u!114 &6180556048356105748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,10 +122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeface424b9618a479a1e4ad44cdd2a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageNumberManager
-  uiDocument: {fileID: 0}
-  uiDocumentPrefab: {fileID: 2823809242809627518, guid: 75b2dd0471973294a858ab10b2377138, type: 3}
-  damageNumberTemplate: {fileID: 9197481963319205126, guid: c324ab00d76798048b10481093c82b83, type: 3}
-  initialPoolSize: 20
+  prefab: {fileID: 924759758243501518, guid: 5c0c50165ca9f9341b3b01107dfd75dd, type: 3}
+  initialPool: 20
 --- !u!114 &1379321088363961944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,18 +276,23 @@ MonoBehaviour:
     buff:
       stats:
         level: 0
+        currentXp: 0
+        neededXp: 0
         health: 0
         maxHealth: 0
+        size: 0
         levelHeal: 0
         blockChance: 0
         dodgeChance: 0
         damage: 0
         attackSpeed: 0
+        castSpeed: 0
         critChance: 0
         critDamage: 0
         range: 0
         moveSpeed: 0
         xpValue: 0
+        scalingFactor: 1.1
     abilityIndex: 0
     effects: []
     effectIndex: 0
