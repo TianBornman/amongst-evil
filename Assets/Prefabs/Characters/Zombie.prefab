@@ -263,7 +263,7 @@ GameObject:
   - component: {fileID: 6718143040978402789}
   - component: {fileID: -5931797620297226965}
   m_Layer: 6
-  m_Name: Human
+  m_Name: Zombie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -323,13 +323,13 @@ MonoBehaviour:
     currentXp: 0
     neededXp: 0
     health: 0
-    maxHealth: 56
+    maxHealth: 78
     size: 1
     levelHeal: 0
     blockChance: 0
     dodgeChance: 0
     damage: 8
-    attackSpeed: 1
+    attackSpeed: 0.52
     castSpeed: 1
     critChance: 0.02
     critDamage: 1.2
@@ -460,7 +460,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.3
   m_Speed: 6
-  m_Acceleration: 8
+  m_Acceleration: 30
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
@@ -1060,6 +1060,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -84.09396
       objectReference: {fileID: 0}
+    - target: {fileID: 5882799705331290325, guid: 21b75deedcc45814c965b58edce0115b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e2d7be168a3d18248b8c69f47229e9af, type: 2}
     - target: {fileID: 6000205945426486696, guid: 21b75deedcc45814c965b58edce0115b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -13.426113
@@ -1198,7 +1202,7 @@ Animator:
   m_GameObject: {fileID: 2369194512733339244}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ff00e280b0efd6f4fbdea133306f7d29, type: 2}
+  m_Controller: {fileID: 22100000, guid: 69724c1e0263de84b98969d9ccc7ef06, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
