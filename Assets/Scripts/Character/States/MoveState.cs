@@ -2,6 +2,8 @@
 
 public class MoveState : IState
 {
+	public bool CanExit { get; private set; } = true;
+
 	private Character character;
 
 	public MoveState(Character character)

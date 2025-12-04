@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class StateMachine : MonoBehaviour
@@ -14,6 +15,9 @@ public class StateMachine : MonoBehaviour
 	// Public Methods
 	public void SetState(IState state)
 	{
+		if (this.state != null && !this.state.CanExit)
+			return;
+
 		this.state?.Exit();
 		this.state = state;
 		state.Enter();

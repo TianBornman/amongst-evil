@@ -1,5 +1,7 @@
 ﻿public class DeadState : IState
 {
+	public bool CanExit { get; private set; } = false;
+
 	private Character character;
 
 	public DeadState(Character character)

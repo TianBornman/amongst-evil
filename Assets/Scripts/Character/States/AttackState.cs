@@ -2,6 +2,8 @@
 
 public class AttackState : IState
 {
+	public bool CanExit { get; private set; } = true;
+
 	private Character character;
 	private float timeRemaining;
 

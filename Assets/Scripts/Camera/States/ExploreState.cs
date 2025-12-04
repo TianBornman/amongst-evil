@@ -4,6 +4,8 @@ namespace Midevil.Camera.States
 {
 	internal class ExploreState : IState
 	{
+		public bool CanExit { get; private set; } = true;
+
 		private CameraMovement camera;
 
 		public ExploreState(CameraMovement camera)

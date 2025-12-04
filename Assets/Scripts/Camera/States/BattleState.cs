@@ -5,6 +5,8 @@ namespace Midevil.Camera.States
 {
 	internal class BattleState : IState
 	{
+		public bool CanExit { get; private set; } = true;
+
 		private CameraMovement camera;
 
 		public BattleState(CameraMovement camera)
