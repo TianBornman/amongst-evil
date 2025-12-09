@@ -1,7 +1,33 @@
 .item-slot {
     background-color: rgb(70, 70, 70);
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
 }
 
 .item-slot:hover {
     background-color: rgb(123, 123, 123);
+}
+
+.item-slot VisualElement {
+    flex-basis: 0;
+    flex-grow: 3;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.item-slot Label {
+    flex-basis: 0;
+    flex-grow: 1;
+    font-size: 9px;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    -unity-text-align: middle-center;
+    color: rgb(255, 255, 255);
 }

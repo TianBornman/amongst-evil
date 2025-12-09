@@ -75,6 +75,11 @@ namespace Midevil.UI.Elements
 			Add(label);
 
 			ClearItem();
+
+			RegisterCallback<GeometryChangedEvent>(evt =>
+			{
+				style.height = resolvedStyle.width;
+			});
 		}
 
 		// Public accessors
