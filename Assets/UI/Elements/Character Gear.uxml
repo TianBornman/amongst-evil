@@ -1,0 +1,125 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Style%20Sheets/Character%20Gear.uss?fileID=7433441132597879392&amp;guid=f3f374e16634c2d4fb8a194202918628&amp;type=3#Character Gear" />
+    <Style src="project://database/Assets/UI/Style%20Sheets/Global.uss?fileID=7433441132597879392&amp;guid=a66181744f20e8f41a9a9bf9ec305f50&amp;type=3#Global" />
+    <ui:VisualElement name="CharacterPanel" style="flex-grow: 1; flex-basis: 0;">
+        <ui:VisualElement name="Slots" style="flex-grow: 1; flex-basis: 0; flex-direction: row;">
+            <ui:VisualElement class="slot-segment" style="flex-grow: 1; flex-basis: 0;">
+                <Midevil.UI.Elements.ItemElement icon-texture="project://database/Assets/Icons/helmet.png?fileID=2800000&amp;guid=77e1a1510ae6fab4a9e60f094165c0ea&amp;type=3#helmet" title="Helmet" name="Helmet" is-equip-slot="true" default-icon-texture="project://database/Assets/Icons/helmet.png?fileID=2800000&amp;guid=77e1a1510ae6fab4a9e60f094165c0ea&amp;type=3#helmet" default-title="Helmet" />
+                <Midevil.UI.Elements.ItemElement icon-texture="project://database/Assets/Icons/sword.png?fileID=2800000&amp;guid=3f4e788aea80fd042ac5dc9617aff1c2&amp;type=3#sword" title="Weapon" name="Weapon" is-equip-slot="true" default-icon-texture="project://database/Assets/Icons/sword.png?fileID=2800000&amp;guid=3f4e788aea80fd042ac5dc9617aff1c2&amp;type=3#sword" default-title="Weapon" />
+                <Midevil.UI.Elements.ItemElement icon-texture="project://database/Assets/Icons/sword.png?fileID=2800000&amp;guid=3f4e788aea80fd042ac5dc9617aff1c2&amp;type=3#sword" title="Gloves" name="Gloves" is-equip-slot="true" default-icon-texture="project://database/Assets/Icons/sword.png?fileID=2800000&amp;guid=3f4e788aea80fd042ac5dc9617aff1c2&amp;type=3#sword" default-title="Gloves" />
+                <Midevil.UI.Elements.ItemElement icon-texture="project://database/Assets/Icons/sword.png?fileID=2800000&amp;guid=3f4e788aea80fd042ac5dc9617aff1c2&amp;type=3#sword" title="Leggings" name="Leggings" is-equip-slot="true" default-icon-texture="project://database/Assets/Icons/sword.png?fileID=2800000&amp;guid=3f4e788aea80fd042ac5dc9617aff1c2&amp;type=3#sword" default-title="Leggings" />
+            </ui:VisualElement>
+            <ui:VisualElement name="ShowStats" class="slot-segment" style="flex-grow: 1; background-color: rgb(41, 41, 41); border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; margin-top: 5px; margin-bottom: 0; flex-basis: 0;">
+                <ui:Label text="Label" name="Name" style="-unity-font-style: bold; -unity-text-align: upper-center; color: rgb(255, 255, 255);">
+                    <Bindings>
+                        <ui:DataBinding property="text" data-source-path="identity.characterName" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
+                    </Bindings>
+                </ui:Label>
+                <ui:Label text="Label" name="Level" style="-unity-font-style: bold; -unity-text-align: upper-center; color: rgb(255, 255, 255);">
+                    <Bindings>
+                        <ui:DataBinding property="text" data-source-path="stats.level" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
+                    </Bindings>
+                </ui:Label>
+            </ui:VisualElement>
+            <ui:VisualElement class="slot-segment" style="flex-grow: 1; flex-basis: 0;">
+                <Midevil.UI.Elements.ItemElement icon-texture="project://database/Assets/Icons/helmet.png?fileID=2800000&amp;guid=77e1a1510ae6fab4a9e60f094165c0ea&amp;type=3#helmet" title="Armour" name="Armour" is-equip-slot="true" default-icon-texture="project://database/Assets/Icons/helmet.png?fileID=2800000&amp;guid=77e1a1510ae6fab4a9e60f094165c0ea&amp;type=3#helmet" default-title="Armour" />
+                <Midevil.UI.Elements.ItemElement title="Off Hand" icon-texture="project://database/Assets/Icons/shield.png?fileID=2800000&amp;guid=428684087ba23a74fad0896cf2a3e335&amp;type=3#shield" name="OffHand" is-equip-slot="true" default-icon-texture="project://database/Assets/Icons/shield.png?fileID=2800000&amp;guid=428684087ba23a74fad0896cf2a3e335&amp;type=3#shield" default-title="Off Hand" />
+                <Midevil.UI.Elements.ItemElement title="Amulet" icon-texture="project://database/Assets/Icons/shield.png?fileID=2800000&amp;guid=428684087ba23a74fad0896cf2a3e335&amp;type=3#shield" name="Amulet" is-equip-slot="true" default-icon-texture="project://database/Assets/Icons/shield.png?fileID=2800000&amp;guid=428684087ba23a74fad0896cf2a3e335&amp;type=3#shield" default-title="Amulet" />
+                <Midevil.UI.Elements.ItemElement title="Boots" icon-texture="project://database/Assets/Icons/shield.png?fileID=2800000&amp;guid=428684087ba23a74fad0896cf2a3e335&amp;type=3#shield" name="Boots" is-equip-slot="true" default-icon-texture="project://database/Assets/Icons/shield.png?fileID=2800000&amp;guid=428684087ba23a74fad0896cf2a3e335&amp;type=3#shield" default-title="Boots" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="Bars" style="flex-basis: auto; flex-grow: 0; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px;">
+            <ui:ProgressBar title="my-progress" name="HealthBar" value="22">
+                <Bindings>
+                    <ui:DataBinding property="highValue" data-source-path="stats.maxHealth" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
+                    <ui:DataBinding property="value" data-source-path="stats.health" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
+                    <ui:DataBinding property="title" data-source-path="stats" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Current and Total HP" />
+                </Bindings>
+            </ui:ProgressBar>
+            <ui:ProgressBar value="22" name="XpBar" style="height: 15px;">
+                <Bindings>
+                    <ui:DataBinding property="highValue" data-source-path="stats.neededXp" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
+                    <ui:DataBinding property="value" data-source-path="stats.currentXp" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
+                    <ui:DataBinding property="title" data-source-path="stats" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Current and Total XP" />
+                </Bindings>
+            </ui:ProgressBar>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="Stats" class="hidden">
+        <ui:VisualElement name="Level" class="stat-entry">
+            <ui:Label text="Level:" class="stat-field" />
+            <ui:Label text="Label" class="stat-field">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="stats.level" data-source-type="PartyCharacter, Assembly-CSharp" binding-mode="ToTarget" />
+                </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
+        <ui:VisualElement name="Xp" class="stat-entry">
+            <ui:Label text="XP:" class="stat-field" />
+            <ui:Label text="Label" class="stat-field">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-type="PartyCharacter, Assembly-CSharp" binding-mode="ToTarget" data-source-path="currentXp" />
+                </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
+        <ui:VisualElement name="Health" class="stat-entry">
+            <ui:Label text="Health:" class="stat-field" />
+            <ui:Label text="Label" class="stat-field">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="stats" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Current and Total HP" />
+                </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
+        <ui:VisualElement name="BlockChance" class="stat-entry">
+            <ui:Label text="Block Chance:" class="stat-field" />
+            <ui:Label text="Label" class="stat-field">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="stats.blockChance" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Float to Percentage" />
+                </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
+        <ui:VisualElement name="DodgeChance" class="stat-entry">
+            <ui:Label text="Dodge Chance:" class="stat-field" />
+            <ui:Label text="Label" class="stat-field">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="stats.dodgeChance" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Float to Percentage" />
+                </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
+        <ui:VisualElement name="Damage" class="stat-entry">
+            <ui:Label text="Damage:" class="stat-field" />
+            <ui:Label text="Label" class="stat-field">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="stats.damage" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
+                </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
+        <ui:VisualElement name="AttackSpeed" class="stat-entry">
+            <ui:Label text="Attack Speed:" class="stat-field" />
+            <ui:Label text="Label" class="stat-field">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="stats.attackSpeed" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Float to Attack Speed" />
+                </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
+        <ui:VisualElement name="CritChance" class="stat-entry">
+            <ui:Label text="Critical Chance:" class="stat-field" />
+            <ui:Label text="Label" class="stat-field">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="stats.critChance" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Float to Percentage" />
+                </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
+        <ui:VisualElement name="CritDamage" class="stat-entry">
+            <ui:Label text="Critical Damage:" class="stat-field" />
+            <ui:Label text="Label" class="stat-field">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="stats.critDamage" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Float to Percentage" />
+                </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
+        <ui:VisualElement name="HideStats" style="flex-grow: 1; background-color: rgb(63, 63, 63); border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; position: absolute; right: 5px; top: 5px; font-size: 14px; width: 30px; height: 30px;">
+            <ui:Label text="X" style="color: rgb(255, 255, 255); -unity-text-align: middle-center; margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

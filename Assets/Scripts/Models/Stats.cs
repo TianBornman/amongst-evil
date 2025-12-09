@@ -69,10 +69,10 @@ public class Stats
 		moveSpeed *= moveMultiplier;
 
 		if (size < 1f)
-			dodgeChance += (1f - size) * 10f;
+			dodgeChance += (1f - size) * 0.1f;
 		else
-			dodgeChance -= (size - 1f) * 8f;
+			dodgeChance -= (size - 1f) * 0.8f;
 
-		blockChance += (size - 1f) * 12f;
+		blockChance += (size - 1f) * 1.2f;
 	}
 }

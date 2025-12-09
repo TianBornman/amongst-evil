@@ -1,0 +1,110 @@
+:root {
+    background-color: rgb(63, 63, 63);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.equip-slot {
+    background-color: rgb(41, 41, 41);
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-bottom: 0;
+    margin-left: 5px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+}
+
+.equip-slot VisualElement {
+    flex-basis: 0;
+    flex-grow: 3;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.equip-slot Label {
+    flex-basis: 0;
+    flex-grow: 1;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-text-align: middle-center;
+    color: rgb(255, 255, 255);
+}
+
+#Bars ProgressBar {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    color: rgb(255, 255, 255);
+}
+
+#Bars ProgressBar .unity-progress-bar__background {
+    background-color: rgb(41, 41, 41);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+    border-bottom-left-radius: 7px;
+}
+
+#Bars ProgressBar .unity-progress-bar__progress {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+#Bars #HealthBar {
+    margin-bottom: 5px;
+}
+
+#Bars #HealthBar .unity-progress-bar__progress {
+    background-color: rgb(140, 28, 41);
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+
+#Bars #XpBar .unity-progress-bar__background {
+    max-height: 15px;
+}
+
+#Bars #XpBar .unity-progress-bar__progress {
+    background-color: rgb(190, 168, 58);
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+
+.stat-entry {
+    flex-direction: row;
+    flex-grow: 0;
+}
+
+.stat-entry .stat-field {
+    color: rgb(255, 255, 255);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    width: 50%;
+    -unity-text-align: upper-center;
+    flex-direction: row;
+}
