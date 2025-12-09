@@ -14,6 +14,8 @@ public class HubUiManager : Singleton<HubUiManager>
 
 	private UIDocument mainMenuUi;
 	private UIDocument recruitmentUi;
+	private VisualElement recruitmentArmouryUi;
+	private VisualElement recruitmentGearUi;
 	private UIDocument bloodVaultUi;
 	private UIDocument armouryUi;
 
@@ -26,12 +28,16 @@ public class HubUiManager : Singleton<HubUiManager>
 		// Spawn UIs
 		mainMenuUi = Instantiate(mainMenuUiPrefab).GetComponent<UIDocument>();
 		recruitmentUi = Instantiate(recruitmentUiPrefab).GetComponent<UIDocument>();
+		recruitmentArmouryUi = recruitmentUi.rootVisualElement.Q<TemplateContainer>("Armoury");
+		recruitmentGearUi = recruitmentUi.rootVisualElement.Q<TemplateContainer>("Gear");
 		bloodVaultUi = Instantiate(bloodVaultUiPrefab).GetComponent<UIDocument>();
 		armouryUi = Instantiate(armouryUiPrefab).GetComponent<UIDocument>();
 
 		// Config
 		mainMenuUi.rootVisualElement.visible = true;
 		recruitmentUi.rootVisualElement.visible = false;
+		recruitmentArmouryUi.visible = false;
+		recruitmentGearUi.visible = false;
 		bloodVaultUi.rootVisualElement.visible = false;
 		armouryUi.rootVisualElement.visible = false;
 
@@ -45,7 +51,7 @@ public class HubUiManager : Singleton<HubUiManager>
 		recruitmentUi.rootVisualElement.visible = true;
 	}
 
-	public void UpdateRecruitmentUI()
+	public void UpdateRecruitmentUI(Character character)
 	{
 		var recruitmentElements = recruitmentUi.rootVisualElement.Q<VisualElement>("Profiles")
 																 .Query<VisualElement>("Profile").ToList();
@@ -57,6 +63,11 @@ public class HubUiManager : Singleton<HubUiManager>
 			recruitmentElements[i].Q<VisualElement>("Image").style.backgroundImage = new StyleBackground(iconTexture);
 			recruitmentElements[i].Q<Label>().text = identities[i].characterName;
 		}
+
+		var armoury = recruitmentUi.rootVisualElement.Q<TemplateContainer>("Armoury");
+		ShowArmouryUI(armoury);
+
+		ShowRecruitGearUI(character);
 	}
 
 	public void ShowBloodVaultUI()
@@ -81,9 +92,9 @@ public class HubUiManager : Singleton<HubUiManager>
 		bloodVaultUi.rootVisualElement.visible = false;
 	}
 
-	public void ShowArmouryUI()
+	public void ShowArmouryUI(VisualElement rootElement)
 	{
-		var itemElements = armouryUi.rootVisualElement.Q<VisualElement>("unity-content-container").Query<ItemElement>().ToList();
+		var itemElements = rootElement.Q<VisualElement>("unity-content-container").Query<ItemElement>().ToList();
 		var items = InventoryManager.Instance.armouryInventory;
 
 		for (int i = 0; i < itemElements.Count; i++)
@@ -96,11 +107,27 @@ public class HubUiManager : Singleton<HubUiManager>
 				itemElement.ClearItem();
 		}
 
-		armouryUi.rootVisualElement.visible = true;
+		rootElement.visible = true;
 	}
 
 	public void HideArmouryUI()
 	{
 		armouryUi.rootVisualElement.visible = false;
+	}
+
+	public void HideRecruitArmouryUI()
+	{
+		recruitmentArmouryUi.visible = false;
+	}
+
+	public void ShowRecruitGearUI(Character character)
+	{
+		recruitmentGearUi.dataSource = character;
+		recruitmentGearUi.visible = true;
+	}
+
+	public void HideRecruitGearUI()
+	{
+		recruitmentGearUi.visible = false;
 	}
 }
