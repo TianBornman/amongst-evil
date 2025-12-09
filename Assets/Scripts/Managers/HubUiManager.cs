@@ -42,6 +42,21 @@ public class HubUiManager : Singleton<HubUiManager>
 		armouryUi.rootVisualElement.visible = false;
 
 		mainMenuUi.rootVisualElement.Q<Button>("Play").clicked += HubManager.Instance.StartGame;
+
+		var gearPanel = recruitmentGearUi.Q<VisualElement>("CharacterPanel");
+		var statsPanel = recruitmentGearUi.Q<VisualElement>("Stats");
+
+		recruitmentGearUi.Q<VisualElement>("ShowStats").RegisterCallback<ClickEvent>(evt =>
+		{
+			gearPanel.AddToClassList("hidden");
+			statsPanel.RemoveFromClassList("hidden");
+		});
+
+		recruitmentGearUi.Q<VisualElement>("HideStats").RegisterCallback<ClickEvent>(evt =>
+		{
+			statsPanel.AddToClassList("hidden");
+			gearPanel.RemoveFromClassList("hidden");
+		});
 	}
 
 	// Public Methods

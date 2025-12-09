@@ -1,8 +1,6 @@
 using Midevil.Item;
-using System;
 using UnityEngine;
 using UnityEngine.UIElements;
-using static UnityEditor.Progress;
 
 namespace Midevil.UI.Elements
 {
