@@ -1,13 +1,13 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:Template name="Character Gear" src="project://database/Assets/UI/Elements/Character%20Gear.uxml?fileID=9197481963319205126&amp;guid=f837476fc8c77524595b87acb7fdb79a&amp;type=3#Character Gear" />
     <Style src="project://database/Assets/UI/Style%20Sheets/StatsUI.uss?fileID=7433441132597879392&amp;guid=59600b4c1b6b57942ad850c880e8b13f&amp;type=3#StatsUI" />
-    <ui:VisualElement name="Inventory" style="background-color: rgb(99, 99, 99); border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; width: 90%; height: 80%; margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto;">
-        <ui:VisualElement name="CharacterPanels" class="inventory-pane" style="flex-grow: 4; margin-bottom: 5px; flex-direction: row; padding-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; background-color: rgba(63, 63, 63, 0);">
+    <ui:VisualElement name="Inventory" style="width: 90%; height: 80%; margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto; background-image: url(&quot;project://database/Assets/Icons/Background%20Light.png?fileID=2800000&amp;guid=abb3a90770fe1ef4e926a5082d9cf099&amp;type=3#Background Light&quot;); -unity-slice-left: 10; -unity-slice-top: 10; -unity-slice-right: 10; -unity-slice-bottom: 10;">
+        <ui:VisualElement name="CharacterPanels" class="inventory-pane" style="flex-grow: 4; margin-bottom: 5px; flex-direction: row; padding-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; background-image: none;">
             <ui:Instance template="Character Gear" />
             <ui:Instance template="Character Gear" style="margin-left: 10px; margin-right: 10px;" />
             <ui:Instance template="Character Gear" />
         </ui:VisualElement>
-        <ui:VisualElement name="Items" class="inventory-pane" style="flex-grow: 1.5; flex-direction: row; margin-top: 5px; margin-bottom: 5px; padding-top: 0; padding-left: 10px; padding-right: 0; padding-bottom: 0;">
+        <ui:VisualElement name="Items" class="inventory-pane" style="flex-grow: 1.5; flex-direction: row; padding-top: 0; padding-left: 10px; padding-right: 0; padding-bottom: 0;">
             <Midevil.UI.Elements.ItemElement />
             <Midevil.UI.Elements.ItemElement />
             <Midevil.UI.Elements.ItemElement />
@@ -18,6 +18,6 @@
             <Midevil.UI.Elements.ItemElement />
             <Midevil.UI.Elements.ItemElement />
         </ui:VisualElement>
-        <ui:VisualElement name="Relics" class="inventory-pane" style="flex-grow: 0.5; margin-top: 5px; flex-direction: row;" />
+        <ui:VisualElement name="Relics" class="inventory-pane" style="flex-grow: 0.5; flex-direction: row;" />
     </ui:VisualElement>
 </ui:UXML>

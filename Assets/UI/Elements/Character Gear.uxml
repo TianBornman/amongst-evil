@@ -1,7 +1,7 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/Style%20Sheets/Character%20Gear.uss?fileID=7433441132597879392&amp;guid=f3f374e16634c2d4fb8a194202918628&amp;type=3#Character Gear" />
     <Style src="project://database/Assets/UI/Style%20Sheets/Global.uss?fileID=7433441132597879392&amp;guid=a66181744f20e8f41a9a9bf9ec305f50&amp;type=3#Global" />
-    <ui:VisualElement name="CharacterPanel" style="flex-grow: 1; flex-basis: 0;">
+    <ui:VisualElement name="CharacterPanel" style="flex-grow: 1; flex-basis: 0; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px;">
         <ui:VisualElement name="Slots" style="flex-grow: 1; flex-basis: 0; flex-direction: row;">
             <ui:VisualElement class="slot-segment" style="flex-grow: 1; flex-basis: 0;">
                 <Midevil.UI.Elements.ItemElement icon-texture="project://database/Assets/Icons/helmet.png?fileID=2800000&amp;guid=77e1a1510ae6fab4a9e60f094165c0ea&amp;type=3#helmet" title="Helmet" name="Helmet" is-equip-slot="true" default-icon-texture="project://database/Assets/Icons/helmet.png?fileID=2800000&amp;guid=77e1a1510ae6fab4a9e60f094165c0ea&amp;type=3#helmet" default-title="Helmet" />
@@ -9,7 +9,7 @@
                 <Midevil.UI.Elements.ItemElement icon-texture="project://database/Assets/Icons/sword.png?fileID=2800000&amp;guid=3f4e788aea80fd042ac5dc9617aff1c2&amp;type=3#sword" title="Gloves" name="Gloves" is-equip-slot="true" default-icon-texture="project://database/Assets/Icons/sword.png?fileID=2800000&amp;guid=3f4e788aea80fd042ac5dc9617aff1c2&amp;type=3#sword" default-title="Gloves" />
                 <Midevil.UI.Elements.ItemElement icon-texture="project://database/Assets/Icons/sword.png?fileID=2800000&amp;guid=3f4e788aea80fd042ac5dc9617aff1c2&amp;type=3#sword" title="Leggings" name="Leggings" is-equip-slot="true" default-icon-texture="project://database/Assets/Icons/sword.png?fileID=2800000&amp;guid=3f4e788aea80fd042ac5dc9617aff1c2&amp;type=3#sword" default-title="Leggings" />
             </ui:VisualElement>
-            <ui:VisualElement name="ShowStats" class="slot-segment" style="flex-grow: 1; background-color: rgb(41, 41, 41); border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; margin-top: 5px; margin-bottom: 0; flex-basis: 0;">
+            <ui:VisualElement name="ShowStats" class="slot-segment" style="flex-grow: 1; border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0; margin-top: 5px; margin-bottom: 0; flex-basis: 0; background-image: url(&quot;project://database/Assets/Icons/Background%20Light.png?fileID=2800000&amp;guid=abb3a90770fe1ef4e926a5082d9cf099&amp;type=3#Background Light&quot;); -unity-slice-left: 10; -unity-slice-top: 10; -unity-slice-right: 10; -unity-slice-bottom: 10;">
                 <ui:Label text="Label" name="Name" style="-unity-font-style: bold; -unity-text-align: upper-center; color: rgb(255, 255, 255);">
                     <Bindings>
                         <ui:DataBinding property="text" data-source-path="identity.characterName" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />

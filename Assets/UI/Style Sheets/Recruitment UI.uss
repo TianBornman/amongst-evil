@@ -4,3 +4,12 @@
     padding-bottom: 15px;
     padding-left: 15px;
 }
+
+.profile {
+    background-image: url("project://database/Assets/Icons/Background%20Light.png?fileID=2800000&guid=abb3a90770fe1ef4e926a5082d9cf099&type=3#Background Light");
+    -unity-slice-left: 10;
+    -unity-slice-top: 10;
+    -unity-slice-right: 10;
+    -unity-slice-bottom: 10;
+    -unity-font-definition: url("project://database/Assets/Fonts/MedodicaRegular.otf?fileID=12800000&guid=a8d6cacb785c6b34a988a195851fb3cb&type=3#MedodicaRegular");
+}
