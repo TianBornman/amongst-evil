@@ -1,17 +1,17 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI/Recruitment%20UI.uss?fileID=7433441132597879392&amp;guid=76a09f16fbc305e41b94af321042b066&amp;type=3#Recruitment UI" />
-    <ui:VisualElement name="Profiles" style="flex-grow: 1; flex-direction: row;">
+    <Style src="project://database/Assets/UI/Style%20Sheets/Recruitment%20UI.uss?fileID=7433441132597879392&amp;guid=76a09f16fbc305e41b94af321042b066&amp;type=3#Recruitment UI" />
+    <ui:VisualElement name="Profiles" style="flex-grow: 1; flex-direction: row-reverse;">
         <ui:VisualElement name="Profile" style="flex-grow: 1; background-color: rgb(72, 72, 72); width: 200px; height: 200px; max-height: 200px; min-height: 200px; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; padding-top: 15px; padding-right: 15px; padding-bottom: 15px; padding-left: 15px; margin-top: 15px; margin-right: 15px; margin-bottom: 15px; margin-left: 15px; align-self: flex-end; min-width: 200px; max-width: 200px;">
-            <ui:VisualElement style="flex-grow: 1; -unity-background-scale-mode: scale-to-fit; background-image: url(&quot;project://database/Assets/Icons/Human%20Icon.png?fileID=2800000&amp;guid=950b70a91b8180b49aab9803e984d3cb&amp;type=3#Human Icon&quot;);" />
-            <ui:Label text="Label" style="color: rgb(255, 255, 255); font-size: 16px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; -unity-text-align: upper-center;" />
+            <ui:VisualElement name="Image" style="flex-grow: 1; -unity-background-scale-mode: scale-to-fit; background-image: url(&quot;project://database/Assets/Icons/Anonymous.png?fileID=2800000&amp;guid=ee5f097747ddfd141afb62bae82ecc4d&amp;type=3#Anonymous&quot;);" />
+            <ui:Label style="color: rgb(255, 255, 255); font-size: 16px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; -unity-text-align: upper-center;" />
         </ui:VisualElement>
         <ui:VisualElement name="Profile" style="flex-grow: 1; background-color: rgb(72, 72, 72); width: 200px; height: 200px; max-height: 200px; min-height: 200px; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; padding-top: 15px; padding-right: 15px; padding-bottom: 15px; padding-left: 15px; margin-top: 15px; margin-right: 15px; margin-bottom: 15px; margin-left: 15px; align-self: flex-end; min-width: 200px; max-width: 200px;">
-            <ui:VisualElement style="flex-grow: 1; -unity-background-scale-mode: scale-to-fit; background-image: url(&quot;project://database/Assets/Icons/Human%20Icon.png?fileID=2800000&amp;guid=950b70a91b8180b49aab9803e984d3cb&amp;type=3#Human Icon&quot;);" />
-            <ui:Label text="Label" style="color: rgb(255, 255, 255); font-size: 16px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; -unity-text-align: upper-center;" />
+            <ui:VisualElement name="Image" style="flex-grow: 1; -unity-background-scale-mode: scale-to-fit; background-image: url(&quot;project://database/Assets/Icons/Anonymous.png?fileID=2800000&amp;guid=ee5f097747ddfd141afb62bae82ecc4d&amp;type=3#Anonymous&quot;);" />
+            <ui:Label style="color: rgb(255, 255, 255); font-size: 16px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; -unity-text-align: upper-center;" />
         </ui:VisualElement>
         <ui:VisualElement name="Profile" style="flex-grow: 1; background-color: rgb(72, 72, 72); width: 200px; height: 200px; max-height: 200px; min-height: 200px; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; padding-top: 15px; padding-right: 15px; padding-bottom: 15px; padding-left: 15px; margin-top: 15px; margin-right: 15px; margin-bottom: 15px; margin-left: 15px; align-self: flex-end; min-width: 200px; max-width: 200px;">
-            <ui:VisualElement style="flex-grow: 1; -unity-background-scale-mode: scale-to-fit; background-image: url(&quot;project://database/Assets/Icons/Human%20Icon.png?fileID=2800000&amp;guid=950b70a91b8180b49aab9803e984d3cb&amp;type=3#Human Icon&quot;);" />
-            <ui:Label text="Label" style="color: rgb(255, 255, 255); font-size: 16px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; -unity-text-align: upper-center;" />
+            <ui:VisualElement style="flex-grow: 1; -unity-background-scale-mode: scale-to-fit; background-image: url(&quot;project://database/Assets/Icons/Anonymous.png?fileID=2800000&amp;guid=ee5f097747ddfd141afb62bae82ecc4d&amp;type=3#Anonymous&quot;);" />
+            <ui:Label style="color: rgb(255, 255, 255); font-size: 16px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; -unity-text-align: upper-center;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

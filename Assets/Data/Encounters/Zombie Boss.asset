@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03a5182202d3fa04e9478e1e5cc6e61f, type: 3}
+  m_Name: Zombie Boss
+  m_EditorClassIdentifier: Assembly-CSharp::Encounter
+  encounterName: Zombie Boss
+  encounterCharacters:
+  - {fileID: 8996435584707828427, guid: a99288e9fee881946a6b1b924b5c4695, type: 3}
+  minEnemies: 5
+  maxEnemies: 6
+  sceneryPrefab: {fileID: 0}
+  radius: 5

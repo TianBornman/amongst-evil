@@ -28,7 +28,7 @@ namespace Midevil.Models
 			id = Guid.NewGuid().ToString();
 			level = 1;
 			characterName = NameGenerator.GetRandomName();
-			profileIcon = IconReferenceIndex.HumanIcon;
+			profileIcon = IconReferenceIndex.Human;
 		}
 
 		public void Save(BloodVaultStatus status)

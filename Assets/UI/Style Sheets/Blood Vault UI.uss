@@ -1,0 +1,31 @@
+.blood-vault-entry {
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 0;
+    margin-left: 10px;
+    background-color: rgb(70, 70, 70);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    flex-direction: row;
+}
+
+.blood-vault-entry Label {
+    color: rgb(255, 255, 255);
+}
+
+.blood-vault-entry #Icon {
+    flex-grow: 1;
+    flex-basis: 0;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.blood-vault-entry #TextContainer {
+    flex-basis: 0;
+    flex-grow: 8;
+}

@@ -1,5 +1,4 @@
-﻿using Midevil.Models;
-using Midevil.UI.Elements;
+﻿using Midevil.UI.Elements;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -11,10 +10,12 @@ public class HubUiManager : Singleton<HubUiManager>
 	public UIDocument mainMenuUiPrefab;
 	public UIDocument recruitmentUiPrefab;
 	public UIDocument bloodVaultUiPrefab;
+	public UIDocument armouryUiPrefab;
 
-	[HideInInspector] public UIDocument mainMenuUi;
-	[HideInInspector] public UIDocument recruitmentUi;
-	[HideInInspector] public UIDocument bloodVaultUi;
+	private UIDocument mainMenuUi;
+	private UIDocument recruitmentUi;
+	private UIDocument bloodVaultUi;
+	private UIDocument armouryUi;
 
 	// Override Methods
 	protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -26,11 +27,13 @@ public class HubUiManager : Singleton<HubUiManager>
 		mainMenuUi = Instantiate(mainMenuUiPrefab).GetComponent<UIDocument>();
 		recruitmentUi = Instantiate(recruitmentUiPrefab).GetComponent<UIDocument>();
 		bloodVaultUi = Instantiate(bloodVaultUiPrefab).GetComponent<UIDocument>();
+		armouryUi = Instantiate(armouryUiPrefab).GetComponent<UIDocument>();
 
 		// Config
 		mainMenuUi.rootVisualElement.visible = true;
 		recruitmentUi.rootVisualElement.visible = false;
 		bloodVaultUi.rootVisualElement.visible = false;
+		armouryUi.rootVisualElement.visible = false;
 
 		mainMenuUi.rootVisualElement.Q<Button>("Play").clicked += HubManager.Instance.StartGame;
 	}
@@ -48,8 +51,10 @@ public class HubUiManager : Singleton<HubUiManager>
 																 .Query<VisualElement>("Profile").ToList();
 		var identities = PartyManager.Instance.partyIdentities;
 
-		for (int i = 0; i < identities.Count; i++) 
+		for (int i = 0; i < identities.Count; i++)
 		{
+			var iconTexture = RefManager.Instance.GetIcon(identities[i].profileIcon);
+			recruitmentElements[i].Q<VisualElement>("Image").style.backgroundImage = new StyleBackground(iconTexture);
 			recruitmentElements[i].Q<Label>().text = identities[i].characterName;
 		}
 	}
@@ -74,5 +79,28 @@ public class HubUiManager : Singleton<HubUiManager>
 	public void HideBloodVaultUI()
 	{
 		bloodVaultUi.rootVisualElement.visible = false;
+	}
+
+	public void ShowArmouryUI()
+	{
+		var itemElements = armouryUi.rootVisualElement.Q<VisualElement>("unity-content-container").Query<ItemElement>().ToList();
+		var items = InventoryManager.Instance.armouryInventory;
+
+		for (int i = 0; i < itemElements.Count; i++)
+		{
+			var itemElement = itemElements[i];
+
+			if (i < items.Count)
+				itemElement.SetItem(items[i]);
+			else
+				itemElement.ClearItem();
+		}
+
+		armouryUi.rootVisualElement.visible = true;
+	}
+
+	public void HideArmouryUI()
+	{
+		armouryUi.rootVisualElement.visible = false;
 	}
 }

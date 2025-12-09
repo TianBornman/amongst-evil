@@ -7,14 +7,16 @@ public class SpawnManager : Singleton<SpawnManager>
 {
 	// Editor Variables
 	[Header("References")]
-	public List<Character> characters;
-	public List<Character> bossCharacters;
+	public List<Encounter> encounters;
+	public List<Encounter> bossEncounters;
 	public List<MapSegment> segments;
 
 	[Header("Settings")]
 	public float width;
 	public float length;
 	public float minDistance;
+	public int minEncounters = 2;
+	public int maxEncounters = 4;
 	public bool bossSpawned = false;
 
 	// Public Variables
@@ -54,32 +56,30 @@ public class SpawnManager : Singleton<SpawnManager>
 	public void SpawnWave() // Uses Rejection Sampling to avoid clustering
 	{
 		bossSpawned = false;
+		spawnedCharacters.Clear();
 
-		List<Vector3> positions = new List<Vector3>();
-		int randomCount = Random.Range(8, 12);
+		int encounterCount = Random.Range(minEncounters, minEncounters + 1);
+		List<Vector3> encounterCenters = new();
 
-		for (int i = 0; i < randomCount; i++)
+		for (int i = 0; i < encounterCount; i++)
 		{
-			Vector3 newPos;
+			Vector3 center;
 			int attempts = 0;
-			const int maxAttempts = 100;
 
 			do
 			{
 				float x = Random.Range(-width / 2f, width / 2f);
 				float z = Random.Range(-length / 2f, length / 2f);
-				newPos = new Vector3(x, 0f, z) + currentSegment.transform.position;
+				center = new Vector3(x, 0, z) + currentSegment.transform.position;
 
 				attempts++;
-				if (attempts > maxAttempts)
-					break;
+			}
+			while (attempts < 100 && TooClose(center, encounterCenters));
 
-			} while (TooClose(newPos, positions));
+			encounterCenters.Add(center);
 
-			positions.Add(newPos);
-
-			var characterPrefab = characters[Random.Range(0, characters.Count)];
-			spawnedCharacters.Add(Instantiate(characterPrefab, newPos, Quaternion.identity));
+			var pack = encounters[Random.Range(0, encounters.Count)];
+			pack.Spawn(center);
 		}
 	}
 
@@ -95,8 +95,8 @@ public class SpawnManager : Singleton<SpawnManager>
 
 	private void SpawnBoss()
 	{
-		var bossPrefab = bossCharacters[Random.Range(0, bossCharacters.Count)];
-		spawnedCharacters.Add(Instantiate(bossPrefab, currentSegment.transform.position, Quaternion.identity));
+		var bossEncounter = bossEncounters[Random.Range(0, bossEncounters.Count)];
+		bossEncounter.Spawn(currentSegment.transform.position);
 
 		bossSpawned = true;
 	}

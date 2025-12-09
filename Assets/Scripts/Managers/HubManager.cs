@@ -54,6 +54,7 @@ public class HubManager : Singleton<HubManager>
 	{
 		PartyManager.Instance.RecruitPartyMember(recruitCharacter.identity);
 		HubUiManager.Instance.UpdateRecruitmentUI();
+		HubUiManager.Instance.ShowArmouryUI();
 
 		ZoomOnTransform(recruitCharacter.cameraPos);
 	}
@@ -71,6 +72,7 @@ public class HubManager : Singleton<HubManager>
 
 		mainMenuCamera.targetPosition = mainMenuCamera.hubPosition;
 		HubUiManager.Instance.HideBloodVaultUI();
+		HubUiManager.Instance.HideArmouryUI();
 	}
 
 	private void ZoomOnTransform(Transform transform)

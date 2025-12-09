@@ -98,15 +98,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7db64b834e823fc498166f97dbb2cc1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnManager
-  characters:
-  - {fileID: 8996435584707828427, guid: a99288e9fee881946a6b1b924b5c4695, type: 3}
-  bossCharacters:
-  - {fileID: 8996435584707828427, guid: a3912b4bd6fe08d4891d3a18143833a3, type: 3}
+  encounters:
+  - {fileID: 11400000, guid: 60a4181f40dfc6646ada68b8ed6748f7, type: 2}
+  bossEncounters:
+  - {fileID: 11400000, guid: e5167fe90f4a39b439639224342e674a, type: 2}
   segments:
   - {fileID: 8202679225242908416, guid: 8f5e8b64bc7486b4b9f915f73e7844f7, type: 3}
   width: 45
   length: 45
   minDistance: 10
+  minEncounters: 2
+  maxEncounters: 4
   bossSpawned: 0
   spawnedCharacters: []
   currentSegment: {fileID: 0}
@@ -145,6 +147,8 @@ MonoBehaviour:
   icons:
   - index: 0
     icon: {fileID: 2800000, guid: 950b70a91b8180b49aab9803e984d3cb, type: 3}
+  - index: 1
+    icon: {fileID: 2800000, guid: ee5f097747ddfd141afb62bae82ecc4d, type: 3}
   items:
   - index: 1
     item: {fileID: 5061339707882196942, guid: a8fb667a84286ea478f9f067cf28c718, type: 3}
@@ -189,9 +193,7 @@ MonoBehaviour:
   mainMenuUiPrefab: {fileID: 3909201742078510678, guid: 4174dd415d4850f4582926134d0c6194, type: 3}
   recruitmentUiPrefab: {fileID: 7439391192158440223, guid: be3efbd1f52735b40b4c4d326d21379b, type: 3}
   bloodVaultUiPrefab: {fileID: 7439391192158440223, guid: cf51b1a74dd8f644a915bc1bc7357d9f, type: 3}
-  mainMenuUi: {fileID: 0}
-  recruitmentUi: {fileID: 0}
-  bloodVaultUi: {fileID: 0}
+  armouryUiPrefab: {fileID: 7439391192158440223, guid: 08282e54d10826e449e60590346cd55c, type: 3}
 --- !u!114 &7630648152501158786
 MonoBehaviour:
   m_ObjectHideFlags: 0

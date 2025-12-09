@@ -53,7 +53,8 @@ public struct IconReference
 
 public enum IconReferenceIndex
 {
-	HumanIcon
+	Human,
+	Anonymous
 }
 
 [Serializable]

@@ -1,0 +1,20 @@
+#unity-content-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+.item-slot {
+    flex-grow: 1;
+    flex-basis: 18%;
+    margin-top: 0;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 0;
+    height: 90px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}

@@ -1,0 +1,7 @@
+.item-slot {
+    background-color: rgb(70, 70, 70);
+}
+
+.item-slot:hover {
+    background-color: rgb(123, 123, 123);
+}
