@@ -276,15 +276,17 @@ public class UiManager : Singleton<UiManager>
 	private void Flee()
 	{
 		Resume();
-		SceneManager.LoadScene("Sect");
+		GameManager.Instance.EnterHub();
 		PartyManager.Instance.EndRun();
+		SceneManager.LoadScene("Sect");
 	}
 
 	private void Die()
 	{
 		Resume();
-		SceneManager.LoadScene("Sect");
+		GameManager.Instance.EnterHub();
 		PartyManager.Instance.EndRun();
+		SceneManager.LoadScene("Sect");
 	}
 
 	private void SpawnWave()
