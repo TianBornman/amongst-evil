@@ -9,13 +9,6 @@ public class HubManager : Singleton<HubManager>
 	private MainMenuCamera mainMenuCamera;
 
 	// Override Methods
-	protected override void Awake()
-	{
-		GameManager.Instance.EnterHub();
-
-		base.Awake();
-	}
-
 	protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
 		if (scene.buildIndex == 0)
@@ -61,6 +54,7 @@ public class HubManager : Singleton<HubManager>
 	// Private Methods
 	private void Start()
 	{
+		GameManager.Instance.EnterHub();
 		InputManager.Instance.EscapeAction = Escape;
 	}
 
