@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 293148930564006070}
   - component: {fileID: 7246356993931102507}
   - component: {fileID: 1676904547834996192}
-  - component: {fileID: 4631836140190394835}
+  - component: {fileID: -5926443765708623965}
   - component: {fileID: 4355795784124017096}
   - component: {fileID: 5479236539335497120}
   - component: {fileID: 4159140879651800418}
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2654e88ab80060d4ebd79c3ced7fc8cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterEffects
---- !u!114 &4631836140190394835
+--- !u!114 &-5926443765708623965
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -160,9 +160,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 346180870591823828}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7802070cc5f6b0429ad124d99f4a82b, type: 3}
+  m_Script: {fileID: 11500000, guid: f924d433d86ccee4fa2286eebb7aa3ab, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CharacterEquipment
+  m_EditorClassIdentifier: Assembly-CSharp::RecruitCharacterEquipment
   weaponPos: {fileID: 1224518398597499159}
   helmetSkin: {fileID: 0}
   armourSkin: {fileID: 2424530802477093003}

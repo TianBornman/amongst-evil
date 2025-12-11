@@ -18,8 +18,8 @@ public class CharacterEquipment : MonoBehaviour
 	public SkinnedMeshRenderer bootsSkin;
 	public Transform idlePos;
 
-	// Private Variables
-	private Character character;
+	// Protected Variables
+	protected Character character;
 
 	// Public Methods
 	public void SetupIdentity()

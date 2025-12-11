@@ -8,7 +8,7 @@ public class RecruitCharacterEquipment : CharacterEquipment
 		base.EquipItem(item);
 
 		InventoryManager.Instance.RemoveItem(item);
-		UiManager.Instance.UpdateCharacterPanels();
+		HubUiManager.Instance.UpdateRecruitmentUI(character);
 	}
 
 	public override void UnequipItem(ItemStats item)
@@ -16,6 +16,6 @@ public class RecruitCharacterEquipment : CharacterEquipment
 		base.UnequipItem(item);
 
 		InventoryManager.Instance.AddItem(item);
-		UiManager.Instance.UpdateCharacterPanels();
+		HubUiManager.Instance.UpdateRecruitmentUI(character);
 	}
 }

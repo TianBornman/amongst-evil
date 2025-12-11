@@ -1,4 +1,5 @@
-﻿using Midevil.UI.Elements;
+﻿using Midevil.Item;
+using Midevil.UI.Elements;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -79,6 +80,9 @@ public class HubUiManager : Singleton<HubUiManager>
 			recruitmentElements[i].Q<Label>().text = identities[i].characterName;
 		}
 
+		if (HubManager.Instance.currentCharacter == null)
+			return;
+
 		var armoury = recruitmentUi.rootVisualElement.Q<TemplateContainer>("Armoury");
 		ShowArmouryUI(armoury);
 
@@ -142,8 +146,31 @@ public class HubUiManager : Singleton<HubUiManager>
 		foreach (var item in recruitmentGearUi.Query<ItemElement>().ToList())
 			item.CharacterId = character.identity.id;
 
+		if (character.identity.weapon != null)
+			EquipItem(recruitmentGearUi, character.identity.weapon);
+		else
+			UnequipItem(recruitmentGearUi, ItemType.Weapon);
+
+		if (character.identity.armour != null)
+			EquipItem(recruitmentGearUi, character.identity.armour);
+		else
+			UnequipItem(recruitmentGearUi, ItemType.Armour);
+
 		recruitmentGearUi.visible = true;
 	}
+
+	public void EquipItem(VisualElement panel, ItemStats item)
+	{
+		var equipSlot = panel.Q<ItemElement>(item.type.ToString());
+		equipSlot.SetItem(item);
+	}
+
+	public void UnequipItem(VisualElement panel, ItemType type)
+	{
+		var equipSlot = panel.Q<ItemElement>(type.ToString());
+		equipSlot?.ClearItem();
+	}
+
 
 	public void HideRecruitGearUI()
 	{

@@ -40,20 +40,38 @@ public class InventoryManager : Singleton<InventoryManager>
 	// Public Methods
 	public bool AddItem(ItemStats itemStats)
 	{
-		if (runInventory.Count >= maxItems)
-			return false;
+		if (GameManager.Instance.AtHub)
+		{
+			if (armouryInventory.Count >= maxItems)
+				return false;
 
-		runInventory.Add(itemStats);
-		UiManager.Instance.UpdateInventory();
+			armouryInventory.Add(itemStats);
 
-		return true;
+			return true;
+		}
+		else
+		{
+			if (runInventory.Count >= maxItems)
+				return false;
+
+			runInventory.Add(itemStats);
+			UiManager.Instance.UpdateInventory();
+
+			return true;
+		}
 	}
 
 	public void RemoveItem(ItemStats itemStats)
 	{
-		runInventory.Remove(itemStats);
-
-		UiManager.Instance.UpdateInventory();
+		if (GameManager.Instance.AtHub)
+		{
+			armouryInventory.Remove(itemStats);
+		}
+		else
+		{
+			runInventory.Remove(itemStats);
+			UiManager.Instance.UpdateInventory();
+		}
 	}
 
 	public void SetSelectedItem(ItemStats item, ItemElement element)

@@ -43,7 +43,7 @@ public class PartyManager : Singleton<PartyManager>
 	// Public Methods
 	public void RecruitPartyMember(Identity identity)
 	{
-		if (partyIdentities.Count >= maxPartySize)
+		if (partyIdentities.Count >= maxPartySize || partyIdentities.Contains(identity))
 			return;
 
 		partyIdentities.Add(identity);
