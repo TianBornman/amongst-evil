@@ -4,7 +4,6 @@ using Midevil.Item;
 using Midevil.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Principal;
 using UnityEngine;
 
 public class CharacterEquipment : MonoBehaviour

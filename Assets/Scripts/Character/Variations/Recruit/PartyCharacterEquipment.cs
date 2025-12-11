@@ -1,6 +1,6 @@
 using Midevil.Item;
 
-public class PartyCharacterEquipment : CharacterEquipment
+public class RecruitCharacterEquipment : CharacterEquipment
 {
 	// Override Methods
 	public override void EquipItem(ItemStats item)

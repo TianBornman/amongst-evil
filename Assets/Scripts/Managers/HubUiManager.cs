@@ -138,6 +138,10 @@ public class HubUiManager : Singleton<HubUiManager>
 	public void ShowRecruitGearUI(Character character)
 	{
 		recruitmentGearUi.dataSource = character;
+
+		foreach (var item in recruitmentGearUi.Query<ItemElement>().ToList())
+			item.CharacterId = character.identity.id;
+
 		recruitmentGearUi.visible = true;
 	}
 

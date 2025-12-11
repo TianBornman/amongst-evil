@@ -1,5 +1,4 @@
 using Midevil.Ability;
-using UnityEngine;
 
 public class PartyCharacterAbilities : CharacterAbilities
 {

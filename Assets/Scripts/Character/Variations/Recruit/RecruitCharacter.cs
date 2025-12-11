@@ -1,5 +1,4 @@
-﻿using Midevil.Models;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RecruitCharacter : Character
 {

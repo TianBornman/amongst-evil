@@ -226,7 +226,7 @@ public class Character : StateMachine, IInteractable
 		agent = GetComponent<NavMeshAgent>();
 		animator = GetComponentInChildren<Animator>();
 		outline = GetComponent<Outline>();
-		healthBar = GetComponent<HealthbarVisual>(); 
+		healthBar = GetComponent<HealthbarVisual>();
 		outline.enabled = false;
 
 		CharacterAnimAPI animAPI = GetComponentInChildren<CharacterAnimAPI>();

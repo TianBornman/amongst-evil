@@ -109,7 +109,11 @@ namespace Midevil.UI.Elements
 			{
 				if (InventoryManager.Instance.selectedItem != null)
 				{
-					PartyManager.Instance.EquipItem(CharacterId, InventoryManager.Instance.selectedItem);
+					if (GameManager.Instance.AtHub)
+						HubManager.Instance.EquipItem(InventoryManager.Instance.selectedItem);
+					else
+						PartyManager.Instance.EquipItem(CharacterId, InventoryManager.Instance.selectedItem);
+
 					InventoryManager.Instance.ClearSelectedItem();
 
 					return;
@@ -118,7 +122,11 @@ namespace Midevil.UI.Elements
 				if (item == null)
 					return;
 
-				PartyManager.Instance.UnequipItem(CharacterId, item);
+				if (GameManager.Instance.AtHub)
+					HubManager.Instance.UnequipItem(item);
+				else
+					PartyManager.Instance.UnequipItem(CharacterId, item);
+
 			}
 			else
 			{

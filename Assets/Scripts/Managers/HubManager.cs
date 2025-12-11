@@ -1,10 +1,12 @@
-using Midevil.Models;
+using Midevil.Item;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class HubManager : Singleton<HubManager>
 {
+	// Public Variables
+	[HideInInspector] public Character currentCharacter;
+
 	// Private Variables
 	private MainMenuCamera mainMenuCamera;
 
@@ -45,10 +47,28 @@ public class HubManager : Singleton<HubManager>
 
 	public void FocusCharacter(RecruitCharacter recruitCharacter)
 	{
+		currentCharacter = recruitCharacter;
+
 		PartyManager.Instance.RecruitPartyMember(recruitCharacter.identity);
 		HubUiManager.Instance.UpdateRecruitmentUI(recruitCharacter);
 
 		ZoomOnTransform(recruitCharacter.cameraPos);
+	}
+
+	public void EquipItem(ItemStats item)
+	{
+		if (currentCharacter == null)
+			return;
+
+		currentCharacter.equipment.EquipItem(item);
+	}
+
+	public void UnequipItem(ItemStats item)
+	{
+		if (currentCharacter == null)
+			return;
+
+		currentCharacter.equipment.UnequipItem(item);
 	}
 
 	// Private Methods
@@ -64,6 +84,7 @@ public class HubManager : Singleton<HubManager>
 			return;
 
 		mainMenuCamera.targetPosition = mainMenuCamera.hubPosition;
+		currentCharacter = null;
 		HubUiManager.Instance.HideBloodVaultUI();
 		HubUiManager.Instance.HideRecruitArmouryUI();
 		HubUiManager.Instance.HideRecruitGearUI();

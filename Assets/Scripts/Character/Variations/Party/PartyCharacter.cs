@@ -1,6 +1,5 @@
 using Midevil.Models;
 using System.Collections.Generic;
-using System.Net.NetworkInformation;
 using UnityEngine;
 
 public class PartyCharacter : Character
@@ -10,7 +9,7 @@ public class PartyCharacter : Character
 	public Transform cameraPosition;
 	public List<AbilityReferenceIndex> startingAbilities;
 	public Renderer indicatorRenderer;
-	
+
 	[HideInInspector] public Color color;
 
 	// Public Properties
@@ -48,7 +47,7 @@ public class PartyCharacter : Character
 	{
 		if (!shareXp)
 			PartyManager.Instance.AddPartyXp(amount, this);
-		else 
+		else
 			base.AddXp(amount);
 	}
 
