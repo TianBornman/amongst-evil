@@ -18,4 +18,6 @@ MonoBehaviour:
   minEnemies: 2
   maxEnemies: 5
   sceneryPrefab: {fileID: 7316901999036503275, guid: 02e3b7e47ca21e94db6cbe89a2a82219, type: 3}
-  radius: 5
+  startIdle: 1
+  faceScenery: 1
+  radius: 1

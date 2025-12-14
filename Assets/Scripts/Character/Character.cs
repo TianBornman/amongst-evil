@@ -39,6 +39,7 @@ public class Character : StateMachine, IInteractable
 	public List<Ability> currentAbilities = new();
 	public List<Item> drops = new();
 	public Identity identity;
+	public bool startIdle;
 
 	public Character target;
 	public List<Character> targets = new();
@@ -53,6 +54,7 @@ public class Character : StateMachine, IInteractable
 	public HealthbarVisual healthBar;
 	public NavMeshAgent agent;
 	public Animator animator;
+	public int animationIndex;
 
 	// Protected Variables
 	protected Character killer;
@@ -69,6 +71,8 @@ public class Character : StateMachine, IInteractable
 
 		targets.Add(character);
 		ReevaluateTarget();
+
+		SetState(new MoveState(this));
 	}
 
 	public void RemoveTarget(Character character)
@@ -242,7 +246,10 @@ public class Character : StateMachine, IInteractable
 		//else
 		//	stats.level = 1;
 
-		SetState(new MoveState(this));
+		if (startIdle)
+			SetState(new IdleState(this));
+		else
+			SetState(new MoveState(this));
 
 		SetupIdentity();
 

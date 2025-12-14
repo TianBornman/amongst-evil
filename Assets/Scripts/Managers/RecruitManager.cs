@@ -43,5 +43,6 @@ public class RecruitManager : Singleton<RecruitManager>
 		var recruitInstance = Instantiate(prefab, spawnPosition, Quaternion.identity);
 
 		recruitInstance.identity = identity;
+		recruitInstance.startIdle = true;
 	}
 }
