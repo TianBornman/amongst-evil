@@ -1,35 +1,8 @@
-using UnityEngine;
-using UnityEngine.SceneManagement;
-
-public class Cart : MonoBehaviour, IInteractable
+public class Cart : Building
 {
-	#region Interactable
-
-	public void Interact()
+	// Override Methods
+	public override void Interact()
 	{
 		HubManager.Instance.StartRun();
-	}
-
-	public void OnHoverEnter()
-	{
-		outline.enabled = true;
-	}
-
-	public void OnHoverExit()
-	{
-		if (outline != null)
-			outline.enabled = false;
-	}
-
-	#endregion
-
-	// Private Variables
-	private Outline outline;
-
-	// Private Methods
-	private void Awake()
-	{
-		outline = GetComponent<Outline>();
-		outline.enabled = false;
 	}
 }

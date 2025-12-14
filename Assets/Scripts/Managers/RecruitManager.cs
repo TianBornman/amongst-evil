@@ -17,30 +17,40 @@ public class RecruitManager : Singleton<RecruitManager>
 			return;
 
 		var recruitmentCount = Random.Range(2, 5);
+		var allBuildings = FindObjectsByType<Building>(FindObjectsSortMode.None);
+		var spawnPoints = new List<Transform>();
+
+		foreach (var building in allBuildings)
+			spawnPoints.AddRange(building.idlePositions);
 
 		// Spawn existing characters from Bloodvault
 		var existingCharaters = BloodvaultManager.Load().entries.Where(entry => entry.status == BloodVaultStatus.Alive).ToList();
 		foreach (var character in existingCharaters)
 		{
-			SpawnCharacter(recruitPrefabs[Random.Range(0, recruitPrefabs.Count)], character.identity);
+			var spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)];
+			spawnPoints.Remove(spawnPoint);
+
+			SpawnCharacter(spawnPoint, recruitPrefabs[Random.Range(0, recruitPrefabs.Count)], character.identity);
 			recruitmentCount--;
 		}
 
 		// Spawn new random characters if there is still space
 		for (int i = 0; i < recruitmentCount; i++)
 		{
+			var spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)];
+			spawnPoints.Remove(spawnPoint);
+
 			var recruitData = new Identity();
 			recruitData.Randomize();
 
-			SpawnCharacter(recruitPrefabs[Random.Range(0, recruitPrefabs.Count)], recruitData);
+			SpawnCharacter(spawnPoint, recruitPrefabs[Random.Range(0, recruitPrefabs.Count)], recruitData);
 		}
 	}
 
 	// Private Methods
-	private void SpawnCharacter(RecruitCharacter prefab, Identity identity)
+	private void SpawnCharacter(Transform parent, RecruitCharacter prefab, Identity identity)
 	{
-		var spawnPosition = transform.position + (Vector3)(Random.insideUnitCircle * 5f);
-		var recruitInstance = Instantiate(prefab, spawnPosition, Quaternion.identity);
+		var recruitInstance = Instantiate(prefab, parent);
 
 		recruitInstance.identity = identity;
 		recruitInstance.startIdle = true;
