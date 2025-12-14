@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 1558805701997324133}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.24977069, z: -0, w: 0.96830505}
-  m_LocalPosition: {x: 0.713, y: 0, z: 2.312}
+  m_LocalPosition: {x: 0.67, y: 0, z: 2.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -144,7 +144,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Building
   idlePositions:
-  - {fileID: 3679835869357636661}
+  - position: {fileID: 3679835869357636661}
+    animationIndex: 0
 --- !u!114 &7384509399726886953
 MonoBehaviour:
   m_ObjectHideFlags: 0

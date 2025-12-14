@@ -81,7 +81,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BloodVault
   idlePositions:
-  - {fileID: 3347079217110173040}
+  - position: {fileID: 3347079217110173040}
+    animationIndex: 0
 --- !u!114 &6542057350714584170
 MonoBehaviour:
   m_ObjectHideFlags: 0

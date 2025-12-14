@@ -111,8 +111,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Building
   idlePositions:
-  - {fileID: 8759376058095211582}
-  - {fileID: 1788977639682078976}
+  - position: {fileID: 8759376058095211582}
+    animationIndex: 0
+  - position: {fileID: 1788977639682078976}
+    animationIndex: 0
 --- !u!114 &6377368509034027274
 MonoBehaviour:
   m_ObjectHideFlags: 0

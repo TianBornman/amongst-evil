@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Midevil.Models;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Building : MonoBehaviour, IInteractable
@@ -21,7 +22,7 @@ public class Building : MonoBehaviour, IInteractable
 
 	// Editor Variables
 	[Header("References")]
-	public List<Transform> idlePositions;
+	public List<IdlePosition> idlePositions = new();
 
 	// Private Variables
 	private Outline outline;
@@ -31,5 +32,17 @@ public class Building : MonoBehaviour, IInteractable
 	{
 		outline = GetComponent<Outline>();
 		outline.enabled = false;
+	}
+
+	private void OnDrawGizmosSelected()
+	{
+		Gizmos.color = Color.green;
+
+		foreach (var position in idlePositions) 
+		{
+			if (position.position == null) continue;
+
+			Gizmos.DrawSphere(position.position.position, 0.1f);
+		}
 	}
 }

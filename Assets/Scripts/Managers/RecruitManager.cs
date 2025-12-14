@@ -18,7 +18,7 @@ public class RecruitManager : Singleton<RecruitManager>
 
 		var recruitmentCount = Random.Range(2, 5);
 		var allBuildings = FindObjectsByType<Building>(FindObjectsSortMode.None);
-		var spawnPoints = new List<Transform>();
+		var spawnPoints = new List<IdlePosition>();
 
 		foreach (var building in allBuildings)
 			spawnPoints.AddRange(building.idlePositions);
@@ -48,11 +48,12 @@ public class RecruitManager : Singleton<RecruitManager>
 	}
 
 	// Private Methods
-	private void SpawnCharacter(Transform parent, RecruitCharacter prefab, Identity identity)
+	private void SpawnCharacter(IdlePosition idlePosition, RecruitCharacter prefab, Identity identity)
 	{
-		var recruitInstance = Instantiate(prefab, parent);
+		var recruitInstance = Instantiate(prefab, idlePosition.position);
 
 		recruitInstance.identity = identity;
 		recruitInstance.startIdle = true;
+		recruitInstance.animationIndex = idlePosition.animationIndex;
 	}
 }
