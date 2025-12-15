@@ -9,7 +9,6 @@ public class SpawnManager : Singleton<SpawnManager>
 	[Header("References")]
 	public List<Encounter> encounters;
 	public List<Encounter> bossEncounters;
-	public List<MapSegment> segments;
 
 	[Header("Settings")]
 	public float width;
@@ -21,7 +20,6 @@ public class SpawnManager : Singleton<SpawnManager>
 
 	// Public Variables
 	[HideInInspector] public List<Character> spawnedCharacters = new();
-	[HideInInspector] public MapSegment currentSegment;
 
 	// Public Methods
 	public void RemoveCharacter(Character character)
@@ -34,7 +32,6 @@ public class SpawnManager : Singleton<SpawnManager>
 			{
 				PartyManager.Instance.CalculateStats();
 				UiManager.Instance.ShowResults();
-				SpawnMapSegment();
 			}
 			else
 				SpawnBoss();
@@ -46,8 +43,6 @@ public class SpawnManager : Singleton<SpawnManager>
 	{
 		if (GameManager.Instance.AtHub)
 			return;
-
-		currentSegment = FindFirstObjectByType<MapSegment>();
 
 		spawnedCharacters.Clear();
 		SpawnWave();
@@ -70,7 +65,7 @@ public class SpawnManager : Singleton<SpawnManager>
 			{
 				float x = Random.Range(-width / 2f, width / 2f);
 				float z = Random.Range(-length / 2f, length / 2f);
-				center = new Vector3(x, 0, z) + currentSegment.transform.position;
+				center = new Vector3(x, 0, z);
 
 				attempts++;
 			}
@@ -96,36 +91,8 @@ public class SpawnManager : Singleton<SpawnManager>
 	private void SpawnBoss()
 	{
 		var bossEncounter = bossEncounters[Random.Range(0, bossEncounters.Count)];
-		bossEncounter.Spawn(currentSegment.transform.position);
+		bossEncounter.Spawn(Vector3.zero);
 
 		bossSpawned = true;
-	}
-
-	private void SpawnMapSegment()
-	{
-		MapSegment mapSegment = segments[Random.Range(0, segments.Count)];
-		float randomYRotation = 90f * Random.Range(1, 4);
-
-		Vector3 spawnPos = currentSegment.transform.forward * 110;
-		MapSegment newSegment = Instantiate(mapSegment, spawnPos, Quaternion.Euler(0, randomYRotation, 0));
-
-		CreateNavLink(currentSegment.connectionPoint.position, 
-			currentSegment.connectionPoint.position + currentSegment.connectionPoint.forward * 5f);
-		currentSegment = newSegment;
-	}
-
-	private void CreateNavLink(Vector3 start, Vector3 end)
-	{
-		GameObject linkObj = new("NavLink");
-		var link = linkObj.AddComponent<NavMeshLink>();
-
-		link.startPoint = linkObj.transform.InverseTransformPoint(start);
-		link.endPoint = linkObj.transform.InverseTransformPoint(end);
-		link.width = 2.0f;
-		link.bidirectional = true;
-
-		//linkObj.transform.position = (start + end) / 2f;
-
-		link.UpdateLink();
 	}
 }
