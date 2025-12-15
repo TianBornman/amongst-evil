@@ -1,7 +1,8 @@
 using System.Collections.Generic;
-using Unity.AI.Navigation;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class SpawnManager : Singleton<SpawnManager>
 {
@@ -9,6 +10,8 @@ public class SpawnManager : Singleton<SpawnManager>
 	[Header("References")]
 	public List<Encounter> encounters;
 	public List<Encounter> bossEncounters;
+	public SpawnPoint partySpawnPoint;
+	public List<SpawnPoint> encounterSpawnPoints;
 
 	[Header("Settings")]
 	public float width;
@@ -44,6 +47,11 @@ public class SpawnManager : Singleton<SpawnManager>
 		if (GameManager.Instance.AtHub)
 			return;
 
+		var spawnPoints = FindObjectsByType<SpawnPoint>(FindObjectsSortMode.None);
+
+		partySpawnPoint = spawnPoints.FirstOrDefault(spawn => spawn.partySpawnPoint);
+		encounterSpawnPoints = spawnPoints.Where(spawn => !spawn.partySpawnPoint).ToList();
+
 		spawnedCharacters.Clear();
 		SpawnWave();
 	}
@@ -54,38 +62,15 @@ public class SpawnManager : Singleton<SpawnManager>
 		spawnedCharacters.Clear();
 
 		int encounterCount = Random.Range(minEncounters, minEncounters + 1);
-		List<Vector3> encounterCenters = new();
 
 		for (int i = 0; i < encounterCount; i++)
 		{
-			Vector3 center;
-			int attempts = 0;
+			var spawnPoint = encounterSpawnPoints[Random.Range(0, encounterSpawnPoints.Count)];
+			encounterSpawnPoints.Remove(spawnPoint);
 
-			do
-			{
-				float x = Random.Range(-width / 2f, width / 2f);
-				float z = Random.Range(-length / 2f, length / 2f);
-				center = new Vector3(x, 0, z);
-
-				attempts++;
-			}
-			while (attempts < 100 && TooClose(center, encounterCenters));
-
-			encounterCenters.Add(center);
-
-			var pack = encounters[Random.Range(0, encounters.Count)];
-			pack.Spawn(center);
+			var encounter = encounters[Random.Range(0, encounters.Count)];
+			encounter.Spawn(spawnPoint.GetSpawnPoint());
 		}
-	}
-
-	private bool TooClose(Vector3 pos, List<Vector3> existing)
-	{
-		foreach (var other in existing)
-		{
-			if (Vector3.Distance(pos, other) < minDistance)
-				return true;
-		}
-		return false;
 	}
 
 	private void SpawnBoss()
