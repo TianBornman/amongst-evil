@@ -592,7 +592,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4587043758673760684, guid: 602967f6d33329244bd6a0b980669f33, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.64
+      value: 4.57
       objectReference: {fileID: 0}
     - target: {fileID: 4587043758673760684, guid: 602967f6d33329244bd6a0b980669f33, type: 3}
       propertyPath: m_LocalPosition.y
@@ -600,7 +600,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4587043758673760684, guid: 602967f6d33329244bd6a0b980669f33, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.33
+      value: 7.4
       objectReference: {fileID: 0}
     - target: {fileID: 4587043758673760684, guid: 602967f6d33329244bd6a0b980669f33, type: 3}
       propertyPath: m_LocalRotation.w
@@ -629,6 +629,10 @@ PrefabInstance:
     - target: {fileID: 4587043758673760684, guid: 602967f6d33329244bd6a0b980669f33, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7515381616269231367, guid: 602967f6d33329244bd6a0b980669f33, type: 3}
+      propertyPath: m_Range
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1253,7 +1257,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2020498263}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
   m_Name: 
