@@ -1,4 +1,5 @@
 using Midevil.Camera.States;
+using Unity.Cinemachine;
 using UnityEngine;
 
 namespace Midevil.Camera
@@ -6,14 +7,12 @@ namespace Midevil.Camera
 	public class CameraMovement : StateMachine
 	{
 		public Transform partyCenter;
+		public CinemachineInputAxisController axisController;
 
-		public CameraSettings exploreSettings;
-		public CameraSettings combatSettings;
-
-		[HideInInspector] public CameraSettings active;
-		[HideInInspector] public CameraSettings targetSettings;
-
-		public Transform followTarget;
+		private void Awake()
+		{
+			axisController = FindFirstObjectByType<CinemachineInputAxisController>();
+		}
 
 		private void Start()
 		{

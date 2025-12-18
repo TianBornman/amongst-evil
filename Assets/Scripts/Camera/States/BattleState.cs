@@ -16,15 +16,13 @@ namespace Midevil.Camera.States
 
 		public void Enter()
 		{
-			camera.targetSettings = camera.combatSettings;
 		}
 
 		public void Exit() { }
 
 		public void Update()
 		{
-			camera.active = CameraHelpers.LerpSettings(camera.active, camera.targetSettings, Time.deltaTime * 2);
-			CameraHelpers.MoveCamera(camera);
+
 		}
 	}
 }
