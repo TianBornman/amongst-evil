@@ -8,7 +8,7 @@ public class GameManager : Singleton<GameManager>
 	private bool isGamePaused = false;
 
 	// Public Properties
-	public bool AtMenu { get => atMenu; }
+	public bool AtMainMenu { get => atMenu; }
 	public bool AtHub { get => atHub; }
 	public bool IsGamePaused { get => isGamePaused; }
 

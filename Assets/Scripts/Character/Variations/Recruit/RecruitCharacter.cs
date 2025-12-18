@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.Cinemachine;
+using UnityEngine;
 
 public class RecruitCharacter : Character
 {
@@ -14,5 +15,5 @@ public class RecruitCharacter : Character
 
 	// Editor Variables
 	[Header("Recruit Character")]
-	public Transform cameraPos;
+	public CinemachineCamera cam;
 }

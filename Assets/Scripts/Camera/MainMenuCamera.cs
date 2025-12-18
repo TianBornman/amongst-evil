@@ -3,24 +3,23 @@ using UnityEngine;
 public class MainMenuCamera : MonoBehaviour
 {
 	// Editor Variables
+	[Header("References")]
 	public Transform hubPosition;
 
-	// Public Variables
-	[HideInInspector] public Transform targetPosition;
+	// Private Variables
+	private Quaternion initalRotation;
 
 	// Private Methods
+	private void Start()
+	{
+		initalRotation = hubPosition.rotation;
+	}
+
 	private void Update()
 	{
-		if (GameManager.Instance.AtMenu)
-			transform.Rotate(Vector3.up, 10f * Time.deltaTime);
+		if (GameManager.Instance.AtMainMenu)
+			hubPosition.Rotate(Vector3.up, 10f * Time.deltaTime);
 		else
-		{
-			if (targetPosition == null)
-				return;
-
-			transform.SetPositionAndRotation(
-				Vector3.Lerp(transform.position, targetPosition.position, Time.deltaTime), 
-				Quaternion.Slerp(transform.rotation, targetPosition.rotation, Time.deltaTime));
-		}
+			hubPosition.rotation = Quaternion.Slerp(hubPosition.rotation, initalRotation, Time.deltaTime);
 	}
 }

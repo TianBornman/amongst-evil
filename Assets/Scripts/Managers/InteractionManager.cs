@@ -28,7 +28,7 @@ public class InteractionManager : Singleton<InteractionManager>
 
 	private void Update()
 	{
-		if (GameManager.Instance.IsGamePaused || GameManager.Instance.AtMenu)
+		if (GameManager.Instance.IsGamePaused || GameManager.Instance.AtMainMenu)
 			return;
 
 		Vector2 mousePos = Mouse.current.position.ReadValue();

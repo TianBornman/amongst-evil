@@ -1,4 +1,5 @@
 using Midevil.Item;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,7 +9,7 @@ public class HubManager : Singleton<HubManager>
 	[HideInInspector] public Character currentCharacter;
 
 	// Private Variables
-	private MainMenuCamera mainMenuCamera;
+	private CinemachineCamera currentCamera;
 
 	// Override Methods
 	protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -19,9 +20,7 @@ public class HubManager : Singleton<HubManager>
 		if (!GameManager.Instance.AtHub)
 			return;
 
-		mainMenuCamera = FindFirstObjectByType<MainMenuCamera>();
-
-		if (!GameManager.Instance.AtMenu)
+		if (!GameManager.Instance.AtMainMenu)
 			StartGame();
 	}
 
@@ -30,8 +29,6 @@ public class HubManager : Singleton<HubManager>
 	{
 		HubUiManager.Instance.ShowRecruitmentUI();
 		GameManager.Instance.LeaveMenu();
-
-		mainMenuCamera.targetPosition = mainMenuCamera.hubPosition;
 	}
 
 	public void StartRun()
@@ -52,7 +49,7 @@ public class HubManager : Singleton<HubManager>
 		PartyManager.Instance.RecruitPartyMember(recruitCharacter.identity);
 		HubUiManager.Instance.UpdateRecruitmentUI(recruitCharacter);
 
-		ZoomOnTransform(recruitCharacter.cameraPos);
+		ZoomOnTransform(recruitCharacter.cam);
 	}
 
 	public void EquipItem(ItemStats item)
@@ -83,15 +80,21 @@ public class HubManager : Singleton<HubManager>
 		if (!GameManager.Instance.AtHub)
 			return;
 
-		mainMenuCamera.targetPosition = mainMenuCamera.hubPosition;
+		if (currentCamera != null)
+			currentCamera.enabled = false;
+
 		currentCharacter = null;
 		HubUiManager.Instance.HideBloodVaultUI();
 		HubUiManager.Instance.HideRecruitArmouryUI();
 		HubUiManager.Instance.HideRecruitGearUI();
 	}
 
-	private void ZoomOnTransform(Transform transform)
+	private void ZoomOnTransform(CinemachineCamera camera)
 	{
-		mainMenuCamera.targetPosition = transform;
+		if (currentCamera != null) 
+			currentCamera.enabled = false;
+
+		camera.enabled = true;
+		currentCamera = camera;
 	}
 }

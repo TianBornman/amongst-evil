@@ -1,4 +1,5 @@
 ﻿using System;
+using Unity.Cinemachine;
 using UnityEngine;
 
 namespace Midevil.Models
@@ -7,6 +8,7 @@ namespace Midevil.Models
 	public class IdlePosition
 	{
 		public Transform position;
+		public CinemachineCamera camera;
 		public int animationIndex;
 	}
 }

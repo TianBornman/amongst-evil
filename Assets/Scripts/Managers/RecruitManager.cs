@@ -54,6 +54,7 @@ public class RecruitManager : Singleton<RecruitManager>
 
 		recruitInstance.identity = identity;
 		recruitInstance.startIdle = true;
+		recruitInstance.cam = idlePosition.camera;
 		recruitInstance.animationIndex = idlePosition.animationIndex;
 	}
 }
