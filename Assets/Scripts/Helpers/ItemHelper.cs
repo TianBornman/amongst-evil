@@ -18,6 +18,8 @@ namespace Midevil.Helpers
 				name = original.name,
 				description = original.description,
 				type = original.type,
+				attackType = original.attackType,
+				projectile = original.projectile,
 				icon = original.icon,
 				visual = original.visual,
 				animationType = original.animationType,

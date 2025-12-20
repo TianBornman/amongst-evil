@@ -85,6 +85,8 @@ MonoBehaviour:
     name: Wooden Bow
     description: And old and rusty sword, better than fists i suppose
     type: 5
+    attackType: 1
+    projectile: {fileID: -3272758706898936770, guid: a61b0d0ad2e52c24bb7bd4d59b6c3093, type: 3}
     icon: {fileID: 2800000, guid: fc1145cc7990352419b4b0c9a4967e3c, type: 3}
     visual: {fileID: 919132149155446097, guid: 0b5487cb50c57fd4795690e46e7e73af, type: 3}
     animationType: 4
@@ -108,6 +110,7 @@ MonoBehaviour:
         moveSpeed: 0
         xpValue: 0
         scalingFactor: 1.1
+        projectile: {fileID: 0}
     abilityIndex: 0
     effects: []
     effectIndex: 0

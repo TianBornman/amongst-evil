@@ -13,6 +13,8 @@ namespace Midevil.Item
 		public string name;
 		[TextArea] public string description;
 		public ItemType type;
+		public AttackType attackType;
+		public Projectile projectile;
 		public Texture2D icon;
 		public GameObject visual;
 		public ItemAnimationType animationType;

@@ -1,5 +1,4 @@
 using Midevil.Helpers;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -44,6 +43,5 @@ namespace Midevil.Item
 
 			ItemHelper.Setup(stats, noEffectWeight, possibleEffects);
 		}
-		
 	}
 }

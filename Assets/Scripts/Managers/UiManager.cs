@@ -53,12 +53,16 @@ public class UiManager : Singleton<UiManager>
 													   .Query<VisualElement>("CharacterPanel").ToList();
 		var characterStats = statsUi.rootVisualElement.Q<VisualElement>("CharacterPanels")
 													  .Query<VisualElement>("Stats").ToList();
+		var characterMiniDashboards = gameUi.rootVisualElement.Q<VisualElement>("MiniDashboards")
+														   .Query<TemplateContainer>().ToList();
+
 		var identities = PartyManager.Instance.partyIdentities;
 
 		for (int i = 0; i < identities.Count; i++)
 		{
 			var panel = characterPanels[i];
 			var stats = characterStats[i];
+			var miniDashboard = characterMiniDashboards[i];
 			var identity = identities[i];
 
 			panel.name = identity.id.ToString();
@@ -76,6 +80,8 @@ public class UiManager : Singleton<UiManager>
 				stats.AddToClassList("hidden");
 				panel.RemoveFromClassList("hidden");
 			});
+
+			miniDashboard.name = identity.id.ToString();
 
 			foreach (var item in panel.Query<ItemElement>().ToList())
 				item.CharacterId = identity.id;
@@ -101,6 +107,7 @@ public class UiManager : Singleton<UiManager>
 
 		statsUi.rootVisualElement.Q<VisualElement>($"{character.identity.id}").dataSource = character;
 		statsUi.rootVisualElement.Q<VisualElement>($"{character.identity.id}-stats").dataSource = character;
+		gameUi.rootVisualElement.Q<TemplateContainer>($"{character.identity.id}").dataSource = character;
 
 		var bars = statsUi.rootVisualElement.Q<VisualElement>(character.identity.id.ToString()).Q<VisualElement>("Bars");
 		bars.dataSource = character;
@@ -122,18 +129,15 @@ public class UiManager : Singleton<UiManager>
 
 	public void BindAbility(int index, Ability ability)
 	{
-		var abilityElement = gameUi.rootVisualElement.Q<VisualElement>("Abilities").Query<AbilityElement>().ToList();
-
-		if (index < 0 || index >= abilityElement.Count)
-			return;
+		var abilityElement = gameUi.rootVisualElement.Query<AbilityElement>().ToList();
 
 		abilityElement[index].dataSource = ability;
 
-		var borderColor = new StyleColor(((PartyCharacter)ability.owner).color);
-		abilityElement[index].style.borderTopColor = borderColor;
-		abilityElement[index].style.borderRightColor = borderColor;
-		abilityElement[index].style.borderLeftColor = borderColor;
-		abilityElement[index].style.borderBottomColor = borderColor;
+		//var borderColor = new StyleColor(((PartyCharacter)ability.owner).color);
+		//abilityElement[index].style.borderTopColor = borderColor;
+		//abilityElement[index].style.borderRightColor = borderColor;
+		//abilityElement[index].style.borderLeftColor = borderColor;
+		//abilityElement[index].style.borderBottomColor = borderColor;
 	}
 
 	public void ClearAbility(int index)

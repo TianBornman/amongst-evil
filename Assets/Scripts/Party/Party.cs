@@ -3,6 +3,7 @@ using Midevil.Camera;
 using Midevil.Helpers;
 using Midevil.Models;
 using Midevil.Party.States;
+using NUnit.Framework.Constraints;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -19,7 +20,7 @@ namespace Midevil.Party
 		public List<PartyCharacter> members = new();
 
 		// Public Variables
-		[HideInInspector] public AbilitySlot[] abilitySlots = new AbilitySlot[6];
+		[HideInInspector] public List<AbilitySlot> abilitySlots = new();
 		[HideInInspector] public CameraMovement cameraMovement;
 
 		// Private Variables
@@ -37,6 +38,8 @@ namespace Midevil.Party
 			newMember.SetIndicatorColor(ColorHelper.GetPartyColor(members.Count));
 
 			members.Add(newMember);
+			abilitySlots.Add(new AbilitySlot() { slotIndex = abilitySlots.Count, character = newMember });
+			abilitySlots.Add(new AbilitySlot() { slotIndex = abilitySlots.Count, character = newMember });
 		}
 
 		public void RemoveMember(PartyCharacter character)
@@ -79,13 +82,12 @@ namespace Midevil.Party
 
 		public void BindAbility(Ability.Ability ability, PartyCharacter character)
 		{
-			for (int i = 0; i < abilitySlots.Length; i++)
+			for (int i = 0; i < abilitySlots.Count; i++)
 			{
-				if (abilitySlots[i].HasAbility)
+				if (abilitySlots[i].HasAbility || abilitySlots[i].character != character)
 					continue;
 
 				abilitySlots[i].abilityId = ability.id;
-				abilitySlots[i].character = character;
 
 				UiManager.Instance.BindAbility(i, ability);
 				break;
@@ -107,9 +109,6 @@ namespace Midevil.Party
 
 		private void Start()
 		{
-			for (int i = 0; i < abilitySlots.Length; i++)
-				abilitySlots[i].slotIndex = i;
-
 			SetState(new ExploreState(this));
 			UiManager.Instance.UpdateCharacterPanels();
 

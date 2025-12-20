@@ -175,19 +175,7 @@ MonoBehaviour:
   waypoint: {fileID: 8449520283702531535}
   partyCenter: {fileID: 7160256037793223378}
   members: []
-  abilitySlots:
-  - slotIndex: 0
-    character: {fileID: 0}
-  - slotIndex: 0
-    character: {fileID: 0}
-  - slotIndex: 0
-    character: {fileID: 0}
-  - slotIndex: 0
-    character: {fileID: 0}
-  - slotIndex: 0
-    character: {fileID: 0}
-  - slotIndex: 0
-    character: {fileID: 0}
+  abilitySlots: []
   cameraMovement: {fileID: 0}
 --- !u!1 &7049170581101236844
 GameObject:

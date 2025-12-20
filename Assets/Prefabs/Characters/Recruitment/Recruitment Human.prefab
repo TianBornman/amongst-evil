@@ -73,6 +73,7 @@ MonoBehaviour:
     moveSpeed: 0
     xpValue: 0
     scalingFactor: 1.1
+    projectile: {fileID: 0}
   baseStats:
     level: 0
     currentXp: 0
@@ -92,6 +93,7 @@ MonoBehaviour:
     moveSpeed: 1
     xpValue: 0
     scalingFactor: 1.1
+    projectile: {fileID: 0}
   team: 0
   targetTeams: 
   buffs: []
@@ -117,6 +119,7 @@ MonoBehaviour:
       hits: 0
       criticalHits: 0
       abilitiesUsed: 0
+  startIdle: 0
   target: {fileID: 0}
   targets: []
   idlePos: {fileID: 0}
@@ -126,7 +129,8 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   agent: {fileID: 0}
   animator: {fileID: 0}
-  cameraPos: {fileID: 7520627762888410576}
+  animationIndex: 0
+  cam: {fileID: 0}
 --- !u!114 &7246356993931102507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,8 +186,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1484f1d4be147c4cb42b1f0a04770b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthbarVisual
+  canvasGroup: {fileID: 2663827903507813405}
   healthBar: {fileID: 2353809940970302395}
   healthBarFront: {fileID: 4799410822057515368}
+  visibleDuration: 2
+  fadeSpeed: 5
 --- !u!114 &5479236539335497120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,7 +296,7 @@ GameObject:
   - component: {fileID: 2353809940970302395}
   - component: {fileID: 1442359482978402373}
   - component: {fileID: 4525219825639974821}
-  - component: {fileID: 1959943708122312544}
+  - component: {fileID: 2663827903507813405}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -364,23 +371,18 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 100
   m_PresetInfoIsWorld: 1
---- !u!114 &1959943708122312544
-MonoBehaviour:
+--- !u!225 &2663827903507813405
+CanvasGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2451589408796437974}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
-  m_IgnoreReversedGraphics: 0
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 0
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &2547646392640143150
 GameObject:
   m_ObjectHideFlags: 0

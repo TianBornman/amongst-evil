@@ -80,6 +80,7 @@ public class CharacterEquipment : MonoBehaviour
 
 				character.identity.weapon = item;
 				character.identity.weaponConfig.Set(item);
+				character.stats.projectile = item.projectile;
 
 				Instantiate(item.visual, weaponPos);
 				UpdateAnimations(item.animationType);

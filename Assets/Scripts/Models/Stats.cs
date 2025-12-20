@@ -24,6 +24,7 @@ public class Stats
 	public float moveSpeed;
 	public float xpValue;
 	public float scalingFactor = 1.10f;
+	public Projectile projectile;
 
 	public void Recalculate(Stats baseStats, List<Buff> buffs)
 	{

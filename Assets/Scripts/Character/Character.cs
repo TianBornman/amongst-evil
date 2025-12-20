@@ -156,15 +156,13 @@ public class Character : StateMachine, IInteractable
 
 	public void Attack()
 	{
-		if (target == null || !target.IsAlive)
-			SetState(new MoveState(this));
+		var executor = AttackExecutorResolver.Resolve(identity.weapon);
 
-		foreach (var buff in currentEffects)
-			if (buff is IOnHit onHit)
-				onHit.OnHit(this, target, stats.damage);
-
-		transform.LookAt(target.transform);
-		target.Damage(this, stats.damage, stats.critChance, stats.critDamage);
+		executor.ExecuteAttack(new AttackContext
+		{
+			attacker = this,
+			target = target,
+		});
 	}
 
 	public virtual void ReevaluateTarget()

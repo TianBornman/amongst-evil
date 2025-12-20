@@ -20,7 +20,6 @@ namespace Midevil.Ability
 		public void Clear()
 		{
 			abilityId = Guid.Empty;
-			character = null;
 			UiManager.Instance.ClearAbility(slotIndex);
 		}
 	}
