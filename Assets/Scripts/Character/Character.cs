@@ -10,7 +10,6 @@ using UnityEngine.AI;
 [RequireComponent(typeof(CharacterAbilities))]
 [RequireComponent(typeof(CharacterEffects))]
 [RequireComponent(typeof(CharacterEquipment))]
-[RequireComponent(typeof(HealthbarVisual))]
 public class Character : StateMachine, IInteractable
 {
 	#region Interactable
@@ -119,7 +118,9 @@ public class Character : StateMachine, IInteractable
 		DamageNumberManager.Instance.ShowDamage(transform.position + Vector3.up * 1.5f, Mathf.Abs(damage), Color.red);
 
 		stats.health = Mathf.Clamp(stats.health - damage, 0, stats.maxHealth);
-		healthBar.SetHealth(stats.health, stats.maxHealth);
+
+		if (healthBar)
+			healthBar.SetHealth(stats.health, stats.maxHealth);
 
 		foreach (var buff in currentEffects)
 			if (buff is IOnTakeHit onTakeHit)
@@ -149,7 +150,9 @@ public class Character : StateMachine, IInteractable
 		DamageNumberManager.Instance.ShowDamage(transform.position + Vector3.up * 1.5f, Mathf.Abs(amount), Color.green);
 
 		stats.health = Mathf.Clamp(stats.health + amount, 0, stats.maxHealth);
-		healthBar.SetHealth(stats.health, stats.maxHealth);
+
+		if (healthBar)
+			healthBar.SetHealth(stats.health, stats.maxHealth);
 
 		identity.currentResult.healed += amount;
 	}
@@ -184,7 +187,9 @@ public class Character : StateMachine, IInteractable
 		var size = new Vector3(stats.size, stats.size, stats.size);
 		transform.localScale = size;
 
-		healthBar.SetHealth(stats.health, stats.maxHealth);
+		if (healthBar)
+			healthBar.SetHealth(stats.health, stats.maxHealth);
+
 		animator.SetFloat("AttackSpeed", stats.attackSpeed);
 	}
 
