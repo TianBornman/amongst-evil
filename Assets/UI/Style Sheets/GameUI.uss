@@ -1,27 +1,22 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #MiniDashboards > TemplateContainer {
     flex-basis: 0;
     flex-grow: 1;
     margin-bottom: 10px;
+}
+
+#MapDetails > Label {
+    color: rgb(255, 255, 255);
+    -unity-font-definition: url("project://database/Assets/Fonts/MedodicaRegular.otf?fileID=12800000&guid=a8d6cacb785c6b34a988a195851fb3cb&type=3#MedodicaRegular");
+    font-size: 30px;
+    flex-basis: 0;
+    flex-grow: 1;
+    -unity-text-align: middle-center;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
 }

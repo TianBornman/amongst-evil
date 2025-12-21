@@ -96,6 +96,11 @@ public class UiManager : Singleton<UiManager>
 		var continueButton = resultsUi.rootVisualElement.Q<Button>("Continue");
 		continueButton.clicked += Die;
 		continueButton.visible = false;
+
+		// Game UI
+		gameUi.rootVisualElement.Q<Label>("Map").text = GameManager.Instance.MapName;
+		SetEnemiesText(SpawnManager.Instance.spawnedCharacters.Count, SpawnManager.Instance.spawnedCharacters.Count);
+		SetBossText("In Lair");
 	}
 
 	// Public Methods
@@ -250,6 +255,18 @@ public class UiManager : Singleton<UiManager>
 		resultsUi.rootVisualElement.Q<Button>("Continue").visible = true;
 		resultsUi.rootVisualElement.Q<Button>("Flee").visible = false;
 		resultsUi.rootVisualElement.Q<Button>("FightOn").visible = false;
+	}
+
+	public void SetEnemiesText(int enemiesRemaining, int totalEnemies)
+	{
+		var enemiesLabel = gameUi.rootVisualElement.Q<Label>("Enemies");
+		enemiesLabel.text = $"Enemies: {enemiesRemaining}/{totalEnemies}";
+	}
+
+	public void SetBossText(string text)
+	{
+		var enemiesLabel = gameUi.rootVisualElement.Q<Label>("Boss");
+		enemiesLabel.text = $"Boss: {text}";
 	}
 
 	// Private Methods

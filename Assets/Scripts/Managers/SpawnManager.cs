@@ -24,10 +24,15 @@ public class SpawnManager : Singleton<SpawnManager>
 	// Public Variables
 	[HideInInspector] public List<Character> spawnedCharacters = new();
 
+	// Private Variables
+	private int totalEnemies;
+
 	// Public Methods
 	public void RemoveCharacter(Character character)
 	{
 		spawnedCharacters.Remove(character);
+
+		UiManager.Instance.SetEnemiesText(spawnedCharacters.Count, totalEnemies);
 
 		if (spawnedCharacters.Count <= 0)
 		{
@@ -72,6 +77,8 @@ public class SpawnManager : Singleton<SpawnManager>
 			var encounter = encounters[Random.Range(0, encounters.Count)];
 			encounter.Spawn(spawnPoint.GetSpawnPoint());
 		}
+
+		totalEnemies = spawnedCharacters.Count;
 	}
 
 	private void SpawnBoss()
@@ -81,6 +88,7 @@ public class SpawnManager : Singleton<SpawnManager>
         var bossEncounter = bossEncounters[Random.Range(0, bossEncounters.Count)];
 		bossEncounter.Spawn(spawnPoint.GetSpawnPoint());
 
+		UiManager.Instance.SetBossText("Roaming");
 		bossSpawned = true;
 	}
 }

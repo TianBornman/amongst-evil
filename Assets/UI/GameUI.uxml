@@ -1,7 +1,12 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:Template name="Character Mini Dashboard" src="project://database/Assets/UI/Elements/Character%20Mini%20Dashboard.uxml?fileID=9197481963319205126&amp;guid=ebb7e3ee020e2d84289df2b11140c34f&amp;type=3#Character Mini Dashboard"/>
     <Style src="project://database/Assets/UI/Style%20Sheets/GameUI.uss?fileID=7433441132597879392&amp;guid=770ca3aa6f2d05f4db9808749135ea23&amp;type=3#GameUI"/>
-    <ui:VisualElement name="MiniDashboards" style="flex-grow: 1; width: 30%; margin-top: auto; max-height: 300px; padding-left: 10px;">
+    <ui:VisualElement name="MapDetails" style="flex-grow: 1; position: relative; width: 100%; margin-left: auto; margin-right: auto; max-height: 75px; flex-direction: row; padding-left: 15px; padding-right: 15px;">
+        <ui:Label text="Label" name="Map" style="-unity-text-align: middle-left;"/>
+        <ui:Label text="Label" name="Enemies"/>
+        <ui:Label text="Label" name="Boss" style="-unity-text-align: middle-right;"/>
+    </ui:VisualElement>
+    <ui:VisualElement name="MiniDashboards" style="flex-grow: 1; width: 600px; margin-top: auto; max-height: 300px; padding-left: 10px; position: absolute; bottom: 0; min-height: 300px;">
         <ui:Instance template="Character Mini Dashboard"/>
         <ui:Instance template="Character Mini Dashboard"/>
         <ui:Instance template="Character Mini Dashboard"/>

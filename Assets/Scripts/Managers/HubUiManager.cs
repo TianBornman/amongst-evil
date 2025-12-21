@@ -14,6 +14,12 @@ public class HubUiManager : Singleton<HubUiManager>
 	public UIDocument armouryUiPrefab;
 	public UIDocument settingsUiPrefab;
 
+	// Public Variables
+	public bool BloodVaultOpen => bloodVaultUi.rootVisualElement.visible;
+	public bool ArmouryOpen => recruitmentArmouryUi.visible || recruitmentGearUi.visible;
+	public bool SettingsOpen => settingsUi.rootVisualElement.visible;
+
+	// Private Variables
 	private UIDocument mainMenuUi;
 	private UIDocument recruitmentUi;
 	private VisualElement recruitmentArmouryUi;

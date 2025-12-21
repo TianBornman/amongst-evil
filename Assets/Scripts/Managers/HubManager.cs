@@ -84,10 +84,18 @@ public class HubManager : Singleton<HubManager>
 			currentCamera.enabled = false;
 
 		currentCharacter = null;
-		HubUiManager.Instance.HideBloodVaultUI();
-		HubUiManager.Instance.HideRecruitArmouryUI();
-		HubUiManager.Instance.HideRecruitGearUI();
-		HubUiManager.Instance.ShowSettingsUI();
+
+		if (HubUiManager.Instance.BloodVaultOpen)
+			HubUiManager.Instance.HideBloodVaultUI();
+		else if (HubUiManager.Instance.ArmouryOpen)
+		{
+			HubUiManager.Instance.HideRecruitArmouryUI();
+			HubUiManager.Instance.HideRecruitGearUI();
+		}
+		else if (HubUiManager.Instance.SettingsOpen)
+			HubUiManager.Instance.HideSettingsUI();
+		else
+			HubUiManager.Instance.ShowSettingsUI();
 	}
 
 	private void ZoomOnTransform(CinemachineCamera camera)
