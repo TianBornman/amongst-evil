@@ -15,6 +15,7 @@ MonoBehaviour:
   encounterName: Zombie Feast
   encounterCharacters:
   - {fileID: 8996435584707828427, guid: 55d7f3e8021e6fd40a7219438764956e, type: 3}
+  - {fileID: 8996435584707828427, guid: a99288e9fee881946a6b1b924b5c4695, type: 3}
   minEnemies: 2
   maxEnemies: 5
   sceneryPrefab: {fileID: 7316901999036503275, guid: 02e3b7e47ca21e94db6cbe89a2a82219, type: 3}

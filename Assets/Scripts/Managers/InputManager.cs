@@ -11,6 +11,7 @@ public class InputManager : Singleton<InputManager>
 	private InputAction escapeInputAction;
 	private InputAction cameraToggleInputAction;
 	private InputAction setPartyTargetInputAction;
+	private InputAction mapViewInputAction;
 
 	// Public Properties
 	public Action MenuToggleAction { get; set; }
@@ -19,6 +20,8 @@ public class InputManager : Singleton<InputManager>
 	public Action EscapeAction { get; set; }
 	public Action CameraToggleAction { get; set; }
 	public Action SetPartyTargetAction { get; set; }
+	public Action MapViewInputActionStarted { get; set; }
+	public Action MapViewInputActionCancelled { get; set; }
 
 	protected override void OnEnable()
 	{
@@ -34,15 +37,19 @@ public class InputManager : Singleton<InputManager>
 		escapeInputAction = inputActions.Player.Escape;
 		cameraToggleInputAction = inputActions.Player.CameraToggle;
 		setPartyTargetInputAction = inputActions.Player.SetPartyTarget;
+        mapViewInputAction = inputActions.Player.MapView;
 
-		inputActions.Enable();
+
+        inputActions.Enable();
 		menuToggleInputAction.performed += OnMenuToggle;
 		abilityInputAction.performed += OnAbility;
 		selectionInputAction.performed += OnSelection;
 		escapeInputAction.performed += OnEscape;
 		cameraToggleInputAction.performed += OnCameraToggle;
 		setPartyTargetInputAction.performed += OnSetPartyTarget;
-	}
+		mapViewInputAction.started += OnMapViewStarted;
+		mapViewInputAction.canceled += OnMapViewCancelled;
+    }
 
 	protected override void OnDisable()
 	{
@@ -57,7 +64,9 @@ public class InputManager : Singleton<InputManager>
 		escapeInputAction.performed -= OnEscape;
 		cameraToggleInputAction.performed -= OnCameraToggle;
 		setPartyTargetInputAction.performed -= OnSetPartyTarget;
-		inputActions.Disable();
+        mapViewInputAction.started -= OnMapViewStarted;
+        mapViewInputAction.canceled -= OnMapViewCancelled;
+        inputActions.Disable();
 	}
 
 	private void OnMenuToggle(InputAction.CallbackContext context)
@@ -88,5 +97,15 @@ public class InputManager : Singleton<InputManager>
 	private void OnSetPartyTarget(InputAction.CallbackContext context)
 	{
 		SetPartyTargetAction?.Invoke();
+	}
+
+	private void OnMapViewStarted(InputAction.CallbackContext context)
+	{
+		MapViewInputActionStarted?.Invoke();
+	}
+
+	private void OnMapViewCancelled(InputAction.CallbackContext context)
+	{
+		MapViewInputActionCancelled?.Invoke();
 	}
 }

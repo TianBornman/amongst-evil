@@ -6,6 +6,12 @@ namespace Midevil.Camera
 {
 	public class CameraMovement : StateMachine
 	{
+		// Editor Variables
+		[Header("References")]
+		public CinemachineCamera partyCamera;
+		public CinemachineCamera mapCamera;
+
+		// Public Variables
 		public Transform partyCenter;
 		public CinemachineInputAxisController axisController;
 

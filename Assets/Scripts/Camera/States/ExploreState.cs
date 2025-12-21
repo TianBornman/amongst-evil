@@ -16,10 +16,15 @@ namespace Midevil.Camera.States
 
 		public void Enter()
 		{
-
+			InputManager.Instance.MapViewInputActionStarted = EnableMapView;
+			InputManager.Instance.MapViewInputActionCancelled = DisableMapView;
 		}
 
-		public void Exit() { }
+		public void Exit() 
+		{
+            InputManager.Instance.MapViewInputActionStarted = null;
+            InputManager.Instance.MapViewInputActionCancelled = null;
+        }
 
 		public void Update()
 		{
@@ -32,5 +37,18 @@ namespace Midevil.Camera.States
 				camera.axisController.enabled = false;
 			}
 		}
+
+		// Private Methods
+		private void EnableMapView()
+		{
+			camera.partyCamera.enabled = false;
+			camera.mapCamera.enabled = true;
+		}
+
+		private void DisableMapView() 
+		{
+            camera.mapCamera.enabled = false;
+            camera.partyCamera.enabled = true;
+        }
 	}
 }

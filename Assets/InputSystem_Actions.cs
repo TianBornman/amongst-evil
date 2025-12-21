@@ -145,6 +145,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MapView"",
+                    ""type"": ""Button"",
+                    ""id"": ""3c1352bb-78e9-4402-a5fe-ad427f38e503"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -255,6 +264,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""SetPartyTarget"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""25f8bd85-e645-488d-8c63-b14ab8bb50b0"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MapView"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -848,6 +868,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Escape = m_Player.FindAction("Escape", throwIfNotFound: true);
         m_Player_CameraToggle = m_Player.FindAction("CameraToggle", throwIfNotFound: true);
         m_Player_SetPartyTarget = m_Player.FindAction("SetPartyTarget", throwIfNotFound: true);
+        m_Player_MapView = m_Player.FindAction("MapView", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -947,6 +968,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Escape;
     private readonly InputAction m_Player_CameraToggle;
     private readonly InputAction m_Player_SetPartyTarget;
+    private readonly InputAction m_Player_MapView;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -982,6 +1004,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/SetPartyTarget".
         /// </summary>
         public InputAction @SetPartyTarget => m_Wrapper.m_Player_SetPartyTarget;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/MapView".
+        /// </summary>
+        public InputAction @MapView => m_Wrapper.m_Player_MapView;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1026,6 +1052,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @SetPartyTarget.started += instance.OnSetPartyTarget;
             @SetPartyTarget.performed += instance.OnSetPartyTarget;
             @SetPartyTarget.canceled += instance.OnSetPartyTarget;
+            @MapView.started += instance.OnMapView;
+            @MapView.performed += instance.OnMapView;
+            @MapView.canceled += instance.OnMapView;
         }
 
         /// <summary>
@@ -1055,6 +1084,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @SetPartyTarget.started -= instance.OnSetPartyTarget;
             @SetPartyTarget.performed -= instance.OnSetPartyTarget;
             @SetPartyTarget.canceled -= instance.OnSetPartyTarget;
+            @MapView.started -= instance.OnMapView;
+            @MapView.performed -= instance.OnMapView;
+            @MapView.canceled -= instance.OnMapView;
         }
 
         /// <summary>
@@ -1397,6 +1429,13 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSetPartyTarget(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "MapView" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMapView(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
