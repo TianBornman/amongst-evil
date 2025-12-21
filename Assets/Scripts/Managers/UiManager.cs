@@ -137,7 +137,10 @@ public class UiManager : Singleton<UiManager>
 	{
 		var abilityElement = gameUi.rootVisualElement.Query<AbilityElement>().ToList();
 
-		abilityElement[index].dataSource = ability;
+        if (index < 0 || index >= abilityElement.Count)
+            return;
+
+        abilityElement[index].dataSource = ability;
 
 		//var borderColor = new StyleColor(((PartyCharacter)ability.owner).color);
 		//abilityElement[index].style.borderTopColor = borderColor;
@@ -148,9 +151,9 @@ public class UiManager : Singleton<UiManager>
 
 	public void ClearAbility(int index)
 	{
-		var abilityElement = gameUi.rootVisualElement.Q<VisualElement>("Abilities").Query<AbilityElement>().ToList();
+        var abilityElement = gameUi.rootVisualElement.Query<AbilityElement>().ToList();
 
-		if (index < 0 || index >= abilityElement.Count)
+        if (index < 0 || index >= abilityElement.Count)
 			return;
 
 		abilityElement[index].dataSource = null;

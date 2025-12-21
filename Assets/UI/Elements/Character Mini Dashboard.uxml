@@ -1,26 +1,26 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI/Style%20Sheets/Character%20Mini%20Dashboard.uss?fileID=7433441132597879392&amp;guid=b8d76ed37981f9b44961b024b9f74001&amp;type=3#Character Mini Dashboard"/>
-    <ui:VisualElement name="Icon" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Icons/Human%20Icon.png?fileID=2800000&amp;guid=950b70a91b8180b49aab9803e984d3cb&amp;type=3#Human Icon&quot;); -unity-background-scale-mode: scale-to-fit; flex-basis: 0;"/>
+    <Style src="project://database/Assets/UI/Style%20Sheets/Character%20Mini%20Dashboard.uss?fileID=7433441132597879392&amp;guid=b8d76ed37981f9b44961b024b9f74001&amp;type=3#Character Mini Dashboard" />
+    <ui:VisualElement name="Icon" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Icons/Human%20Icon.png?fileID=2800000&amp;guid=950b70a91b8180b49aab9803e984d3cb&amp;type=3#Human Icon&quot;); -unity-background-scale-mode: scale-to-fit; flex-basis: 0;" />
     <ui:ProgressBar value="22" title="my-progress" name="HealthBar" style="flex-basis: 0; flex-grow: 4; margin-bottom: auto; margin-top: auto;">
         <Bindings>
-            <ui:DataBinding property="title" data-source-path="stats" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Current and Total HP"/>
-            <ui:DataBinding property="highValue" data-source-path="stats.maxHealth" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget"/>
-            <ui:DataBinding property="value" data-source-path="stats.health" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget"/>
+            <ui:DataBinding property="title" data-source-path="stats" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Current and Total HP" />
+            <ui:DataBinding property="highValue" data-source-path="stats.maxHealth" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
+            <ui:DataBinding property="value" data-source-path="stats.health" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
         </Bindings>
     </ui:ProgressBar>
     <ui:VisualElement name="Abilitites" style="flex-grow: 2; flex-basis: 0; flex-direction: row; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px;">
-        <Midevil.UI.Elements.AbilityElement style="margin-right: 5px;">
+        <Midevil.UI.Elements.AbilityElement control="Q" style="margin-right: 5px;">
             <Bindings>
-                <ui:DataBinding property="IconTexture" data-source-path="data.icon" data-source-type="Midevil.Ability.Ability, Assembly-CSharp" binding-mode="ToTarget"/>
-                <ui:DataBinding property="Charges" data-source-path="remainingCharges" data-source-type="Midevil.Ability.Ability, Assembly-CSharp" binding-mode="ToTarget"/>
-                <ui:DataBinding property="Cooldown" data-source-path="cooldownTimer" data-source-type="Midevil.Ability.Ability, Assembly-CSharp" binding-mode="ToTarget"/>
+                <ui:DataBinding property="IconTexture" data-source-path="data.icon" data-source-type="Midevil.Ability.Ability, Assembly-CSharp" binding-mode="ToTarget" />
+                <ui:DataBinding property="Charges" data-source-path="remainingCharges" data-source-type="Midevil.Ability.Ability, Assembly-CSharp" binding-mode="ToTarget" />
+                <ui:DataBinding property="Cooldown" data-source-path="cooldownTimer" data-source-type="Midevil.Ability.Ability, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Float rounded to int" />
             </Bindings>
         </Midevil.UI.Elements.AbilityElement>
-        <Midevil.UI.Elements.AbilityElement>
+        <Midevil.UI.Elements.AbilityElement control="W">
             <Bindings>
-                <ui:DataBinding property="IconTexture" data-source-path="data.icon" data-source-type="Midevil.Ability.Ability, Assembly-CSharp" binding-mode="ToTarget"/>
-                <ui:DataBinding property="Charges" data-source-path="remainingCharges" data-source-type="Midevil.Ability.Ability, Assembly-CSharp" binding-mode="ToTarget"/>
-                <ui:DataBinding property="Cooldown" data-source-path="cooldownTimer" data-source-type="Midevil.Ability.Ability, Assembly-CSharp" binding-mode="ToTarget"/>
+                <ui:DataBinding property="IconTexture" data-source-path="data.icon" data-source-type="Midevil.Ability.Ability, Assembly-CSharp" binding-mode="ToTarget" />
+                <ui:DataBinding property="Charges" data-source-path="remainingCharges" data-source-type="Midevil.Ability.Ability, Assembly-CSharp" binding-mode="ToTarget" />
+                <ui:DataBinding property="Cooldown" data-source-path="cooldownTimer" data-source-type="Midevil.Ability.Ability, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Float rounded to int" />
             </Bindings>
         </Midevil.UI.Elements.AbilityElement>
     </ui:VisualElement>

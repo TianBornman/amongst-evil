@@ -22,5 +22,11 @@ public class FloatConverter : MonoBehaviour
 		group.AddConverter((ref float value) => $"{value} /s");
 
 		ConverterGroups.RegisterConverterGroup(group);
-	}
+
+        group = new ConverterGroup("Float rounded to int");
+
+        group.AddConverter((ref float value) => value.ToString("F0"));
+
+        ConverterGroups.RegisterConverterGroup(group);
+    }
 }

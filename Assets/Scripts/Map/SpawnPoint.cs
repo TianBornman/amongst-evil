@@ -5,6 +5,7 @@ public class SpawnPoint : MonoBehaviour
 	// Editor Variables
 	[Header("Settings")]
 	public bool partySpawnPoint;
+	public bool bossSpawnPoint;
 
 	// Public Methods
 	public Vector3 GetSpawnPoint()
@@ -25,10 +26,12 @@ public class SpawnPoint : MonoBehaviour
 	{
 		if (partySpawnPoint)
 			Gizmos.color = Color.teal;
+		else if (bossSpawnPoint)
+			Gizmos.color = Color.red;
 		else
-			Gizmos.color = Color.orangeRed;
+            Gizmos.color = Color.orangeRed;
 
-		Vector3 from = transform.position;
+        Vector3 from = transform.position;
 		Vector3 direction = -transform.up;
 
 		if (Physics.Raycast(from, direction, out RaycastHit hit, 40f))

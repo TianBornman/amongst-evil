@@ -11,6 +11,7 @@ public class SpawnManager : Singleton<SpawnManager>
 	public List<Encounter> bossEncounters;
 	public SpawnPoint partySpawnPoint;
 	public List<SpawnPoint> encounterSpawnPoints;
+	public List<SpawnPoint> bossSpawnPoints;
 
 	[Header("Settings")]
 	public float width;
@@ -49,7 +50,8 @@ public class SpawnManager : Singleton<SpawnManager>
 		var spawnPoints = FindObjectsByType<SpawnPoint>(FindObjectsSortMode.None);
 
 		partySpawnPoint = spawnPoints.FirstOrDefault(spawn => spawn.partySpawnPoint);
-		encounterSpawnPoints = spawnPoints.Where(spawn => !spawn.partySpawnPoint).ToList();
+		encounterSpawnPoints = spawnPoints.Where(spawn => !spawn.partySpawnPoint && !spawn.bossSpawnPoint).ToList();
+		bossSpawnPoints = spawnPoints.Where(spawn => spawn.bossSpawnPoint).ToList();
 
 		spawnedCharacters.Clear();
 		SpawnWave();
@@ -74,8 +76,10 @@ public class SpawnManager : Singleton<SpawnManager>
 
 	private void SpawnBoss()
 	{
-		var bossEncounter = bossEncounters[Random.Range(0, bossEncounters.Count)];
-		bossEncounter.Spawn(Vector3.zero);
+        var spawnPoint = bossSpawnPoints[Random.Range(0, bossSpawnPoints.Count)];
+
+        var bossEncounter = bossEncounters[Random.Range(0, bossEncounters.Count)];
+		bossEncounter.Spawn(spawnPoint.GetSpawnPoint());
 
 		bossSpawned = true;
 	}

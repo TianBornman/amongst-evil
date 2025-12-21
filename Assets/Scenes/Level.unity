@@ -164,6 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnPoint
   partySpawnPoint: 0
+  bossSpawnPoint: 0
 --- !u!1 &24689963
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,6 +298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnPoint
   partySpawnPoint: 0
+  bossSpawnPoint: 0
 --- !u!1 &234402708
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,6 +411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnPoint
   partySpawnPoint: 0
+  bossSpawnPoint: 0
 --- !u!1 &264517215
 GameObject:
   m_ObjectHideFlags: 0
@@ -971,6 +974,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnPoint
   partySpawnPoint: 1
+  bossSpawnPoint: 0
 --- !u!1001 &439249349
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1073,6 +1077,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnPoint
   partySpawnPoint: 0
+  bossSpawnPoint: 0
 --- !u!1001 &539171568
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1232,6 +1237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnPoint
   partySpawnPoint: 0
+  bossSpawnPoint: 0
 --- !u!1 &551152805
 GameObject:
   m_ObjectHideFlags: 0
@@ -1243,7 +1249,7 @@ GameObject:
   - component: {fileID: 551152806}
   - component: {fileID: 551152807}
   m_Layer: 0
-  m_Name: Enemy Spawnpoint (13)
+  m_Name: Boss Spawn Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1277,6 +1283,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnPoint
   partySpawnPoint: 0
+  bossSpawnPoint: 1
 --- !u!1 &657403228
 GameObject:
   m_ObjectHideFlags: 0
@@ -1322,6 +1329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnPoint
   partySpawnPoint: 0
+  bossSpawnPoint: 0
 --- !u!1 &770581283
 GameObject:
   m_ObjectHideFlags: 0
@@ -1558,6 +1566,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnPoint
   partySpawnPoint: 0
+  bossSpawnPoint: 0
 --- !u!1 &907101744
 GameObject:
   m_ObjectHideFlags: 0
@@ -1652,6 +1661,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnPoint
   partySpawnPoint: 0
+  bossSpawnPoint: 0
 --- !u!1001 &1318421241
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1754,6 +1764,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnPoint
   partySpawnPoint: 0
+  bossSpawnPoint: 0
 --- !u!1 &1431938192
 GameObject:
   m_ObjectHideFlags: 0
@@ -1799,6 +1810,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnPoint
   partySpawnPoint: 0
+  bossSpawnPoint: 0
 --- !u!1 &1442558673
 GameObject:
   m_ObjectHideFlags: 0
@@ -1925,6 +1937,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnPoint
   partySpawnPoint: 0
+  bossSpawnPoint: 0
 --- !u!1 &1873501703
 GameObject:
   m_ObjectHideFlags: 0
@@ -1970,6 +1983,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnPoint
   partySpawnPoint: 0
+  bossSpawnPoint: 0
 --- !u!1 &1880813653
 GameObject:
   m_ObjectHideFlags: 0
@@ -2015,6 +2029,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnPoint
   partySpawnPoint: 0
+  bossSpawnPoint: 0
 --- !u!1 &2102152679
 GameObject:
   m_ObjectHideFlags: 0

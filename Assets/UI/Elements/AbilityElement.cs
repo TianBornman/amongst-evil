@@ -10,6 +10,7 @@ namespace Midevil.UI.Elements
 		private VisualElement icon;
 		private Label chargesLabel;
 		private Label cooldownLabel;
+		private Label controlLabel;
 
 		[UxmlAttribute, CreateProperty]
 		public Texture2D IconTexture
@@ -32,6 +33,13 @@ namespace Midevil.UI.Elements
 			set => cooldownLabel.text = value;
 		}
 
+		[UxmlAttribute, CreateProperty]
+		public string Control
+		{
+			get => controlLabel.text;
+			set => controlLabel.text = value;
+		}
+
 		public AbilityElement()
 		{
 			// Root styling 
@@ -46,9 +54,13 @@ namespace Midevil.UI.Elements
 			cooldownLabel = new Label("2");
 			cooldownLabel.name = "cooldown";
 
+			controlLabel = new Label("Q");
+			controlLabel.name = "control";
+
 			Add(icon);
 			Add(chargesLabel);
 			Add(cooldownLabel);
+			Add(controlLabel);
 
 			ClearAbility();
 		}
@@ -57,6 +69,7 @@ namespace Midevil.UI.Elements
 		public VisualElement Icon => icon;
 		public Label ChargesLabel => chargesLabel;
 		public Label CooldownLabel => cooldownLabel;
+		public Label ControlLabel => controlLabel;
 
 		// Public Methods
 		public void ClearAbility()
