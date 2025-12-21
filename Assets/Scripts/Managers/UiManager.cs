@@ -107,9 +107,15 @@ public class UiManager : Singleton<UiManager>
 
 		statsUi.rootVisualElement.Q<VisualElement>($"{character.identity.id}").dataSource = character;
 		statsUi.rootVisualElement.Q<VisualElement>($"{character.identity.id}-stats").dataSource = character;
-		gameUi.rootVisualElement.Q<TemplateContainer>($"{character.identity.id}").dataSource = character;
 
-		var bars = statsUi.rootVisualElement.Q<VisualElement>(character.identity.id.ToString()).Q<VisualElement>("Bars");
+		var miniDashboard = gameUi.rootVisualElement.Q<TemplateContainer>($"{character.identity.id}");
+        miniDashboard.dataSource = character;
+		miniDashboard.style.unityBackgroundImageTintColor = character.color;
+
+		foreach (var abilityElement in miniDashboard.Query<AbilityElement>().ToList())
+            abilityElement.style.unityBackgroundImageTintColor = character.color;
+		
+        var bars = statsUi.rootVisualElement.Q<VisualElement>(character.identity.id.ToString()).Q<VisualElement>("Bars");
 		bars.dataSource = character;
 	}
 

@@ -45,6 +45,7 @@ public class Character : StateMachine, IInteractable
 
 	[Header("References")]
 	public Transform idlePos;
+	public Transform targetPos;
 
 	// Public Variables
 	public CharacterEquipment equipment;

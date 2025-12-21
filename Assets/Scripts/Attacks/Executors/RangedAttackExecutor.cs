@@ -10,7 +10,7 @@ public class RangedAttackExecutor : IAttackExecutor
 		attacker.transform.LookAt(target.transform);
 
 		var projectile = GameObject.Instantiate(attacker.stats.projectile, attacker.equipment.weaponPos.position, Quaternion.identity);
-		projectile.transform.LookAt(target.transform);
+		projectile.transform.LookAt(target.targetPos);
 
 		projectile.Setup(attacker.stats, attacker);
 	}
