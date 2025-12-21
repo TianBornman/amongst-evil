@@ -102,8 +102,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 60a4181f40dfc6646ada68b8ed6748f7, type: 2}
   bossEncounters:
   - {fileID: 11400000, guid: e5167fe90f4a39b439639224342e674a, type: 2}
-  segments:
-  - {fileID: 8202679225242908416, guid: 8f5e8b64bc7486b4b9f915f73e7844f7, type: 3}
+  partySpawnPoint: {fileID: 0}
+  encounterSpawnPoints: []
+  bossSpawnPoints: []
   width: 45
   length: 45
   minDistance: 10
@@ -111,7 +112,6 @@ MonoBehaviour:
   maxEncounters: 4
   bossSpawned: 0
   spawnedCharacters: []
-  currentSegment: {fileID: 0}
 --- !u!114 &6180556048356105748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,6 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f97f9915dd0b39418e970277423bd30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuManager
+  currentCharacter: {fileID: 0}
 --- !u!114 &710674332889533623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,6 +195,7 @@ MonoBehaviour:
   recruitmentUiPrefab: {fileID: 7439391192158440223, guid: be3efbd1f52735b40b4c4d326d21379b, type: 3}
   bloodVaultUiPrefab: {fileID: 7439391192158440223, guid: cf51b1a74dd8f644a915bc1bc7357d9f, type: 3}
   armouryUiPrefab: {fileID: 7439391192158440223, guid: 08282e54d10826e449e60590346cd55c, type: 3}
+  settingsUiPrefab: {fileID: 7439391192158440223, guid: 32b4f0dc8bd9df1418b91efb0be469bf, type: 3}
 --- !u!114 &7630648152501158786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,11 +272,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventoryManager
   maxItems: 9
   runInventory: []
+  armouryInventory: []
   selectedItem:
     index: 0
     name: 
     description: 
     type: 0
+    attackType: 0
+    projectile: {fileID: 0}
     icon: {fileID: 0}
     visual: {fileID: 0}
     animationType: 0
@@ -298,6 +303,7 @@ MonoBehaviour:
         moveSpeed: 0
         xpValue: 0
         scalingFactor: 1.1
+        projectile: {fileID: 0}
     abilityIndex: 0
     effects: []
     effectIndex: 0

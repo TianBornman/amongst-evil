@@ -12,12 +12,24 @@ public class AudioManager : Singleton<AudioManager>
 	public AudioClip mainMenuMusic;
 	public AudioClip darkForestMusic;
 
-	// Override Methods
-	protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    public float MusicVolume
+    {
+        get => musicSource.volume;
+        set
+        {
+            musicSource.volume = value;
+            PlayerPrefs.SetFloat("MusicVolumeKey", value);
+        }
+    }
+
+    // Override Methods
+    protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
 		if (GameManager.Instance.AtHub)
 			musicSource.PlayClip(mainMenuMusic);
 		else
 			musicSource.PlayClip(darkForestMusic);
+
+		MusicVolume = PlayerPrefs.GetFloat("MusicVolumeKey");
 	}
 }

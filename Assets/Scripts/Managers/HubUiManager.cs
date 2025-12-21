@@ -12,6 +12,7 @@ public class HubUiManager : Singleton<HubUiManager>
 	public UIDocument recruitmentUiPrefab;
 	public UIDocument bloodVaultUiPrefab;
 	public UIDocument armouryUiPrefab;
+	public UIDocument settingsUiPrefab;
 
 	private UIDocument mainMenuUi;
 	private UIDocument recruitmentUi;
@@ -19,6 +20,7 @@ public class HubUiManager : Singleton<HubUiManager>
 	private VisualElement recruitmentGearUi;
 	private UIDocument bloodVaultUi;
 	private UIDocument armouryUi;
+	private UIDocument settingsUi;
 
 	// Override Methods
 	protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -33,6 +35,7 @@ public class HubUiManager : Singleton<HubUiManager>
 		recruitmentGearUi = recruitmentUi.rootVisualElement.Q<TemplateContainer>("Gear");
 		bloodVaultUi = Instantiate(bloodVaultUiPrefab).GetComponent<UIDocument>();
 		armouryUi = Instantiate(armouryUiPrefab).GetComponent<UIDocument>();
+		settingsUi = Instantiate(settingsUiPrefab).GetComponent<UIDocument>();
 
 		// Config
 		mainMenuUi.rootVisualElement.visible = true;
@@ -41,6 +44,7 @@ public class HubUiManager : Singleton<HubUiManager>
 		recruitmentGearUi.visible = false;
 		bloodVaultUi.rootVisualElement.visible = false;
 		armouryUi.rootVisualElement.visible = false;
+		settingsUi.rootVisualElement.visible = false;
 
 		mainMenuUi.rootVisualElement.Q<Button>("Play").clicked += HubManager.Instance.StartGame;
 
@@ -58,7 +62,16 @@ public class HubUiManager : Singleton<HubUiManager>
 			statsPanel.AddToClassList("hidden");
 			gearPanel.RemoveFromClassList("hidden");
 		});
-	}
+
+		var musicSlider = settingsUi.rootVisualElement.Q<Slider>("Music");
+
+        musicSlider.value = PlayerPrefs.GetFloat("MusicVolumeKey");
+
+        musicSlider.RegisterValueChangedCallback(evt =>
+        {
+            AudioManager.Instance.MusicVolume = evt.newValue;
+        });
+    }
 
 	// Public Methods
 	public void ShowRecruitmentUI()
@@ -171,9 +184,17 @@ public class HubUiManager : Singleton<HubUiManager>
 		equipSlot?.ClearItem();
 	}
 
-
 	public void HideRecruitGearUI()
 	{
 		recruitmentGearUi.visible = false;
+	}
+
+	public void ShowSettingsUI()
+	{
+        settingsUi.rootVisualElement.visible = true;
+	}
+	public void HideSettingsUI()
+	{
+        settingsUi.rootVisualElement.visible = false;
 	}
 }

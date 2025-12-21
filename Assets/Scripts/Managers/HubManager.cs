@@ -87,6 +87,7 @@ public class HubManager : Singleton<HubManager>
 		HubUiManager.Instance.HideBloodVaultUI();
 		HubUiManager.Instance.HideRecruitArmouryUI();
 		HubUiManager.Instance.HideRecruitGearUI();
+		HubUiManager.Instance.ShowSettingsUI();
 	}
 
 	private void ZoomOnTransform(CinemachineCamera camera)

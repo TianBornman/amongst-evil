@@ -9,7 +9,7 @@ onBoardingDoNotAskAgain = true
 showPackageIndexes = false
 showStatusBar = false
 scopes = {
-	"picker_window_position_offset.00000000" = "-648;-71;1081;806"
+	"picker_window_position_offset.00000000" = "-292.8;-218.4;1080.8;778.4"
 	"picker_visibility_flags.00000000" = "0"
 	"picker_item_size.00000000" = "96"
 	"picker_inspector.00000000" = "0"
@@ -69,6 +69,10 @@ providers = {
 objectSelectors = {
 }
 recentSearches = [
+	"type: Audiomana"
+	"type: audioman"
+	"type: audioma"
+	"type: audiomanager"
 	"type: ns:\"Midevil.Ability\""
 	"type: ns:\"\""
 	"type: ns:\"Midevil\""
@@ -93,8 +97,6 @@ searchItemFavorites = [
 savedSearchesSortOrder = 0
 showSavedSearchPanel = true
 hideTabs = false
-indexOnEditorStartup = true
-logIndexingPerformanceReport = false
 expandedQueries = [-1765347274 961552606]
 queryBuilder = true
 ignoredProperties = "id;name;classname;imagecontentshash"
