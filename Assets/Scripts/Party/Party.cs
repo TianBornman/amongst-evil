@@ -70,16 +70,6 @@ namespace Midevil.Party
 				member.AddXp(amount, true);
 		}
 
-		public void CheckBattle()
-		{
-			bool inCombat = members.Where(member => member.InBattle).Any();
-
-			if (inCombat)
-				SetState(new BattleState(this));
-			else
-				SetState(new ExploreState(this));
-		}
-
 		public void BindAbility(Ability.Ability ability, PartyCharacter character)
 		{
 			for (int i = 0; i < abilitySlots.Count; i++)

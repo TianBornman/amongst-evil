@@ -51,13 +51,6 @@ public class PartyCharacter : Character
 			base.AddXp(amount);
 	}
 
-	public override void ReevaluateTarget()
-	{
-		base.ReevaluateTarget();
-
-		PartyManager.Instance.CheckBattle();
-	}
-
 	public override void Die()
 	{
 		base.Die();

@@ -8,6 +8,9 @@ using UnityEngine;
 public class RefManager : Singleton<RefManager>
 {
 	// Editor Variables
+	[Header("Objects")]
+	public Encounter baseEncounter;
+
 	[Header("Layer Masks")]
 	public LayerMask targetableMask;
 

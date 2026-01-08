@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 8199098711593982560}
   - component: {fileID: 9140475944043942649}
   - component: {fileID: 904286726997639696}
+  - component: {fileID: 1664360968856333626}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -138,6 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08a9e3c3094ec714587001810d186e13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RefManager
+  baseEncounter: {fileID: 5265017266442459289, guid: 11d069d53fcdbf44e948d94369af162c, type: 3}
   targetableMask:
     serializedVersion: 2
     m_Bits: 9
@@ -321,3 +323,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55dc5e72668b7084e81883d11f0806c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InputManager
+--- !u!114 &1664360968856333626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5038134502726167767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d4da63002733ed40bdae8e8a82f5d95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BattleManager
+  inBattle: 0

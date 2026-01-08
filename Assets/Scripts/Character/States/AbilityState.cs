@@ -33,9 +33,9 @@ public class AbilityState : IState
 
 	private void LeaveState()
 	{
-		if (character.target != null && character.target.IsAlive)
-			character.SetState(new AttackState(character));
-		else
-			character.SetState(new MoveState(character));
+		//if (character.target != null && character.target.IsAlive)
+		//	character.SetState(new AttackState(character));
+		//else
+		//	character.SetState(new MoveState(character));
 	}
 }

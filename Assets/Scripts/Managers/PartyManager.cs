@@ -77,8 +77,6 @@ public class PartyManager : Singleton<PartyManager>
 
 	public void AddPartyXp(float amount, PartyCharacter character) => playerParty.AddPartyXp(amount, character);
 
-	public void CheckBattle() => playerParty.CheckBattle();
-
 	public void CalculateStats()
 	{
 		partyResults.Clear();

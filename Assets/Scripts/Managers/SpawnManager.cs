@@ -7,8 +7,8 @@ public class SpawnManager : Singleton<SpawnManager>
 {
 	// Editor Variables
 	[Header("References")]
-	public List<Encounter> encounters;
-	public List<Encounter> bossEncounters;
+	public List<EncounterData> encounters;
+	public List<EncounterData> bossEncounters;
 	public SpawnPoint partySpawnPoint;
 	public List<SpawnPoint> encounterSpawnPoints;
 	public List<SpawnPoint> bossSpawnPoints;

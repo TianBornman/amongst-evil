@@ -40,9 +40,6 @@ public class Character : StateMachine, IInteractable
 	public Identity identity;
 	public bool startIdle;
 
-	public Character target;
-	public List<Character> targets = new();
-
 	[Header("References")]
 	public Transform idlePos;
 	public Transform targetPos;
@@ -62,25 +59,8 @@ public class Character : StateMachine, IInteractable
 
 	// Public Properties
 	public bool IsAlive => stats.health > 0;
-	public bool InBattle => target != null;
 
 	// Public Methods
-	public void AddTarget(Character character)
-	{
-		if (targets.Contains(character)) return;
-
-		targets.Add(character);
-		ReevaluateTarget();
-
-		SetState(new MoveState(this));
-	}
-
-	public void RemoveTarget(Character character)
-	{
-		targets.Remove(character);
-		ReevaluateTarget();
-	}
-
 	public virtual void AddXp(float amount, bool shareXp = false)
 	{
 		stats.currentXp += amount;
@@ -123,9 +103,9 @@ public class Character : StateMachine, IInteractable
 		if (healthBar)
 			healthBar.SetHealth(stats.health, stats.maxHealth);
 
-		foreach (var buff in currentEffects)
-			if (buff is IOnTakeHit onTakeHit)
-				onTakeHit.OnTakeHit(this, target, damage);
+		//foreach (var buff in currentEffects)
+		//	if (buff is IOnTakeHit onTakeHit)
+		//		onTakeHit.OnTakeHit(this, target, damage);
 
 		// Stat Tracking
 		attacker.identity.currentResult.damageDealt += damage;
@@ -160,25 +140,13 @@ public class Character : StateMachine, IInteractable
 
 	public void Attack()
 	{
-		var executor = AttackExecutorResolver.Resolve(identity.weapon);
+		//var executor = AttackExecutorResolver.Resolve(identity.weapon);
 
-		executor.ExecuteAttack(new AttackContext
-		{
-			attacker = this,
-			target = target,
-		});
-	}
-
-	public virtual void ReevaluateTarget()
-	{
-		if (targets.Count <= 0 || !targets.Where(target => target.IsAlive).Any())
-		{
-			target = null;
-			targets.Clear();
-			return;
-		}
-
-		target = targets.Where(target => target.IsAlive).OrderBy(target => Vector3.Distance(target.transform.position, transform.position)).FirstOrDefault();
+		//executor.ExecuteAttack(new AttackContext
+		//{
+		//	attacker = this,
+		//	target = target,
+		//});
 	}
 
 	public void RecalculateStats()
