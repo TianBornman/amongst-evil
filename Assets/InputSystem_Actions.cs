@@ -111,6 +111,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""SelectBattleCharacter"",
+                    ""type"": ""Button"",
+                    ""id"": ""47aebe24-a24e-4344-906b-533f74fa7f13"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Selection"",
                     ""type"": ""Button"",
                     ""id"": ""de8dfa3a-96be-44a3-ae78-ddd0f309c1e8"",
@@ -242,6 +251,39 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": ""Scale(factor=5)"",
                     ""groups"": """",
                     ""action"": ""Ability"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cd314428-b80a-415e-b690-a12c59428491"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=0)"",
+                    ""groups"": """",
+                    ""action"": ""SelectBattleCharacter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""697237df-49ff-4fb0-94b0-3fb2d31a20b2"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale"",
+                    ""groups"": """",
+                    ""action"": ""SelectBattleCharacter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""62bd52f1-e603-4c12-93dd-fd5c803b7cd3"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=2)"",
+                    ""groups"": """",
+                    ""action"": ""SelectBattleCharacter"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -886,6 +928,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_MenuToggle = m_Player.FindAction("MenuToggle", throwIfNotFound: true);
         m_Player_Ability = m_Player.FindAction("Ability", throwIfNotFound: true);
+        m_Player_SelectBattleCharacter = m_Player.FindAction("SelectBattleCharacter", throwIfNotFound: true);
         m_Player_Selection = m_Player.FindAction("Selection", throwIfNotFound: true);
         m_Player_Escape = m_Player.FindAction("Escape", throwIfNotFound: true);
         m_Player_CameraToggle = m_Player.FindAction("CameraToggle", throwIfNotFound: true);
@@ -986,6 +1029,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_MenuToggle;
     private readonly InputAction m_Player_Ability;
+    private readonly InputAction m_Player_SelectBattleCharacter;
     private readonly InputAction m_Player_Selection;
     private readonly InputAction m_Player_Escape;
     private readonly InputAction m_Player_CameraToggle;
@@ -1010,6 +1054,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Ability".
         /// </summary>
         public InputAction @Ability => m_Wrapper.m_Player_Ability;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/SelectBattleCharacter".
+        /// </summary>
+        public InputAction @SelectBattleCharacter => m_Wrapper.m_Player_SelectBattleCharacter;
         /// <summary>
         /// Provides access to the underlying input action "Player/Selection".
         /// </summary>
@@ -1062,6 +1110,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Ability.started += instance.OnAbility;
             @Ability.performed += instance.OnAbility;
             @Ability.canceled += instance.OnAbility;
+            @SelectBattleCharacter.started += instance.OnSelectBattleCharacter;
+            @SelectBattleCharacter.performed += instance.OnSelectBattleCharacter;
+            @SelectBattleCharacter.canceled += instance.OnSelectBattleCharacter;
             @Selection.started += instance.OnSelection;
             @Selection.performed += instance.OnSelection;
             @Selection.canceled += instance.OnSelection;
@@ -1094,6 +1145,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Ability.started -= instance.OnAbility;
             @Ability.performed -= instance.OnAbility;
             @Ability.canceled -= instance.OnAbility;
+            @SelectBattleCharacter.started -= instance.OnSelectBattleCharacter;
+            @SelectBattleCharacter.performed -= instance.OnSelectBattleCharacter;
+            @SelectBattleCharacter.canceled -= instance.OnSelectBattleCharacter;
             @Selection.started -= instance.OnSelection;
             @Selection.performed -= instance.OnSelection;
             @Selection.canceled -= instance.OnSelection;
@@ -1423,6 +1477,13 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnAbility(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SelectBattleCharacter" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSelectBattleCharacter(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Selection" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>

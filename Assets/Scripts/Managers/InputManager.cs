@@ -12,6 +12,7 @@ public class InputManager : Singleton<InputManager>
 	private InputAction cameraToggleInputAction;
 	private InputAction setPartyTargetInputAction;
 	private InputAction mapViewInputAction;
+	private InputAction selectBattleCharacterInputAction;
 
 	// Public Properties
 	public Action MenuToggleAction { get; set; }
@@ -22,6 +23,7 @@ public class InputManager : Singleton<InputManager>
 	public Action SetPartyTargetAction { get; set; }
 	public Action MapViewInputActionStarted { get; set; }
 	public Action MapViewInputActionCancelled { get; set; }
+	public Action<InputAction.CallbackContext> SelectBattleCharacterAction { get; set; }
 
 	protected override void OnEnable()
 	{
@@ -38,6 +40,7 @@ public class InputManager : Singleton<InputManager>
 		cameraToggleInputAction = inputActions.Player.CameraToggle;
 		setPartyTargetInputAction = inputActions.Player.SetPartyTarget;
         mapViewInputAction = inputActions.Player.MapView;
+		selectBattleCharacterInputAction = inputActions.Player.SelectBattleCharacter;
 
 
         inputActions.Enable();
@@ -49,6 +52,7 @@ public class InputManager : Singleton<InputManager>
 		setPartyTargetInputAction.performed += OnSetPartyTarget;
 		mapViewInputAction.started += OnMapViewStarted;
 		mapViewInputAction.canceled += OnMapViewCancelled;
+		selectBattleCharacterInputAction.performed += OnSelectBattleCharacter;
     }
 
 	protected override void OnDisable()
@@ -66,6 +70,7 @@ public class InputManager : Singleton<InputManager>
 		setPartyTargetInputAction.performed -= OnSetPartyTarget;
         mapViewInputAction.started -= OnMapViewStarted;
         mapViewInputAction.canceled -= OnMapViewCancelled;
+		selectBattleCharacterInputAction.canceled -= OnSelectBattleCharacter;
         inputActions.Disable();
 	}
 
@@ -107,5 +112,10 @@ public class InputManager : Singleton<InputManager>
 	private void OnMapViewCancelled(InputAction.CallbackContext context)
 	{
 		MapViewInputActionCancelled?.Invoke();
+	}
+
+	private void OnSelectBattleCharacter(InputAction.CallbackContext context)
+	{
+		SelectBattleCharacterAction?.Invoke(context);
 	}
 }

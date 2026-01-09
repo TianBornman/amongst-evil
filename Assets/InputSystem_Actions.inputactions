@@ -25,6 +25,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "SelectBattleCharacter",
+                    "type": "Button",
+                    "id": "47aebe24-a24e-4344-906b-533f74fa7f13",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Selection",
                     "type": "Button",
                     "id": "de8dfa3a-96be-44a3-ae78-ddd0f309c1e8",
@@ -156,6 +165,39 @@
                     "processors": "Scale(factor=5)",
                     "groups": "",
                     "action": "Ability",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cd314428-b80a-415e-b690-a12c59428491",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "Scale(factor=0)",
+                    "groups": "",
+                    "action": "SelectBattleCharacter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "697237df-49ff-4fb0-94b0-3fb2d31a20b2",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "Scale",
+                    "groups": "",
+                    "action": "SelectBattleCharacter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "62bd52f1-e603-4c12-93dd-fd5c803b7cd3",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "Scale(factor=2)",
+                    "groups": "",
+                    "action": "SelectBattleCharacter",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

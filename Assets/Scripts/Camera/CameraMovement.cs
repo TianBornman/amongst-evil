@@ -10,6 +10,7 @@ namespace Midevil.Camera
 		[Header("References")]
 		public CinemachineCamera partyCamera;
 		public CinemachineCamera mapCamera;
+		public CinemachineCamera battleCamera;
 
 		// Public Variables
 		public Transform partyCenter;

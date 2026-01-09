@@ -18,13 +18,19 @@ namespace Midevil.Camera.States
 		{
 			InputManager.Instance.MapViewInputActionStarted = EnableMapView;
 			InputManager.Instance.MapViewInputActionCancelled = DisableMapView;
+
+			camera.partyCamera.enabled = true;
+			camera.mapCamera.enabled = false;
 		}
 
 		public void Exit() 
 		{
             InputManager.Instance.MapViewInputActionStarted = null;
             InputManager.Instance.MapViewInputActionCancelled = null;
-        }
+
+			camera.partyCamera.enabled = false;
+			camera.mapCamera.enabled = false;
+		}
 
 		public void Update()
 		{

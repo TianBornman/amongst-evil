@@ -3,7 +3,6 @@ using Midevil.Effect;
 using Midevil.Item;
 using Midevil.Models;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -52,6 +51,7 @@ public class Character : StateMachine, IInteractable
 	public NavMeshAgent agent;
 	public Animator animator;
 	public int animationIndex;
+	public Lane lane;
 
 	// Protected Variables
 	protected Character killer;
@@ -136,6 +136,12 @@ public class Character : StateMachine, IInteractable
 			healthBar.SetHealth(stats.health, stats.maxHealth);
 
 		identity.currentResult.healed += amount;
+	}
+
+	public void EnterCombat(Lane lane)
+	{
+		this.lane = lane;
+		SetState(new CombatEnterState(this));
 	}
 
 	public void Attack()

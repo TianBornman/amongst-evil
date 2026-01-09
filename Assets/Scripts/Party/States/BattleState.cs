@@ -14,6 +14,12 @@ namespace Midevil.Party.States
 		public void Enter()
 		{
 			party.cameraMovement.SetBattleState();
+
+			foreach (var member in party.members)
+			{
+				var lane = BattleManager.Instance.GetStartingLane(member);
+				member.EnterCombat(lane);
+			}
 		}
 
 		public void Exit()

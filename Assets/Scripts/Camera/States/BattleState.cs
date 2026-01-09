@@ -16,9 +16,13 @@ namespace Midevil.Camera.States
 
 		public void Enter()
 		{
+			camera.battleCamera.enabled = true;
 		}
 
-		public void Exit() { }
+		public void Exit() 
+		{ 
+			camera.battleCamera.enabled = false;
+		}
 
 		public void Update()
 		{

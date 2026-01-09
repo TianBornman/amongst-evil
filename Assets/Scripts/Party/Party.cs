@@ -90,6 +90,11 @@ namespace Midevil.Party
 			slot.Clear();
 		}
 
+		public void SetBattleState()
+		{
+			SetState(new BattleState(this));
+		}
+
 		// Private Methods
 		private void Awake()
 		{
