@@ -13,6 +13,7 @@ public class InputManager : Singleton<InputManager>
 	private InputAction setPartyTargetInputAction;
 	private InputAction mapViewInputAction;
 	private InputAction selectBattleCharacterInputAction;
+	private InputAction horizontalCharacterMovementInputAction;
 
 	// Public Properties
 	public Action MenuToggleAction { get; set; }
@@ -24,6 +25,7 @@ public class InputManager : Singleton<InputManager>
 	public Action MapViewInputActionStarted { get; set; }
 	public Action MapViewInputActionCancelled { get; set; }
 	public Action<InputAction.CallbackContext> SelectBattleCharacterAction { get; set; }
+	public float HorizontalCharacerMovementAxis => horizontalCharacterMovementInputAction.ReadValue<float>();
 
 	protected override void OnEnable()
 	{
@@ -41,9 +43,9 @@ public class InputManager : Singleton<InputManager>
 		setPartyTargetInputAction = inputActions.Player.SetPartyTarget;
         mapViewInputAction = inputActions.Player.MapView;
 		selectBattleCharacterInputAction = inputActions.Player.SelectBattleCharacter;
+		horizontalCharacterMovementInputAction = inputActions.Player.HorizontalCharacterMovement;
 
-
-        inputActions.Enable();
+		inputActions.Enable();
 		menuToggleInputAction.performed += OnMenuToggle;
 		abilityInputAction.performed += OnAbility;
 		selectionInputAction.performed += OnSelection;

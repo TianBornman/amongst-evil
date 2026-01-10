@@ -10,6 +10,9 @@ public class BattleManager : Singleton<BattleManager>
 	public List<Lane> lanes;
 	public bool inBattle = false;
 
+	// Private Variables
+	private Character selectedCharacter;
+
 	// Override Methods
 	protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
@@ -24,6 +27,7 @@ public class BattleManager : Singleton<BattleManager>
 	{
 		PartyManager.Instance.SetBattleState();
 		inBattle = true;
+		selectedCharacter = PartyManager.Instance.GetCharacterIndex(0);
 	}
 
 	public Lane GetStartingLane(Character character)
@@ -40,10 +44,18 @@ public class BattleManager : Singleton<BattleManager>
 	}
 
 	// Private Methods
-	// Private Methods
 	private void Start()
 	{
 		InputManager.Instance.SelectBattleCharacterAction = SelectBattleCharacter;
+	}
+
+	private void Update()
+	{
+		if (GameManager.Instance.AtHub || !inBattle)
+			return;
+
+		float x = InputManager.Instance.HorizontalCharacerMovementAxis;
+		selectedCharacter.transform.position += new Vector3(x, 0) * Time.deltaTime * 5f;
 	}
 
 	private void SelectBattleCharacter(InputAction.CallbackContext context)
@@ -52,6 +64,6 @@ public class BattleManager : Singleton<BattleManager>
 			return;
 
 		int character = (int)context.ReadValue<float>();
-		Debug.Log($"Selecting Battle Character: {character}");
+		selectedCharacter = PartyManager.Instance.GetCharacterIndex(character);
 	}
 }

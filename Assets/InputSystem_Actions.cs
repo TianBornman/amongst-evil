@@ -163,6 +163,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HorizontalCharacterMovement"",
+                    ""type"": ""Value"",
+                    ""id"": ""43ad34ee-80e4-43f5-9e91-00122234db13"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -341,6 +350,39 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""action"": ""MapView"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""db3b61ea-9468-4146-be4c-4f7511707209"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HorizontalCharacterMovement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""5c072baa-8cce-4526-bcf3-9fd9212ca9c8"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HorizontalCharacterMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""eea155b3-c328-46d1-8ae4-c5e6612e6739"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HorizontalCharacterMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -934,6 +976,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_CameraToggle = m_Player.FindAction("CameraToggle", throwIfNotFound: true);
         m_Player_SetPartyTarget = m_Player.FindAction("SetPartyTarget", throwIfNotFound: true);
         m_Player_MapView = m_Player.FindAction("MapView", throwIfNotFound: true);
+        m_Player_HorizontalCharacterMovement = m_Player.FindAction("HorizontalCharacterMovement", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1035,6 +1078,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_CameraToggle;
     private readonly InputAction m_Player_SetPartyTarget;
     private readonly InputAction m_Player_MapView;
+    private readonly InputAction m_Player_HorizontalCharacterMovement;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1078,6 +1122,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/MapView".
         /// </summary>
         public InputAction @MapView => m_Wrapper.m_Player_MapView;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/HorizontalCharacterMovement".
+        /// </summary>
+        public InputAction @HorizontalCharacterMovement => m_Wrapper.m_Player_HorizontalCharacterMovement;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1128,6 +1176,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @MapView.started += instance.OnMapView;
             @MapView.performed += instance.OnMapView;
             @MapView.canceled += instance.OnMapView;
+            @HorizontalCharacterMovement.started += instance.OnHorizontalCharacterMovement;
+            @HorizontalCharacterMovement.performed += instance.OnHorizontalCharacterMovement;
+            @HorizontalCharacterMovement.canceled += instance.OnHorizontalCharacterMovement;
         }
 
         /// <summary>
@@ -1163,6 +1214,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @MapView.started -= instance.OnMapView;
             @MapView.performed -= instance.OnMapView;
             @MapView.canceled -= instance.OnMapView;
+            @HorizontalCharacterMovement.started -= instance.OnHorizontalCharacterMovement;
+            @HorizontalCharacterMovement.performed -= instance.OnHorizontalCharacterMovement;
+            @HorizontalCharacterMovement.canceled -= instance.OnHorizontalCharacterMovement;
         }
 
         /// <summary>
@@ -1519,6 +1573,13 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMapView(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "HorizontalCharacterMovement" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnHorizontalCharacterMovement(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
