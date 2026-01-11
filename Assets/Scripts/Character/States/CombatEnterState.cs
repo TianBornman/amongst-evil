@@ -18,7 +18,8 @@ public class CombatEnterState : IState
 		character.animator.SetFloat("Speed", 0);
 
 		character.transform.position = character.lane.transform.position;
-		character.transform.rotation = Quaternion.Euler(0, 90, 0);
+		character.combatPositionIntent = Object.Instantiate(RefManager.Instance.emptyObject, character.transform.position, Quaternion.identity).transform;
+		character.SetState(new CombatMoveState(character));
 	}
 
 	public void Exit()

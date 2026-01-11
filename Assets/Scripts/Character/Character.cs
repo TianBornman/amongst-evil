@@ -51,7 +51,11 @@ public class Character : StateMachine, IInteractable
 	public NavMeshAgent agent;
 	public Animator animator;
 	public int animationIndex;
+
+	// Combat Variables
 	public Lane lane;
+	public bool facingRight = true;
+	public Transform combatPositionIntent;
 
 	// Protected Variables
 	protected Character killer;
@@ -61,6 +65,14 @@ public class Character : StateMachine, IInteractable
 	public bool IsAlive => stats.health > 0;
 
 	// Public Methods
+	public void SetMovementIntent(Vector3 position)
+	{
+		if (combatPositionIntent == null) 
+			return;
+
+		combatPositionIntent.position = position;
+	}
+
 	public virtual void AddXp(float amount, bool shareXp = false)
 	{
 		stats.currentXp += amount;

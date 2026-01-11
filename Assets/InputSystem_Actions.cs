@@ -172,6 +172,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""VerticalCharacterMovement"",
+                    ""type"": ""Value"",
+                    ""id"": ""bce2f6c1-2220-4535-a199-c5480e8c3cb2"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -211,53 +220,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""f45dc087-a35f-41a9-a444-0335c8c22b93"",
-                    ""path"": ""<Keyboard>/w"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": ""Scale"",
-                    ""groups"": """",
-                    ""action"": ""Ability"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""7ae790c8-6775-4d55-9207-c6cf602d158e"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": ""Scale(factor=2)"",
-                    ""groups"": """",
-                    ""action"": ""Ability"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""661083ba-673b-4eb6-927d-f6794b36d60e"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": ""Scale(factor=3)"",
-                    ""groups"": """",
-                    ""action"": ""Ability"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""5163dbd9-ae81-47a8-8f30-ef72cd3c913f"",
-                    ""path"": ""<Keyboard>/z"",
-                    ""interactions"": """",
-                    ""processors"": ""Scale(factor=4)"",
-                    ""groups"": """",
-                    ""action"": ""Ability"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""05b69084-dc24-4228-ab73-53c13d354aa1"",
-                    ""path"": ""<Keyboard>/x"",
-                    ""interactions"": """",
-                    ""processors"": ""Scale(factor=5)"",
                     ""groups"": """",
                     ""action"": ""Ability"",
                     ""isComposite"": false,
@@ -381,6 +346,39 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""HorizontalCharacterMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""c76ec1a6-ded0-4422-8b8c-0bbfc291d220"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""VerticalCharacterMovement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""4a704eb7-249b-487d-8285-085d41030deb"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""VerticalCharacterMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""eb41e47b-422b-4a73-addb-f5d2a85dd727"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""VerticalCharacterMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 }
@@ -977,6 +975,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_SetPartyTarget = m_Player.FindAction("SetPartyTarget", throwIfNotFound: true);
         m_Player_MapView = m_Player.FindAction("MapView", throwIfNotFound: true);
         m_Player_HorizontalCharacterMovement = m_Player.FindAction("HorizontalCharacterMovement", throwIfNotFound: true);
+        m_Player_VerticalCharacterMovement = m_Player.FindAction("VerticalCharacterMovement", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1079,6 +1078,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SetPartyTarget;
     private readonly InputAction m_Player_MapView;
     private readonly InputAction m_Player_HorizontalCharacterMovement;
+    private readonly InputAction m_Player_VerticalCharacterMovement;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1126,6 +1126,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/HorizontalCharacterMovement".
         /// </summary>
         public InputAction @HorizontalCharacterMovement => m_Wrapper.m_Player_HorizontalCharacterMovement;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/VerticalCharacterMovement".
+        /// </summary>
+        public InputAction @VerticalCharacterMovement => m_Wrapper.m_Player_VerticalCharacterMovement;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1179,6 +1183,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @HorizontalCharacterMovement.started += instance.OnHorizontalCharacterMovement;
             @HorizontalCharacterMovement.performed += instance.OnHorizontalCharacterMovement;
             @HorizontalCharacterMovement.canceled += instance.OnHorizontalCharacterMovement;
+            @VerticalCharacterMovement.started += instance.OnVerticalCharacterMovement;
+            @VerticalCharacterMovement.performed += instance.OnVerticalCharacterMovement;
+            @VerticalCharacterMovement.canceled += instance.OnVerticalCharacterMovement;
         }
 
         /// <summary>
@@ -1217,6 +1224,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @HorizontalCharacterMovement.started -= instance.OnHorizontalCharacterMovement;
             @HorizontalCharacterMovement.performed -= instance.OnHorizontalCharacterMovement;
             @HorizontalCharacterMovement.canceled -= instance.OnHorizontalCharacterMovement;
+            @VerticalCharacterMovement.started -= instance.OnVerticalCharacterMovement;
+            @VerticalCharacterMovement.performed -= instance.OnVerticalCharacterMovement;
+            @VerticalCharacterMovement.canceled -= instance.OnVerticalCharacterMovement;
         }
 
         /// <summary>
@@ -1580,6 +1590,13 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnHorizontalCharacterMovement(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "VerticalCharacterMovement" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnVerticalCharacterMovement(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

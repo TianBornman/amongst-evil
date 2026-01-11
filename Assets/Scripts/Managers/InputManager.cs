@@ -14,6 +14,7 @@ public class InputManager : Singleton<InputManager>
 	private InputAction mapViewInputAction;
 	private InputAction selectBattleCharacterInputAction;
 	private InputAction horizontalCharacterMovementInputAction;
+	private InputAction verticalCharacterMovementInputAction;
 
 	// Public Properties
 	public Action MenuToggleAction { get; set; }
@@ -26,6 +27,7 @@ public class InputManager : Singleton<InputManager>
 	public Action MapViewInputActionCancelled { get; set; }
 	public Action<InputAction.CallbackContext> SelectBattleCharacterAction { get; set; }
 	public float HorizontalCharacerMovementAxis => horizontalCharacterMovementInputAction.ReadValue<float>();
+	public Action<InputAction.CallbackContext> VerticalCharacterMovementAction { get; set; }
 
 	protected override void OnEnable()
 	{
@@ -44,6 +46,7 @@ public class InputManager : Singleton<InputManager>
         mapViewInputAction = inputActions.Player.MapView;
 		selectBattleCharacterInputAction = inputActions.Player.SelectBattleCharacter;
 		horizontalCharacterMovementInputAction = inputActions.Player.HorizontalCharacterMovement;
+		verticalCharacterMovementInputAction = inputActions.Player.VerticalCharacterMovement;
 
 		inputActions.Enable();
 		menuToggleInputAction.performed += OnMenuToggle;
@@ -55,7 +58,8 @@ public class InputManager : Singleton<InputManager>
 		mapViewInputAction.started += OnMapViewStarted;
 		mapViewInputAction.canceled += OnMapViewCancelled;
 		selectBattleCharacterInputAction.performed += OnSelectBattleCharacter;
-    }
+		verticalCharacterMovementInputAction.performed += OnVerticalCharacterMovement;
+	}
 
 	protected override void OnDisable()
 	{
@@ -73,7 +77,8 @@ public class InputManager : Singleton<InputManager>
         mapViewInputAction.started -= OnMapViewStarted;
         mapViewInputAction.canceled -= OnMapViewCancelled;
 		selectBattleCharacterInputAction.canceled -= OnSelectBattleCharacter;
-        inputActions.Disable();
+		verticalCharacterMovementInputAction.performed -= OnVerticalCharacterMovement;
+		inputActions.Disable();
 	}
 
 	private void OnMenuToggle(InputAction.CallbackContext context)
@@ -119,5 +124,10 @@ public class InputManager : Singleton<InputManager>
 	private void OnSelectBattleCharacter(InputAction.CallbackContext context)
 	{
 		SelectBattleCharacterAction?.Invoke(context);
+	}
+
+	private void OnVerticalCharacterMovement(InputAction.CallbackContext context)
+	{
+		VerticalCharacterMovementAction?.Invoke(context);
 	}
 }

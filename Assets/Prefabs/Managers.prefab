@@ -140,6 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RefManager
   baseEncounter: {fileID: 5265017266442459289, guid: 11d069d53fcdbf44e948d94369af162c, type: 3}
+  emptyObject: {fileID: 3715538197346338284, guid: 37c88ec4f186d4f4ab531ebb6e406877, type: 3}
   targetableMask:
     serializedVersion: 2
     m_Bits: 9
@@ -335,4 +336,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d4da63002733ed40bdae8e8a82f5d95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleManager
+  lanes: []
   inBattle: 0

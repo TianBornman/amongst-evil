@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.TextCore.Text;
 
 public class BattleManager : Singleton<BattleManager>
 {
@@ -47,6 +48,7 @@ public class BattleManager : Singleton<BattleManager>
 	private void Start()
 	{
 		InputManager.Instance.SelectBattleCharacterAction = SelectBattleCharacter;
+		InputManager.Instance.VerticalCharacterMovementAction = VerticalCharacterMovement;
 	}
 
 	private void Update()
@@ -55,7 +57,7 @@ public class BattleManager : Singleton<BattleManager>
 			return;
 
 		float x = InputManager.Instance.HorizontalCharacerMovementAxis;
-		selectedCharacter.transform.position += new Vector3(x, 0) * Time.deltaTime * 5f;
+		selectedCharacter.SetMovementIntent(selectedCharacter.combatPositionIntent.position + new Vector3(x, 0) * Time.deltaTime * 2f);
 	}
 
 	private void SelectBattleCharacter(InputAction.CallbackContext context)
@@ -65,5 +67,29 @@ public class BattleManager : Singleton<BattleManager>
 
 		int character = (int)context.ReadValue<float>();
 		selectedCharacter = PartyManager.Instance.GetCharacterIndex(character);
+	}
+
+	private void VerticalCharacterMovement(InputAction.CallbackContext context)
+	{
+		var originalLane = selectedCharacter.lane;
+
+		int direction = (int)context.ReadValue<float>();
+
+		var laneNumber = (int)originalLane.type;
+		var targetLaneType = (LaneType)Mathf.Clamp(laneNumber - direction, 0, 2);
+
+		Lane newLane = lanes.Find(l => l.type == targetLaneType);
+
+		var lanePosition = new Vector3(selectedCharacter.combatPositionIntent.position.x,
+			selectedCharacter.combatPositionIntent.position.y, newLane.transform.position.z);
+
+		selectedCharacter.lane = newLane;
+		selectedCharacter.SetMovementIntent(lanePosition);
+
+		if (originalLane != newLane)
+		{
+			originalLane.characters.Remove(selectedCharacter);
+			newLane.characters.Add(selectedCharacter);
+		}
 	}
 }
