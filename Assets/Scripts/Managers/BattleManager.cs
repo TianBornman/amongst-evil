@@ -57,7 +57,7 @@ public class BattleManager : Singleton<BattleManager>
 			return;
 
 		float x = InputManager.Instance.HorizontalCharacerMovementAxis;
-		selectedCharacter.SetMovementIntent(selectedCharacter.combatPositionIntent.position + new Vector3(x, 0) * Time.deltaTime * 2f);
+		selectedCharacter.SetMovementIntent(selectedCharacter.combatPositionIntent.position + new Vector3(x, 0) * Time.deltaTime * selectedCharacter.stats.moveSpeed);
 	}
 
 	private void SelectBattleCharacter(InputAction.CallbackContext context)

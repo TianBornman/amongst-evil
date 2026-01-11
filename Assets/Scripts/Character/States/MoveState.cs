@@ -24,8 +24,9 @@ public class MoveState : IState
 
 	public void Update()
 	{
-		float normalized = character.agent.velocity.magnitude / character.agent.speed;
+		float normalized = Mathf.Clamp01(character.agent.velocity.magnitude / character.agent.speed);
 		character.animator.SetFloat("Speed", normalized);
+		character.animator.SetFloat("Direction", normalized);
 
 		if (Vector3.Distance(character.transform.position, character.idlePos.position) < 0.1)
 			return;

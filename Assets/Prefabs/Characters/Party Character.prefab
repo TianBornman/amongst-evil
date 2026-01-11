@@ -92,7 +92,7 @@ MonoBehaviour:
     critChance: 0.05
     critDamage: 1.5
     range: 1.5
-    moveSpeed: 3
+    moveSpeed: 4
     xpValue: 4
     scalingFactor: 1.1
     projectile: {fileID: 0}
@@ -131,6 +131,9 @@ MonoBehaviour:
   agent: {fileID: 0}
   animator: {fileID: 0}
   animationIndex: 0
+  lane: {fileID: 0}
+  facingRight: 1
+  combatPositionIntent: {fileID: 0}
   cameraPosition: {fileID: 5489311698338238782}
   startingAbilities: 01000000
   indicatorRenderer: {fileID: 899582858856392748}
