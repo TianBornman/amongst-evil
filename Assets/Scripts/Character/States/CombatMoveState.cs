@@ -16,6 +16,7 @@ public class CombatMoveState : IState
 
 	public void Enter()
 	{
+		character.animator.SetTrigger("Move");
 	}
 
 	public void Exit()

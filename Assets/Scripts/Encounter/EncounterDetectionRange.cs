@@ -17,15 +17,15 @@ public class EncounterDetectionRange : MonoBehaviour
 
 	private IEnumerator CheckTargets()
 	{
-		while (!BattleManager.Instance.inBattle)
+		while (!CombatManager.Instance.inBattle)
 		{
 			var targets = Physics.OverlapSphere(transform.position, encounter.detectionRadius, RefManager.Instance.targetableMask);
 
 			foreach (var target in targets)
 			{
-				if (target.gameObject.TryGetComponent<PartyCharacter>(out var character) && !BattleManager.Instance.inBattle)
+				if (target.gameObject.TryGetComponent<PartyCharacter>(out var character) && !CombatManager.Instance.inBattle)
 				{
-					BattleManager.Instance.StartBattle(encounter);
+					CombatManager.Instance.StartBattle(encounter);
 				}
 			}
 

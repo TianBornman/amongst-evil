@@ -17,7 +17,7 @@ namespace Midevil.Party.States
 
 			foreach (var member in party.members)
 			{
-				var lane = BattleManager.Instance.GetStartingLane(member);
+				var lane = CombatManager.Instance.GetStartingLane(member);
 				member.EnterCombat(lane);
 			}
 		}

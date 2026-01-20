@@ -8,7 +8,7 @@ public class MeleeAttackExecutor : IAttackExecutor
 		var attacker = context.attacker;
 
 		if (target == null || !target.IsAlive)
-			attacker.SetState(new MoveState(attacker));
+			attacker.SetState(new CombatMoveState(attacker));
 
 		foreach (var buff in attacker.currentEffects)
 			if (buff is IOnHit onHit)

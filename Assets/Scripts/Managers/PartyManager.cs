@@ -110,7 +110,7 @@ public class PartyManager : Singleton<PartyManager>
 
 	public void SetPartyTarget(Vector3 position) => playerParty.SetPosition(position);
 	public void SetBattleState() => playerParty.SetBattleState();
-	public Character GetCharacterIndex(int index) => playerParty.members[index];
+	public Character GetCharacterIndex(int index) => index < playerParty.members.Count ? playerParty.members[index] : null;
 
 	// Private Methods
 	private void Start()

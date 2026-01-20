@@ -20,7 +20,7 @@ public class Stats
 	public float castSpeed;
 	public float critChance;
 	public float critDamage;
-	public float range;
+	public float attackRange;
 	public float moveSpeed;
 	public float xpValue;
 	public float scalingFactor = 1.10f;
@@ -41,7 +41,7 @@ public class Stats
 		castSpeed = baseStats.castSpeed + buffs.Sum(b => b.stats.castSpeed);
 		critChance = baseStats.critChance + buffs.Sum(b => b.stats.critChance);
 		critDamage = baseStats.critDamage + buffs.Sum(b => b.stats.critDamage);
-		range = baseStats.range + buffs.Sum(b => b.stats.range);
+		attackRange = baseStats.attackRange + buffs.Sum(b => b.stats.attackRange);
 		moveSpeed = baseStats.moveSpeed + buffs.Sum(b => b.stats.moveSpeed);
 		xpValue = baseStats.xpValue + buffs.Sum(b => b.stats.xpValue);
 

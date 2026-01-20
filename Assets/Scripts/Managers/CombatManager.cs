@@ -1,11 +1,11 @@
+using Midevil.Party;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.TextCore.Text;
 
-public class BattleManager : Singleton<BattleManager>
+public class CombatManager : Singleton<CombatManager>
 {
 	// Public Variables
 	public List<Lane> lanes;
@@ -29,15 +29,21 @@ public class BattleManager : Singleton<BattleManager>
 		PartyManager.Instance.SetBattleState();
 		inBattle = true;
 		selectedCharacter = PartyManager.Instance.GetCharacterIndex(0);
+
+		foreach (var enemy in encounter.encounterCharacters)
+		{
+			var lane = GetStartingLane(enemy);
+			enemy.EnterCombat(lane);
+		}
 	}
 
 	public Lane GetStartingLane(Character character)
 	{
-		if (character is PartyCharacter)
-		{
-			var lane = lanes.Find(lane => !lane.characters.OfType<PartyCharacter>().Any());
-			lane.characters.Add(character);
+		var lane = lanes.Find(lane => !lane.characters.Any(mem => mem.team == character.team));
 
+		if (lane != null)
+		{
+			lane.characters.Add(character);
 			return lane;
 		}
 
@@ -66,7 +72,10 @@ public class BattleManager : Singleton<BattleManager>
 			return;
 
 		int character = (int)context.ReadValue<float>();
-		selectedCharacter = PartyManager.Instance.GetCharacterIndex(character);
+		var newSelectedCharacter = PartyManager.Instance.GetCharacterIndex(character);
+
+		if (newSelectedCharacter != null)
+			selectedCharacter = newSelectedCharacter;
 	}
 
 	private void VerticalCharacterMovement(InputAction.CallbackContext context)

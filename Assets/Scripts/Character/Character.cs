@@ -42,7 +42,9 @@ public class Character : StateMachine, IInteractable
 	[Header("References")]
 	public Transform idlePos;
 	public Transform targetPos;
+	public Transform attackRange;
 
+	[Header("Do Not Set")]
 	// Public Variables
 	public CharacterEquipment equipment;
 	public CharacterAbilities abilities;
@@ -56,6 +58,7 @@ public class Character : StateMachine, IInteractable
 	public Lane lane;
 	public bool facingRight = true;
 	public Transform combatPositionIntent;
+	public Character target;
 
 	// Protected Variables
 	protected Character killer;
@@ -115,9 +118,9 @@ public class Character : StateMachine, IInteractable
 		if (healthBar)
 			healthBar.SetHealth(stats.health, stats.maxHealth);
 
-		//foreach (var buff in currentEffects)
-		//	if (buff is IOnTakeHit onTakeHit)
-		//		onTakeHit.OnTakeHit(this, target, damage);
+		foreach (var buff in currentEffects)
+			if (buff is IOnTakeHit onTakeHit)
+				onTakeHit.OnTakeHit(this, target, damage);
 
 		// Stat Tracking
 		attacker.identity.currentResult.damageDealt += damage;
@@ -158,20 +161,25 @@ public class Character : StateMachine, IInteractable
 
 	public void Attack()
 	{
-		//var executor = AttackExecutorResolver.Resolve(identity.weapon);
+		var executor = AttackExecutorResolver.Resolve(identity.weapon);
 
-		//executor.ExecuteAttack(new AttackContext
-		//{
-		//	attacker = this,
-		//	target = target,
-		//});
+		executor.ExecuteAttack(new AttackContext
+		{
+			attacker = this,
+			target = target,
+		});
 	}
 
 	public void RecalculateStats()
 	{
 		stats.Recalculate(baseStats, buffs);
 
-		var size = new Vector3(stats.size, stats.size, stats.size);
+		var size = new Vector3(1, 1, stats.attackRange);
+
+		if (attackRange != null)
+			attackRange.localScale = size;
+
+		size = new Vector3(stats.size, stats.size, stats.size);
 		transform.localScale = size;
 
 		if (healthBar)

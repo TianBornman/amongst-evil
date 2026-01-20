@@ -17,7 +17,12 @@ public class CombatEnterState : IState
 		character.animator.SetTrigger("Move");
 		character.animator.SetFloat("Speed", 0);
 
-		character.transform.position = character.lane.transform.position;
+		if (character.team == Team.Brotherhood)
+			character.transform.position = character.lane.transform.position + new Vector3(-2, 0);
+		else
+			character.transform.position = character.lane.transform.position + new Vector3(2, 0);
+
+		
 		character.combatPositionIntent = Object.Instantiate(RefManager.Instance.emptyObject, character.transform.position, Quaternion.identity).transform;
 		character.SetState(new CombatMoveState(character));
 	}
