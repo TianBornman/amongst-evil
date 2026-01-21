@@ -80,6 +80,9 @@ public class CombatManager : Singleton<CombatManager>
 
 	private void VerticalCharacterMovement(InputAction.CallbackContext context)
 	{
+		if (!selectedCharacter.CanMove)
+			return;
+
 		var originalLane = selectedCharacter.lane;
 
 		int direction = (int)context.ReadValue<float>();

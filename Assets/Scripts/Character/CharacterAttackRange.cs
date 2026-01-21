@@ -20,8 +20,18 @@ public class CharacterAttackRange : MonoBehaviour
 				if (!character.IsAlive)
 					return;
 
-				character.target = targetCharacter;
-				character.SetState(new CombatAttackState(character));
+				character.AddTarget(targetCharacter);
+			}
+		}
+	}
+
+	private void OnTriggerExit(Collider other)
+	{
+		if (other.TryGetComponent<Character>(out var targetCharacter))
+		{
+			if (character.targetTeams.Contains(targetCharacter.team))
+			{
+				character.RemoveTarget(targetCharacter);
 			}
 		}
 	}

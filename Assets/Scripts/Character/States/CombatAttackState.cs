@@ -16,6 +16,7 @@ public class CombatAttackState : IState
 	public void Enter()
 	{
 		character.animator.SetTrigger("Attack");
+		character.CanMove = false;
 	}
 
 	public void Exit()

@@ -3,6 +3,7 @@ using Midevil.Effect;
 using Midevil.Item;
 using Midevil.Models;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -59,15 +60,57 @@ public class Character : StateMachine, IInteractable
 	public bool facingRight = true;
 	public Transform combatPositionIntent;
 	public Character target;
+	public List<Character> targets = new();
 
 	// Protected Variables
 	protected Character killer;
 	protected Outline outline;
 
+	// Private Variables
+	private bool canMove = true;
+
 	// Public Properties
 	public bool IsAlive => stats.health > 0;
+	public bool CanMove
+	{
+		get => canMove;
+		set
+		{
+			canMove = value;
+
+			if (!canMove)
+				combatPositionIntent.position = new Vector3(transform.position.x, combatPositionIntent.position.y, combatPositionIntent.position.z);
+		}
+	}
 
 	// Public Methods
+	public void AddTarget(Character target)
+	{
+		targets.Add(target);
+		CalculateTarget();
+
+		if (target != null && target.IsAlive)
+			SetState(new CombatAttackState(this));
+	}
+
+	public void RemoveTarget(Character target)
+	{
+		targets.Remove(target);
+		CalculateTarget();
+	}
+
+	private void CalculateTarget()
+	{
+		if (targets.Count == 0)
+		{
+			target = null;
+			return;
+		}
+
+		targets = targets.Where(t => t != null && t.IsAlive && targetTeams.Contains(t.team)).ToList();
+		target = targets.OrderBy(t => Vector3.Distance(transform.position, t.transform.position)).FirstOrDefault();
+	}
+
 	public void SetMovementIntent(Vector3 position)
 	{
 		if (combatPositionIntent == null) 

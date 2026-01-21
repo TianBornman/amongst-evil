@@ -106,7 +106,7 @@ MonoBehaviour:
         castSpeed: 0
         critChance: 0
         critDamage: 0
-        range: 7
+        attackRange: 4
         moveSpeed: 0
         xpValue: 0
         scalingFactor: 1.1
