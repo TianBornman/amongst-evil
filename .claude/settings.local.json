@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pandoc \"C:\\\\Users\\\\User\\\\Downloads\\\\Mid Evil_ Grimace Brotherhood Story \\(1\\).docx\" -t plain)",
+      "Read(//c/tmp/**)",
+      "Bash(mkdir -p docx_unpack)",
+      "Bash(cp \"C:\\\\Users\\\\User\\\\Downloads\\\\Mid Evil_ Grimace Brotherhood Story \\(1\\).docx\" /tmp/lore.docx)",
+      "Bash(python \"C:\\\\Users\\\\User\\\\AppData\\\\Roaming\\\\Claude\\\\local-agent-mode-sessions\\\\skills-plugin\\\\2268504c-0ab5-4be3-90ae-c4907fb5c6d5\\\\a1ba01cf-39c5-49a8-8b54-c7e2f8185bb7\\\\skills\\\\docx\\\\scripts\\\\office\\\\unpack.py\" /tmp/lore.docx /tmp/docx_unpack/)"
+    ]
+  }
+}
