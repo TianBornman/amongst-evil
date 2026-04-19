@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 [CreateAssetMenu(menuName = "Encounter/Basic")]
 public class Encounter : ScriptableObject
@@ -17,6 +18,19 @@ public class Encounter : ScriptableObject
 	public float radius = 5f;
 
 	// Public Methods
+	private Vector3 FindNavMeshPosition(Vector3 center)
+	{
+		for (int attempt = 0; attempt < 10; attempt++)
+		{
+			var r = Random.insideUnitCircle * radius;
+			var candidate = center + new Vector3(r.x, 0f, r.y);
+
+			if (NavMesh.SamplePosition(candidate, out NavMeshHit hit, 50f, NavMesh.AllAreas))
+				return hit.position;
+		}
+		return Vector3.zero;
+	}
+
 	public void Spawn(Vector3 center)
 	{
 		Transform scenery = null;
@@ -28,10 +42,15 @@ public class Encounter : ScriptableObject
 
 		for (int i = 0; i < count; i++)
 		{
-			var r = Random.insideUnitCircle * radius;
-			var pos = center + new Vector3(r.x, 0f, r.y);
-			var rotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
+			Vector3 pos = FindNavMeshPosition(center);
 
+			if (pos == Vector3.zero)
+			{
+				Debug.LogWarning($"[Encounter] Could not find NavMesh position near {center} for enemy {i}");
+				continue;
+			}
+
+			var rotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
 			var enemy = encounterCharacters[Random.Range(0, encounterCharacters.Count)];
 			var spawnedEnemy = Instantiate(enemy, pos, rotation);
 

@@ -20,6 +20,8 @@ public class PartyCharacter : Character
 	{
 		base.Awake();
 
+		chaseTarget = false;
+
 		CharacterAnimAPI animAPI = GetComponentInChildren<CharacterAnimAPI>();
 		animAPI.Disappear = () => PartyManager.Instance.RemovePartyMember(this);
 	}
@@ -81,6 +83,5 @@ public class PartyCharacter : Character
 
 	public void CheckPositionChanged()
 	{
-		SetState(new MoveState(this));
 	}
 }

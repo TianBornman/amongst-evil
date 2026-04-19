@@ -24,6 +24,9 @@ public class AttackState : IState
 
 	public void Update()
 	{
+		if (!character.chaseTarget)
+			character.agent.SetDestination(character.idlePos.position);
+
 		timeRemaining -= Time.deltaTime;
 
 		if (timeRemaining < 0)
@@ -32,7 +35,7 @@ public class AttackState : IState
 
 	private void LeaveState()
 	{
-		if (character.target != null && character.target.IsAlive)
+		if (character.chaseTarget && character.target != null && character.target.IsAlive)
 			character.SetState(new AttackState(character));
 		else
 			character.SetState(new MoveState(character));

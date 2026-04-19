@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class InputManager : Singleton<InputManager>
@@ -12,8 +13,10 @@ public class InputManager : Singleton<InputManager>
 	private InputAction cameraToggleInputAction;
 	private InputAction setPartyTargetInputAction;
 	private InputAction mapViewInputAction;
+	private InputAction moveInputAction;
 
 	// Public Properties
+	public Vector2 MoveInput => moveInputAction.ReadValue<Vector2>();
 	public Action MenuToggleAction { get; set; }
 	public Action<InputAction.CallbackContext> AbilityAction { get; set; }
 	public Action SelectionAction { get; set; }
@@ -38,6 +41,7 @@ public class InputManager : Singleton<InputManager>
 		cameraToggleInputAction = inputActions.Player.CameraToggle;
 		setPartyTargetInputAction = inputActions.Player.SetPartyTarget;
         mapViewInputAction = inputActions.Player.MapView;
+		moveInputAction = inputActions.Player.Move;
 
 
         inputActions.Enable();

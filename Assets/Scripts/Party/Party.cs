@@ -3,7 +3,6 @@ using Midevil.Camera;
 using Midevil.Helpers;
 using Midevil.Models;
 using Midevil.Party.States;
-using NUnit.Framework.Constraints;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -15,6 +14,7 @@ namespace Midevil.Party
 	{
 		// Editor Variables
 		[Header("Settings")]
+		public float moveSpeed = 6f;
 		public Transform waypoint;
 		public Transform partyCenter;
 		public List<PartyCharacter> members = new();
@@ -62,6 +62,19 @@ namespace Midevil.Party
 
 			foreach (var member in members)
 				member.CheckPositionChanged();
+		}
+
+		public void Move(Vector2 input)
+		{
+			if (input == Vector2.zero)
+				return;
+
+			UnityEngine.Camera cam = UnityEngine.Camera.main;
+			Vector3 forward = Vector3.ProjectOnPlane(cam.transform.forward, Vector3.up).normalized;
+			Vector3 right = Vector3.ProjectOnPlane(cam.transform.right, Vector3.up).normalized;
+			Vector3 delta = (forward * input.y + right * input.x) * moveSpeed * Time.deltaTime;
+
+			SetPosition(waypoint.position + delta);
 		}
 
 		public void AddPartyXp(float amount, PartyCharacter character)

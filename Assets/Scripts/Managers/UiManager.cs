@@ -91,7 +91,6 @@ public class UiManager : Singleton<UiManager>
 		resultsUi.rootVisualElement.visible = false;
 		resultsUi.rootVisualElement.Q<VisualElement>("Results").dataSource = PartyManager.Instance.partyResults;
 		resultsUi.rootVisualElement.Q<Button>("Flee").clicked += Flee;
-		resultsUi.rootVisualElement.Q<Button>("FightOn").clicked += SpawnWave;
 
 		var continueButton = resultsUi.rootVisualElement.Q<Button>("Continue");
 		continueButton.clicked += Die;
@@ -99,8 +98,8 @@ public class UiManager : Singleton<UiManager>
 
 		// Game UI
 		gameUi.rootVisualElement.Q<Label>("Map").text = GameManager.Instance.MapName;
-		SetEnemiesText(SpawnManager.Instance.spawnedCharacters.Count, SpawnManager.Instance.spawnedCharacters.Count);
-		SetBossText("In Lair");
+		SetEnemiesText(0, 0);
+		SetWaveText(0, SpawnManager.Instance.totalWaves);
 	}
 
 	// Public Methods
@@ -196,6 +195,9 @@ public class UiManager : Singleton<UiManager>
 
 	public void UpdateInventory()
 	{
+		if (statsUi == null || statsUi.rootVisualElement == null)
+			return;
+
 		var itemElements = statsUi.rootVisualElement.Q<VisualElement>("Items").Query<ItemElement>().ToList();
 		var items = InventoryManager.Instance.runInventory;
 
@@ -259,14 +261,28 @@ public class UiManager : Singleton<UiManager>
 
 	public void SetEnemiesText(int enemiesRemaining, int totalEnemies)
 	{
+		if (gameUi == null || gameUi.rootVisualElement == null)
+			return;
+
 		var enemiesLabel = gameUi.rootVisualElement.Q<Label>("Enemies");
 		enemiesLabel.text = $"Enemies: {enemiesRemaining}/{totalEnemies}";
 	}
 
-	public void SetBossText(string text)
+	public void SetWaveText(int current, int total)
 	{
-		var enemiesLabel = gameUi.rootVisualElement.Q<Label>("Boss");
-		enemiesLabel.text = $"Boss: {text}";
+		if (gameUi == null || gameUi.rootVisualElement == null)
+			return;
+
+		var waveLabel = gameUi.rootVisualElement.Q<Label>("Wave");
+		waveLabel.text = $"Wave: {current}/{total}";
+	}
+
+	public void ShowVictoryScreen()
+	{
+		resultsUi.rootVisualElement.visible = true;
+		resultsUi.rootVisualElement.Q<Button>("Flee").visible = true;
+		resultsUi.rootVisualElement.Q<Button>("FightOn").visible = false;
+		resultsUi.rootVisualElement.Q<Button>("Continue").visible = false;
 	}
 
 	// Private Methods
@@ -319,11 +335,4 @@ public class UiManager : Singleton<UiManager>
 		SceneManager.LoadScene("Sect");
 	}
 
-	private void SpawnWave()
-	{
-		resultsUi.rootVisualElement.visible = false;
-		SpawnManager.Instance.SpawnWave();
-		//PartyManager.Instance.SetPartyTarget(SpawnManager.Instance.currentSegment.connectionPoint.position);
-		//PartyManager.Instance.UpdateExploreView(SpawnManager.Instance.currentSegment.transform.position);
-	}
 }

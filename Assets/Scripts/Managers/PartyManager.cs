@@ -5,7 +5,6 @@ using Midevil.Party;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class PartyManager : Singleton<PartyManager>
@@ -22,8 +21,9 @@ public class PartyManager : Singleton<PartyManager>
 	// Private Variables
 	private Party playerParty;
 
-	// Public Property
+	// Public Properties
 	public Transform Center => playerParty.partyCenter;
+	public IReadOnlyList<PartyCharacter> PartyMembers => playerParty?.members;
 
 	// Override Methods
 	protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -110,25 +110,16 @@ public class PartyManager : Singleton<PartyManager>
 	public void BindAbility(Ability ability, PartyCharacter partyCharacter) => playerParty.BindAbility(ability, partyCharacter);
 	public void ClearAbility(Ability ability) => playerParty.ClearAbility(ability);
 
-	public void SetPartyTarget(Vector3 position) => playerParty.SetPosition(position);
-
 	// Private Methods
 	private void Start()
 	{
-		InputManager.Instance.SetPartyTargetAction = SetPartyTarget;
 	}
 
-	private void SetPartyTarget()
+	private void Update()
 	{
-		if (GameManager.Instance.AtHub)
+		if (GameManager.Instance.AtHub || GameManager.Instance.IsGamePaused || playerParty == null)
 			return;
 
-		Vector2 mousePos = Mouse.current.position.ReadValue();
-		Ray ray = Camera.main.ScreenPointToRay(mousePos);
-
-		if (Physics.Raycast(ray, out RaycastHit hit, 1000, RefManager.Instance.targetableMask))
-		{
-			playerParty.SetPosition(hit.point);
-		}
+		playerParty.Move(InputManager.Instance.MoveInput);
 	}
 }

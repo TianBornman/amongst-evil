@@ -39,6 +39,7 @@ public class Character : StateMachine, IInteractable
 	public List<Item> drops = new();
 	public Identity identity;
 	public bool startIdle;
+	public bool chaseTarget = true;
 
 	public Character target;
 	public List<Character> targets = new();
@@ -71,8 +72,6 @@ public class Character : StateMachine, IInteractable
 
 		targets.Add(character);
 		ReevaluateTarget();
-
-		SetState(new MoveState(this));
 	}
 
 	public void RemoveTarget(Character character)
