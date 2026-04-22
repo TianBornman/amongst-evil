@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8736108515495512286}
   - component: {fileID: 8460943302599302354}
+  - component: {fileID: 4048261748214097047}
   - component: {fileID: 7173039164351708794}
   - component: {fileID: 1676904547834996192}
   - component: {fileID: -269814463534599180}
@@ -123,6 +124,7 @@ MonoBehaviour:
       criticalHits: 0
       abilitiesUsed: 0
   startIdle: 0
+  chaseTarget: 1
   target: {fileID: 0}
   targets: []
   idlePos: {fileID: 0}
@@ -138,6 +140,20 @@ MonoBehaviour:
   startingAbilities: 01000000
   indicatorRenderer: {fileID: 899582858856392748}
   color: {r: 0, g: 0, b: 0, a: 0}
+--- !u!114 &4048261748214097047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 346180870591823828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 302a134b97a3c4c4192fae4f7aab2900, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PartyAutoShooter
+  projectilePrefab: {fileID: -3272758706898936770, guid: a61b0d0ad2e52c24bb7bd4d59b6c3093, type: 3}
+  spawnOffset: {x: 0, y: 1.5, z: 0}
 --- !u!114 &7173039164351708794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -487,6 +503,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &5285809679018082045
 GameObject:
@@ -607,6 +624,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &8385343008846571809
 GameObject:

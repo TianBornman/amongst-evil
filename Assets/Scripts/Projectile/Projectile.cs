@@ -5,6 +5,7 @@ public class Projectile : MonoBehaviour
 	// Public Variables
 	public Stats stats;
 	public Character owner;
+	public float speed = 10f;
 
 	// Public Methods
 	public void Setup(Stats stats, Character owner)
@@ -21,7 +22,7 @@ public class Projectile : MonoBehaviour
 
 	private void Update()
 	{
-		transform.Translate(10f * Time.deltaTime * Vector3.forward);
+		transform.Translate(speed * Time.deltaTime * Vector3.forward);
 	}
 
 	private void OnTriggerEnter(Collider other)

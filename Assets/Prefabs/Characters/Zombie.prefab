@@ -280,6 +280,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5019694336578043345}
   - component: {fileID: 8996435584707828427}
+  - component: {fileID: 361777601854213166}
   - component: {fileID: 5829374800386703578}
   - component: {fileID: 2191096681404343785}
   - component: {fileID: 1928026351640178941}
@@ -395,6 +396,7 @@ MonoBehaviour:
       criticalHits: 0
       abilitiesUsed: 0
   startIdle: 0
+  chaseTarget: 1
   target: {fileID: 0}
   targets: []
   idlePos: {fileID: 0}
@@ -406,6 +408,19 @@ MonoBehaviour:
   agent: {fileID: 0}
   animator: {fileID: 0}
   animationIndex: 0
+--- !u!114 &361777601854213166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6205208127605437622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 753beb7bb5104904f8f6df4ff84d06d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyContactDamage
+  contactRadius: 1.25
 --- !u!114 &5829374800386703578
 MonoBehaviour:
   m_ObjectHideFlags: 0
