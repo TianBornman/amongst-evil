@@ -20,6 +20,9 @@ public class HubManager : Singleton<HubManager>
 		if (!GameManager.Instance.AtHub)
 			return;
 
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
+
 		if (!GameManager.Instance.AtMainMenu)
 			StartGame();
 	}

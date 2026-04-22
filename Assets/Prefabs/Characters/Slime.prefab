@@ -352,13 +352,13 @@ MonoBehaviour:
     currentXp: 0
     neededXp: 0
     health: 0
-    maxHealth: 78
+    maxHealth: 10
     size: 1
     levelHeal: 0
     blockChance: 0
     dodgeChance: 0
-    damage: 8
-    attackSpeed: 0.52
+    damage: 5
+    attackSpeed: 1.5
     castSpeed: 1
     critChance: 0.02
     critDamage: 1.2

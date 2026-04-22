@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Midevil.Camera.States
 {
@@ -16,27 +15,21 @@ namespace Midevil.Camera.States
 
 		public void Enter()
 		{
+			camera.axisController.enabled = true;
+
 			InputManager.Instance.MapViewInputActionStarted = EnableMapView;
 			InputManager.Instance.MapViewInputActionCancelled = DisableMapView;
 		}
 
-		public void Exit() 
+		public void Exit()
 		{
+			camera.axisController.enabled = false;
+
             InputManager.Instance.MapViewInputActionStarted = null;
             InputManager.Instance.MapViewInputActionCancelled = null;
         }
 
-		public void Update()
-		{
-			if (Mouse.current.middleButton.isPressed)
-			{
-				camera.axisController.enabled = true;
-			}
-			else
-			{
-				camera.axisController.enabled = false;
-			}
-		}
+		public void Update() { }
 
 		// Private Methods
 		private void EnableMapView()

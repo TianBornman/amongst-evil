@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -8,6 +9,10 @@ public class PartyAutoShooter : MonoBehaviour
 
     [Header("Settings")]
     public Vector3 spawnOffset = new Vector3(0f, 1f, 0f);
+
+    // How many of the nearest enemies to consider when spreading fire.
+    // Each party member picks randomly from this pool so they don't all lock onto the same target.
+    [SerializeField] private int targetPoolSize = 3;
 
     private Character character;
     private float cooldown;
@@ -27,16 +32,31 @@ public class PartyAutoShooter : MonoBehaviour
         if (cooldown > 0)
             return;
 
-        var target = SpawnManager.Instance.spawnedCharacters
-            .Where(e => e != null && e.IsAlive)
-            .OrderBy(e => Vector3.Distance(e.transform.position, transform.position))
-            .FirstOrDefault();
+        Character target = PickTarget();
 
         if (target == null)
             return;
 
         cooldown = 1f / Mathf.Max(character.stats.attackSpeed, 0.1f);
         Fire(target);
+    }
+
+    private Character PickTarget()
+    {
+        float range = character.stats.range;
+
+        List<Character> inRange = SpawnManager.Instance.spawnedCharacters
+            .Where(e => e != null && e.IsAlive &&
+                   Vector3.Distance(e.transform.position, transform.position) <= range)
+            .OrderBy(e => Vector3.Distance(e.transform.position, transform.position))
+            .ToList();
+
+        if (inRange.Count == 0)
+            return null;
+
+        // Pick randomly from the closest N so party members spread their fire
+        int pickFrom = Mathf.Min(targetPoolSize, inRange.Count);
+        return inRange[Random.Range(0, pickFrom)];
     }
 
     private void Fire(Character target)

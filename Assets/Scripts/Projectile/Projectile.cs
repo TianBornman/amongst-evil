@@ -27,13 +27,18 @@ public class Projectile : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.gameObject.TryGetComponent<Character>(out var enemy))
+		if (other.gameObject.GetComponent<CharacterDetectionRange>() != null)
+			return;
+
+		Character hit = other.gameObject.GetComponentInParent<Character>();
+
+		if (hit == null || hit == owner)
+			return;
+
+		if (owner.targetTeams.Contains(hit.team))
 		{
-			if (owner.targetTeams.Contains(enemy.team))
-			{
-				enemy.Damage(owner, stats.damage, stats.critChance, stats.critDamage);
-				Destroy(gameObject);
-			}
+			hit.Damage(owner, stats.damage, stats.critChance, stats.critDamage);
+			Destroy(gameObject);
 		}
 	}
 }

@@ -98,20 +98,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7db64b834e823fc498166f97dbb2cc1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnManager
-  encounters:
-  - {fileID: 11400000, guid: 60a4181f40dfc6646ada68b8ed6748f7, type: 2}
-  bossEncounters:
-  - {fileID: 11400000, guid: e5167fe90f4a39b439639224342e674a, type: 2}
-  partySpawnPoint: {fileID: 0}
-  encounterSpawnPoints: []
-  bossSpawnPoints: []
-  width: 45
-  length: 45
-  minDistance: 10
-  minEncounters: 2
-  maxEncounters: 4
-  bossSpawned: 0
+  enemyPrefabs:
+  - {fileID: 8996435584707828427, guid: 55d7f3e8021e6fd40a7219438764956e, type: 3}
+  - {fileID: 8996435584707828427, guid: a99288e9fee881946a6b1b924b5c4695, type: 3}
+  gameMode: 0
+  totalWaves: 10
+  baseEnemyCount: 10
+  enemyCountScalingPerWave: 3
+  initialSpawnInterval: 1.5
+  minSpawnInterval: 0.12
+  spawnRadius: 25
+  minSpawnRadius: 15
+  healthScalingPerWave: 0.3
+  epicChance: 0.12
+  epicHealthMultiplier: 4
+  epicDamageMultiplier: 2
+  epicSizeMultiplier: 1.5
+  epicOutlineWidth: 1
   spawnedCharacters: []
+  currentWave: 0
 --- !u!114 &6180556048356105748
 MonoBehaviour:
   m_ObjectHideFlags: 0

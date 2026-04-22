@@ -13,7 +13,6 @@ namespace Midevil.Party.States
 
 		public void Enter()
 		{
-			party.cameraMovement.SetBattleState();
 		}
 
 		public void Exit()

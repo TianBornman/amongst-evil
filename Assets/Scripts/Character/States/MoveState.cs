@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class MoveState : IState
@@ -38,12 +39,26 @@ public class MoveState : IState
 	{
 		if (character.target == null || !character.target.IsAlive)
 		{
-			character.agent.SetDestination(character.idlePos.position);
-			character.ReevaluateTarget();
-			return;
+			character.target = FindNearestPartyMember();
+
+			if (character.target == null)
+				return;
 		}
 
 		character.agent.SetDestination(character.target.transform.position);
+	}
+
+	private Character FindNearestPartyMember()
+	{
+		var members = PartyManager.Instance.PartyMembers;
+
+		if (members == null)
+			return null;
+
+		return members
+			.Where(m => m != null && m.IsAlive)
+			.OrderBy(m => Vector3.Distance(m.transform.position, character.transform.position))
+			.FirstOrDefault();
 	}
 
 	private void UpdateHoldPosition()

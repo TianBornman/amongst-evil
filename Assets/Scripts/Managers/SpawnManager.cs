@@ -2,36 +2,54 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
 public enum GameMode { Waves, Timer }
 
 public class SpawnManager : Singleton<SpawnManager>
 {
-    [Header("References")]
-    public List<Encounter> encounters;
-    public SpawnPoint partySpawnPoint;
+    [Header("Enemy Prefabs")]
+    public List<Character> enemyPrefabs;
 
-    [Header("Settings")]
+    [Header("Wave Settings")]
     public GameMode gameMode = GameMode.Waves;
     public int totalWaves = 10;
-    public float spawnRadius = 28f;
-    public float minSpawnRadius = 18f;
+    public int baseEnemyCount = 30;
+    public int enemyCountScalingPerWave = 10;
 
-    // Public Variables
+    [Header("Spawn Settings")]
+    public float initialSpawnInterval = 1.5f;
+    public float minSpawnInterval = 0.12f;
+    public float spawnRadius = 25f;
+    public float minSpawnRadius = 15f;
+    public float healthScalingPerWave = 0.3f;
+
+    [Header("Epic Settings")]
+    [Range(0f, 1f)] public float epicChance = 0.12f;
+    public float epicHealthMultiplier = 4f;
+    public float epicDamageMultiplier = 2f;
+    public float epicSizeMultiplier = 1.5f;
+    public float epicOutlineWidth = 8f;
+
+    // Public
     [HideInInspector] public List<Character> spawnedCharacters = new();
     [HideInInspector] public int currentWave = 0;
 
-    // Private Variables
+    // Private
     private int totalEnemies;
+    private int enemiesToSpawn;
+    private int aliveEnemies;
 
     // Public Methods
     public void RemoveCharacter(Character character)
     {
         spawnedCharacters.Remove(character);
-        UiManager.Instance.SetEnemiesText(spawnedCharacters.Count, totalEnemies);
+        aliveEnemies--;
 
-        if (spawnedCharacters.Count <= 0)
+        UpdateEnemyUI();
+
+        if (enemiesToSpawn <= 0 && aliveEnemies <= 0)
             OnWaveCleared();
     }
 
@@ -41,74 +59,128 @@ public class SpawnManager : Singleton<SpawnManager>
         if (GameManager.Instance.AtHub)
             return;
 
-        var spawnPoints = FindObjectsByType<SpawnPoint>(FindObjectsSortMode.None);
-        partySpawnPoint = spawnPoints.FirstOrDefault(spawn => spawn.partySpawnPoint);
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = false;
 
         spawnedCharacters.Clear();
         currentWave = 0;
+        enemiesToSpawn = 0;
+        aliveEnemies = 0;
+
         StartCoroutine(FirstWaveRoutine());
     }
 
     private IEnumerator FirstWaveRoutine()
     {
         yield return null; // party positions settle
-        SpawnNextWave();
-        yield return null; // enemy Start() runs
-        AssignPartyTargets();
+        StartWave();
     }
 
-    private IEnumerator NextWaveRoutine()
-    {
-        SpawnNextWave();
-        yield return null; // enemy Start() runs
-        AssignPartyTargets();
-    }
-
-    private void SpawnNextWave()
+    private void StartWave()
     {
         currentWave++;
         spawnedCharacters.Clear();
+        aliveEnemies = 0;
 
-        if (encounters == null || encounters.Count == 0)
+        if (enemyPrefabs == null || enemyPrefabs.Count == 0)
         {
-            Debug.LogError("[SpawnManager] No encounters assigned in Inspector!");
+            Debug.LogError("[SpawnManager] No enemy prefabs assigned in Inspector!");
             return;
         }
 
-        int encounterCount = Mathf.Clamp(Mathf.CeilToInt(currentWave / 3f), 1, 4);
-        float baseAngle = Random.Range(0f, 360f);
+        totalEnemies = baseEnemyCount + (currentWave - 1) * enemyCountScalingPerWave;
+        enemiesToSpawn = totalEnemies;
 
-        for (int i = 0; i < encounterCount; i++)
-        {
-            var encounter = encounters[Random.Range(0, encounters.Count)];
-            float angle = (baseAngle + 360f / encounterCount * i + Random.Range(-20f, 20f)) * Mathf.Deg2Rad;
-            float radius = Random.Range(minSpawnRadius, spawnRadius);
-            Vector3 partyPos = PartyManager.Instance.Center.position;
-            Vector3 spawnCenter = partyPos + new Vector3(Mathf.Cos(angle) * radius, 0f, Mathf.Sin(angle) * radius);
-            encounter.Spawn(spawnCenter);
-        }
-
-        totalEnemies = spawnedCharacters.Count;
-        UiManager.Instance.SetEnemiesText(spawnedCharacters.Count, totalEnemies);
         UiManager.Instance.SetWaveText(currentWave, totalWaves);
+        UpdateEnemyUI();
+
+        StartCoroutine(SpawnWaveRoutine());
     }
 
-    private void AssignPartyTargets()
+    private IEnumerator SpawnWaveRoutine()
+    {
+        float interval = Mathf.Max(minSpawnInterval, initialSpawnInterval * Mathf.Pow(0.8f, currentWave - 1));
+
+        while (enemiesToSpawn > 0)
+        {
+            Character enemy = SpawnOneEnemy();
+            enemiesToSpawn--;
+
+            yield return null; // let enemy Start() run
+
+            if (enemy != null)
+                AssignPartyTargets(enemy);
+
+            UpdateEnemyUI();
+
+            yield return new WaitForSeconds(interval);
+        }
+    }
+
+    private Character SpawnOneEnemy()
+    {
+        Vector3 partyPos = PartyManager.Instance.Center.position;
+        float angle = Random.Range(0f, Mathf.PI * 2f);
+        float radius = Random.Range(minSpawnRadius, spawnRadius);
+        Vector3 candidate = partyPos + new Vector3(Mathf.Cos(angle) * radius, 0f, Mathf.Sin(angle) * radius);
+
+        if (!NavMesh.SamplePosition(candidate, out NavMeshHit hit, 50f, NavMesh.AllAreas))
+        {
+            enemiesToSpawn++; // retry — don't lose the count
+            return null;
+        }
+
+        var prefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
+        var enemy = Instantiate(prefab, hit.position, Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
+
+        float waveScale = 1f + (currentWave - 1) * healthScalingPerWave;
+        enemy.baseStats.maxHealth *= waveScale;
+
+        bool isEpic = Random.value < epicChance;
+
+        if (isEpic)
+        {
+            enemy.baseStats.maxHealth *= epicHealthMultiplier;
+            enemy.baseStats.damage   *= epicDamageMultiplier;
+            enemy.baseStats.size     *= epicSizeMultiplier;
+
+            var outline = enemy.GetComponent<Outline>();
+            if (outline != null)
+            {
+                outline.OutlineColor = new Color(1f, 0.78f, 0f); // gold
+                outline.OutlineWidth = epicOutlineWidth;
+                outline.enabled = true;
+            }
+        }
+        else
+        {
+            enemy.drops.Clear();
+        }
+
+        spawnedCharacters.Add(enemy);
+        aliveEnemies++;
+
+        return enemy;
+    }
+
+    private void AssignPartyTargets(Character enemy)
     {
         var partyMembers = PartyManager.Instance.PartyMembers;
         if (partyMembers == null) return;
 
-        foreach (var enemy in spawnedCharacters)
-        {
-            foreach (var member in partyMembers)
-                if (member.IsAlive && !enemy.targets.Contains(member))
-                    enemy.targets.Add(member);
+        foreach (var member in partyMembers)
+            if (member.IsAlive && !enemy.targets.Contains(member))
+                enemy.targets.Add(member);
 
-            enemy.ReevaluateTarget();
+        enemy.ReevaluateTarget();
 
-            if (enemy.target != null)
-                enemy.SetState(new MoveState(enemy));
-        }
+        if (enemy.target != null)
+            enemy.SetState(new MoveState(enemy));
+    }
+
+    private void UpdateEnemyUI()
+    {
+        UiManager.Instance.SetEnemiesText(aliveEnemies + enemiesToSpawn, totalEnemies);
     }
 
     private void OnWaveCleared()
@@ -119,6 +191,6 @@ public class SpawnManager : Singleton<SpawnManager>
             UiManager.Instance.ShowVictoryScreen();
         }
         else
-            StartCoroutine(NextWaveRoutine());
+            StartWave();
     }
 }

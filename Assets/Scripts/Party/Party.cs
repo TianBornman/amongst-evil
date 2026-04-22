@@ -6,6 +6,7 @@ using Midevil.Party.States;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
 namespace Midevil.Party
@@ -14,7 +15,7 @@ namespace Midevil.Party
 	{
 		// Editor Variables
 		[Header("Settings")]
-		public float moveSpeed = 6f;
+		public float moveSpeed = 9f;
 		public Transform waypoint;
 		public Transform partyCenter;
 		public List<PartyCharacter> members = new();
@@ -72,9 +73,10 @@ namespace Midevil.Party
 			UnityEngine.Camera cam = UnityEngine.Camera.main;
 			Vector3 forward = Vector3.ProjectOnPlane(cam.transform.forward, Vector3.up).normalized;
 			Vector3 right = Vector3.ProjectOnPlane(cam.transform.right, Vector3.up).normalized;
-			Vector3 delta = (forward * input.y + right * input.x) * moveSpeed * Time.deltaTime;
+			Vector3 candidate = waypoint.position + (forward * input.y + right * input.x) * moveSpeed * Time.deltaTime;
 
-			SetPosition(waypoint.position + delta);
+			if (NavMesh.SamplePosition(candidate, out NavMeshHit hit, 3f, NavMesh.AllAreas))
+				SetPosition(hit.position);
 		}
 
 		public void AddPartyXp(float amount, PartyCharacter character)
