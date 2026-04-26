@@ -293,12 +293,7 @@ public class Character : StateMachine, IInteractable
 			var dropped = Random.value < item.stats.dropChance;
 
 			if (dropped)
-			{
-				var itemRb = Instantiate(item, transform.position + transform.up * 1.5f, Quaternion.identity).GetComponent<Rigidbody>();
-
-				Vector3 forceDirection = (Vector3.up + Random.insideUnitSphere).normalized;
-				itemRb.AddForce(forceDirection * 5f, ForceMode.Impulse);
-			}
+				Instantiate(item, transform.position + Vector3.up * 1.5f, Quaternion.identity);
 		}
 	}
 }

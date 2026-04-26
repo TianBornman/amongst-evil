@@ -83,7 +83,7 @@ MonoBehaviour:
     currentXp: 0
     neededXp: 0
     health: 0
-    maxHealth: 200
+    maxHealth: 20
     size: 1
     levelHeal: 0.1
     blockChance: 0.07
@@ -154,6 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PartyAutoShooter
   projectilePrefab: {fileID: -3272758706898936770, guid: a61b0d0ad2e52c24bb7bd4d59b6c3093, type: 3}
   spawnOffset: {x: 0, y: 1.5, z: 0}
+  targetPoolSize: 3
 --- !u!114 &7173039164351708794
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ public class RefManager : Singleton<RefManager>
 	// Editor Variables
 	[Header("Layer Masks")]
 	public LayerMask targetableMask;
+	public LayerMask groundMask;
 
 	[Header("Animations")]
 	public AnimatorOverrideController unarmed;

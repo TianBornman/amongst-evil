@@ -146,6 +146,9 @@ MonoBehaviour:
   targetableMask:
     serializedVersion: 2
     m_Bits: 9
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 8
   unarmed: {fileID: 22100000, guid: e8d243891ff574e41a9a75d2e3a32bd7, type: 2}
   sword1H: {fileID: 22100000, guid: 2dae7f461ac6c8a45ad1630c5f4b2485, type: 2}
   bow: {fileID: 22100000, guid: d7cd45db9a2e74746ae8f2da781d0f1e, type: 2}
