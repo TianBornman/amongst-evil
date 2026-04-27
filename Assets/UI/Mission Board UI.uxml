@@ -1,0 +1,29 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="Style Sheets/Mission Board UI.uss" />
+    <ui:VisualElement name="Root" class="mission-board-root">
+        <ui:VisualElement name="Panel" class="mission-board-panel">
+            <ui:Label text="Mission Board" name="BoardTitle" class="mission-board-title" />
+            <ui:VisualElement name="MissionList" class="mission-list">
+                <ui:VisualElement name="Card" class="mission-card">
+                    <ui:Label text="Title" name="Title" class="mission-card__title" />
+                    <ui:Label text="Type" name="Type" class="mission-card__type" />
+                    <ui:Label text="Threat" name="Threat" class="mission-card__threat" />
+                    <ui:Label text="Flavor text goes here" name="Flavor" class="mission-card__flavor" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Card" class="mission-card">
+                    <ui:Label text="Title" name="Title" class="mission-card__title" />
+                    <ui:Label text="Type" name="Type" class="mission-card__type" />
+                    <ui:Label text="Threat" name="Threat" class="mission-card__threat" />
+                    <ui:Label text="Flavor text goes here" name="Flavor" class="mission-card__flavor" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Card" class="mission-card">
+                    <ui:Label text="Title" name="Title" class="mission-card__title" />
+                    <ui:Label text="Type" name="Type" class="mission-card__type" />
+                    <ui:Label text="Threat" name="Threat" class="mission-card__threat" />
+                    <ui:Label text="Flavor text goes here" name="Flavor" class="mission-card__flavor" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:Button text="Cancel" name="Cancel" class="mission-board-cancel" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

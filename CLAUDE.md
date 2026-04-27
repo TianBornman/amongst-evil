@@ -66,6 +66,7 @@ Assets/
     Map/               SpawnPoint marker
     Encounter/         Encounter ScriptableObject (enemy group definitions)
     Upgrade Card/      UpgradeCard ScriptableObject (buff rewards)
+    Mission/           Mission data class, MissionType / MissionDifficulty enums, MissionGenerator
     Helpers/           ItemHelper, NameGenerator, ColorHelper, AudioHelper
     Visuals/           DamageNumber, HealthbarVisual
     Buildings/         Building base, BloodVault, Cart
@@ -79,7 +80,7 @@ Assets/
     Characters/        Party Character, enemies (Slime, Zombie, Barbarian Boss), Recruitment Human
     Items/             Iron Armour, Rusty Sword, Wooden Bow, Beer Mug
     Buildings/         Tent, Blacksmith, BloodVault, Fire Place, Horse Carriage, Archer Tower
-    UI/                GameUI, StatsUI, LevelUpUI, ItemPickUpUI, ResultsUI, SettingsUI, etc.
+    UI/                GameUI, StatsUI, LevelUpUI, ItemPickUpUI, ResultsUI, SettingsUI, MissionBoardUI, etc.
     Projectiles/       Arrow.prefab
 ```
 
@@ -143,6 +144,15 @@ Assets/
   - `pickOnlyOne=true` — weighted pick using `weight`; `skipChance` rolls the group off entirely
 - Designer hooks effects to a character via `Character.spawnEffects: List<EffectApplicationGroup>` on the prefab. Each group is `Apply(this)`-ed in `Start` after `RecalculateStats`.
 - Variant tiers are SOs in `Assets/Data/Effects/Variants/` referenced from a single shared `EffectApplicationGroup` SO; that SO is dragged onto every enemy prefab's `spawnEffects`. **No variant code, no enums, no tables.** Adding a tier = author a new `CompositeEffectData` and add it to the group.
+
+### Missions
+- `Mission` (plain data class in `Assets/Scripts/Mission/`): `title`, `MissionType` (Purge/RelicRecovery/Chaos), `MissionDifficulty` (I–X), `flavorText`. Maps to Obsidian `Combat.md §2.2 / §2.3` and Spiral threat ratings.
+- `MissionGenerator.GenerateBatch(count, min, max)` — randomises type + difficulty, picks a title/flavor from per-type pools.
+- Cart → `HubUiManager.ShowMissionBoardUI()`; selecting a card calls `HubManager.StartRun(mission)`, which sets `PartyManager.Instance.CurrentMission` before loading `Level.unity`.
+- `SpawnManager.OnSceneLoaded` builds a `MissionConfig` and creates an `IMissionRunner` via `MissionRunnerFactory`. Runner controls win condition; SpawnManager runs the spawn loop. Three runners: `PurgeMissionRunner` (fixed waves), `ChaosMissionRunner` (timer), `RelicRecoveryMissionRunner` (touch the relic to win — Warden deferred).
+- `MissionConfig.Build(mission)` derives `waveCount / baseEnemyCount / enemyCountScalingPerWave / healthMul / damageMul / spawnIntervalMul / chaosTimerSeconds` from Threat I–X.
+- HUD: `UiManager.SetObjectiveText` / `SetTimerText` drive `#Objective` and `#Timer` labels in `GameUI.uxml`.
+- Relic placement uses NavMesh sampling around the party (same as enemies) — tunable via `SpawnManager.relicMinDistance / relicMaxDistance`. `Relic` triggers on `PartyCharacter` collision.
 
 ### Spawning
 - `Encounter` SO defines a list of enemy prefabs + optional scenery

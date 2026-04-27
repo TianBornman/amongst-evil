@@ -110,11 +110,7 @@ MonoBehaviour:
   spawnRadius: 25
   minSpawnRadius: 15
   healthScalingPerWave: 0.3
-  epicChance: 0.12
-  epicHealthMultiplier: 4
-  epicDamageMultiplier: 2
-  epicSizeMultiplier: 1.5
-  epicOutlineWidth: 1
+  relicPrefab: {fileID: 2538043876279816791, guid: fe5383d04fa2051408b9fec802851397, type: 3}
   spawnedCharacters: []
   currentWave: 0
 --- !u!114 &6180556048356105748
@@ -204,6 +200,10 @@ MonoBehaviour:
   bloodVaultUiPrefab: {fileID: 7439391192158440223, guid: cf51b1a74dd8f644a915bc1bc7357d9f, type: 3}
   armouryUiPrefab: {fileID: 7439391192158440223, guid: 08282e54d10826e449e60590346cd55c, type: 3}
   settingsUiPrefab: {fileID: 7439391192158440223, guid: 32b4f0dc8bd9df1418b91efb0be469bf, type: 3}
+  missionBoardUiPrefab: {fileID: 7942399990081477409, guid: 59f1dcf6056fdcb489885ca8f1bd9006, type: 3}
+  missionBoardCount: 3
+  missionBoardMinDifficulty: 1
+  missionBoardMaxDifficulty: 3
 --- !u!114 &7630648152501158786
 MonoBehaviour:
   m_ObjectHideFlags: 0

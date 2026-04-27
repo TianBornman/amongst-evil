@@ -5,6 +5,10 @@
         <ui:Label text="Label" name="Map" style="-unity-text-align: middle-left;"/>
         <ui:Label text="Label" name="Enemies"/>
         <ui:Label text="Label" name="Wave" style="-unity-text-align: middle-right;"/>
+        <ui:Label text="" name="Timer" style="-unity-text-align: middle-right; display: none;"/>
+    </ui:VisualElement>
+    <ui:VisualElement name="ObjectiveBar" style="position: absolute; top: 75px; width: 100%; align-items: center;">
+        <ui:Label text="" name="Objective" style="font-size: 20px; -unity-font-style: bold; color: rgb(235, 220, 195); padding-top: 4px; padding-bottom: 4px; padding-left: 16px; padding-right: 16px; background-color: rgba(0, 0, 0, 0.5); border-top-left-radius: 8px; border-top-right-radius: 8px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px; display: none;"/>
     </ui:VisualElement>
     <ui:VisualElement name="MiniDashboards" style="flex-grow: 1; width: 600px; margin-top: auto; max-height: 300px; padding-left: 10px; position: absolute; bottom: 0; min-height: 300px;">
         <ui:Instance template="Character Mini Dashboard"/>

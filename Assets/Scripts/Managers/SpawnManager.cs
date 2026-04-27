@@ -1,6 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using Midevil.Mission;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
@@ -12,7 +13,7 @@ public class SpawnManager : Singleton<SpawnManager>
     [Header("Enemy Prefabs")]
     public List<Character> enemyPrefabs;
 
-    [Header("Wave Settings")]
+    [Header("Wave Settings (fallback when no Mission set)")]
     public GameMode gameMode = GameMode.Waves;
     public int totalWaves = 10;
     public int baseEnemyCount = 30;
@@ -25,14 +26,26 @@ public class SpawnManager : Singleton<SpawnManager>
     public float minSpawnRadius = 15f;
     public float healthScalingPerWave = 0.3f;
 
+    [Header("Mission")]
+    public Relic relicPrefab;
+    public float relicMinDistance = 30f;
+    public float relicMaxDistance = 50f;
+    public int relicPlacementAttempts = 30;
+
     // Public
     [HideInInspector] public List<Character> spawnedCharacters = new();
     [HideInInspector] public int currentWave = 0;
 
+    public MissionConfig MissionConfig => missionConfig;
+    public IMissionRunner MissionRunner => missionRunner;
+
     // Private
+    private MissionConfig missionConfig;
+    private IMissionRunner missionRunner;
     private int totalEnemies;
     private int enemiesToSpawn;
     private int aliveEnemies;
+    private bool runEnded;
 
     // Public Methods
     public void RemoveCharacter(Character character)
@@ -42,8 +55,37 @@ public class SpawnManager : Singleton<SpawnManager>
 
         UpdateEnemyUI();
 
+        missionRunner?.OnEnemyDied(character);
+
         if (enemiesToSpawn <= 0 && aliveEnemies <= 0)
             OnWaveCleared();
+    }
+
+    public void PlaceRelic(Action onTouched)
+    {
+        if (relicPrefab == null)
+        {
+            Debug.LogError("[SpawnManager] Relic Recovery mission but no relicPrefab assigned!");
+            return;
+        }
+
+        Vector3 partyPos = PartyManager.Instance.Center.position;
+
+        for (int i = 0; i < relicPlacementAttempts; i++)
+        {
+            float angle = UnityEngine.Random.Range(0f, Mathf.PI * 2f);
+            float radius = UnityEngine.Random.Range(relicMinDistance, relicMaxDistance);
+            Vector3 candidate = partyPos + new Vector3(Mathf.Cos(angle) * radius, 0f, Mathf.Sin(angle) * radius);
+
+            if (NavMesh.SamplePosition(candidate, out NavMeshHit hit, 50f, NavMesh.AllAreas))
+            {
+                var relic = Instantiate(relicPrefab, hit.position, Quaternion.identity);
+                relic.onTouched = onTouched;
+                return;
+            }
+        }
+
+        Debug.LogError("[SpawnManager] Could not place relic on NavMesh after " + relicPlacementAttempts + " attempts.");
     }
 
     // Private Methods
@@ -59,8 +101,52 @@ public class SpawnManager : Singleton<SpawnManager>
         currentWave = 0;
         enemiesToSpawn = 0;
         aliveEnemies = 0;
+        runEnded = false;
+
+        ConfigureMission();
 
         StartCoroutine(FirstWaveRoutine());
+    }
+
+    private void ConfigureMission()
+    {
+        var mission = PartyManager.Instance.CurrentMission;
+
+        if (mission != null)
+        {
+            missionConfig = MissionConfig.Build(mission);
+            missionRunner = MissionRunnerFactory.Create(mission.type);
+        }
+        else
+        {
+            missionConfig = new MissionConfig
+            {
+                mission = null,
+                waveCount = totalWaves,
+                baseEnemyCount = baseEnemyCount,
+                enemyCountScalingPerWave = enemyCountScalingPerWave,
+                healthMul = 1f,
+                damageMul = 1f,
+                spawnIntervalMul = 1f,
+                chaosTimerSeconds = 300f
+            };
+            missionRunner = new PurgeMissionRunner();
+        }
+
+        missionRunner.Begin(this, missionConfig);
+
+        UiManager.Instance.SetObjectiveText(missionRunner.ObjectiveText);
+    }
+
+    private void Update()
+    {
+        if (runEnded || missionRunner == null) return;
+        if (GameManager.Instance.AtHub || GameManager.Instance.IsGamePaused) return;
+
+        missionRunner.Tick(Time.deltaTime);
+
+        if (missionRunner.ShouldEndRun(out bool victory))
+            EndRun(victory);
     }
 
     private IEnumerator FirstWaveRoutine()
@@ -71,6 +157,8 @@ public class SpawnManager : Singleton<SpawnManager>
 
     private void StartWave()
     {
+        if (runEnded) return;
+
         currentWave++;
         spawnedCharacters.Clear();
         aliveEnemies = 0;
@@ -81,10 +169,11 @@ public class SpawnManager : Singleton<SpawnManager>
             return;
         }
 
-        totalEnemies = baseEnemyCount + (currentWave - 1) * enemyCountScalingPerWave;
+        totalEnemies = missionConfig.baseEnemyCount + (currentWave - 1) * missionConfig.enemyCountScalingPerWave;
         enemiesToSpawn = totalEnemies;
 
-        UiManager.Instance.SetWaveText(currentWave, totalWaves);
+        UiManager.Instance.SetWaveText(currentWave, missionRunner.IsEndless ? -1 : missionConfig.waveCount);
+        UiManager.Instance.SetObjectiveText(missionRunner.ObjectiveText);
         UpdateEnemyUI();
 
         StartCoroutine(SpawnWaveRoutine());
@@ -92,14 +181,15 @@ public class SpawnManager : Singleton<SpawnManager>
 
     private IEnumerator SpawnWaveRoutine()
     {
-        float interval = Mathf.Max(minSpawnInterval, initialSpawnInterval * Mathf.Pow(0.8f, currentWave - 1));
+        float baseInterval = initialSpawnInterval * Mathf.Pow(0.8f, currentWave - 1) * missionConfig.spawnIntervalMul;
+        float interval = Mathf.Max(minSpawnInterval, baseInterval);
 
-        while (enemiesToSpawn > 0)
+        while (enemiesToSpawn > 0 && !runEnded)
         {
             Character enemy = SpawnOneEnemy();
             enemiesToSpawn--;
 
-            yield return null; // let enemy Start() run
+            yield return null;
 
             if (enemy != null)
                 AssignPartyTargets(enemy);
@@ -113,21 +203,22 @@ public class SpawnManager : Singleton<SpawnManager>
     private Character SpawnOneEnemy()
     {
         Vector3 partyPos = PartyManager.Instance.Center.position;
-        float angle = Random.Range(0f, Mathf.PI * 2f);
-        float radius = Random.Range(minSpawnRadius, spawnRadius);
+        float angle = UnityEngine.Random.Range(0f, Mathf.PI * 2f);
+        float radius = UnityEngine.Random.Range(minSpawnRadius, spawnRadius);
         Vector3 candidate = partyPos + new Vector3(Mathf.Cos(angle) * radius, 0f, Mathf.Sin(angle) * radius);
 
         if (!NavMesh.SamplePosition(candidate, out NavMeshHit hit, 50f, NavMesh.AllAreas))
         {
-            enemiesToSpawn++; // retry — don't lose the count
+            enemiesToSpawn++;
             return null;
         }
 
-        var prefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
-        var enemy = Instantiate(prefab, hit.position, Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
+        var prefab = enemyPrefabs[UnityEngine.Random.Range(0, enemyPrefabs.Count)];
+        var enemy = Instantiate(prefab, hit.position, Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 360f), 0f));
 
         float waveScale = 1f + (currentWave - 1) * healthScalingPerWave;
-        enemy.baseStats.maxHealth *= waveScale;
+        enemy.baseStats.maxHealth *= waveScale * missionConfig.healthMul;
+        enemy.baseStats.damage *= missionConfig.damageMul;
 
         spawnedCharacters.Add(enemy);
         aliveEnemies++;
@@ -157,12 +248,30 @@ public class SpawnManager : Singleton<SpawnManager>
 
     private void OnWaveCleared()
     {
-        if (currentWave >= totalWaves)
+        if (runEnded) return;
+
+        missionRunner.OnWaveCleared();
+
+        if (missionRunner.ShouldEndRun(out bool victory))
+        {
+            EndRun(victory);
+            return;
+        }
+
+        StartWave();
+    }
+
+    private void EndRun(bool victory)
+    {
+        if (runEnded) return;
+        runEnded = true;
+
+        StopAllCoroutines();
+
+        if (victory)
         {
             PartyManager.Instance.CalculateStats();
             UiManager.Instance.ShowVictoryScreen();
         }
-        else
-            StartWave();
     }
 }

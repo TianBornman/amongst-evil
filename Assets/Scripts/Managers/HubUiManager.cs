@@ -1,5 +1,7 @@
 ﻿using Midevil.Item;
+using Midevil.Mission;
 using Midevil.UI.Elements;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -13,11 +15,18 @@ public class HubUiManager : Singleton<HubUiManager>
 	public UIDocument bloodVaultUiPrefab;
 	public UIDocument armouryUiPrefab;
 	public UIDocument settingsUiPrefab;
+	public UIDocument missionBoardUiPrefab;
+
+	[Header("Mission Board")]
+	public int missionBoardCount = 3;
+	public int missionBoardMinDifficulty = 1;
+	public int missionBoardMaxDifficulty = 3;
 
 	// Public Variables
 	public bool BloodVaultOpen => bloodVaultUi.rootVisualElement.visible;
 	public bool ArmouryOpen => recruitmentArmouryUi.visible || recruitmentGearUi.visible;
 	public bool SettingsOpen => settingsUi.rootVisualElement.visible;
+	public bool MissionBoardOpen => missionBoardUi.rootVisualElement.visible;
 
 	// Private Variables
 	private UIDocument mainMenuUi;
@@ -27,6 +36,8 @@ public class HubUiManager : Singleton<HubUiManager>
 	private UIDocument bloodVaultUi;
 	private UIDocument armouryUi;
 	private UIDocument settingsUi;
+	private UIDocument missionBoardUi;
+	private List<Mission> currentMissionBatch;
 
 	// Override Methods
 	protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -42,6 +53,7 @@ public class HubUiManager : Singleton<HubUiManager>
 		bloodVaultUi = Instantiate(bloodVaultUiPrefab).GetComponent<UIDocument>();
 		armouryUi = Instantiate(armouryUiPrefab).GetComponent<UIDocument>();
 		settingsUi = Instantiate(settingsUiPrefab).GetComponent<UIDocument>();
+		missionBoardUi = Instantiate(missionBoardUiPrefab).GetComponent<UIDocument>();
 
 		// Config
 		mainMenuUi.rootVisualElement.visible = true;
@@ -51,6 +63,11 @@ public class HubUiManager : Singleton<HubUiManager>
 		bloodVaultUi.rootVisualElement.visible = false;
 		armouryUi.rootVisualElement.visible = false;
 		settingsUi.rootVisualElement.visible = false;
+		missionBoardUi.rootVisualElement.visible = false;
+
+		var cancelButton = missionBoardUi.rootVisualElement.Q<Button>("Cancel");
+		if (cancelButton != null)
+			cancelButton.clicked += HideMissionBoardUI;
 
 		mainMenuUi.rootVisualElement.Q<Button>("Play").clicked += HubManager.Instance.StartGame;
 
@@ -194,6 +211,69 @@ public class HubUiManager : Singleton<HubUiManager>
 	{
 		recruitmentGearUi.visible = false;
 	}
+
+	public void ShowMissionBoardUI()
+	{
+		currentMissionBatch = MissionGenerator.GenerateBatch(missionBoardCount, missionBoardMinDifficulty, missionBoardMaxDifficulty);
+
+		var list = missionBoardUi.rootVisualElement.Q<VisualElement>("MissionList");
+		var cards = list.Query<VisualElement>("Card").ToList();
+
+		for (int i = 0; i < cards.Count; i++)
+		{
+			var card = cards[i];
+
+			if (i < currentMissionBatch.Count)
+			{
+				var mission = currentMissionBatch[i];
+				PopulateMissionCard(card, mission);
+				card.style.display = DisplayStyle.Flex;
+			}
+			else
+			{
+				card.style.display = DisplayStyle.None;
+			}
+		}
+
+		missionBoardUi.rootVisualElement.visible = true;
+	}
+
+	public void HideMissionBoardUI()
+	{
+		missionBoardUi.rootVisualElement.visible = false;
+	}
+
+	private void PopulateMissionCard(VisualElement card, Mission mission)
+	{
+		var titleLabel = card.Q<Label>("Title");
+		var typeLabel = card.Q<Label>("Type");
+		var threatLabel = card.Q<Label>("Threat");
+		var flavorLabel = card.Q<Label>("Flavor");
+
+		if (titleLabel != null) titleLabel.text = mission.title;
+		if (typeLabel != null) typeLabel.text = FormatMissionType(mission.type);
+		if (threatLabel != null) threatLabel.text = $"Threat {mission.difficulty}";
+		if (flavorLabel != null) flavorLabel.text = mission.flavorText;
+
+		card.userData = mission;
+
+		var captured = mission;
+		card.RegisterCallback<ClickEvent>(_ => OnMissionSelected(captured));
+	}
+
+	private void OnMissionSelected(Mission mission)
+	{
+		HideMissionBoardUI();
+		HubManager.Instance.StartRun(mission);
+	}
+
+	private static string FormatMissionType(MissionType type) => type switch
+	{
+		MissionType.Purge => "Purge",
+		MissionType.RelicRecovery => "Relic Recovery",
+		MissionType.Chaos => "Chaos",
+		_ => type.ToString()
+	};
 
 	public void ShowSettingsUI()
 	{

@@ -1,5 +1,6 @@
 ﻿using Midevil.Ability;
 using Midevil.Item;
+using Midevil.Mission;
 using Midevil.Models;
 using Midevil.Party;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ public class PartyManager : Singleton<PartyManager>
 	public int maxPartySize = 3;
 	public List<Identity> partyIdentities = new();
 	public Result partyResults = new();
+	public Mission CurrentMission { get; private set; }
 
 	// Private Variables
 	private Party playerParty;
@@ -51,8 +53,10 @@ public class PartyManager : Singleton<PartyManager>
 
 	public void RemovePartyMember(PartyCharacter character) => playerParty.RemoveMember(character);
 
-	public void StartRun()
+	public void StartRun(Mission mission)
 	{
+		CurrentMission = mission;
+
 		foreach (Identity identity in partyIdentities)
 		{
 			var bloodVaultEntry = new BloodVaultEntry

@@ -1,4 +1,5 @@
 using Midevil.Item;
+using Midevil.Mission;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -34,12 +35,12 @@ public class HubManager : Singleton<HubManager>
 		GameManager.Instance.LeaveMenu();
 	}
 
-	public void StartRun()
+	public void StartRun(Mission mission)
 	{
 		if (PartyManager.Instance.partyIdentities.Count == 0)
 			return;
 
-		PartyManager.Instance.StartRun();
+		PartyManager.Instance.StartRun(mission);
 
 		GameManager.Instance.LeaveHub();
 		SceneManager.LoadScene("Level");
@@ -88,7 +89,9 @@ public class HubManager : Singleton<HubManager>
 
 		currentCharacter = null;
 
-		if (HubUiManager.Instance.BloodVaultOpen)
+		if (HubUiManager.Instance.MissionBoardOpen)
+			HubUiManager.Instance.HideMissionBoardUI();
+		else if (HubUiManager.Instance.BloodVaultOpen)
 			HubUiManager.Instance.HideBloodVaultUI();
 		else if (HubUiManager.Instance.ArmouryOpen)
 		{

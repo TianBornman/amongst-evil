@@ -1,5 +1,16 @@
 # Core Game Systems
 
+## Missions
+- `Assets/Scripts/Mission/` — `Mission` (data), `MissionType` (Purge/RelicRecovery/Chaos), `MissionDifficulty` (I–X), `MissionGenerator` (static, `GenerateBatch(count, min, max)`)
+- Selected mission stored on `PartyManager.Instance.CurrentMission` before `Level` scene loads
+- Cart no longer starts run directly — `Cart.Interact()` opens `HubUiManager.ShowMissionBoardUI()`; selecting a card calls `HubManager.StartRun(mission)`
+- `SpawnManager.OnSceneLoaded` builds `MissionConfig.Build(mission)` and creates an `IMissionRunner` via `MissionRunnerFactory.Create(type)`. Runner owns spawn pacing flags and the win condition; SpawnManager owns the spawn loop.
+- Runners: `PurgeMissionRunner` (fixed waves), `ChaosMissionRunner` (timed survival via `Tick`), `RelicRecoveryMissionRunner` (calls `SpawnManager.PlaceRelic` on Begin, touch-to-win — Warden deferred).
+- Difficulty I–X scales `waveCount`, `baseEnemyCount`, `enemyCountScalingPerWave`, `healthMul`, `damageMul`, `spawnIntervalMul`, `chaosTimerSeconds` (formulas in `MissionConfig`).
+- HUD: `UiManager.SetObjectiveText` and `SetTimerText` drive `#Objective` and `#Timer` in `GameUI.uxml` (both hidden by default; runner unhides as needed).
+- Relic placement: NavMesh sampling around the party (same approach as enemy spawning) using `SpawnManager.relicMinDistance / relicMaxDistance / relicPlacementAttempts`. `Relic` script triggers `onTouched` on `OnTriggerEnter` with a `PartyCharacter`.
+- Deferred: Relic Warden, Grand Clock Pressure modifier, Hourglass Ichor, rank-gated difficulty range, Breaths/extraction. See `Obsidian/Missions.md`.
+
 ## Combat
 - Damage = baseDamage × crit multiplier if `Random.value < critChance`
 - Block / dodge chance → damage reduced to 0

@@ -267,6 +267,11 @@ The following are considerations for the current development phase. These should
 - [x] WASD party movement
 - [x] Enemy wave spawning *(wave structure, timing tuning ongoing)*
 - [x] Variant tier system — Normal / Cursed / Blighted / Corrupted / Forsaken (see §8.3)
+- [x] Mission Board UI — type + difficulty selection on cart interact (see [[Missions]])
+- [x] Mission-type behaviour — Purge (fixed waves), Chaos (timer), Relic Recovery (touch-to-win, Warden deferred)
+- [x] Difficulty scaling — enemy count, HP×, Dmg×, spawn interval, Chaos timer all driven by Threat I–X
+- [ ] Relic Warden epic spawn (Relic Recovery currently touch-to-win)
+- [ ] Grand Clock Pressure as a stand-alone modifier on top of difficulty
 - [ ] Unique per-tier behaviours beyond stat scaling (TBD)
 - [ ] Blood Vault persistent record
 - [ ] Loot drop system

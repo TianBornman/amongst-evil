@@ -18,8 +18,8 @@ Access pattern: `ManagerName.Instance.Method()`
 | `DamageNumberManager` | DamageNumberManager.cs | Floating damage text pool |
 | `RefManager` | RefManager.cs | Centralized asset refs (items, effects, abilities, icons) |
 | `InteractionManager` | InteractionManager.cs | Hover / click on `IInteractable` objects |
-| `HubManager` | HubManager.cs | Hub scene management |
-| `HubUiManager` | HubUiManager.cs | Hub UI state |
+| `HubManager` | HubManager.cs | Hub scene management; `StartRun(Mission)` sets mission + loads Level |
+| `HubUiManager` | HubUiManager.cs | Hub UI state; owns Mission Board (`ShowMissionBoardUI` / `HideMissionBoardUI` / `MissionBoardOpen`) |
 
 ## InputManager Action Delegates
 Subscribe to these for input events (no polling):

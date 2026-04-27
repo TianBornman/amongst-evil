@@ -274,7 +274,40 @@ public class UiManager : Singleton<UiManager>
 			return;
 
 		var waveLabel = gameUi.rootVisualElement.Q<Label>("Wave");
-		waveLabel.text = $"Wave: {current}/{total}";
+		waveLabel.text = total < 0 ? $"Wave: {current}" : $"Wave: {current}/{total}";
+	}
+
+	public void SetTimerText(float seconds)
+	{
+		if (gameUi == null || gameUi.rootVisualElement == null)
+			return;
+
+		var timerLabel = gameUi.rootVisualElement.Q<Label>("Timer");
+		if (timerLabel == null) return;
+
+		seconds = Mathf.Max(0f, seconds);
+		int m = Mathf.FloorToInt(seconds / 60f);
+		int s = Mathf.FloorToInt(seconds % 60f);
+		timerLabel.text = $"Time: {m}:{s:00}";
+		timerLabel.style.display = DisplayStyle.Flex;
+	}
+
+	public void SetObjectiveText(string text)
+	{
+		if (gameUi == null || gameUi.rootVisualElement == null)
+			return;
+
+		var objectiveLabel = gameUi.rootVisualElement.Q<Label>("Objective");
+		if (objectiveLabel == null) return;
+
+		if (string.IsNullOrEmpty(text))
+		{
+			objectiveLabel.style.display = DisplayStyle.None;
+			return;
+		}
+
+		objectiveLabel.text = text;
+		objectiveLabel.style.display = DisplayStyle.Flex;
 	}
 
 	public void ShowVictoryScreen()

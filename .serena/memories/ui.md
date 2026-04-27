@@ -12,6 +12,7 @@
 - `ItemPickUpUI` — item interaction / equip panel
 - `ResultsUI` — end-of-run results screen
 - `SettingsUI` — settings screen (music volume, etc.)
+- `MissionBoardUI` — mission selection shown when interacting with the cart in the hub. Three `Card` children inside `#MissionList`, each with `#Title` / `#Type` / `#Threat` / `#Flavor` labels. Click → `HubManager.StartRun(mission)`. UXML: `Assets/UI/Mission Board UI.uxml`, USS: `Assets/UI/Style Sheets/Mission Board UI.uss`.
 
 ## Custom UI Elements (extend VisualElement)
 - `ItemElement` — renders an equippable item
