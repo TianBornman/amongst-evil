@@ -14,6 +14,21 @@ Memory files:
 - `scenes_and_flow.md` — Sect hub, Level dungeon, run lifecycle
 - `lore.md` — world lore, Grimace Brotherhood, Grand Clock, key figures & locations
 
+## Obsidian Vault
+
+The project's design brain lives in `Obsidian/` at the repo root. It contains lore notes (Akalaer, Grand Clock, Brotherhood, characters, locations) and system notes (Combat, Blood Vault, Relics & Gear).
+
+- **Read before deciding:** when a task touches lore, world-building, characters, or any system documented in the vault, read the relevant `Obsidian/*.md` files first.
+- **Write after changing:** when lore is introduced/changed or a documented system is meaningfully altered, update or create the matching `.md` in `Obsidian/`. Use Obsidian-style `[[wikilinks]]` between notes when cross-referencing.
+- Treat the vault as a peer to `.serena/memories/` and this `CLAUDE.md` for "keep memory current" guidance.
+
+**Documentation is part of every task.** Whenever you change a system, add a feature, or alter lore, update the relevant docs in the same task — do not leave it for "later". The three places to keep in sync:
+1. `Obsidian/*.md` — design intent, lore, system-level explanation
+2. `.serena/memories/*.md` — code-level pointers (file paths, manager responsibilities, system summaries)
+3. `CLAUDE.md` — quick-reference rules and directory map
+
+If a change touches code, also update Serena memories and CLAUDE.md. If it touches design or lore, also update the Obsidian note.
+
 ## Project Overview
 
 Amongst Evil is a Unity 6 (URP) action-RPG with party-based combat and roguelike progression.
@@ -116,8 +131,18 @@ Assets/
 
 ### Effects / Statuses
 - Duration < 0 = infinite; `IsExpired` when `elapsed >= duration`
-- Stack vs. refresh logic in `CharacterEffects`
-- Interfaces: `IOnHit`, `IOnTakeHit`, `IOnKill`, `IOnDeath`, `IOnTick`
+- Each `EffectData` has: `group` (string), `stackPolicy` (`Refresh/Replace/Reject/Allow`), `duration`, `icon`, `itemPrefix`. Subclasses fill base fields via `PopulateBase(effect)` in `CreateRuntime()`.
+- Same-group conflict resolution lives in `CharacterEffects.AddEffect`. Empty group = unrelated to anything else, always allowed alongside.
+- Event interfaces: `IOnHit`, `IOnTakeHit`, `IOnKill`, `IOnDeath`, `IOnTick`. `OnApply/OnRemove` for setup/teardown.
+- Built-ins: `StatModifierEffect` (flat Buff), `StatMultiplierEffect` (multiplies baseStats), `OutlineEffect`, `DropOnDeathEffect` (the *only* loot mechanism — Character has no drop logic itself), `CompositeEffect`, `BurnOnHitEffect`/`BurningEffect`, `HealOnKillEffect`. Compose tier effects (Cursed/Blighted/etc.) as a `CompositeEffectData` referencing a `StatMultiplierEffectData` + an `OutlineEffectData` + a `DropOnDeathEffectData`. **Do not** author a new `Effect` subclass for stat changes.
+
+### Effect Application (chance + grouping)
+- `EffectApplication` struct: `{ EffectData effect; float chance; float weight }`
+- `EffectApplicationGroup` SO: `{ string label; bool pickOnlyOne; float skipChance; List<EffectApplication> entries }`
+  - `pickOnlyOne=false` — each entry rolled independently against its `chance`
+  - `pickOnlyOne=true` — weighted pick using `weight`; `skipChance` rolls the group off entirely
+- Designer hooks effects to a character via `Character.spawnEffects: List<EffectApplicationGroup>` on the prefab. Each group is `Apply(this)`-ed in `Start` after `RecalculateStats`.
+- Variant tiers are SOs in `Assets/Data/Effects/Variants/` referenced from a single shared `EffectApplicationGroup` SO; that SO is dragged onto every enemy prefab's `spawnEffects`. **No variant code, no enums, no tables.** Adding a tier = author a new `CompositeEffectData` and add it to the group.
 
 ### Spawning
 - `Encounter` SO defines a list of enemy prefabs + optional scenery

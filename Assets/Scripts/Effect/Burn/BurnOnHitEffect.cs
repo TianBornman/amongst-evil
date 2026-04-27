@@ -2,13 +2,12 @@ namespace Midevil.Effect
 {
 	public class BurnOnHitEffect : Effect, IOnHit
 	{
-		public string childEffectType;
-		public float effectDps;
-		public float effectDuration;
+		public EffectData burningEffect;
 
 		public void OnHit(Character owner, Character target, float damage)
 		{
-			target.effects.AddEffect(new BurningEffect(childEffectType, effectDps, effectDuration, icon));
+			if (burningEffect == null || target == null) return;
+			target.effects.AddEffect(burningEffect.CreateRuntime());
 		}
 	}
 }

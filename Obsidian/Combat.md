@@ -266,10 +266,67 @@ The following are considerations for the current development phase. These should
 
 - [x] WASD party movement
 - [x] Enemy wave spawning *(wave structure, timing tuning ongoing)*
-- [ ] Epic enemy variant logic *(stat scaling confirmed; unique behaviours TBD)*
+- [x] Variant tier system — Normal / Cursed / Blighted / Corrupted / Forsaken (see §8.3)
+- [ ] Unique per-tier behaviours beyond stat scaling (TBD)
 - [ ] Blood Vault persistent record
 - [ ] Loot drop system
 - [ ] Extraction mechanic
+
+### 8.3 Variant Tiers Are Effects
+
+Variant tiers (§4.2) are **not** a separate system — they are just `EffectData` assets applied through the generic Effect system. There is no `EnemyVariant` enum, no variant table, no variant code paths in `SpawnManager`.
+
+**Effect system architecture:**
+- `EffectData` (SO) carries `group` (string tag), `stackPolicy` (Refresh / Replace / Reject / Allow), `duration`, `icon`. `CreateRuntime()` produces a runtime `Effect`.
+- `Effect` subclasses receive events via `IOnHit / IOnTakeHit / IOnKill / IOnDeath / IOnTick` and lifecycle via `OnApply / OnRemove`.
+- `CharacterEffects.AddEffect` resolves same-group conflicts via `stackPolicy`. Two fire DoTs sharing `group="fire"` will not stack ugly — second one refreshes (or replaces / is rejected) per its policy.
+- Built-in effect types: `StatModifierEffect` (buff/debuff), `OutlineEffect` (visual tell), `CompositeEffect` (bundles children), `BurnOnHitEffect` + `BurningEffect`, `HealOnKillEffect`.
+
+**Application:**
+- `EffectApplication` = `{ EffectData effect; float chance; float weight }`.
+- `EffectApplicationGroup` (SO) holds a list of applications and a `pickOnlyOne` toggle. With `pickOnlyOne=true`, only one application from the group can apply per roll (weighted) — that is how a single enemy gets *one* variant tier (or none). With `pickOnlyOne=false`, each entry rolls independently — that is how an enemy might receive multiple unrelated effects.
+- `Character.spawnEffects: List<EffectApplicationGroup>` on the prefab. Each group is rolled on `Start`.
+
+**Authored assets (already in repo):** `Assets/Data/Effects/Variants/`
+
+```
+Variants/
+├── Cursed.asset              (Composite, group="variant-tier", stackPolicy=Replace)
+├── Cursed Stats.asset        (StatMultiplier — HP×1.5, move×1.10, xp×1.2)
+├── Cursed Outline.asset      (faint dark purple, width 3)
+│                             (no Loot child — Cursed never drops gear)
+├── Blighted.asset            (Composite)
+├── Blighted Stats.asset      (HP×2.0, move×1.25, dmg×1.20, xp×1.6)
+├── Blighted Outline.asset    (sickly green, width 4)
+├── Blighted Loot.asset       (DropOnDeath — pool: [Rusty Sword], chance=0.25)
+├── Corrupted.asset           (Composite)
+├── Corrupted Stats.asset     (HP×3.5, move×1.40, dmg×1.50, xp×2.5)
+├── Corrupted Outline.asset   (ichor purple, width 5)
+├── Corrupted Loot.asset      (DropOnDeath — pool: [Iron Armour, Rusty Sword], chance=0.10)
+├── Forsaken.asset            (Composite)
+├── Forsaken Stats.asset      (HP×5.0, move×1.60, dmg×2.00, attack×1.10, size×1.10, xp×4)
+├── Forsaken Outline.asset    (distorted red, width 6)
+├── Forsaken Loot.asset       (DropOnDeath — pool: [Wooden Bow, Iron Armour], chance=0.05)
+└── Variant Roll.asset        (ApplicationGroup — pickOnlyOne, skipChance=0.7, weights 70/20/8/2)
+```
+
+**Drop system:** `Character` has *no* drop logic. Loot is delivered by `DropOnDeathEffect` — a generic effect carrying a list of items + a single chance. On death the effect rolls its chance once; if it passes, one item from the pool is picked uniformly and instantiated. No second roll, no per-item filter. To make any character drop loot — under any condition (variant tier, boss kill, item bonus, etc.) — attach a `DropOnDeath` effect to it.
+
+For variant tiers, the loot pool is *tier-aware* per the design intent: Forsaken drops higher-quality gear than Blighted, not just rarer rolls. To retune what a tier drops, edit its `<Tier> Loot.asset` (change the `items` list or the `chance`). To wire a different loot pool to a specific enemy type — either author a new `DropOnDeath` effect for that enemy and add it to its `spawnEffects`, or build an enemy-specific composite that bundles an enemy-specific loot effect.
+
+**Tier reference values** (matches §4.2):
+
+| Tier | Rel. Weight | HP × | Move × | Dmg × | Outline tell |
+|---|---|---|---|---|---|
+| Cursed | common | 1.5 | 1.1 | 1.0 | faint dark |
+| Blighted | uncommon | 2.0 | 1.25 | 1.2 | sickly green glow |
+| Corrupted | rare | 3.5 | 1.4 | 1.5 | ichor purple |
+| Forsaken | legendary | 5.0 | 1.6 | 2.0 | distorted red/gold |
+
+The "Normal" no-tier outcome is produced by raising `skipChance` on the application group — it's not authored as an effect.
+
+> [!info] Why this design
+> Variants share the same plumbing as every other effect (item-applied, ability-applied, on-hit, status). Adding a new tier — or any new combat behavior — is asset authoring, not code. Effects can also be dropped onto party members, bosses, or scripted spawns without changing anything.
 
 ### 8.2 Open Questions & Resolutions
 

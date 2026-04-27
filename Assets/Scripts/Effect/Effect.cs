@@ -6,9 +6,12 @@ namespace Midevil.Effect
 	public class Effect
 	{
 		public Guid id;
-		public string effectType;
+		public EffectData source;
+		public string group;
+		public EffectStackPolicy stackPolicy = EffectStackPolicy.Refresh;
 		public Texture2D icon;
 		public float duration = -1f;
+		public Effect parent;
 		protected float elapsed;
 		public int stackCount;
 
@@ -25,12 +28,16 @@ namespace Midevil.Effect
 			}
 		}
 
+		public bool IsExpired => duration > 0 && elapsed >= duration;
+
 		public virtual void OnApply(Character owner) { }
 		public virtual void OnRemove(Character owner) { }
 
-		public virtual bool RefreshOrStack(Effect existingEffect) { return false; }
-
-		public bool IsExpired => duration > 0 && elapsed >= duration;
+		public virtual void Refresh(Effect incoming)
+		{
+			duration = Mathf.Max(duration, incoming.duration);
+			elapsed = 0f;
+		}
 
 		public virtual void TickTimer(float deltaTime)
 		{

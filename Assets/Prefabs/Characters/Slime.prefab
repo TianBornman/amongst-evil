@@ -399,6 +399,8 @@ MonoBehaviour:
   chaseTarget: 1
   target: {fileID: 0}
   targets: []
+  spawnEffects:
+  - {fileID: 11400000, guid: 8b3d4e7f8091a2b3c4d5e6f708192adc, type: 2}
   idlePos: {fileID: 0}
   targetPos: {fileID: 8531168655745296414}
   equipment: {fileID: 0}
@@ -420,7 +422,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 753beb7bb5104904f8f6df4ff84d06d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyContactDamage
-  contactRadius: 1.25
+  characterContactRadius: 1.2
 --- !u!114 &5829374800386703578
 MonoBehaviour:
   m_ObjectHideFlags: 0

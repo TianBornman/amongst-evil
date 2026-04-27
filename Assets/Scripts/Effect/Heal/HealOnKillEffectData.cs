@@ -5,19 +5,13 @@ namespace Midevil.Effect
 	[CreateAssetMenu(menuName = "Effects/Heal On Kill")]
 	public class HealOnKillEffectData : EffectData
 	{
-		public string effectId = "healonkill";
-		public float healAmount;
+		public float healAmount = 2f;
 
 		public override Effect CreateRuntime()
 		{
-			return new HealOnKillEffect
-			{
-				effectType = effectType,
-				icon = icon,
-				duration = duration,
-				effectId = effectId,
-				healAmount = healAmount
-			};
+			var effect = new HealOnKillEffect { healAmount = healAmount };
+			PopulateBase(effect);
+			return effect;
 		}
 	}
 }

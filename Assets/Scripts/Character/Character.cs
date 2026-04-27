@@ -1,6 +1,5 @@
 using Midevil.Ability;
 using Midevil.Effect;
-using Midevil.Item;
 using Midevil.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,13 +35,16 @@ public class Character : StateMachine, IInteractable
 	public List<Buff> buffs = new();
 	public List<Effect> currentEffects = new();
 	public List<Ability> currentAbilities = new();
-	public List<Item> drops = new();
 	public Identity identity;
 	public bool startIdle;
 	public bool chaseTarget = true;
 
 	public Character target;
 	public List<Character> targets = new();
+
+	[Header("On-Spawn Effects")]
+	[Tooltip("Effect application groups rolled when this character spawns. Each group can be exclusive (pickOnlyOne — e.g. one of Cursed/Blighted/Corrupted/Forsaken) or independent (each rolled on its own chance).")]
+	public List<EffectApplicationGroup> spawnEffects = new();
 
 	[Header("References")]
 	public Transform idlePos;
@@ -198,8 +200,6 @@ public class Character : StateMachine, IInteractable
 	{
 		SpawnManager.Instance.RemoveCharacter(this);
 
-		DropItems();
-
 		foreach (var buff in killer.currentEffects)
 			if (buff is IOnKill onKill)
 				onKill.OnKill(this, killer);
@@ -260,6 +260,16 @@ public class Character : StateMachine, IInteractable
 			idlePos = transform;
 
 		RecalculateStats();
+
+		ApplySpawnEffects();
+	}
+
+	private void ApplySpawnEffects()
+	{
+		if (spawnEffects == null) return;
+		for (int i = 0; i < spawnEffects.Count; i++)
+			if (spawnEffects[i] != null)
+				spawnEffects[i].Apply(this);
 	}
 
 	// Private Methods
@@ -284,16 +294,5 @@ public class Character : StateMachine, IInteractable
 	private float GetNeededXp(int level)
 	{
 		return 10f * Mathf.Pow(level, 1.3f) + 5f * level;
-	}
-
-	private void DropItems()
-	{
-		foreach (var item in drops)
-		{
-			var dropped = Random.value < item.stats.dropChance;
-
-			if (dropped)
-				Instantiate(item, transform.position + Vector3.up * 1.5f, Quaternion.identity);
-		}
 	}
 }

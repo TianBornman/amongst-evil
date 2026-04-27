@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29db5b0d5b03cc14fbaf35c405d47639, type: 3}
+  m_Name: Forsaken
+  m_EditorClassIdentifier:
+  group: variant-tier
+  stackPolicy: 1
+  icon: {fileID: 0}
+  itemPrefix: Forsaken
+  duration: -1
+  children:
+  - {fileID: 11400000, guid: 5e0a1b4c5d6e7f8091a2b3c4d5e6f7a9, type: 2}
+  - {fileID: 11400000, guid: 6f1b2c5d6e7f8091a2b3c4d5e6f708ba, type: 2}
+  - {fileID: 11400000, guid: c39a3b4c5d6e7f8091a2b3c4d5e6f8ac, type: 2}

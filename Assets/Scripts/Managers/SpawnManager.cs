@@ -25,13 +25,6 @@ public class SpawnManager : Singleton<SpawnManager>
     public float minSpawnRadius = 15f;
     public float healthScalingPerWave = 0.3f;
 
-    [Header("Epic Settings")]
-    [Range(0f, 1f)] public float epicChance = 0.12f;
-    public float epicHealthMultiplier = 4f;
-    public float epicDamageMultiplier = 2f;
-    public float epicSizeMultiplier = 1.5f;
-    public float epicOutlineWidth = 8f;
-
     // Public
     [HideInInspector] public List<Character> spawnedCharacters = new();
     [HideInInspector] public int currentWave = 0;
@@ -135,27 +128,6 @@ public class SpawnManager : Singleton<SpawnManager>
 
         float waveScale = 1f + (currentWave - 1) * healthScalingPerWave;
         enemy.baseStats.maxHealth *= waveScale;
-
-        bool isEpic = Random.value < epicChance;
-
-        if (isEpic)
-        {
-            enemy.baseStats.maxHealth *= epicHealthMultiplier;
-            enemy.baseStats.damage   *= epicDamageMultiplier;
-            enemy.baseStats.size     *= epicSizeMultiplier;
-
-            var outline = enemy.GetComponent<Outline>();
-            if (outline != null)
-            {
-                outline.OutlineColor = new Color(1f, 0.78f, 0f); // gold
-                outline.OutlineWidth = epicOutlineWidth;
-                outline.enabled = true;
-            }
-        }
-        else
-        {
-            enemy.drops.Clear();
-        }
 
         spawnedCharacters.Add(enemy);
         aliveEnemies++;

@@ -4,20 +4,29 @@ using UnityEngine;
 
 public class CharacterEffects : MonoBehaviour
 {
-	// Editor Variables
-	[Header("References")]
-
-	// Private Variables
 	private Character character;
 
-	// Public Methods
 	public void AddEffect(Effect effect)
 	{
-		var sameEffect = character.currentEffects.FirstOrDefault(b => b.effectType == effect.effectType);
-		if (sameEffect != null)
+		if (!string.IsNullOrEmpty(effect.group))
 		{
-			if (sameEffect.RefreshOrStack(effect))
-				return;
+			var existing = character.currentEffects.FirstOrDefault(e => e.group == effect.group);
+			if (existing != null)
+			{
+				switch (effect.stackPolicy)
+				{
+					case EffectStackPolicy.Reject:
+						return;
+					case EffectStackPolicy.Refresh:
+						existing.Refresh(effect);
+						return;
+					case EffectStackPolicy.Replace:
+						RemoveEffect(existing);
+						break;
+					case EffectStackPolicy.Allow:
+						break;
+				}
+			}
 		}
 
 		effect.OnApply(character);
@@ -28,12 +37,10 @@ public class CharacterEffects : MonoBehaviour
 	public void RemoveEffect(Effect effect)
 	{
 		effect.OnRemove(character);
-
 		character.currentEffects.Remove(effect);
 		character.RecalculateStats();
 	}
 
-	// Private Methods
 	public void Awake()
 	{
 		character = GetComponent<Character>();

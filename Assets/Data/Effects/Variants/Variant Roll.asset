@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47623ff62c0563242a356c534516f3ac, type: 3}
+  m_Name: Variant Roll
+  m_EditorClassIdentifier:
+  label: Variant Tier Roll
+  pickOnlyOne: 1
+  skipChance: 0.7
+  entries:
+  - effect: {fileID: 11400000, guid: e7f3c4d5f60718293a4b5c6d7e8f90a2, type: 2}
+    chance: 1
+    weight: 70
+  - effect: {fileID: 11400000, guid: 1ac6f7081a2b3c4d5e6f7081929a0b25, type: 2}
+    chance: 1
+    weight: 20
+  - effect: {fileID: 11400000, guid: 4df90a3b4c5d6e7f8091a2b3c4d5e6f8, type: 2}
+    chance: 1
+    weight: 8
+  - effect: {fileID: 11400000, guid: 7a2c3d6e7f8091a2b3c4d5e6f70819cb, type: 2}
+    chance: 1
+    weight: 2
