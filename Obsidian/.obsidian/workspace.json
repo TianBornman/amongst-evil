@@ -1,0 +1,203 @@
+{
+  "main": {
+    "id": "d56d85e9f5cc0c73",
+    "type": "split",
+    "children": [
+      {
+        "id": "2661b29539a60e8b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e9c5b5b30d847df0",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Graph view"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "cd5ec3f8d9d10d21",
+    "type": "split",
+    "children": [
+      {
+        "id": "dd61409c8e44bfe6",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "3f8f14fe2efcc469",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "adb02e5e7ee59b05",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "562c0d6466d27906",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "0876026dff57529e",
+    "type": "split",
+    "children": [
+      {
+        "id": "f1148c5ce52ebe2a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "7e7a3f7708615f2b",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Akalaer.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Akalaer"
+            }
+          },
+          {
+            "id": "1754c9cad4b505ea",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Combat.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Combat"
+            }
+          },
+          {
+            "id": "e69f00282b5f2a38",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "76dd6a080f4830d2",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "18cb41365ec98f91",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Combat.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Combat"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "e9c5b5b30d847df0",
+  "lastOpenFiles": [
+    "Relics & Gear.md",
+    "Combat.md",
+    "Akalaer.md",
+    "Grand Clock.md",
+    "Oaths of the Brotherhood.md",
+    "Kareth Vall.md",
+    "High Thalenor.md",
+    "The Sanctum Vigil.md",
+    "Garin Loctove.md",
+    "Crypt of Knowledge.md",
+    "Alexandr the Iron Tyrant.md",
+    "Blood Vault.md",
+    "Combat.md.tmp.19216.1776967396669",
+    "Tomb of the First Sin.md",
+    "Brotherhood Progression.md",
+    "The Sundering of the Crown.md",
+    "2026-04-23.md",
+    "Welcome.md"
+  ]
+}
