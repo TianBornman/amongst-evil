@@ -18,6 +18,7 @@ public class PartyManager : Singleton<PartyManager>
 	public int maxPartySize = 3;
 	public List<Identity> partyIdentities = new();
 	public Result partyResults = new();
+	public List<CharacterResultEntry> characterResults = new();
 	public Mission CurrentMission { get; private set; }
 
 	// Private Variables
@@ -73,10 +74,22 @@ public class PartyManager : Singleton<PartyManager>
 
 	public void EndRun()
 	{
-		partyResults.Clear();
+		var aliveIds = new HashSet<string>();
 
-		foreach (var character in playerParty.members)
-			character.identity.Save(BloodVaultStatus.Alive);
+		if (playerParty != null)
+			foreach (var character in playerParty.members)
+				aliveIds.Add(character.identity.id);
+
+		foreach (var identity in partyIdentities)
+		{
+			if (aliveIds.Contains(identity.id))
+				identity.RecordStatus(BloodVaultStatus.Alive);
+
+			identity.CommitResult();
+		}
+
+		partyResults.Clear();
+		characterResults.Clear();
 	}
 
 	public void AddPartyXp(float amount, PartyCharacter character) => playerParty.AddPartyXp(amount, character);
@@ -86,9 +99,23 @@ public class PartyManager : Singleton<PartyManager>
 	public void CalculateStats()
 	{
 		partyResults.Clear();
+		characterResults.Clear();
+
+		var aliveIds = new HashSet<string>();
+		if (playerParty != null)
+			foreach (var member in playerParty.members)
+				aliveIds.Add(member.identity.id);
 
 		foreach (Identity identity in partyIdentities)
+		{
 			partyResults.Add(identity.currentResult);
+			characterResults.Add(new CharacterResultEntry
+			{
+				characterName = identity.characterName,
+				isAlive = aliveIds.Contains(identity.id),
+				result = identity.currentResult,
+			});
+		}
 	}
 
 	public void EquipItem(string id, ItemStats item)

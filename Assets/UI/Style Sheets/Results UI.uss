@@ -1,21 +1,103 @@
-.tab {
+.results-root {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0.7);
+    max-height: 80%;
+    width: 70%;
+    margin: auto;
+    border-radius: 15px;
+    padding: 20px;
+    flex-direction: column;
 }
 
-.tab #Title {
-    font-size: 30px;
+.results-title {
+    font-size: 36px;
     -unity-text-align: upper-center;
+    color: rgb(255, 255, 255);
+    margin-bottom: 15px;
+}
+
+.results-columns {
+    flex-grow: 1;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.result-column {
+    flex-basis: 0;
+    flex-grow: 1;
+    flex-shrink: 1;
+    margin: 6px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    border-width: 1px;
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.total-column {
+    background-color: rgba(180, 140, 60, 0.18);
+    border-color: rgba(220, 180, 90, 0.5);
+}
+
+.column-name {
+    font-size: 22px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
     color: rgb(255, 255, 255);
 }
 
-.tab #ContentLine {
-    flex-direction: row;
-    max-height: 35px;
+.column-status {
+    font-size: 14px;
+    -unity-text-align: middle-center;
+    color: rgb(180, 180, 180);
+    margin-bottom: 8px;
 }
 
-.tab #ContentLine Label {
+.column-status.alive {
+    color: rgb(120, 220, 120);
+}
+
+.column-status.dead {
+    color: rgb(220, 90, 90);
+}
+
+.stat-row {
+    flex-direction: row;
+    max-height: 28px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.stat-row .stat-label {
+    flex-basis: 0;
+    flex-grow: 1;
+    color: rgb(200, 200, 200);
+    font-size: 14px;
+    -unity-text-align: middle-left;
+}
+
+.stat-row .stat-value {
     flex-basis: 0;
     flex-grow: 1;
     color: rgb(255, 255, 255);
-    font-size: 18px;
-    -unity-text-align: middle-center;
+    font-size: 14px;
+    -unity-text-align: middle-right;
+    -unity-font-style: bold;
+}
+
+.hidden {
+    display: none;
+}
+
+.button-row {
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.results-button {
+    margin: 5px 10px;
+    width: 18%;
+    border-radius: 10px;
+    padding: 6px;
 }

@@ -41,4 +41,11 @@ namespace Midevil.Models
 			abilitiesUsed = 0;
 		}
 	}
+
+	public class CharacterResultEntry
+	{
+		public string characterName;
+		public bool isAlive;
+		public Result result;
+	}
 }

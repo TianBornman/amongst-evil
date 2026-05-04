@@ -31,11 +31,8 @@ namespace Midevil.Models
 			profileIcon = IconReferenceIndex.Human;
 		}
 
-		public void Save(BloodVaultStatus status)
+		public void RecordStatus(BloodVaultStatus status)
 		{
-			lifeTimeResult.Add(currentResult);
-			currentResult = new();
-
 			var bloodVaultEntry = new BloodVaultEntry
 			{
 				identity = this,
@@ -45,24 +42,20 @@ namespace Midevil.Models
 			BloodvaultManager.AddOrUpdate(bloodVaultEntry);
 		}
 
+		public void CommitResult()
+		{
+			lifeTimeResult.Add(currentResult);
+			currentResult = new();
+		}
+
 		public void ClearGear()
 		{
 			weapon = null;
 			armour = null;
 		}
 
-		public void Flee()
-		{
-			// TODO: Make sure each individual stat is saved properly
-			//level = PlayerManager.Instance.player.stats.level;
-			//xp = PlayerManager.Instance.player.currentXp;
+		public void Flee() => RecordStatus(BloodVaultStatus.Alive);
 
-			Save(BloodVaultStatus.Alive);
-		}
-
-		public void Die()
-		{
-			Save(BloodVaultStatus.Dead);
-		}
+		public void Die() => RecordStatus(BloodVaultStatus.Dead);
 	}
 }

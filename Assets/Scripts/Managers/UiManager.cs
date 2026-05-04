@@ -89,7 +89,6 @@ public class UiManager : Singleton<UiManager>
 
 		// Results
 		resultsUi.rootVisualElement.visible = false;
-		resultsUi.rootVisualElement.Q<VisualElement>("Results").dataSource = PartyManager.Instance.partyResults;
 		resultsUi.rootVisualElement.Q<Button>("Flee").clicked += Flee;
 
 		var continueButton = resultsUi.rootVisualElement.Q<Button>("Continue");
@@ -247,7 +246,19 @@ public class UiManager : Singleton<UiManager>
 
 	public void ShowResults()
 	{
+		PopulateResults();
 		resultsUi.rootVisualElement.visible = true;
+		ReleaseCursorAndCamera();
+	}
+
+	private void ReleaseCursorAndCamera()
+	{
+		UnityEngine.Cursor.lockState = CursorLockMode.None;
+		UnityEngine.Cursor.visible = true;
+
+		var cameraMovement = FindFirstObjectByType<Midevil.Camera.CameraMovement>();
+		if (cameraMovement != null && cameraMovement.axisController != null)
+			cameraMovement.axisController.enabled = false;
 	}
 
 	public void ShowDeathScreen()
@@ -257,6 +268,61 @@ public class UiManager : Singleton<UiManager>
 		resultsUi.rootVisualElement.Q<Button>("Continue").visible = true;
 		resultsUi.rootVisualElement.Q<Button>("Flee").visible = false;
 		resultsUi.rootVisualElement.Q<Button>("FightOn").visible = false;
+	}
+
+	private void PopulateResults()
+	{
+		var root = resultsUi.rootVisualElement;
+		var totals = PartyManager.Instance.partyResults;
+		var entries = PartyManager.Instance.characterResults;
+
+		var totalColumn = root.Q<VisualElement>("TotalColumn");
+		FillResultColumn(totalColumn, "Total", totals, alive: null);
+
+		for (int i = 0; i < 3; i++)
+		{
+			var column = root.Q<VisualElement>($"CharacterColumn{i}");
+			if (column == null)
+				continue;
+
+			if (i < entries.Count)
+			{
+				var entry = entries[i];
+				column.RemoveFromClassList("hidden");
+				FillResultColumn(column, entry.characterName, entry.result, entry.isAlive);
+			}
+			else
+			{
+				column.AddToClassList("hidden");
+			}
+		}
+	}
+
+	private void FillResultColumn(VisualElement column, string name, Midevil.Models.Result result, bool? alive)
+	{
+		column.Q<Label>("ColumnName").text = name;
+
+		var status = column.Q<Label>("ColumnStatus");
+		status.RemoveFromClassList("alive");
+		status.RemoveFromClassList("dead");
+
+		if (alive.HasValue)
+		{
+			status.text = alive.Value ? "Survived" : "Fallen";
+			status.AddToClassList(alive.Value ? "alive" : "dead");
+		}
+		else
+		{
+			status.text = "Party";
+		}
+
+		column.Q<Label>("xpGained").text = Mathf.RoundToInt(result.xpGained).ToString();
+		column.Q<Label>("kills").text = result.kills.ToString();
+		column.Q<Label>("damageDealt").text = Mathf.RoundToInt(result.damageDealt).ToString();
+		column.Q<Label>("damageTaken").text = Mathf.RoundToInt(result.damageTaken).ToString();
+		column.Q<Label>("healed").text = Mathf.RoundToInt(result.healed).ToString();
+		column.Q<Label>("hits").text = result.hits.ToString();
+		column.Q<Label>("criticalHits").text = result.criticalHits.ToString();
 	}
 
 	public void SetEnemiesText(int enemiesRemaining, int totalEnemies)
@@ -312,6 +378,7 @@ public class UiManager : Singleton<UiManager>
 
 	public void ShowVictoryScreen()
 	{
+		PopulateResults();
 		resultsUi.rootVisualElement.visible = true;
 		resultsUi.rootVisualElement.Q<Button>("Flee").visible = true;
 		resultsUi.rootVisualElement.Q<Button>("FightOn").visible = false;
