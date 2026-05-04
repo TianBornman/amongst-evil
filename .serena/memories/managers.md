@@ -19,7 +19,8 @@ Access pattern: `ManagerName.Instance.Method()`
 | `RefManager` | RefManager.cs | Centralized asset refs (items, effects, abilities, icons) |
 | `InteractionManager` | InteractionManager.cs | Hover / click on `IInteractable` objects |
 | `HubManager` | HubManager.cs | Hub scene management; `StartRun(Mission)` sets mission + loads Level |
-| `HubUiManager` | HubUiManager.cs | Hub UI state; owns Mission Board (`ShowMissionBoardUI` / `HideMissionBoardUI` / `MissionBoardOpen`) |
+| `HubUiManager` | HubUiManager.cs | Hub UI state; owns Mission Board (`ShowMissionBoardUI` / `HideMissionBoardUI` / `MissionBoardOpen`) and Spiral UI (`ShowSpiralUI` / `HideSpiralUI` / `SpiralOpen`) |
+| `SectProgressManager` | Progression/SectProgressManager.cs | Sect-wide progression on the Spiral of the Veil — Standing accumulator, requirement evaluation, ascension ceremony. Persists via `BloodvaultManager` (same `bloodvault.json`). |
 
 ## InputManager Action Delegates
 Subscribe to these for input events (no polling):

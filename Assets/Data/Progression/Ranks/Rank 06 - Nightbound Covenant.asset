@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22e43dc2d8db2f349a7c02e86acc4321, type: 3}
+  m_Name: Rank 06 - Nightbound Covenant
+  m_EditorClassIdentifier: Assembly-CSharp::Midevil.Progression.SectRankData
+  rankNumber: 6
+  rankName: Nightbound Covenant
+  statusTitle: Elite Operatives
+  flavor: You oversee strategic operations across multiple regions.
+  quote: We walk where the night binds the world.
+  badge: {fileID: 0}
+  requirements:
+  - {fileID: 11400000, guid: 4d82e381313fa4347a012ee472d4a786, type: 2}
+  - {fileID: 11400000, guid: db9b5b85bb7bc94498cc509efc518b6e, type: 2}

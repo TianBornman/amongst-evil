@@ -363,6 +363,11 @@ public class UiManager : Singleton<UiManager>
 	private void Die()
 	{
 		Resume();
+
+		var sect = Midevil.Progression.SectProgressManager.Instance;
+		if (sect != null)
+			sect.RecordMissionCompleted(PartyManager.Instance.CurrentMission, success: false);
+
 		GameManager.Instance.EnterHub();
 		PartyManager.Instance.EndRun();
 		SceneManager.LoadScene("Sect");

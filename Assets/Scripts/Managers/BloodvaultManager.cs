@@ -48,8 +48,9 @@ public static class BloodvaultManager
 		Save();
 	}
 
-	private static void Save()
+	public static void Save()
 	{
+		if (cachedData == null) return;
 		string json = JsonUtility.ToJson(cachedData, true);
 		File.WriteAllText(filePath, json);
 	}

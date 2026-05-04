@@ -1,5 +1,7 @@
 ﻿using Midevil.Item;
 using Midevil.Mission;
+using Midevil.Models;
+using Midevil.Progression;
 using Midevil.UI.Elements;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +18,7 @@ public class HubUiManager : Singleton<HubUiManager>
 	public UIDocument armouryUiPrefab;
 	public UIDocument settingsUiPrefab;
 	public UIDocument missionBoardUiPrefab;
+	public UIDocument spiralUiPrefab;
 
 	[Header("Mission Board")]
 	public int missionBoardCount = 3;
@@ -27,6 +30,7 @@ public class HubUiManager : Singleton<HubUiManager>
 	public bool ArmouryOpen => recruitmentArmouryUi.visible || recruitmentGearUi.visible;
 	public bool SettingsOpen => settingsUi.rootVisualElement.visible;
 	public bool MissionBoardOpen => missionBoardUi.rootVisualElement.visible;
+	public bool SpiralOpen => spiralUi != null && spiralUi.rootVisualElement.visible;
 
 	// Private Variables
 	private UIDocument mainMenuUi;
@@ -37,6 +41,7 @@ public class HubUiManager : Singleton<HubUiManager>
 	private UIDocument armouryUi;
 	private UIDocument settingsUi;
 	private UIDocument missionBoardUi;
+	private UIDocument spiralUi;
 	private List<Mission> currentMissionBatch;
 
 	// Override Methods
@@ -54,6 +59,8 @@ public class HubUiManager : Singleton<HubUiManager>
 		armouryUi = Instantiate(armouryUiPrefab).GetComponent<UIDocument>();
 		settingsUi = Instantiate(settingsUiPrefab).GetComponent<UIDocument>();
 		missionBoardUi = Instantiate(missionBoardUiPrefab).GetComponent<UIDocument>();
+		if (spiralUiPrefab != null)
+			spiralUi = Instantiate(spiralUiPrefab).GetComponent<UIDocument>();
 
 		// Config
 		mainMenuUi.rootVisualElement.visible = true;
@@ -64,6 +71,11 @@ public class HubUiManager : Singleton<HubUiManager>
 		armouryUi.rootVisualElement.visible = false;
 		settingsUi.rootVisualElement.visible = false;
 		missionBoardUi.rootVisualElement.visible = false;
+		if (spiralUi != null)
+		{
+			spiralUi.rootVisualElement.visible = false;
+			SetupSpiralUI();
+		}
 
 		var cancelButton = missionBoardUi.rootVisualElement.Q<Button>("Cancel");
 		if (cancelButton != null)
@@ -282,5 +294,170 @@ public class HubUiManager : Singleton<HubUiManager>
 	public void HideSettingsUI()
 	{
         settingsUi.rootVisualElement.visible = false;
+	}
+
+	private void SetupSpiralUI()
+	{
+		var root = spiralUi.rootVisualElement;
+		var close = root.Q<Button>("Close");
+		if (close != null) close.clicked += HideSpiralUI;
+
+		var ascend = root.Q<Button>("AscendButton");
+		if (ascend != null) ascend.clicked += OnAscendClicked;
+
+		var continueBtn = root.Q<Button>("AscensionContinue");
+		if (continueBtn != null) continueBtn.clicked += () =>
+		{
+			root.Q<VisualElement>("AscensionOverlay").AddToClassList("hidden");
+		};
+
+		var sect = SectProgressManager.Instance;
+		if (sect != null)
+		{
+			sect.OnAscended += OnAscended;
+			sect.OnAscensionAvailable += _ => { if (SpiralOpen) RebuildSpiralUI(); };
+			sect.OnStandingChanged += _ => { if (SpiralOpen) RebuildSpiralUI(); };
+		}
+	}
+
+	public void ShowSpiralUI()
+	{
+		if (spiralUi == null) return;
+		RebuildSpiralUI();
+		spiralUi.rootVisualElement.visible = true;
+	}
+
+	public void HideSpiralUI()
+	{
+		if (spiralUi == null) return;
+		spiralUi.rootVisualElement.visible = false;
+	}
+
+	private void OnAscendClicked()
+	{
+		var sect = SectProgressManager.Instance;
+		if (sect == null) return;
+		sect.PerformAscension();
+	}
+
+	private void OnAscended(SectRankData rank)
+	{
+		if (spiralUi == null || rank == null) return;
+		var root = spiralUi.rootVisualElement;
+		var overlay = root.Q<VisualElement>("AscensionOverlay");
+		root.Q<Label>("AscensionRank").text = rank.rankName;
+		root.Q<Label>("AscensionQuote").text = string.IsNullOrEmpty(rank.quote) ? rank.flavor : rank.quote;
+		overlay.RemoveFromClassList("hidden");
+		spiralUi.rootVisualElement.visible = true;
+		RebuildSpiralUI();
+	}
+
+	private void RebuildSpiralUI()
+	{
+		var sect = SectProgressManager.Instance;
+		if (sect == null || sect.spiral == null) return;
+
+		var root = spiralUi.rootVisualElement;
+		root.Q<Label>("Standing").text = $"Standing  {sect.Data.standing}";
+
+		var banner = root.Q<VisualElement>("AscensionBanner");
+		if (sect.AscensionPending && sect.NextRank != null)
+		{
+			banner.RemoveFromClassList("hidden");
+			root.Q<Label>("AscensionText").text = $"You stand ready to rise to {sect.NextRank.rankName}.";
+		}
+		else
+		{
+			banner.AddToClassList("hidden");
+		}
+
+		var list = root.Q<ScrollView>("RankList");
+		list.Clear();
+
+		var ranks = sect.spiral.ranks;
+		foreach (var rank in ranks)
+		{
+			if (rank == null) continue;
+			list.Add(BuildRankRow(rank, sect));
+		}
+	}
+
+	private VisualElement BuildRankRow(SectRankData rank, SectProgressManager sect)
+	{
+		var data = sect.Data;
+		bool isCurrent = rank.rankNumber == data.currentRank;
+		bool isLocked = rank.rankNumber > data.currentRank + 1;
+
+		var row = new VisualElement();
+		row.AddToClassList("spiral-rank");
+		if (isCurrent) row.AddToClassList("spiral-rank--current");
+		if (isLocked) row.AddToClassList("spiral-rank--locked");
+
+		var head = new VisualElement();
+		head.AddToClassList("spiral-rank__head");
+		var name = new Label($"{rank.rankName}");
+		name.AddToClassList("spiral-rank__name");
+		var num = new Label($"Rank {rank.rankNumber}");
+		num.AddToClassList("spiral-rank__num");
+		head.Add(name);
+		head.Add(num);
+		row.Add(head);
+
+		var status = new Label(rank.statusTitle);
+		status.AddToClassList("spiral-rank__status");
+		row.Add(status);
+
+		if (!string.IsNullOrEmpty(rank.quote))
+		{
+			var quote = new Label(rank.quote);
+			quote.AddToClassList("spiral-rank__quote");
+			row.Add(quote);
+		}
+
+		if (rank.rankNumber > data.currentRank)
+		{
+			if (isLocked)
+			{
+				var unknown = new Label("Requirements hidden until the prior rank is taken.");
+				unknown.AddToClassList("spiral-rank__quote");
+				row.Add(unknown);
+			}
+			else
+			{
+				foreach (var req in rank.requirements)
+				{
+					if (req == null) continue;
+					row.Add(BuildRequirementRow(req, data));
+				}
+			}
+		}
+
+		return row;
+	}
+
+	private VisualElement BuildRequirementRow(RankRequirement req, SectProgressData data)
+	{
+		var wrap = new VisualElement();
+		var line = new VisualElement();
+		line.AddToClassList("spiral-req");
+		if (req.IsMet(data)) line.AddToClassList("spiral-req--met");
+
+		var label = new Label(string.IsNullOrEmpty(req.label) ? req.name : req.label);
+		label.AddToClassList("spiral-req__label");
+		var prog = new Label(req.ProgressText(data));
+		prog.AddToClassList("spiral-req__progress");
+		line.Add(label);
+		line.Add(prog);
+		wrap.Add(line);
+
+		var bar = new VisualElement();
+		bar.AddToClassList("spiral-bar");
+		var fill = new VisualElement();
+		fill.AddToClassList("spiral-bar__fill");
+		fill.style.width = Length.Percent(Mathf.Clamp01(req.Progress01(data)) * 100f);
+		bar.Add(fill);
+		wrap.Add(bar);
+
+		return wrap;
 	}
 }

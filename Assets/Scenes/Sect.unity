@@ -531,8 +531,30 @@ PrefabInstance:
     - {fileID: 8755541639046059873, guid: e7c5ba3db26ad2640a886ec379890b6b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5038134502726167767, guid: e7c5ba3db26ad2640a886ec379890b6b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 602543066}
   m_SourcePrefab: {fileID: 100100000, guid: e7c5ba3db26ad2640a886ec379890b6b, type: 3}
+--- !u!1 &602543065 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5038134502726167767, guid: e7c5ba3db26ad2640a886ec379890b6b, type: 3}
+  m_PrefabInstance: {fileID: 602543064}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &602543066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 602543065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2228fcccc180b4c49a0278a90ae85b02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Midevil.Progression.SectProgressManager
+  spiral: {fileID: 11400000, guid: fe52e877d5e791b47b30db813a1a7c57, type: 2}
+  rewardTable: {fileID: 11400000, guid: 691b32df74df83844b464ea77442c44e, type: 2}
 --- !u!4 &649913165 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4587043758673760684, guid: 272b24af7ad0cc74faf83832b183fa8c, type: 3}

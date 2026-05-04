@@ -22,4 +22,11 @@ public class StateMachine : MonoBehaviour
 		this.state = state;
 		state.Enter();
 	}
+
+	public void ForceState(IState state)
+	{
+		this.state?.Exit();
+		this.state = state;
+		state.Enter();
+	}
 }

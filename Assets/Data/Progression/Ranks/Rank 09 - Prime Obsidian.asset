@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22e43dc2d8db2f349a7c02e86acc4321, type: 3}
+  m_Name: Rank 09 - Prime Obsidian
+  m_EditorClassIdentifier: Assembly-CSharp::Midevil.Progression.SectRankData
+  rankNumber: 9
+  rankName: Prime Obsidian
+  statusTitle: The Heart of the Shadows
+  flavor: Decisions made at this rank can shift the fate of nations.
+  quote: The clock does not strike without our hand guiding its hour.
+  badge: {fileID: 0}
+  requirements:
+  - {fileID: 11400000, guid: 4add5d5586d2a3449909d0f48753da94, type: 2}
+  - {fileID: 11400000, guid: 4e0dc605ccadfb0489f355b966876345, type: 2}

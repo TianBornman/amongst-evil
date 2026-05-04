@@ -67,6 +67,7 @@ Assets/
     Encounter/         Encounter ScriptableObject (enemy group definitions)
     Upgrade Card/      UpgradeCard ScriptableObject (buff rewards)
     Mission/           Mission data class, MissionType / MissionDifficulty enums, MissionGenerator
+    Progression/       Sect Spiral of the Veil — SectProgressManager, SectRankData/SpiralProgression SOs, RankRequirement subclasses, StandingRewardTable
     Helpers/           ItemHelper, NameGenerator, ColorHelper, AudioHelper
     Visuals/           DamageNumber, HealthbarVisual
     Buildings/         Building base, BloodVault, Cart
@@ -102,7 +103,8 @@ Assets/
 | `RefManager` | Centralized asset references (items, effects, abilities, icons) |
 | `InteractionManager` | Hover / click detection (`IInteractable`) |
 | `HubManager` | Hub scene management |
-| `HubUiManager` | Hub UI state |
+| `HubUiManager` | Hub UI state (incl. Spiral of the Veil panel) |
+| `SectProgressManager` | Sect-wide Spiral of the Veil progression; rank, standing, requirements, ascension ceremony |
 
 ## Architecture Patterns
 

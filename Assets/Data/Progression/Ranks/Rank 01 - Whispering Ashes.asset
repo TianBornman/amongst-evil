@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22e43dc2d8db2f349a7c02e86acc4321, type: 3}
+  m_Name: Rank 01 - Whispering Ashes
+  m_EditorClassIdentifier: Assembly-CSharp::Midevil.Progression.SectRankData
+  rankNumber: 1
+  rankName: Whispering Ashes
+  statusTitle: Unrecognised / Aspirants
+  flavor: Your Creed exists only as rumour. Survival and small deeds are all that
+    mark your beginning.
+  quote: Smoke in the wind, whispers that may never be heard.
+  badge: {fileID: 0}
+  requirements: []

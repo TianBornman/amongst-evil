@@ -20,8 +20,10 @@ public class SpawnManager : Singleton<SpawnManager>
     public int enemyCountScalingPerWave = 10;
 
     [Header("Spawn Settings")]
-    public float initialSpawnInterval = 1.5f;
-    public float minSpawnInterval = 0.12f;
+    public float initialSpawnInterval = 0.4f;
+    public float minSpawnInterval = 0.04f;
+    [Tooltip("How many enemies are spawned per tick of the spawn coroutine.")]
+    public int spawnsPerTick = 3;
     public float spawnRadius = 25f;
     public float minSpawnRadius = 15f;
     public float healthScalingPerWave = 0.3f;
@@ -92,7 +94,10 @@ public class SpawnManager : Singleton<SpawnManager>
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (GameManager.Instance.AtHub)
+        {
+            EnemyPool.Clear();
             return;
+        }
 
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = false;
@@ -183,19 +188,20 @@ public class SpawnManager : Singleton<SpawnManager>
     {
         float baseInterval = initialSpawnInterval * Mathf.Pow(0.8f, currentWave - 1) * missionConfig.spawnIntervalMul;
         float interval = Mathf.Max(minSpawnInterval, baseInterval);
+        int perTick = Mathf.Max(1, spawnsPerTick);
 
         while (enemiesToSpawn > 0 && !runEnded)
         {
-            Character enemy = SpawnOneEnemy();
-            enemiesToSpawn--;
-
-            yield return null;
-
-            if (enemy != null)
-                AssignPartyTargets(enemy);
+            int batch = Mathf.Min(perTick, enemiesToSpawn);
+            for (int i = 0; i < batch; i++)
+            {
+                Character enemy = SpawnOneEnemy();
+                enemiesToSpawn--;
+                if (enemy != null)
+                    AssignPartyTargets(enemy);
+            }
 
             UpdateEnemyUI();
-
             yield return new WaitForSeconds(interval);
         }
     }
@@ -214,11 +220,14 @@ public class SpawnManager : Singleton<SpawnManager>
         }
 
         var prefab = enemyPrefabs[UnityEngine.Random.Range(0, enemyPrefabs.Count)];
-        var enemy = Instantiate(prefab, hit.position, Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 360f), 0f));
+        var rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 360f), 0f);
+        var enemy = EnemyPool.Get(prefab, hit.position, rotation);
 
         float waveScale = 1f + (currentWave - 1) * healthScalingPerWave;
         enemy.baseStats.maxHealth *= waveScale * missionConfig.healthMul;
         enemy.baseStats.damage *= missionConfig.damageMul;
+        enemy.RecalculateStats();
+        enemy.stats.health = enemy.stats.maxHealth;
 
         spawnedCharacters.Add(enemy);
         aliveEnemies++;
@@ -267,6 +276,10 @@ public class SpawnManager : Singleton<SpawnManager>
         runEnded = true;
 
         StopAllCoroutines();
+
+        var sect = Midevil.Progression.SectProgressManager.Instance;
+        if (sect != null)
+            sect.RecordMissionCompleted(PartyManager.Instance.CurrentMission, victory);
 
         if (victory)
         {

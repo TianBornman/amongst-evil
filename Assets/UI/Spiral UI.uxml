@@ -1,0 +1,29 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="Style Sheets/Spiral UI.uss" />
+    <ui:VisualElement name="Root" class="spiral-root">
+        <ui:VisualElement name="Panel" class="spiral-panel">
+            <ui:VisualElement name="Header" class="spiral-header">
+                <ui:Label text="The Spiral of the Veil" name="Title" class="spiral-title" />
+                <ui:Label text="Standing 0" name="Standing" class="spiral-standing" />
+            </ui:VisualElement>
+
+            <ui:VisualElement name="AscensionBanner" class="spiral-ascension hidden">
+                <ui:Label text="Ascension awaits. Perform the rite." name="AscensionText" class="spiral-ascension__text" />
+                <ui:Button text="Perform the Rite" name="AscendButton" class="spiral-ascension__button" />
+            </ui:VisualElement>
+
+            <ui:ScrollView name="RankList" class="spiral-rank-list" />
+
+            <ui:Button text="Close" name="Close" class="spiral-close" />
+        </ui:VisualElement>
+
+        <ui:VisualElement name="AscensionOverlay" class="spiral-overlay hidden">
+            <ui:VisualElement class="spiral-overlay__inner">
+                <ui:Label text="You have risen." name="AscensionTitle" class="spiral-overlay__title" />
+                <ui:Label text="Whispering Ashes" name="AscensionRank" class="spiral-overlay__rank" />
+                <ui:Label text="" name="AscensionQuote" class="spiral-overlay__quote" />
+                <ui:Button text="Continue" name="AscensionContinue" class="spiral-overlay__button" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

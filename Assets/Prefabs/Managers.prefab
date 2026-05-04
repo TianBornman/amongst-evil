@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 8199098711593982560}
   - component: {fileID: 9140475944043942649}
   - component: {fileID: 904286726997639696}
+  - component: {fileID: 8088357035379880301}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -111,6 +112,9 @@ MonoBehaviour:
   minSpawnRadius: 15
   healthScalingPerWave: 0.3
   relicPrefab: {fileID: 2538043876279816791, guid: fe5383d04fa2051408b9fec802851397, type: 3}
+  relicMinDistance: 30
+  relicMaxDistance: 50
+  relicPlacementAttempts: 30
   spawnedCharacters: []
   currentWave: 0
 --- !u!114 &6180556048356105748
@@ -201,6 +205,7 @@ MonoBehaviour:
   armouryUiPrefab: {fileID: 7439391192158440223, guid: 08282e54d10826e449e60590346cd55c, type: 3}
   settingsUiPrefab: {fileID: 7439391192158440223, guid: 32b4f0dc8bd9df1418b91efb0be469bf, type: 3}
   missionBoardUiPrefab: {fileID: 7942399990081477409, guid: 59f1dcf6056fdcb489885ca8f1bd9006, type: 3}
+  spiralUiPrefab: {fileID: 0}
   missionBoardCount: 3
   missionBoardMinDifficulty: 1
   missionBoardMaxDifficulty: 3
@@ -329,3 +334,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55dc5e72668b7084e81883d11f0806c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InputManager
+--- !u!114 &8088357035379880301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5038134502726167767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2228fcccc180b4c49a0278a90ae85b02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Midevil.Progression.SectProgressManager
+  spiral: {fileID: 11400000, guid: fe52e877d5e791b47b30db813a1a7c57, type: 2}
+  rewardTable: {fileID: 11400000, guid: 691b32df74df83844b464ea77442c44e, type: 2}

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22e43dc2d8db2f349a7c02e86acc4321, type: 3}
+  m_Name: Rank 07 - Shadowed Archive
+  m_EditorClassIdentifier: Assembly-CSharp::Midevil.Progression.SectRankData
+  rankNumber: 7
+  rankName: Shadowed Archive
+  statusTitle: Keepers of Forbidden Knowledge
+  flavor: Your Creed manages access to the Crypt of Knowledge.
+  quote: We hold the truths that the world dares not remember.
+  badge: {fileID: 0}
+  requirements:
+  - {fileID: 11400000, guid: 11767c060cc62d742872bf74fda311a5, type: 2}
+  - {fileID: 11400000, guid: 9e09727c3dbfc3b4eb164ae122bb31c8, type: 2}

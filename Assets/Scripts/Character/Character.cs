@@ -36,6 +36,8 @@ public class Character : StateMachine, IInteractable
 	public List<Effect> currentEffects = new();
 	public List<Ability> currentAbilities = new();
 	public Identity identity;
+	[Tooltip("Stable id used by Sect progression to count kills (e.g. \"zombie\", \"slime\", \"barbarian-boss\"). Empty = not tracked.")]
+	public string enemyId;
 	public bool startIdle;
 	public bool chaseTarget = true;
 
@@ -210,6 +212,15 @@ public class Character : StateMachine, IInteractable
 
 		killer.AddXp(stats.xpValue);
 		killer.identity.currentResult.kills++;
+
+		if (!string.IsNullOrEmpty(enemyId) && team != killer.team)
+		{
+			var sect = Midevil.Progression.SectProgressManager.Instance;
+			if (sect != null) sect.RecordKill(enemyId);
+		}
+
+		var pooled = GetComponent<PooledEnemy>();
+		if (pooled != null) pooled.ScheduleReturn(2f);
 	}
 
 	public void AddBuff(Buff buff)
@@ -270,6 +281,17 @@ public class Character : StateMachine, IInteractable
 		for (int i = 0; i < spawnEffects.Count; i++)
 			if (spawnEffects[i] != null)
 				spawnEffects[i].Apply(this);
+	}
+
+	public virtual void OnPooledRespawn()
+	{
+		if (startIdle)
+			ForceState(new IdleState(this));
+		else
+			ForceState(new MoveState(this));
+
+		RecalculateStats();
+		ApplySpawnEffects();
 	}
 
 	// Private Methods

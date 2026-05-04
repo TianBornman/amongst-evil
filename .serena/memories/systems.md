@@ -94,8 +94,19 @@
 - Teams (`Team.cs` enum) define valid targets (player vs. enemy)
 - Re-evaluates on death or range loss
 
+## Sect Progression — Spiral of the Veil (`Assets/Scripts/Progression/`)
+- `SectProgressManager` (singleton) tracks Sect-wide progression. Stored on `BloodVaultData.sectProgress` so it shares `bloodvault.json` (single save, no wipe). Lore: `Obsidian/Brotherhood Progression.md`.
+- `SectProgressData`: `currentRank`, `standing`, `ascensionPending`, plus `killCounts`, `missionsCompleted`, `milestones` (generic counter map).
+- Rank assets: `SectRankData` SOs (one per rank 1–10) referenced from a single `SpiralProgression` SO.
+- A rank advances when *all* `RankRequirement` SOs in `SectRankData.requirements` are met. Concrete subclasses: `StandingRequirement`, `KillCountRequirement`, `MissionCompletedRequirement`, `MilestoneRequirement`, `CompositeRequirement` (AllOf/AnyOf/NofM). Add a new requirement type by subclassing `RankRequirement` — no enum or table changes.
+- Standing rewards live on `StandingRewardTable` SO (`missionCompleteBase`, `perThreatBonus`, type multipliers, wipe penalty). `SectProgressManager.RecordMissionCompleted` consults it.
+- Event hooks: `Character.Die` → `RecordKill(enemyId)` (player-team killer only); `SpawnManager.EndRun` and `UiManager.Die` → `RecordMissionCompleted(mission, success)`.
+- Ascension is a **ceremony** — when requirements pass, `OnAscensionAvailable` fires and `ascensionPending=true`. Player must click the **Tent** building in the Sect hub and press "Perform the Rite" → `PerformAscension()` mutates `currentRank`. Ceremony state persists across sessions.
+- Authoring: `Tools → Progression → Create Spiral Progression Assets` scaffolds `Assets/Data/Progression/Spiral.asset`, ranks, requirement assets, and `Standing Reward Table.asset`.
+- Enemy id: each enemy prefab needs `Character.enemyId` set (e.g. `zombie`, `slime`, `barbarian-boss`) for kill tracking.
+
 ## Persistence
-- `BloodvaultManager` ↔ `bloodvault.json` — dead/stored character identities
+- `BloodvaultManager` ↔ `bloodvault.json` — dead/stored character identities + `sectProgress`
 - `InventoryManager` ↔ `armoury.json` — item armoury
 - Settings ↔ `PlayerPrefs` — music volume, etc.
 - Paths under `Application.persistentDataPath`

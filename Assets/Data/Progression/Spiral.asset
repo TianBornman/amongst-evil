@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ca52578d4dd7834a9a76b996db604f8, type: 3}
+  m_Name: Spiral
+  m_EditorClassIdentifier: Assembly-CSharp::Midevil.Progression.SpiralProgression
+  ranks:
+  - {fileID: 11400000, guid: d9c0590f82eed5b418980d0107eefb51, type: 2}
+  - {fileID: 11400000, guid: 173c4bf9dfac239418bee4f3a5f058d1, type: 2}
+  - {fileID: 11400000, guid: b719087299f4f6e4092f517826c48317, type: 2}
+  - {fileID: 11400000, guid: 3ea339c112175214b906d344a7a6f6b3, type: 2}
+  - {fileID: 11400000, guid: 70322ee6c4567a8478eef360b7306cf5, type: 2}
+  - {fileID: 11400000, guid: f4a10c59914ff5140b9686f40f45f66f, type: 2}
+  - {fileID: 11400000, guid: e1026183b2b4f1644904cd2a089393a6, type: 2}
+  - {fileID: 11400000, guid: 68d6c9a78ae3aeb4c829a5645ffd2c83, type: 2}
+  - {fileID: 11400000, guid: 8c5d14354817a9d4498bafce297430bb, type: 2}
+  - {fileID: 11400000, guid: e784c078d02badd47a42d6f17511d8c5, type: 2}

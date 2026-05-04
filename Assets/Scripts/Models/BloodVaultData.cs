@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace Midevil.Models
@@ -10,14 +10,16 @@ namespace Midevil.Models
 		public BloodVaultStatus status;
 	}
 
+	[Serializable]
 	public class BloodVaultData
 	{
 		public List<BloodVaultEntry> entries = new();
+		public SectProgressData sectProgress = new();
 	}
 
 	public enum BloodVaultStatus
 	{
-		Dead, 
+		Dead,
 		Alive
 	}
 }

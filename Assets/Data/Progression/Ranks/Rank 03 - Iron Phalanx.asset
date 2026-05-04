@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22e43dc2d8db2f349a7c02e86acc4321, type: 3}
+  m_Name: Rank 03 - Iron Phalanx
+  m_EditorClassIdentifier: Assembly-CSharp::Midevil.Progression.SectRankData
+  rankNumber: 3
+  rankName: Iron Phalanx
+  statusTitle: Bound to the Purpose
+  flavor: Your Creed acts as a single unit. Reputation quietly spreads.
+  quote: Bound by steel and oath, we move as one purpose.
+  badge: {fileID: 0}
+  requirements:
+  - {fileID: 11400000, guid: 1f38043c93d78a14d86597122331fd9e, type: 2}
+  - {fileID: 11400000, guid: 28d68c1c602796c4fadca58f89765c01, type: 2}

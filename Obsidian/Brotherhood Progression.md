@@ -229,3 +229,29 @@ A Creed's rise is measured not in fame, but in deeds whispered and secrets kept.
 ---
 
 *See also: [[Blood Vault]] · [[Combat]] · [[Relics & Gear]] · [[Grand Clock]] · [[Crypt of Knowledge]] · [[Kareth Vall]] · [[The Sundering of the Crown]]*
+
+---
+
+## In-Game Implementation
+
+The Spiral lives in code under `Assets/Scripts/Progression/` and as ScriptableObject assets under `Assets/Data/Progression/`.
+
+**Persistence.** Progression is saved alongside the [[Blood Vault]] in `bloodvault.json` (single save slot, no per-run wipes). `SectProgressData` carries `currentRank`, `standing`, kill counts, completed-mission records, and a generic `milestones` map.
+
+**Authoring.** Each rank is a `SectRankData` SO. A rank advances when *every* `RankRequirement` in its list is met. Requirement types are SO subclasses — author one asset per requirement and reference it from the rank:
+
+| Requirement | What it checks |
+|---|---|
+| `StandingRequirement` | Brotherhood Standing accumulator (the XP-equivalent) |
+| `KillCountRequirement` | Kills by `Character.enemyId` (e.g. `zombie`, `slime`); `*` matches any |
+| `MissionCompletedRequirement` | Successful missions, optionally filtered by `MissionType` and minimum `MissionDifficulty` |
+| `MilestoneRequirement` | Generic counter (e.g. `grand-clock-witnessed`) — incremented from gameplay code via `SectProgressManager.IncrementMilestone(id)` |
+| `CompositeRequirement` | `AllOf` / `AnyOf` / `NofM` over child requirements, for OR-style branches |
+
+**Standing rewards.** Earned values for each action live on `StandingRewardTable.asset` — base mission reward + per-Threat bonus, plus type multipliers (Relic Recovery, Chaos) and a wipe penalty. Tune values there, not in code.
+
+**Ascension as ceremony.** When all requirements for the next rank are met, `SectProgressManager` marks `ascensionPending` and fires `OnAscensionAvailable`. The player must walk to the **Tent** in the Sect hub and click "Perform the Rite" — only then does the rank actually change. This persists across sessions, so the ceremony is always waiting.
+
+**Mission gating.** `SectProgressManager.MissionDifficultyCap()` returns the rank number. Hook this into `HubUiManager.missionBoardMaxDifficulty` to lock Threat ratings behind rank progression.
+
+**Setup.** Run `Tools → Progression → Create Spiral Progression Assets` to scaffold all 10 ranks + reward table.
