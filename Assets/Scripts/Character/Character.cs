@@ -29,6 +29,7 @@ public class Character : StateMachine, IInteractable
 
 	// Editor variables
 	[HideInInspector] public Stats stats;
+	[HideInInspector] public Stats baseScaledStats;
 	public Stats baseStats;
 	public Team team;
 	public List<Team> targetTeams;
@@ -188,6 +189,14 @@ public class Character : StateMachine, IInteractable
 	{
 		stats.Recalculate(baseStats, buffs);
 
+		baseScaledStats ??= new Stats();
+		baseScaledStats.level = stats.level;
+		baseScaledStats.currentXp = stats.currentXp;
+		baseScaledStats.neededXp = stats.neededXp;
+		baseScaledStats.health = stats.health;
+		var nonGearBuffs = buffs.Where(b => !IsGearBuff(b)).ToList();
+		baseScaledStats.Recalculate(baseStats, nonGearBuffs);
+
 		var size = new Vector3(stats.size, stats.size, stats.size);
 		transform.localScale = size;
 
@@ -195,6 +204,14 @@ public class Character : StateMachine, IInteractable
 			healthBar.SetHealth(stats.health, stats.maxHealth);
 
 		animator.SetFloat("AttackSpeed", stats.attackSpeed);
+	}
+
+	private bool IsGearBuff(Buff buff)
+	{
+		if (identity == null) return false;
+		if (identity.weapon != null && buff.id == identity.weapon.id) return true;
+		if (identity.armour != null && buff.id == identity.armour.id) return true;
+		return false;
 	}
 
 

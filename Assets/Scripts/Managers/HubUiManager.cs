@@ -83,20 +83,7 @@ public class HubUiManager : Singleton<HubUiManager>
 
 		mainMenuUi.rootVisualElement.Q<Button>("Play").clicked += HubManager.Instance.StartGame;
 
-		var gearPanel = recruitmentGearUi.Q<VisualElement>("CharacterPanel");
-		var statsPanel = recruitmentGearUi.Q<VisualElement>("Stats");
-
-		recruitmentGearUi.Q<VisualElement>("ShowStats").RegisterCallback<ClickEvent>(evt =>
-		{
-			gearPanel.AddToClassList("hidden");
-			statsPanel.RemoveFromClassList("hidden");
-		});
-
-		recruitmentGearUi.Q<VisualElement>("HideStats").RegisterCallback<ClickEvent>(evt =>
-		{
-			statsPanel.AddToClassList("hidden");
-			gearPanel.RemoveFromClassList("hidden");
-		});
+		CharacterGearPanel.WireTabs(recruitmentGearUi);
 
 		var musicSlider = settingsUi.rootVisualElement.Q<Slider>("Music");
 
@@ -203,6 +190,8 @@ public class HubUiManager : Singleton<HubUiManager>
 			EquipItem(recruitmentGearUi, character.identity.armour);
 		else
 			UnequipItem(recruitmentGearUi, ItemType.Armour);
+
+		CharacterGearPanel.PopulateStats(recruitmentGearUi, character);
 
 		recruitmentGearUi.visible = true;
 	}

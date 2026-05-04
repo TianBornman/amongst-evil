@@ -126,6 +126,8 @@ Assets/
 - `Stats` holds base values; `Recalculate(baseStats, buffs[])` sums deltas
 - Level scaling: `value * 1.10^level`
 - Size modifier inversely scales attack/move/dodge speed
+- `Character.baseScaledStats` is recomputed alongside `stats` each `RecalculateStats` and represents the character's stats *without* equipped gear (still includes level, size, and non-gear buffs). Drives the "Base / +Gear / Total" view on the recruit panel's Stats tab. Gear buffs are identified by `buff.id == item.id` (set in `CharacterEquipment.EquipItem`).
+- Recruit & in-run StatsUI both use the tabbed `Character Gear.uxml` (Gear tab + Stats tab). Tab wiring + stats population live in `Midevil.UI.Elements.CharacterGearPanel` static helper. Custom `StatRowElement` renders one stat row (label / base / +gear delta / total).
 
 ### Abilities
 - `Ability.IsReady` = `cooldownTimer <= 0 && remainingCharges > 0`

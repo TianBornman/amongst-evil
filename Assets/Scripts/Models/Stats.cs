@@ -76,4 +76,30 @@ public class Stats
 
 		blockChance += (size - 1f) * 1.2f;
 	}
+
+	public Stats Clone()
+	{
+		return new Stats
+		{
+			level = level,
+			currentXp = currentXp,
+			neededXp = neededXp,
+			health = health,
+			maxHealth = maxHealth,
+			size = size,
+			levelHeal = levelHeal,
+			blockChance = blockChance,
+			dodgeChance = dodgeChance,
+			damage = damage,
+			attackSpeed = attackSpeed,
+			castSpeed = castSpeed,
+			critChance = critChance,
+			critDamage = critDamage,
+			range = range,
+			moveSpeed = moveSpeed,
+			xpValue = xpValue,
+			scalingFactor = scalingFactor,
+			projectile = projectile,
+		};
+	}
 }

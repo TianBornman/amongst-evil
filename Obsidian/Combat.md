@@ -54,6 +54,15 @@ Before a mission begins, the player visits the Brotherhood camp and selects whic
 
 A Brother who has fallen cannot be selected. Their entry in the [[Blood Vault]] remains but is sealed — a record of who they were, not who they are.
 
+### 2.1.1 Brother Inspection — Gear & Stats Sheet
+
+Clicking a Brother in camp opens their personal sheet, a two-tab panel:
+
+- **Gear** — equipment slots (helmet, weapon, gloves, leggings, armour, off-hand, amulet, boots) plus health and XP bars. Items can be equipped from the armoury and unequipped back to it.
+- **Stats** — name, level, XP progress, and a per-stat breakdown grouped under *Vitals* / *Offense* / *Mobility*. Each row shows three numbers side-by-side: **Base** (what the Brother would have without any gear, but still including level, size, and any persistent non-gear buffs), **+Gear** (the contribution from currently equipped items, color-coded — green for positive, red for negative, dimmed when zero), and **Total** (live combat value). Equipping or unequipping in the Gear tab updates the Stats tab immediately, so the player can see exactly what each item is doing for that Brother.
+
+The same panel is mirrored in-mission via the Stats overlay (default keybind: menu toggle), letting the player audit a Brother's combat numbers mid-run after applying upgrade cards or picking up loot.
+
 ### 2.2 Mission Briefing
 
 Each mission has a stated objective drawn from one of three mission types, along with a visible threat rating and a recommended Creed size. Players can choose to ignore the recommendation at their own peril.

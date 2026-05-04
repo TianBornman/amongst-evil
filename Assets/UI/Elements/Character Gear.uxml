@@ -1,7 +1,15 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/Style%20Sheets/Character%20Gear.uss?fileID=7433441132597879392&amp;guid=f3f374e16634c2d4fb8a194202918628&amp;type=3#Character Gear" />
     <Style src="project://database/Assets/UI/Style%20Sheets/Global.uss?fileID=7433441132597879392&amp;guid=a66181744f20e8f41a9a9bf9ec305f50&amp;type=3#Global" />
-    <ui:VisualElement name="CharacterPanel" style="flex-grow: 1; flex-basis: 0; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px;">
+    <ui:VisualElement name="TabBar" class="tab-bar">
+        <ui:VisualElement name="GearTab" class="tab-button tab-button--active">
+            <ui:Label text="Gear" />
+        </ui:VisualElement>
+        <ui:VisualElement name="StatsTab" class="tab-button">
+            <ui:Label text="Stats" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="GearPanel" style="flex-grow: 1; flex-basis: 0; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px;">
         <ui:VisualElement name="Slots" style="flex-grow: 1; flex-basis: 0; flex-direction: row;">
             <ui:VisualElement class="slot-segment" style="flex-grow: 1; flex-basis: 0;">
                 <Midevil.UI.Elements.ItemElement icon-texture="project://database/Assets/Icons/helmet.png?fileID=2800000&amp;guid=77e1a1510ae6fab4a9e60f094165c0ea&amp;type=3#helmet" title="Helmet" name="Helmet" is-equip-slot="true" default-icon-texture="project://database/Assets/Icons/helmet.png?fileID=2800000&amp;guid=77e1a1510ae6fab4a9e60f094165c0ea&amp;type=3#helmet" default-title="Helmet" />
@@ -9,7 +17,7 @@
                 <Midevil.UI.Elements.ItemElement icon-texture="project://database/Assets/Icons/sword.png?fileID=2800000&amp;guid=3f4e788aea80fd042ac5dc9617aff1c2&amp;type=3#sword" title="Gloves" name="Gloves" is-equip-slot="true" default-icon-texture="project://database/Assets/Icons/sword.png?fileID=2800000&amp;guid=3f4e788aea80fd042ac5dc9617aff1c2&amp;type=3#sword" default-title="Gloves" />
                 <Midevil.UI.Elements.ItemElement icon-texture="project://database/Assets/Icons/sword.png?fileID=2800000&amp;guid=3f4e788aea80fd042ac5dc9617aff1c2&amp;type=3#sword" title="Leggings" name="Leggings" is-equip-slot="true" default-icon-texture="project://database/Assets/Icons/sword.png?fileID=2800000&amp;guid=3f4e788aea80fd042ac5dc9617aff1c2&amp;type=3#sword" default-title="Leggings" />
             </ui:VisualElement>
-            <ui:VisualElement name="ShowStats" class="slot-segment" style="flex-grow: 1; border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0; margin-top: 5px; margin-bottom: 0; flex-basis: 0; background-image: url(&quot;project://database/Assets/Icons/Background%20Light.png?fileID=2800000&amp;guid=abb3a90770fe1ef4e926a5082d9cf099&amp;type=3#Background Light&quot;); -unity-slice-left: 10; -unity-slice-top: 10; -unity-slice-right: 10; -unity-slice-bottom: 10;">
+            <ui:VisualElement name="NamePlate" class="slot-segment" style="flex-grow: 1; border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0; margin-top: 5px; margin-bottom: 0; flex-basis: 0; background-image: url(&quot;project://database/Assets/Icons/Background%20Light.png?fileID=2800000&amp;guid=abb3a90770fe1ef4e926a5082d9cf099&amp;type=3#Background Light&quot;); -unity-slice-left: 10; -unity-slice-top: 10; -unity-slice-right: 10; -unity-slice-bottom: 10;">
                 <ui:Label text="Label" name="Name" style="-unity-font-style: bold; -unity-text-align: upper-center; color: rgb(255, 255, 255);">
                     <Bindings>
                         <ui:DataBinding property="text" data-source-path="identity.characterName" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
@@ -45,81 +53,48 @@
             </ui:ProgressBar>
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="Stats" class="hidden">
-        <ui:VisualElement name="Level" class="stat-entry">
-            <ui:Label text="Level:" class="stat-field" />
-            <ui:Label text="Label" class="stat-field">
+    <ui:VisualElement name="StatsPanel" class="hidden" style="flex-grow: 1; flex-basis: 0; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px;">
+        <ui:VisualElement name="StatsHeader" class="stats-header">
+            <ui:Label text="Label" name="Name" class="stats-header__name">
                 <Bindings>
-                    <ui:DataBinding property="text" data-source-path="stats.level" data-source-type="PartyCharacter, Assembly-CSharp" binding-mode="ToTarget" />
+                    <ui:DataBinding property="text" data-source-path="identity.characterName" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
                 </Bindings>
             </ui:Label>
-        </ui:VisualElement>
-        <ui:VisualElement name="Xp" class="stat-entry">
-            <ui:Label text="XP:" class="stat-field" />
-            <ui:Label text="Label" class="stat-field">
+            <ui:VisualElement class="stats-header__row">
+                <ui:Label text="Level" class="stats-header__label" />
+                <ui:Label text="1" name="Level" class="stats-header__value">
+                    <Bindings>
+                        <ui:DataBinding property="text" data-source-path="stats.level" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
+                    </Bindings>
+                </ui:Label>
+            </ui:VisualElement>
+            <ui:ProgressBar value="0" name="StatsXpBar" class="stats-header__xpbar">
                 <Bindings>
-                    <ui:DataBinding property="text" data-source-type="PartyCharacter, Assembly-CSharp" binding-mode="ToTarget" data-source-path="currentXp" />
+                    <ui:DataBinding property="highValue" data-source-path="stats.neededXp" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
+                    <ui:DataBinding property="value" data-source-path="stats.currentXp" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
+                    <ui:DataBinding property="title" data-source-path="stats" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Current and Total XP" />
                 </Bindings>
-            </ui:Label>
+            </ui:ProgressBar>
         </ui:VisualElement>
-        <ui:VisualElement name="Health" class="stat-entry">
-            <ui:Label text="Health:" class="stat-field" />
-            <ui:Label text="Label" class="stat-field">
-                <Bindings>
-                    <ui:DataBinding property="text" data-source-path="stats" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Current and Total HP" />
-                </Bindings>
-            </ui:Label>
+        <ui:VisualElement class="stats-columns">
+            <ui:Label text="" class="stat-row__label stats-columns__heading" />
+            <ui:Label text="Base" class="stat-row__base stats-columns__heading" />
+            <ui:Label text="Gear" class="stat-row__delta stats-columns__heading" />
+            <ui:Label text="Total" class="stat-row__total stats-columns__heading" />
         </ui:VisualElement>
-        <ui:VisualElement name="BlockChance" class="stat-entry">
-            <ui:Label text="Block Chance:" class="stat-field" />
-            <ui:Label text="Label" class="stat-field">
-                <Bindings>
-                    <ui:DataBinding property="text" data-source-path="stats.blockChance" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Float to Percentage" />
-                </Bindings>
-            </ui:Label>
-        </ui:VisualElement>
-        <ui:VisualElement name="DodgeChance" class="stat-entry">
-            <ui:Label text="Dodge Chance:" class="stat-field" />
-            <ui:Label text="Label" class="stat-field">
-                <Bindings>
-                    <ui:DataBinding property="text" data-source-path="stats.dodgeChance" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Float to Percentage" />
-                </Bindings>
-            </ui:Label>
-        </ui:VisualElement>
-        <ui:VisualElement name="Damage" class="stat-entry">
-            <ui:Label text="Damage:" class="stat-field" />
-            <ui:Label text="Label" class="stat-field">
-                <Bindings>
-                    <ui:DataBinding property="text" data-source-path="stats.damage" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
-                </Bindings>
-            </ui:Label>
-        </ui:VisualElement>
-        <ui:VisualElement name="AttackSpeed" class="stat-entry">
-            <ui:Label text="Attack Speed:" class="stat-field" />
-            <ui:Label text="Label" class="stat-field">
-                <Bindings>
-                    <ui:DataBinding property="text" data-source-path="stats.attackSpeed" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Float to Attack Speed" />
-                </Bindings>
-            </ui:Label>
-        </ui:VisualElement>
-        <ui:VisualElement name="CritChance" class="stat-entry">
-            <ui:Label text="Critical Chance:" class="stat-field" />
-            <ui:Label text="Label" class="stat-field">
-                <Bindings>
-                    <ui:DataBinding property="text" data-source-path="stats.critChance" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Float to Percentage" />
-                </Bindings>
-            </ui:Label>
-        </ui:VisualElement>
-        <ui:VisualElement name="CritDamage" class="stat-entry">
-            <ui:Label text="Critical Damage:" class="stat-field" />
-            <ui:Label text="Label" class="stat-field">
-                <Bindings>
-                    <ui:DataBinding property="text" data-source-path="stats.critDamage" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" source-to-ui-converters="Float to Percentage" />
-                </Bindings>
-            </ui:Label>
-        </ui:VisualElement>
-        <ui:VisualElement name="HideStats" style="flex-grow: 1; background-color: rgb(63, 63, 63); border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; position: absolute; right: 5px; top: 5px; font-size: 14px; width: 30px; height: 30px;">
-            <ui:Label text="X" style="color: rgb(255, 255, 255); -unity-text-align: middle-center; margin-top: auto; margin-right: auto; margin-bottom: auto; margin-left: auto; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
-        </ui:VisualElement>
+        <ui:Label text="Vitals" class="stat-section" />
+        <Midevil.UI.Elements.StatRowElement name="MaxHealthRow" label="Max Health" format="Flat" />
+        <Midevil.UI.Elements.StatRowElement name="BlockChanceRow" label="Block Chance" format="Percent" />
+        <Midevil.UI.Elements.StatRowElement name="DodgeChanceRow" label="Dodge Chance" format="Percent" />
+        <ui:Label text="Offense" class="stat-section" />
+        <Midevil.UI.Elements.StatRowElement name="DamageRow" label="Damage" format="Flat" />
+        <Midevil.UI.Elements.StatRowElement name="AttackSpeedRow" label="Attack Speed" format="PerSecond" />
+        <Midevil.UI.Elements.StatRowElement name="CritChanceRow" label="Crit Chance" format="Percent" />
+        <Midevil.UI.Elements.StatRowElement name="CritDamageRow" label="Crit Damage" format="Percent" />
+        <Midevil.UI.Elements.StatRowElement name="RangeRow" label="Range" format="Flat" />
+        <ui:Label text="Mobility" class="stat-section" />
+        <Midevil.UI.Elements.StatRowElement name="MoveSpeedRow" label="Move Speed" format="Flat" />
+        <Midevil.UI.Elements.StatRowElement name="CastSpeedRow" label="Cast Speed" format="Flat" />
+        <Midevil.UI.Elements.StatRowElement name="SizeRow" label="Size" format="Flat" />
     </ui:VisualElement>
 </ui:UXML>

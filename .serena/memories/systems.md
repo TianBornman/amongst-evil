@@ -20,9 +20,11 @@
 ## Stats & Buffs (`Assets/Scripts/Models/Stats.cs`, `Buff.cs`)
 - `Stats` holds all numeric properties
 - `Stats.Recalculate(baseStats, List<Buff>)` sums all buff deltas
+- `Stats.Clone()` — shallow per-field copy; used to compute "what would stats be without X buffs?" without mutating the live `stats`.
 - Level scaling formula: `value * 1.10^level`
 - Size modifier inversely scales `attackSpeed`, `moveSpeed`, `dodgeChance`
 - Health is preserved (clamped to new max) on recalculate
+- `Character.baseScaledStats` (recomputed every `RecalculateStats`) holds what `stats` would be if the character had no gear equipped — i.e. baseStats + level + size + non-gear buffs (spawn-effect tiers, future upgrade cards). Gear-applied buffs are filtered out via `IsGearBuff` (item buffs are tagged with `buff.id == item.id` in `CharacterEquipment.EquipItem`). `baseScaledStats` is the data source for the recruitment Stats tab.
 
 ## Ability System (`Assets/Scripts/Ability/`)
 - `Ability.IsReady` = `cooldownTimer <= 0 && remainingCharges > 0`

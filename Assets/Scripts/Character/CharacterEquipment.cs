@@ -90,6 +90,8 @@ public class CharacterEquipment : MonoBehaviour
 			default:
 				break;
 		}
+
+		character.RecalculateStats();
 	}
 
 	public virtual void UnequipItem(ItemStats item)

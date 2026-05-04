@@ -49,10 +49,12 @@ public class UiManager : Singleton<UiManager>
 		itemPickupUi.rootVisualElement.visible = false;
 
 		// Setup character panels
+		var characterContainers = statsUi.rootVisualElement.Q<VisualElement>("CharacterPanels")
+															.Query<TemplateContainer>().ToList();
 		var characterPanels = statsUi.rootVisualElement.Q<VisualElement>("CharacterPanels")
-													   .Query<VisualElement>("CharacterPanel").ToList();
+													   .Query<VisualElement>("GearPanel").ToList();
 		var characterStats = statsUi.rootVisualElement.Q<VisualElement>("CharacterPanels")
-													  .Query<VisualElement>("Stats").ToList();
+													  .Query<VisualElement>("StatsPanel").ToList();
 		var characterMiniDashboards = gameUi.rootVisualElement.Q<VisualElement>("MiniDashboards")
 														   .Query<TemplateContainer>().ToList();
 
@@ -60,26 +62,16 @@ public class UiManager : Singleton<UiManager>
 
 		for (int i = 0; i < identities.Count; i++)
 		{
+			var container = characterContainers[i];
 			var panel = characterPanels[i];
 			var stats = characterStats[i];
 			var miniDashboard = characterMiniDashboards[i];
 			var identity = identities[i];
 
+			CharacterGearPanel.WireTabs(container);
+
 			panel.name = identity.id.ToString();
-
-			panel.Q<VisualElement>("ShowStats").RegisterCallback<ClickEvent>(evt =>
-			{
-				panel.AddToClassList("hidden");
-				stats.RemoveFromClassList("hidden");
-			});
-
 			stats.name = $"{identity.id}-stats";
-
-			stats.Q<VisualElement>("HideStats").RegisterCallback<ClickEvent>(evt =>
-			{
-				stats.AddToClassList("hidden");
-				panel.RemoveFromClassList("hidden");
-			});
 
 			miniDashboard.name = identity.id.ToString();
 
@@ -396,15 +388,34 @@ public class UiManager : Singleton<UiManager>
 		if (GameManager.Instance.AtHub)
 			return;
 
-		if (!canToggleMenu) 
+		if (!canToggleMenu)
 			return;
 
 		statsUi.rootVisualElement.visible = !statsUi.rootVisualElement.visible;
 
 		if (statsUi.rootVisualElement.visible)
+		{
+			RefreshPartyStatsPanels();
 			Time.timeScale = 0;
+		}
 		else
+		{
 			Time.timeScale = 1;
+		}
+	}
+
+	private void RefreshPartyStatsPanels()
+	{
+		var members = PartyManager.Instance?.PartyMembers;
+		if (members == null) return;
+
+		foreach (var member in members)
+		{
+			if (member == null) continue;
+			var container = statsUi.rootVisualElement.Q<VisualElement>(member.identity.id.ToString())?.parent;
+			if (container == null) continue;
+			CharacterGearPanel.PopulateStats(container, member);
+		}
 	}
 
 	private void Pause()
