@@ -1,8 +1,8 @@
 using Midevil.Ability;
+using Midevil.Boons;
 using Midevil.Effect;
 using Midevil.Item;
 using Midevil.UI.Elements;
-using Midevil.UpgradeCard;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -81,11 +81,17 @@ public class UiManager : Singleton<UiManager>
 
 		// Results
 		resultsUi.rootVisualElement.visible = false;
-		resultsUi.rootVisualElement.Q<Button>("Flee").clicked += Flee;
 
 		var continueButton = resultsUi.rootVisualElement.Q<Button>("Continue");
-		continueButton.clicked += Die;
+		continueButton.clicked += ShowAftermath;
 		continueButton.visible = false;
+
+		var fleeButton = resultsUi.rootVisualElement.Q<Button>("Flee");
+		fleeButton.clicked += ShowAftermath;
+
+		var returnButton = resultsUi.rootVisualElement.Q<Button>("Return");
+		if (returnButton != null)
+			returnButton.clicked += ReturnToSect;
 
 		// Game UI
 		gameUi.rootVisualElement.Q<Label>("Map").text = GameManager.Instance.MapName;
@@ -119,13 +125,83 @@ public class UiManager : Singleton<UiManager>
 	//	gameUi.rootVisualElement.Q<ProgressBar>("EnemyHealth").dataSource = character;
 	//}
 
-	public void BindUpgradeCard(int index, UpgradeCard card, Action<UpgradeCard> onClick)
+	public void ShowBoonPicker(List<BoonOffer> offers, Action<BoonOffer> onPick)
 	{
-		if (index < 0 || index >= upgradeCards.Count)
-			return;
+		if (levelUpUi == null || levelUpUi.rootVisualElement == null) return;
+		if (offers == null || offers.Count == 0) return;
 
-		upgradeCards[index].dataSource = card;
-		upgradeCards[index].SetClickHandler(evt => onClick(card));
+		for (int i = 0; i < upgradeCards.Count; i++)
+		{
+			var card = upgradeCards[i];
+			if (i < offers.Count)
+			{
+				card.style.display = DisplayStyle.Flex;
+				BindBoonCard(card, offers[i], onPick);
+			}
+			else
+			{
+				card.style.display = DisplayStyle.None;
+				card.UnsetClickHandler();
+			}
+		}
+
+		levelUpUi.rootVisualElement.visible = true;
+		Pause();
+	}
+
+	public void HideBoonPicker()
+	{
+		if (levelUpUi == null || levelUpUi.rootVisualElement == null) return;
+		levelUpUi.rootVisualElement.visible = false;
+		foreach (var card in upgradeCards)
+			card.UnsetClickHandler();
+		Resume();
+	}
+
+	private void BindBoonCard(ClickableElement card, BoonOffer offer, Action<BoonOffer> onPick)
+	{
+		// Bypass any leftover UpgradeCard data bindings on this UI document.
+		card.dataSource = null;
+
+		var title = card.Q<Label>("Title");
+		if (title != null) title.text = offer.card.cardName;
+
+		var description = card.Q<Label>("Description");
+		if (description != null) description.text = offer.card.description;
+
+		var stats = card.Q<Label>("Stats");
+		if (stats != null) stats.text = FormatBoonFooter(offer);
+
+		// Rarity tint via class list.
+		card.RemoveFromClassList("rarity-common");
+		card.RemoveFromClassList("rarity-refined");
+		card.RemoveFromClassList("rarity-rare");
+		card.AddToClassList("rarity-" + offer.card.rarity.ToString().ToLowerInvariant());
+
+		card.SetClickHandler(_ => onPick(offer));
+	}
+
+	private static string FormatBoonFooter(BoonOffer offer)
+	{
+		var rarityTag = offer.card.rarity.ToString();
+		var categoryTag = offer.card.category.ToString();
+
+		string recipientLine;
+		if (offer.card.targeting == BoonTargeting.Creed)
+		{
+			recipientLine = "→ The Creed";
+		}
+		else if (offer.recipient == null || offer.recipient.identity == null)
+		{
+			recipientLine = "→ —";
+		}
+		else
+		{
+			var className = offer.recipient.identity.brotherClass.ToString();
+			recipientLine = $"→ {offer.recipient.identity.characterName} ({className})";
+		}
+
+		return $"{rarityTag} {categoryTag}\n{recipientLine}";
 	}
 
 	public void BindAbility(int index, Ability ability)
@@ -172,17 +248,6 @@ public class UiManager : Singleton<UiManager>
 		gameUi.rootVisualElement.Q<VisualElement>("ActiveEffects").Remove(effectElement);
 	}
 
-	public void ShowLevelUp()
-	{
-		levelUpUi.rootVisualElement.visible = true;
-		Pause();
-	}
-
-	public void HideLevelUp()
-	{
-		levelUpUi.rootVisualElement.visible = false;
-		Resume();
-	}
 
 	public void UpdateInventory()
 	{
@@ -240,7 +305,125 @@ public class UiManager : Singleton<UiManager>
 	{
 		PopulateResults();
 		resultsUi.rootVisualElement.visible = true;
+
+		var resultsPage = resultsUi.rootVisualElement.Q<VisualElement>("ResultsPage");
+		var aftermathPage = resultsUi.rootVisualElement.Q<VisualElement>("AftermathPage");
+		if (resultsPage != null) resultsPage.RemoveFromClassList("hidden");
+		if (aftermathPage != null) aftermathPage.AddToClassList("hidden");
+
 		ReleaseCursorAndCamera();
+	}
+
+	private void ShowAftermath()
+	{
+		PopulateAftermath();
+
+		var resultsPage = resultsUi.rootVisualElement.Q<VisualElement>("ResultsPage");
+		var aftermathPage = resultsUi.rootVisualElement.Q<VisualElement>("AftermathPage");
+		if (resultsPage != null) resultsPage.AddToClassList("hidden");
+		if (aftermathPage != null) aftermathPage.RemoveFromClassList("hidden");
+	}
+
+	private void PopulateAftermath()
+	{
+		var root = resultsUi.rootVisualElement.Q<VisualElement>("AftermathPage");
+		if (root == null) return;
+
+		var aftermath = PartyManager.Instance.lastAftermath;
+		if (aftermath == null) return;
+
+		root.Q<Label>("AftermathFlavor").text = aftermath.success
+			? "The deed is done. The Spiral takes note."
+			: "Blood for the Vault. The Veil is colder for it.";
+
+		root.Q<Label>("StandingBefore").text = aftermath.standingBefore.ToString();
+		root.Q<Label>("StandingAfter").text = aftermath.standingAfter.ToString();
+
+		var delta = root.Q<Label>("StandingDelta");
+		delta.RemoveFromClassList("gain");
+		delta.RemoveFromClassList("loss");
+		if (aftermath.standingDelta > 0)
+		{
+			delta.text = $"+{aftermath.standingDelta}";
+			delta.AddToClassList("gain");
+		}
+		else if (aftermath.standingDelta < 0)
+		{
+			delta.text = aftermath.standingDelta.ToString();
+			delta.AddToClassList("loss");
+		}
+		else
+		{
+			delta.text = "±0";
+		}
+
+		root.Q<Label>("RankName").text = string.IsNullOrEmpty(aftermath.rankAfterName)
+			? "—"
+			: aftermath.rankAfterName;
+
+		var ascension = root.Q<Label>("AscensionBanner");
+		ascension.RemoveFromClassList("hidden");
+		if (aftermath.ascended)
+		{
+			ascension.text = $"You ascend the Spiral. {aftermath.rankBeforeName} → {aftermath.rankAfterName}";
+		}
+		else if (aftermath.ascensionPending && !string.IsNullOrEmpty(aftermath.nextRankName))
+		{
+			ascension.text = $"The Spiral beckons — ascension to {aftermath.nextRankName} awaits at the tent.";
+		}
+		else
+		{
+			ascension.AddToClassList("hidden");
+		}
+
+		var fallenList = root.Q<VisualElement>("FallenList");
+		var survivorsList = root.Q<VisualElement>("SurvivorsList");
+		fallenList.Clear();
+		survivorsList.Clear();
+
+		var fallenIntro = root.Q<Label>("FallenIntro");
+		if (aftermath.fallen.Count > 0)
+		{
+			fallenIntro.text = aftermath.fallen.Count == 1
+				? "Bound to the Vault — their name endures:"
+				: "Bound to the Vault — their names endure:";
+			foreach (var name in aftermath.fallen)
+			{
+				var label = new Label(name);
+				label.AddToClassList("vault-entry");
+				label.AddToClassList("fallen");
+				fallenList.Add(label);
+			}
+		}
+		else
+		{
+			fallenIntro.text = "None were claimed. The Vault stays silent.";
+		}
+
+		var survivorsIntro = root.Q<Label>("SurvivorsIntro");
+		if (aftermath.survivors.Count > 0)
+		{
+			survivorsIntro.text = "Returned to the Sect:";
+			foreach (var name in aftermath.survivors)
+			{
+				var label = new Label(name);
+				label.AddToClassList("vault-entry");
+				label.AddToClassList("survivor");
+				survivorsList.Add(label);
+			}
+		}
+		else
+		{
+			survivorsIntro.text = string.Empty;
+		}
+	}
+
+	private void ReturnToSect()
+	{
+		Resume();
+		GameManager.Instance.EnterHub();
+		PartyManager.Instance.EndRun();
+		SceneManager.LoadScene("Sect");
 	}
 
 	private void ReleaseCursorAndCamera()
@@ -428,27 +611,6 @@ public class UiManager : Singleton<UiManager>
 	{
 		GameManager.Instance.ResumeGame();
 		canToggleMenu = true;
-	}
-
-	private void Flee()
-	{
-		Resume();
-		GameManager.Instance.EnterHub();
-		PartyManager.Instance.EndRun();
-		SceneManager.LoadScene("Sect");
-	}
-
-	private void Die()
-	{
-		Resume();
-
-		var sect = Midevil.Progression.SectProgressManager.Instance;
-		if (sect != null)
-			sect.RecordMissionCompleted(PartyManager.Instance.CurrentMission, success: false);
-
-		GameManager.Instance.EnterHub();
-		PartyManager.Instance.EndRun();
-		SceneManager.LoadScene("Sect");
 	}
 
 }

@@ -10,6 +10,7 @@ namespace Midevil.Models
 		public string id;
 		public string characterName;
 		public IconReferenceIndex profileIcon;
+		public BrotherClass brotherClass = BrotherClass.None;
 
 		public int level = -1;
 		public float xp = 0;
@@ -23,12 +24,20 @@ namespace Midevil.Models
 		[NonSerialized] public Result currentResult = new();
 		public Result lifeTimeResult = new();
 
-		public void Randomize()
+		public void Randomize(BrotherClass brotherClass = BrotherClass.None)
 		{
 			id = Guid.NewGuid().ToString();
 			level = 1;
 			characterName = NameGenerator.GetRandomName();
 			profileIcon = IconReferenceIndex.Human;
+			this.brotherClass = brotherClass;
+
+			if (brotherClass != BrotherClass.None && RefManager.Instance != null)
+			{
+				var classData = RefManager.Instance.GetClass(brotherClass);
+				if (classData != null && classData.starterWeapon != ItemReferenceIndex.None)
+					weaponConfig.index = classData.starterWeapon;
+			}
 		}
 
 		public void RecordStatus(BloodVaultStatus status)

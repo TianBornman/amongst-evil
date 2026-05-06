@@ -61,11 +61,12 @@ Assets/
     Item/              Item pickup, ItemStats, slots, rolling
     Party/             Party state machine + formation positions
     Managers/          All singleton managers (see below)
-    Models/            Pure data: Stats, Identity, Buff, Result, ItemConfig
+    Models/            Pure data: Stats, Identity, Buff, Result, ItemConfig, BrotherClass, ClassData
     Camera/            CameraMovement state machine + Cinemachine states
     Map/               SpawnPoint marker
     Encounter/         Encounter ScriptableObject (enemy group definitions)
-    Upgrade Card/      UpgradeCard ScriptableObject (buff rewards)
+    Upgrade Card/      UpgradeCard ScriptableObject (DEPRECATED — replaced by Boons)
+    Boons/             In-run Boons — BoonCard SO, RunBoonManager, BoonOffer, enums
     Mission/           Mission data class, MissionType / MissionDifficulty enums, MissionGenerator
     Progression/       Sect Spiral of the Veil — SectProgressManager, SectRankData/SpiralProgression SOs, RankRequirement subclasses, StandingRewardTable
     Helpers/           ItemHelper, NameGenerator, ColorHelper, AudioHelper
@@ -76,7 +77,9 @@ Assets/
     Abilities/         Fireball.asset, Health Potion.asset
     Effects/           Burn On Hit.asset, Heal On Kill.asset
     Encounters/        Zombie Feast.asset, Zombie Boss.asset
-    Upgrade Cards/     Damage, Max Health, Attack Speed, Crit Chance, etc.
+    Upgrade Cards/     DEPRECATED — replaced by Data/Boons/
+    Boons/             BoonCard SOs (one per boon)
+    Classes/           ClassData SOs (Knight, Ranger, Assassin)
   Prefabs/
     Characters/        Party Character, enemies (Slime, Zombie, Barbarian Boss), Recruitment Human
     Items/             Iron Armour, Rusty Sword, Wooden Bow, Beer Mug
@@ -96,15 +99,16 @@ Assets/
 | `InputManager` | Input action routing → `Action` delegates |
 | `UiManager` | UIDocument management + binding |
 | `AudioManager` | Music volume + PlayerPrefs persistence |
-| `LevelUpManager` | Upgrade card selection UI (pauses game) |
-| `RecruitManager` | NPC spawning in hub |
+| `LevelUpManager` | **Deprecated stub.** Brother level-ups are passive in `Character.LevelUp` (stat scale + heal). |
+| `RecruitManager` | NPC spawning in hub; rolls a `BrotherClass` for new identities |
 | `BloodvaultManager` | Persistent dead-character storage |
 | `DamageNumberManager` | Floating damage text pool |
-| `RefManager` | Centralized asset references (items, effects, abilities, icons) |
+| `RefManager` | Centralized asset references (items, effects, abilities, icons, classes) |
 | `InteractionManager` | Hover / click detection (`IInteractable`) |
 | `HubManager` | Hub scene management |
 | `HubUiManager` | Hub UI state (incl. Spiral of the Veil panel) |
 | `SectProgressManager` | Sect-wide Spiral of the Veil progression; rank, standing, requirements, ascension ceremony |
+| `RunBoonManager` | In-run Boon pool — offers cards at mission beats, applies effects, tears them down at run end |
 
 ## Architecture Patterns
 
@@ -140,6 +144,27 @@ Assets/
 - Same-group conflict resolution lives in `CharacterEffects.AddEffect`. Empty group = unrelated to anything else, always allowed alongside.
 - Event interfaces: `IOnHit`, `IOnTakeHit`, `IOnKill`, `IOnDeath`, `IOnTick`. `OnApply/OnRemove` for setup/teardown.
 - Built-ins: `StatModifierEffect` (flat Buff), `StatMultiplierEffect` (multiplies baseStats), `OutlineEffect`, `DropOnDeathEffect` (the *only* loot mechanism — Character has no drop logic itself), `CompositeEffect`, `BurnOnHitEffect`/`BurningEffect`, `HealOnKillEffect`. Compose tier effects (Cursed/Blighted/etc.) as a `CompositeEffectData` referencing a `StatMultiplierEffectData` + an `OutlineEffectData` + a `DropOnDeathEffectData`. **Do not** author a new `Effect` subclass for stat changes.
+
+### Brother Classes
+- `BrotherClass` enum (`Models/BrotherClass.cs`): `None / Knight / Ranger / Assassin`. Locked at recruitment.
+- `ClassData` SO (assets in `Data/Classes/`) carries: `baseStats`, `themeColor`, `icon`, `starterWeapon` (`ItemReferenceIndex`).
+- `RefManager.classes` lists them; `RefManager.GetClass(BrotherClass)` resolves one.
+- `Identity.brotherClass` stored. `Identity.Randomize(class)` sets the starter weapon. `Character.SetupIdentity → ApplyClassProfile` overrides prefab `baseStats` with `classData.baseStats.Clone()`.
+- `RecruitManager` rolls Knight/Ranger/Assassin uniformly when generating a new identity.
+
+### In-Run Boons (`Assets/Scripts/Boons/`, data in `Data/Boons/`)
+- Run-only buffs — applied during a mission, cleared on `EndRun`. **Never persist across runs.**
+- `BoonCard` SO: `cardName`, `description`, `category` (Sigil/Hex/Rite), `requiredClass`, `rarity` (Common/Refined/Rare), `targeting` (Single/Creed), `EffectData effect`, `maxPicksPerRun`.
+- `RunBoonManager : Singleton<>` owns the pool (`allBoons`), tracks per-run pick counts, applies effects via `character.effects.AddEffect`, tears them down on `EndRun`.
+- Filter chain at each beat: alive-class → max-picks → rarity-cap → weighted draw (Common 100 / Refined 30 / Rare 15 by default).
+- Rarity gating: Common from beat 1, Refined unlocks at `refinedUnlockBeat=3`, Rare unlocks at `rareUnlockBeat=5`.
+- Recipient is **pre-rolled** server-side and shown on the card. Player picks the card-as-shown — no Brother-picker, no rerolls.
+- Beats: **Purge** = start of every Breath. **Chaos** = every `MissionConfig.chaosBoonInterval` (60s default). **Relic Recovery** = every `MissionConfig.relicBoonKillInterval` kills (30 default).
+- UI: reuses `LevelUpUI` UIDocument. `UiManager.ShowBoonPicker(offers, onPick) / HideBoonPicker()`. Rarity tint via USS classes `rarity-common / rarity-refined / rarity-rare`.
+
+### Breaths (between Purge waves)
+- `IMissionRunner.IsReadyForNextWave` — `SpawnManager` polls between waves and stalls `StartWave` while it's false.
+- `PurgeMissionRunner` enters a Breath after each non-final wave (`MissionConfig.breathSeconds` = 10s). Objective text shows `Breath — Ns`. Boon offer fires at Breath start. `Time.timeScale = 0` (boon picker pause) freezes the breath timer naturally.
 
 ### Effect Application (chance + grouping)
 - `EffectApplication` struct: `{ EffectData effect; float chance; float weight }`

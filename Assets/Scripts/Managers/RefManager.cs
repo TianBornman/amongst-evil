@@ -1,6 +1,7 @@
 using Midevil.Ability;
 using Midevil.Effect;
 using Midevil.Item;
+using Midevil.Models;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,7 @@ public class RefManager : Singleton<RefManager>
 	public List<ItemReference> items;
 	public List<EffectReference> effects;
 	public List<AbilityReference> abilities;
+	public List<ClassData> classes;
 
 	// Public Methods
 	public Texture2D GetIcon(IconReferenceIndex index)
@@ -42,6 +44,12 @@ public class RefManager : Singleton<RefManager>
 	public AbilityData GetAbility(AbilityReferenceIndex index)
 	{
 		return abilities.Find(x => x.index == index).ability;
+	}
+
+	public ClassData GetClass(BrotherClass classType)
+	{
+		if (classes == null) return null;
+		return classes.Find(x => x != null && x.classType == classType);
 	}
 }
 

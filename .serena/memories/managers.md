@@ -12,7 +12,8 @@ Access pattern: `ManagerName.Instance.Method()`
 | `InputManager` | InputManager.cs | Input action → `public Action` delegates |
 | `UiManager` | UiManager.cs | UIDocument management + binding |
 | `AudioManager` | AudioManager.cs | Music volume + PlayerPrefs |
-| `LevelUpManager` | LevelUpManager.cs | Upgrade card selection (pauses game) |
+| `LevelUpManager` | LevelUpManager.cs | **Deprecated stub.** Brother level-ups are passive in `Character.LevelUp` (stat scale + heal). The card UI is now the boon picker. |
+| `RunBoonManager` | Boons/RunBoonManager.cs | In-run boon pool + offer/pick lifecycle. Cleared on `EndRun`. Hooked from mission runners' beats and from `PartyManager.StartRun/EndRun`. |
 | `RecruitManager` | RecruitManager.cs | NPC spawning in hub |
 | `BloodvaultManager` | BloodvaultManager.cs | Persistent dead-char storage (bloodvault.json) |
 | `DamageNumberManager` | DamageNumberManager.cs | Floating damage text pool |

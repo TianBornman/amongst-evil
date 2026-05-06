@@ -48,6 +48,7 @@ public class SpawnManager : Singleton<SpawnManager>
     private int enemiesToSpawn;
     private int aliveEnemies;
     private bool runEnded;
+    private bool waitingForNextWave;
 
     // Public Methods
     public void RemoveCharacter(Character character)
@@ -151,7 +152,16 @@ public class SpawnManager : Singleton<SpawnManager>
         missionRunner.Tick(Time.deltaTime);
 
         if (missionRunner.ShouldEndRun(out bool victory))
+        {
             EndRun(victory);
+            return;
+        }
+
+        if (waitingForNextWave && missionRunner.IsReadyForNextWave)
+        {
+            waitingForNextWave = false;
+            StartWave();
+        }
     }
 
     private IEnumerator FirstWaveRoutine()
@@ -267,7 +277,10 @@ public class SpawnManager : Singleton<SpawnManager>
             return;
         }
 
-        StartWave();
+        if (missionRunner.IsReadyForNextWave)
+            StartWave();
+        else
+            waitingForNextWave = true;
     }
 
     private void EndRun(bool victory)
@@ -277,13 +290,10 @@ public class SpawnManager : Singleton<SpawnManager>
 
         StopAllCoroutines();
 
-        var sect = Midevil.Progression.SectProgressManager.Instance;
-        if (sect != null)
-            sect.RecordMissionCompleted(PartyManager.Instance.CurrentMission, victory);
-
         if (victory)
         {
             PartyManager.Instance.CalculateStats();
+            PartyManager.Instance.FinalizeMission(success: true);
             UiManager.Instance.ShowVictoryScreen();
         }
     }

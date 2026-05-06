@@ -1,3 +1,4 @@
+using Midevil.Boons;
 using UnityEngine;
 
 namespace Midevil.Mission
@@ -6,10 +7,13 @@ namespace Midevil.Mission
 	{
 		public string ObjectiveText => $"Chaos — Endure {FormatTime(timeRemaining)}";
 		public bool IsEndless => true;
+		public bool IsReadyForNextWave => true;
 
 		private SpawnManager ctx;
 		private MissionConfig cfg;
 		private float timeRemaining;
+		private float boonTimer;
+		private int beatIndex;
 		private bool ended;
 		private bool victory;
 
@@ -18,6 +22,7 @@ namespace Midevil.Mission
 			this.ctx = ctx;
 			this.cfg = cfg;
 			timeRemaining = cfg.chaosTimerSeconds;
+			boonTimer = cfg.chaosBoonInterval;
 		}
 
 		public void Tick(float dt)
@@ -25,8 +30,16 @@ namespace Midevil.Mission
 			if (ended) return;
 
 			timeRemaining -= dt;
+			boonTimer -= dt;
 
 			UiManager.Instance.SetTimerText(timeRemaining);
+
+			if (boonTimer <= 0f)
+			{
+				boonTimer = cfg.chaosBoonInterval;
+				beatIndex++;
+				RunBoonManager.Instance?.OfferBoons(beatIndex);
+			}
 
 			if (timeRemaining <= 0f)
 			{

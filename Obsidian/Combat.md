@@ -148,13 +148,17 @@ Enemies spawn in discrete waves around the party. The tempo of waves is governed
 
 Between wave surges, there are brief lulls — the Brotherhood calls them **Breaths**. During a Breath:
 
-- No new enemies spawn for **8–15 seconds**
+- No new enemies spawn for **8–15 seconds** (currently 10s, tuned via `MissionConfig.breathSeconds`)
 - Loot from the previous wave can be collected
-- The player can choose to **extract** and end the mission with whatever is carried
-- A brief ability cooldown refresh occurs for surviving Brothers
+- A **[[Boons|Boon]] offer** opens — three cards drawn from the eligible pool, each pre-assigned to a Brother
+- The player can choose to **extract** and end the mission with whatever is carried *(deferred)*
+- A brief ability cooldown refresh occurs for surviving Brothers *(deferred)*
 
 > [!quote]
 > "Those who retreat may return with relics, blood, and coin. Those who stay and fall leave behind only their Tomb."
+
+> [!info] Boon Beats
+> Purge missions trigger a Boon offer at the start of every Breath. [[Combat#Chaos|Chaos]] missions trigger one every 60s of mission time. [[Combat#Relic Recovery|Relic Recovery]] missions trigger one every 30 enemy kills. See [[Boons]].
 
 ---
 
@@ -279,12 +283,16 @@ The following are considerations for the current development phase. These should
 - [x] Mission Board UI — type + difficulty selection on cart interact (see [[Missions]])
 - [x] Mission-type behaviour — Purge (fixed waves), Chaos (timer), Relic Recovery (touch-to-win, Warden deferred)
 - [x] Difficulty scaling — enemy count, HP×, Dmg×, spawn interval, Chaos timer all driven by Threat I–X
+- [x] Brother classes (Knight / Ranger / Assassin) — see [[Classes]]
+- [x] Breaths between waves (Purge) — 10s lull with [[Boons|Boon]] offer
+- [x] [[Boons]] system — class-tagged, rarity-gated run-only buffs
 - [ ] Relic Warden epic spawn (Relic Recovery currently touch-to-win)
 - [ ] Grand Clock Pressure as a stand-alone modifier on top of difficulty
 - [ ] Unique per-tier behaviours beyond stat scaling (TBD)
 - [ ] Blood Vault persistent record
 - [ ] Loot drop system
 - [ ] Extraction mechanic
+- [ ] Ability cooldown refresh during Breaths
 
 ### 8.3 Variant Tiers Are Effects
 

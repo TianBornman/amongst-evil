@@ -23,6 +23,7 @@
                         <ui:DataBinding property="text" data-source-path="identity.characterName" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
                     </Bindings>
                 </ui:Label>
+                <ui:Label text="Class" name="Class" style="-unity-font-style: bold; -unity-text-align: upper-center; color: rgb(220, 220, 220); font-size: 12px;" />
                 <ui:Label text="Label" name="Level" style="-unity-font-style: bold; -unity-text-align: upper-center; color: rgb(255, 255, 255);">
                     <Bindings>
                         <ui:DataBinding property="text" data-source-path="stats.level" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
@@ -60,6 +61,10 @@
                     <ui:DataBinding property="text" data-source-path="identity.characterName" data-source-type="Character, Assembly-CSharp" binding-mode="ToTarget" />
                 </Bindings>
             </ui:Label>
+            <ui:VisualElement class="stats-header__row">
+                <ui:Label text="Class" class="stats-header__label" />
+                <ui:Label text="—" name="Class" class="stats-header__value" />
+            </ui:VisualElement>
             <ui:VisualElement class="stats-header__row">
                 <ui:Label text="Level" class="stats-header__label" />
                 <ui:Label text="1" name="Level" class="stats-header__value">

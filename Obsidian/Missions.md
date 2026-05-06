@@ -76,6 +76,22 @@ Lose condition is unchanged: full party wipe ends the run.
 - `UiManager.SetObjectiveText(string)` — runner sets it on `Begin` (and again at every wave start)
 - `UiManager.SetTimerText(float)` — only Chaos uses this; ticks every frame from the runner
 
+## Post-Run — The Reckoning
+
+After a run ends, the player sees the **Results** screen (per-character + total stats). Pressing **Continue** swaps to a second page: **The Reckoning** — the Sect's accounting of what just happened.
+
+The Reckoning shows:
+
+- **Standing With the Sect** — the value before the run, the value after, and the delta (gain/loss). Coloured green for gain, red for loss.
+- **Rank** — current Sect rank name. If the run met the requirements, an ascension banner appears: *"You ascend the Spiral. <Old Rank> → <New Rank>"* or, when ascension is unlocked but pending the tent ceremony, *"The Spiral beckons — ascension to <Next Rank> awaits at the tent."*
+- **The Blood Vault** — a list of fallen members ("Bound to the Vault — their names endure") and survivors ("Returned to the Sect"). On a clean run with no losses: *"None were claimed. The Vault stays silent."*
+
+A single **Return to the Sect** button closes both pages, ends the run, and loads `Sect.unity`.
+
+Code path: `PartyManager.FinalizeMission(success)` snapshots Sect standing/rank, calls `SectProgressManager.RecordMissionCompleted`, snapshots the post-state, and stores a `MissionAftermath` model on the party manager. `UiManager.PopulateAftermath` reads it.
+
+Currency / resource rewards are deliberately not shown — none exist in the game yet. When loot or essence systems land, add them as a third panel next to Standing and Blood Vault.
+
 ## Spiral Tie-in
 
 Threat Ratings on the briefing map directly to the [[Brotherhood Progression#The Spiral of the Veil|ten Spiral ranks]]. When the Creed rank system lands, the difficulty range on the board should be gated by the Creed's current rank — attempting higher than Creed rank is *not forbidden*, just likely fatal (see Brotherhood Progression).

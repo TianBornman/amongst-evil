@@ -14,6 +14,13 @@ namespace Midevil.Mission
 		public float spawnIntervalMul;
 		public float chaosTimerSeconds;
 
+		// Purge: lull between waves (Combat.md §3.4 spec is 8–15s).
+		public float breathSeconds;
+		// Chaos: how often a boon beat fires.
+		public float chaosBoonInterval;
+		// Relic Recovery: every N kills, a boon beat fires.
+		public int relicBoonKillInterval;
+
 		public static MissionConfig Build(Mission mission)
 		{
 			int d = (int)mission.difficulty;
@@ -28,7 +35,10 @@ namespace Midevil.Mission
 				healthMul = 1f + 0.20f * (d - 1),
 				damageMul = 1f + 0.15f * (d - 1),
 				spawnIntervalMul = Mathf.Lerp(1.0f, 0.5f, t),
-				chaosTimerSeconds = 120f + 30f * d
+				chaosTimerSeconds = 120f + 30f * d,
+				breathSeconds = 10f,
+				chaosBoonInterval = 60f,
+				relicBoonKillInterval = 30
 			};
 		}
 	}

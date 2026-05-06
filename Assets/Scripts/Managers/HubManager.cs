@@ -91,6 +91,8 @@ public class HubManager : Singleton<HubManager>
 
 		if (HubUiManager.Instance.MissionBoardOpen)
 			HubUiManager.Instance.HideMissionBoardUI();
+		else if (HubUiManager.Instance.SpiralOpen)
+			HubUiManager.Instance.HideSpiralUI();
 		else if (HubUiManager.Instance.BloodVaultOpen)
 			HubUiManager.Instance.HideBloodVaultUI();
 		else if (HubUiManager.Instance.ArmouryOpen)

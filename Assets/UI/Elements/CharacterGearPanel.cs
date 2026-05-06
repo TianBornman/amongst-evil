@@ -1,3 +1,5 @@
+using Midevil.Models;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Midevil.UI.Elements
@@ -52,6 +54,33 @@ namespace Midevil.UI.Elements
 			Set(root, "MoveSpeedRow", baseStats.moveSpeed, stats.moveSpeed);
 			Set(root, "CastSpeedRow", baseStats.castSpeed, stats.castSpeed);
 			Set(root, "SizeRow", baseStats.size, stats.size);
+
+			PopulateClass(root, character);
+		}
+
+		// Populates every label named "Class" in the panel (NamePlate + StatsHeader both have one).
+		// Tints the label using the class's themeColor when available.
+		public static void PopulateClass(VisualElement root, Character character)
+		{
+			if (root == null || character == null || character.identity == null) return;
+
+			var brotherClass = character.identity.brotherClass;
+			ClassData classData = null;
+			if (brotherClass != BrotherClass.None && RefManager.Instance != null)
+				classData = RefManager.Instance.GetClass(brotherClass);
+
+			string text = classData != null && !string.IsNullOrEmpty(classData.className)
+				? classData.className
+				: brotherClass == BrotherClass.None ? "—" : brotherClass.ToString();
+
+			var color = classData != null ? classData.themeColor : new Color(0.86f, 0.86f, 0.86f);
+
+			var labels = root.Query<Label>("Class").ToList();
+			foreach (var label in labels)
+			{
+				label.text = text;
+				label.style.color = color;
+			}
 		}
 
 		private static void Set(VisualElement root, string name, float baseValue, float totalValue)

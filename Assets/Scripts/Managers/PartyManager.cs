@@ -19,6 +19,7 @@ public class PartyManager : Singleton<PartyManager>
 	public List<Identity> partyIdentities = new();
 	public Result partyResults = new();
 	public List<CharacterResultEntry> characterResults = new();
+	public MissionAftermath lastAftermath;
 	public Mission CurrentMission { get; private set; }
 
 	// Private Variables
@@ -70,10 +71,46 @@ public class PartyManager : Singleton<PartyManager>
 
 			identity.ClearGear();
 		}
+
+		Midevil.Boons.RunBoonManager.Instance?.BeginRun();
+	}
+
+	public void FinalizeMission(bool success)
+	{
+		var sect = Midevil.Progression.SectProgressManager.Instance;
+		var data = new MissionAftermath
+		{
+			success = success,
+			mission = CurrentMission,
+			standingBefore = sect != null ? sect.Data.standing : 0,
+			rankBeforeName = sect?.CurrentRank?.rankName ?? string.Empty,
+		};
+
+		if (sect != null && CurrentMission != null)
+			sect.RecordMissionCompleted(CurrentMission, success);
+
+		data.standingAfter = sect != null ? sect.Data.standing : 0;
+		data.standingDelta = data.standingAfter - data.standingBefore;
+		data.rankAfterName = sect?.CurrentRank?.rankName ?? string.Empty;
+		data.ascended = !string.IsNullOrEmpty(data.rankAfterName) && data.rankAfterName != data.rankBeforeName;
+		data.ascensionPending = sect != null && sect.AscensionPending;
+		data.nextRankName = sect?.NextRank?.rankName ?? string.Empty;
+
+		foreach (var entry in characterResults)
+		{
+			if (entry.isAlive)
+				data.survivors.Add(entry.characterName);
+			else
+				data.fallen.Add(entry.characterName);
+		}
+
+		lastAftermath = data;
 	}
 
 	public void EndRun()
 	{
+		Midevil.Boons.RunBoonManager.Instance?.EndRun();
+
 		var aliveIds = new HashSet<string>();
 
 		if (playerParty != null)

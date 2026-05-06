@@ -1,57 +1,89 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/Results%20UI.uss?fileID=7433441132597879392&amp;guid=245a5b4d5518de048ad06a3aadd4e4cc&amp;type=3#Results UI" />
     <ui:VisualElement name="ResultsRoot" class="results-root">
-        <ui:Label text="Results" name="Title" class="results-title" />
-        <ui:VisualElement name="Columns" class="results-columns">
-            <ui:VisualElement name="TotalColumn" class="result-column total-column">
-                <ui:Label name="ColumnName" text="Total" class="column-name" />
-                <ui:Label name="ColumnStatus" text="Party" class="column-status" />
-                <ui:VisualElement class="stat-row"><ui:Label text="XP Gained" class="stat-label" /><ui:Label name="xpGained" text="0" class="stat-value" /></ui:VisualElement>
-                <ui:VisualElement class="stat-row"><ui:Label text="Kills" class="stat-label" /><ui:Label name="kills" text="0" class="stat-value" /></ui:VisualElement>
-                <ui:VisualElement class="stat-row"><ui:Label text="Damage Dealt" class="stat-label" /><ui:Label name="damageDealt" text="0" class="stat-value" /></ui:VisualElement>
-                <ui:VisualElement class="stat-row"><ui:Label text="Damage Taken" class="stat-label" /><ui:Label name="damageTaken" text="0" class="stat-value" /></ui:VisualElement>
-                <ui:VisualElement class="stat-row"><ui:Label text="Healed" class="stat-label" /><ui:Label name="healed" text="0" class="stat-value" /></ui:VisualElement>
-                <ui:VisualElement class="stat-row"><ui:Label text="Hits" class="stat-label" /><ui:Label name="hits" text="0" class="stat-value" /></ui:VisualElement>
-                <ui:VisualElement class="stat-row"><ui:Label text="Critical Hits" class="stat-label" /><ui:Label name="criticalHits" text="0" class="stat-value" /></ui:VisualElement>
+        <ui:VisualElement name="ResultsPage" class="results-page">
+            <ui:Label text="Results" name="Title" class="results-title" />
+            <ui:VisualElement name="Columns" class="results-columns">
+                <ui:VisualElement name="TotalColumn" class="result-column total-column">
+                    <ui:Label name="ColumnName" text="Total" class="column-name" />
+                    <ui:Label name="ColumnStatus" text="Party" class="column-status" />
+                    <ui:VisualElement class="stat-row"><ui:Label text="XP Gained" class="stat-label" /><ui:Label name="xpGained" text="0" class="stat-value" /></ui:VisualElement>
+                    <ui:VisualElement class="stat-row"><ui:Label text="Kills" class="stat-label" /><ui:Label name="kills" text="0" class="stat-value" /></ui:VisualElement>
+                    <ui:VisualElement class="stat-row"><ui:Label text="Damage Dealt" class="stat-label" /><ui:Label name="damageDealt" text="0" class="stat-value" /></ui:VisualElement>
+                    <ui:VisualElement class="stat-row"><ui:Label text="Damage Taken" class="stat-label" /><ui:Label name="damageTaken" text="0" class="stat-value" /></ui:VisualElement>
+                    <ui:VisualElement class="stat-row"><ui:Label text="Healed" class="stat-label" /><ui:Label name="healed" text="0" class="stat-value" /></ui:VisualElement>
+                    <ui:VisualElement class="stat-row"><ui:Label text="Hits" class="stat-label" /><ui:Label name="hits" text="0" class="stat-value" /></ui:VisualElement>
+                    <ui:VisualElement class="stat-row"><ui:Label text="Critical Hits" class="stat-label" /><ui:Label name="criticalHits" text="0" class="stat-value" /></ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="CharacterColumn0" class="result-column">
+                    <ui:Label name="ColumnName" text="" class="column-name" />
+                    <ui:Label name="ColumnStatus" text="" class="column-status" />
+                    <ui:VisualElement class="stat-row"><ui:Label text="XP Gained" class="stat-label" /><ui:Label name="xpGained" text="0" class="stat-value" /></ui:VisualElement>
+                    <ui:VisualElement class="stat-row"><ui:Label text="Kills" class="stat-label" /><ui:Label name="kills" text="0" class="stat-value" /></ui:VisualElement>
+                    <ui:VisualElement class="stat-row"><ui:Label text="Damage Dealt" class="stat-label" /><ui:Label name="damageDealt" text="0" class="stat-value" /></ui:VisualElement>
+                    <ui:VisualElement class="stat-row"><ui:Label text="Damage Taken" class="stat-label" /><ui:Label name="damageTaken" text="0" class="stat-value" /></ui:VisualElement>
+                    <ui:VisualElement class="stat-row"><ui:Label text="Healed" class="stat-label" /><ui:Label name="healed" text="0" class="stat-value" /></ui:VisualElement>
+                    <ui:VisualElement class="stat-row"><ui:Label text="Hits" class="stat-label" /><ui:Label name="hits" text="0" class="stat-value" /></ui:VisualElement>
+                    <ui:VisualElement class="stat-row"><ui:Label text="Critical Hits" class="stat-label" /><ui:Label name="criticalHits" text="0" class="stat-value" /></ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="CharacterColumn1" class="result-column">
+                    <ui:Label name="ColumnName" text="" class="column-name" />
+                    <ui:Label name="ColumnStatus" text="" class="column-status" />
+                    <ui:VisualElement class="stat-row"><ui:Label text="XP Gained" class="stat-label" /><ui:Label name="xpGained" text="0" class="stat-value" /></ui:VisualElement>
+                    <ui:VisualElement class="stat-row"><ui:Label text="Kills" class="stat-label" /><ui:Label name="kills" text="0" class="stat-value" /></ui:VisualElement>
+                    <ui:VisualElement class="stat-row"><ui:Label text="Damage Dealt" class="stat-label" /><ui:Label name="damageDealt" text="0" class="stat-value" /></ui:VisualElement>
+                    <ui:VisualElement class="stat-row"><ui:Label text="Damage Taken" class="stat-label" /><ui:Label name="damageTaken" text="0" class="stat-value" /></ui:VisualElement>
+                    <ui:VisualElement class="stat-row"><ui:Label text="Healed" class="stat-label" /><ui:Label name="healed" text="0" class="stat-value" /></ui:VisualElement>
+                    <ui:VisualElement class="stat-row"><ui:Label text="Hits" class="stat-label" /><ui:Label name="hits" text="0" class="stat-value" /></ui:VisualElement>
+                    <ui:VisualElement class="stat-row"><ui:Label text="Critical Hits" class="stat-label" /><ui:Label name="criticalHits" text="0" class="stat-value" /></ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="CharacterColumn2" class="result-column">
+                    <ui:Label name="ColumnName" text="" class="column-name" />
+                    <ui:Label name="ColumnStatus" text="" class="column-status" />
+                    <ui:VisualElement class="stat-row"><ui:Label text="XP Gained" class="stat-label" /><ui:Label name="xpGained" text="0" class="stat-value" /></ui:VisualElement>
+                    <ui:VisualElement class="stat-row"><ui:Label text="Kills" class="stat-label" /><ui:Label name="kills" text="0" class="stat-value" /></ui:VisualElement>
+                    <ui:VisualElement class="stat-row"><ui:Label text="Damage Dealt" class="stat-label" /><ui:Label name="damageDealt" text="0" class="stat-value" /></ui:VisualElement>
+                    <ui:VisualElement class="stat-row"><ui:Label text="Damage Taken" class="stat-label" /><ui:Label name="damageTaken" text="0" class="stat-value" /></ui:VisualElement>
+                    <ui:VisualElement class="stat-row"><ui:Label text="Healed" class="stat-label" /><ui:Label name="healed" text="0" class="stat-value" /></ui:VisualElement>
+                    <ui:VisualElement class="stat-row"><ui:Label text="Hits" class="stat-label" /><ui:Label name="hits" text="0" class="stat-value" /></ui:VisualElement>
+                    <ui:VisualElement class="stat-row"><ui:Label text="Critical Hits" class="stat-label" /><ui:Label name="criticalHits" text="0" class="stat-value" /></ui:VisualElement>
+                </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="CharacterColumn0" class="result-column">
-                <ui:Label name="ColumnName" text="" class="column-name" />
-                <ui:Label name="ColumnStatus" text="" class="column-status" />
-                <ui:VisualElement class="stat-row"><ui:Label text="XP Gained" class="stat-label" /><ui:Label name="xpGained" text="0" class="stat-value" /></ui:VisualElement>
-                <ui:VisualElement class="stat-row"><ui:Label text="Kills" class="stat-label" /><ui:Label name="kills" text="0" class="stat-value" /></ui:VisualElement>
-                <ui:VisualElement class="stat-row"><ui:Label text="Damage Dealt" class="stat-label" /><ui:Label name="damageDealt" text="0" class="stat-value" /></ui:VisualElement>
-                <ui:VisualElement class="stat-row"><ui:Label text="Damage Taken" class="stat-label" /><ui:Label name="damageTaken" text="0" class="stat-value" /></ui:VisualElement>
-                <ui:VisualElement class="stat-row"><ui:Label text="Healed" class="stat-label" /><ui:Label name="healed" text="0" class="stat-value" /></ui:VisualElement>
-                <ui:VisualElement class="stat-row"><ui:Label text="Hits" class="stat-label" /><ui:Label name="hits" text="0" class="stat-value" /></ui:VisualElement>
-                <ui:VisualElement class="stat-row"><ui:Label text="Critical Hits" class="stat-label" /><ui:Label name="criticalHits" text="0" class="stat-value" /></ui:VisualElement>
-            </ui:VisualElement>
-            <ui:VisualElement name="CharacterColumn1" class="result-column">
-                <ui:Label name="ColumnName" text="" class="column-name" />
-                <ui:Label name="ColumnStatus" text="" class="column-status" />
-                <ui:VisualElement class="stat-row"><ui:Label text="XP Gained" class="stat-label" /><ui:Label name="xpGained" text="0" class="stat-value" /></ui:VisualElement>
-                <ui:VisualElement class="stat-row"><ui:Label text="Kills" class="stat-label" /><ui:Label name="kills" text="0" class="stat-value" /></ui:VisualElement>
-                <ui:VisualElement class="stat-row"><ui:Label text="Damage Dealt" class="stat-label" /><ui:Label name="damageDealt" text="0" class="stat-value" /></ui:VisualElement>
-                <ui:VisualElement class="stat-row"><ui:Label text="Damage Taken" class="stat-label" /><ui:Label name="damageTaken" text="0" class="stat-value" /></ui:VisualElement>
-                <ui:VisualElement class="stat-row"><ui:Label text="Healed" class="stat-label" /><ui:Label name="healed" text="0" class="stat-value" /></ui:VisualElement>
-                <ui:VisualElement class="stat-row"><ui:Label text="Hits" class="stat-label" /><ui:Label name="hits" text="0" class="stat-value" /></ui:VisualElement>
-                <ui:VisualElement class="stat-row"><ui:Label text="Critical Hits" class="stat-label" /><ui:Label name="criticalHits" text="0" class="stat-value" /></ui:VisualElement>
-            </ui:VisualElement>
-            <ui:VisualElement name="CharacterColumn2" class="result-column">
-                <ui:Label name="ColumnName" text="" class="column-name" />
-                <ui:Label name="ColumnStatus" text="" class="column-status" />
-                <ui:VisualElement class="stat-row"><ui:Label text="XP Gained" class="stat-label" /><ui:Label name="xpGained" text="0" class="stat-value" /></ui:VisualElement>
-                <ui:VisualElement class="stat-row"><ui:Label text="Kills" class="stat-label" /><ui:Label name="kills" text="0" class="stat-value" /></ui:VisualElement>
-                <ui:VisualElement class="stat-row"><ui:Label text="Damage Dealt" class="stat-label" /><ui:Label name="damageDealt" text="0" class="stat-value" /></ui:VisualElement>
-                <ui:VisualElement class="stat-row"><ui:Label text="Damage Taken" class="stat-label" /><ui:Label name="damageTaken" text="0" class="stat-value" /></ui:VisualElement>
-                <ui:VisualElement class="stat-row"><ui:Label text="Healed" class="stat-label" /><ui:Label name="healed" text="0" class="stat-value" /></ui:VisualElement>
-                <ui:VisualElement class="stat-row"><ui:Label text="Hits" class="stat-label" /><ui:Label name="hits" text="0" class="stat-value" /></ui:VisualElement>
-                <ui:VisualElement class="stat-row"><ui:Label text="Critical Hits" class="stat-label" /><ui:Label name="criticalHits" text="0" class="stat-value" /></ui:VisualElement>
+            <ui:VisualElement class="button-row">
+                <ui:Button text="Continue" name="Continue" class="results-button" />
+                <ui:Button text="Flee" name="Flee" class="results-button" />
+                <ui:Button text="Fight On" name="FightOn" class="results-button" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement class="button-row">
-            <ui:Button text="Continue" name="Continue" class="results-button" />
-            <ui:Button text="Flee" name="Flee" class="results-button" />
-            <ui:Button text="Fight On" name="FightOn" class="results-button" />
+        <ui:VisualElement name="AftermathPage" class="results-page hidden">
+            <ui:Label name="AftermathTitle" text="The Reckoning" class="results-title" />
+            <ui:Label name="AftermathFlavor" text="" class="aftermath-flavor" />
+            <ui:VisualElement name="AftermathBody" class="aftermath-body">
+                <ui:VisualElement name="StandingPanel" class="aftermath-section">
+                    <ui:Label text="Standing With the Sect" class="aftermath-section-title" />
+                    <ui:VisualElement class="standing-row">
+                        <ui:Label name="StandingBefore" text="0" class="standing-value" />
+                        <ui:Label name="StandingArrow" text="→" class="standing-arrow" />
+                        <ui:Label name="StandingAfter" text="0" class="standing-value" />
+                        <ui:Label name="StandingDelta" text="" class="standing-delta" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="rank-row">
+                        <ui:Label text="Rank:" class="aftermath-key" />
+                        <ui:Label name="RankName" text="" class="aftermath-val" />
+                    </ui:VisualElement>
+                    <ui:Label name="AscensionBanner" text="" class="ascension-banner hidden" />
+                </ui:VisualElement>
+                <ui:VisualElement name="VaultPanel" class="aftermath-section">
+                    <ui:Label text="The Blood Vault" class="aftermath-section-title" />
+                    <ui:Label name="FallenIntro" text="" class="aftermath-flavor-small" />
+                    <ui:VisualElement name="FallenList" class="vault-list" />
+                    <ui:Label name="SurvivorsIntro" text="" class="aftermath-flavor-small" />
+                    <ui:VisualElement name="SurvivorsList" class="vault-list" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement class="button-row">
+                <ui:Button text="Return to the Sect" name="Return" class="results-button results-button-wide" />
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

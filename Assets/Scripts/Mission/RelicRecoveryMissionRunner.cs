@@ -1,3 +1,4 @@
+using Midevil.Boons;
 using UnityEngine;
 
 namespace Midevil.Mission
@@ -6,12 +7,15 @@ namespace Midevil.Mission
 	{
 		public string ObjectiveText => relicTouched ? "Relic Recovered" : "Find the Relic";
 		public bool IsEndless => true;
+		public bool IsReadyForNextWave => true;
 
 		private SpawnManager ctx;
 		private MissionConfig cfg;
 		private bool relicTouched;
 		private bool ended;
 		private bool victory;
+		private int killsSinceLastBoon;
+		private int beatIndex;
 
 		public void Begin(SpawnManager ctx, MissionConfig cfg)
 		{
@@ -22,7 +26,20 @@ namespace Midevil.Mission
 		}
 
 		public void Tick(float dt) { }
-		public void OnEnemyDied(Character enemy) { }
+
+		public void OnEnemyDied(Character enemy)
+		{
+			if (cfg.relicBoonKillInterval <= 0) return;
+
+			killsSinceLastBoon++;
+			if (killsSinceLastBoon >= cfg.relicBoonKillInterval)
+			{
+				killsSinceLastBoon = 0;
+				beatIndex++;
+				RunBoonManager.Instance?.OfferBoons(beatIndex);
+			}
+		}
+
 		public void OnWaveCleared() { }
 
 		public bool ShouldEndRun(out bool victory)

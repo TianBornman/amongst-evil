@@ -314,6 +314,8 @@ public class Character : StateMachine, IInteractable
 	// Private Methods
 	private void SetupIdentity()
 	{
+		ApplyClassProfile();
+
 		if (identity.level > 0)
 			stats.level = identity.level;
 
@@ -323,10 +325,31 @@ public class Character : StateMachine, IInteractable
 		equipment.SetupIdentity();
 	}
 
+	private void ApplyClassProfile()
+	{
+		if (identity == null || identity.brotherClass == Midevil.Models.BrotherClass.None)
+			return;
+
+		if (RefManager.Instance == null)
+			return;
+
+		var classData = RefManager.Instance.GetClass(identity.brotherClass);
+		if (classData == null || classData.baseStats == null)
+			return;
+
+		// Replace the prefab's baseStats with the class profile (cloned so the SO isn't mutated).
+		baseStats = classData.baseStats.Clone();
+	}
+
 	private void LevelUp()
 	{
 		stats.level++;
 		stats.neededXp = GetNeededXp(stats.level);
+		identity.level = stats.level;
+
+		// Recalculate so the new level's Scale() multiplier actually applies to damage/xpValue.
+		RecalculateStats();
+
 		Heal(stats.maxHealth * stats.levelHeal);
 	}
 

@@ -10,7 +10,7 @@
 - `StatsUI` — character stats panel
 - `LevelUpUI` — upgrade card selection (shown on level-up)
 - `ItemPickUpUI` — item interaction / equip panel
-- `ResultsUI` — end-of-run results screen
+- `ResultsUI` — end-of-run, two-page modal: **Results** (per-character + total stat columns, code-populated by `UiManager.PopulateResults`) and **The Reckoning** (standing before/after/delta, rank, ascension banner, fallen + survivor lists, code-populated by `UiManager.PopulateAftermath` from `PartyManager.lastAftermath`). Continue/Flee on page 1 swaps to page 2; "Return to the Sect" on page 2 commits results via `PartyManager.EndRun()` and loads `Sect.unity`.
 - `SettingsUI` — settings screen (music volume, etc.)
 - `MissionBoardUI` — mission selection shown when interacting with the cart in the hub. Three `Card` children inside `#MissionList`, each with `#Title` / `#Type` / `#Threat` / `#Flavor` labels. Click → `HubManager.StartRun(mission)`. UXML: `Assets/UI/Mission Board UI.uxml`, USS: `Assets/UI/Style Sheets/Mission Board UI.uss`.
 

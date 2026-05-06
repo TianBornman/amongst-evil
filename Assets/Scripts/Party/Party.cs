@@ -50,6 +50,7 @@ namespace Midevil.Party
 			if (members.Count <= 0)
 			{
 				PartyManager.Instance.CalculateStats();
+				PartyManager.Instance.FinalizeMission(success: false);
 				UiManager.Instance.ShowDeathScreen();
 			}
 		}

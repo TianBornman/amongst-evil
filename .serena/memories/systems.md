@@ -87,8 +87,29 @@
 
 ## Leveling
 - XP threshold: `10 * level^1.3 + 5 * level`
-- Level-up: heals % of max health + opens `LevelUpManager` card selection
-- `LevelUpManager` picks 3 random `UpgradeCard` SOs, pauses game, applies chosen buff
+- XP is shared per kill: every alive Brother in the party receives the kill's XP via `Party.AddPartyXp` (each Brother tracks their own level + needed XP).
+- Level-up = passive: `stats.level++`, `RecalculateStats()` (so the new level's `Scale` multiplier applies to damage / xpValue / maxHealth), `Heal(maxHealth * levelHeal)`. `identity.level` is also bumped so level persists.
+- **No card pick on level-up.** `LevelUpManager` is a deprecated stub. The card UI (`LevelUpUI`) is repurposed by the boon system.
+- Old `UpgradeCard` SOs in `Assets/Data/Upgrade Cards/` are dead data — replaced by `BoonCard` SOs.
+
+## Brother Classes (`Assets/Scripts/Models/`)
+- `BrotherClass` enum: `None`, `Knight`, `Ranger`, `Assassin`. Stored on `Identity.brotherClass`. Locked at recruit time.
+- `ClassData` SO (`Assets/Data/Classes/`): per-class `baseStats`, `themeColor`, `icon`, `starterWeapon` (`ItemReferenceIndex`).
+- `RefManager.classes` lists all `ClassData` SOs; `RefManager.GetClass(BrotherClass)` resolves one. Used by `Identity.Randomize(class)` to apply the starter weapon and by `Character.SetupIdentity → ApplyClassProfile` to override prefab `baseStats` with the class profile (cloned via `Stats.Clone`, so the SO is not mutated).
+- `RecruitManager` rolls a uniform `Knight | Ranger | Assassin` for newly-spawned recruits in the hub. Existing BloodVault identities keep whatever class they had (default `None` for legacy saves).
+
+## In-Run Boons (`Assets/Scripts/Boons/`)
+- Run-only buffs picked at mission beats; cleared on `EndRun`. **Never persist across runs.**
+- `BoonCard` SO: `cardName`, `description`, `category` (Sigil / Hex / Rite), `requiredClass`, `rarity` (Common / Refined / Rare), `targeting` (Single / Creed), `EffectData effect`, `maxPicksPerRun`. Lore framing: temporary curse channellings (Sigils = defense, Hexes = offense, Rites = utility).
+- `RunBoonManager : Singleton<>` — owns the live pool, tracks per-run pick counts, applies effects, tears them down on `EndRun`. Reuses the existing `Effect` lifecycle (`character.effects.AddEffect/RemoveEffect`). Authored pool lives on `RunBoonManager.allBoons`.
+- **Filtering**: at each beat, the available pool excludes (a) cards with `requiredClass != None` whose class isn't alive in the party, (b) cards already at `maxPicksPerRun`, (c) cards above the rarity cap (`refinedUnlockBeat=3`, `rareUnlockBeat=5`). Within the cap, weighted draw by rarity (Common 100 / Refined 30 / Rare 15).
+- **Recipient pre-roll**: `Single` cards pre-pick a random alive Brother of the matching class (or any alive Brother if `requiredClass == None`); the recipient is shown on the card. `Creed` cards apply to every alive member. The player does not select the Brother — they pick or don't pick the card-as-shown. **No rerolls / banishes.**
+- **Beats** by mission type (`MissionConfig`):
+  - **Purge** — start of every Breath (lull between waves). `breathSeconds = 10f`. `PurgeMissionRunner` ticks the breath timer in `Tick(dt)`; `IsReadyForNextWave` returns false during the breath, stalling `SpawnManager`'s wave loop.
+  - **Chaos** — every `chaosBoonInterval = 60f` seconds (driven by `ChaosMissionRunner.Tick`).
+  - **Relic Recovery** — every `relicBoonKillInterval = 30` enemy kills (driven by `RelicRecoveryMissionRunner.OnEnemyDied`).
+- **UI**: reuses `LevelUpUI` UIDocument. `UiManager.ShowBoonPicker(offers, onPick)` / `HideBoonPicker()`. Each card displays name, description, `Rarity Category\n→ Recipient (Class)` footer, and a rarity-coloured border (USS classes `rarity-common / rarity-refined / rarity-rare`). Card click → `RunBoonManager.OnPicked` → applies effect to recipient(s), records for run-end teardown.
+- **Lifecycle**: `PartyManager.StartRun` calls `BeginRun()` (clears state). `PartyManager.EndRun` calls `EndRun()` — iterates tracked `(character, effect)` pairs and calls `RemoveEffect` on each.
 
 ## Targeting
 - `CharacterDetectionRange` component triggers on enter/exit
@@ -102,7 +123,7 @@
 - Rank assets: `SectRankData` SOs (one per rank 1–10) referenced from a single `SpiralProgression` SO.
 - A rank advances when *all* `RankRequirement` SOs in `SectRankData.requirements` are met. Concrete subclasses: `StandingRequirement`, `KillCountRequirement`, `MissionCompletedRequirement`, `MilestoneRequirement`, `CompositeRequirement` (AllOf/AnyOf/NofM). Add a new requirement type by subclassing `RankRequirement` — no enum or table changes.
 - Standing rewards live on `StandingRewardTable` SO (`missionCompleteBase`, `perThreatBonus`, type multipliers, wipe penalty). `SectProgressManager.RecordMissionCompleted` consults it.
-- Event hooks: `Character.Die` → `RecordKill(enemyId)` (player-team killer only); `SpawnManager.EndRun` and `UiManager.Die` → `RecordMissionCompleted(mission, success)`.
+- Event hooks: `Character.Die` → `RecordKill(enemyId)` (player-team killer only). End-of-run mission recording is centralized in `PartyManager.FinalizeMission(success)` — called from `Party.RemoveMember` (wipe) and `SpawnManager.EndRun(victory:true)`. It snapshots Sect standing/rank, calls `RecordMissionCompleted`, captures the post-state into `PartyManager.lastAftermath` (a `MissionAftermath` model with standing delta, rank, ascension flags, fallen + survivor name lists).
 - Ascension is a **ceremony** — when requirements pass, `OnAscensionAvailable` fires and `ascensionPending=true`. Player must click the **Tent** building in the Sect hub and press "Perform the Rite" → `PerformAscension()` mutates `currentRank`. Ceremony state persists across sessions.
 - Authoring: `Tools → Progression → Create Spiral Progression Assets` scaffolds `Assets/Data/Progression/Spiral.asset`, ranks, requirement assets, and `Standing Reward Table.asset`.
 - Enemy id: each enemy prefab needs `Character.enemyId` set (e.g. `zombie`, `slime`, `barbarian-boss`) for kill tracking.

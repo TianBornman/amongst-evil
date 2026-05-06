@@ -41,10 +41,16 @@ public class RecruitManager : Singleton<RecruitManager>
 			spawnPoints.Remove(spawnPoint);
 
 			var recruitData = new Identity();
-			recruitData.Randomize();
+			recruitData.Randomize(RollBrotherClass());
 
 			SpawnCharacter(spawnPoint, recruitPrefabs[Random.Range(0, recruitPrefabs.Count)], recruitData);
 		}
+	}
+
+	private static BrotherClass RollBrotherClass()
+	{
+		// Knight=1, Ranger=2, Assassin=3 — uniform across the three starter classes.
+		return (BrotherClass)Random.Range(1, 4);
 	}
 
 	// Private Methods
